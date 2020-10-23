@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import * as THREE from 'three';
-// A THREE.js React renderer, see: https://github.com/drcmda/react-three-fiber
 import { extend as applyThree, Canvas, useFrame, useThree } from 'react-three-fiber';
-// A React animation lib, see: https://github.com/react-spring/react-spring
-import { apply as applySpring, useSpring, a, interpolate } from 'react-spring/three';
+import { Box, OrbitControls } from 'drei';
+import { Physics } from 'use-cannon';
+import {Player} from './components/Player';
 
 import data from './data';
-
-import { Box, OrbitControls } from 'drei';
 
 function getMeshFromMapaValue(value) {
 	switch (value) {
@@ -58,8 +56,10 @@ function Scene({ }) {
 	return (
 		<>
 		<LoadScene />
-		<a.spotLight intensity={1.2} color="white" position={[0,0,0]} />
-		<Box args={[2,2,2]} />
+		<spotLight intensity={1.2} color="white" position={[0,0,0]} />
+		<Physics gravity={[0, 0, 0]}>
+			<Player />
+		</Physics>
 		</>
 	);
 }
