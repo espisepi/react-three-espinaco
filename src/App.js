@@ -42,21 +42,21 @@ function LoadScene({}) {
 		[1,1,1,1,1],
 	];
 
-	// Obtenemos la escena
-	const {scene} = useThree();
+	// Obtenemos el tamano del mapa
+	// https://stackoverflow.com/questions/10237615/get-size-of-dimensions-in-array
+	const [ sizeY, sizeX ] = [ mapa.length, mapa[0].length ];
 
 	const meshes = [];
+	const separacion = 2;
+	for(let y = 0; y < sizeY; y++) {
+		for(let x = 0; x < sizeX; x++) {
 
-	for(let y = 0; y < 5; y++) {
-		for(let x = 0; x < 5; x++) {
 			let id = mapa[y][x];
-			let position = new THREE.Vector3(x+2, 0, y+2);
+			let position = new THREE.Vector3( x + separacion, 0, y + separacion );
+
 			let mesh = getMeshFromMapaValue(id, position);
-			
 			if(mesh){
-				// mesh.position.set(x+2,0,y+2);
 				meshes.push(mesh);
-				// scene.add(mesh);
 			}
 		}
 	}
