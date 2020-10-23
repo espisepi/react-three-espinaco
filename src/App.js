@@ -47,12 +47,13 @@ function LoadScene({}) {
 	const [ sizeY, sizeX ] = [ mapa.length, mapa[0].length ];
 
 	const meshes = [];
-	const separacion = 2;
+	const [ separacionX, separacionY] = [ 1, 1 ];
+
 	for(let y = 0; y < sizeY; y++) {
 		for(let x = 0; x < sizeX; x++) {
 
 			let id = mapa[y][x];
-			let position = new THREE.Vector3( x + separacion, 0, y + separacion );
+			let position = new THREE.Vector3( x * separacionX, 0, y * separacionY );
 
 			let mesh = getMeshFromMapaValue(id, position);
 			if(mesh){
