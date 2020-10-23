@@ -16,27 +16,33 @@ function getMeshFromMapaValue(id, position) {
 	}
 }
 
-function useGeneratorMap(mapa, reducer) {
+function useCreatorMap(mapa, reducer) {
 	// Obtenemos el tamano del mapa
 	// https://stackoverflow.com/questions/10237615/get-size-of-dimensions-in-array
 	const [ sizeY, sizeX ] = [ mapa.length, mapa[0].length ];
 
 	// Rellenamos el array de meshes
-	const meshes = [];
-	const [ separacionX, separacionY] = [ 1, 1 ];
+	const meshes = useMemo(() => {
 
-	for(let y = 0; y < sizeY; y++) {
-		for(let x = 0; x < sizeX; x++) {
+		const meshes = [];
+		const [ separacionX, separacionY] = [ 1, 1 ];
 
-			let id = mapa[y][x];
-			let position = new THREE.Vector3( x * separacionX, 0, y * separacionY );
-
-			let mesh = reducer(id, position);
-			if(mesh){
-				meshes.push(mesh);
+		for(let y = 0; y < sizeY; y++) {
+			for(let x = 0; x < sizeX; x++) {
+	
+				let id = mapa[y][x];
+				let position = new THREE.Vector3( x * separacionX, 0, y * separacionY );
+	
+				let mesh = reducer(id, position);
+				if(mesh){
+					meshes.push(mesh);
+				}
 			}
 		}
-	}
+
+		return meshes;
+
+	},[mapa, reducer]);
 
 	return meshes;
 
@@ -54,7 +60,7 @@ function LoadScene({}) {
 		[1,1,0,1,1],
 	];
 
-	const meshesTest = useGeneratorMap(mapa, getMeshFromMapaValue);
+	const meshesTest = useCreatorMap(mapa, getMeshFromMapaValue);
 
 	return meshesTest;
 }
