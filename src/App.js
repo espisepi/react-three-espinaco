@@ -2,23 +2,6 @@ import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import * as THREE from 'three';
 import { extend as applyThree, Canvas, useFrame, useThree } from 'react-three-fiber';
 import { Box, OrbitControls } from 'drei';
-import { Physics } from 'use-cannon';
-import {Player} from './components/Player';
-
-import data from './data';
-
-// function getMeshFromMapaValue(value) {
-// 	switch (value) {
-// 		case 0:
-// 			return null;
-// 		case 1:
-// 			return new THREE.Mesh(
-// 				new THREE.BoxBufferGeometry(1,1,1),
-// 				new THREE.MeshBasicMaterial({color:0xff0000})
-// 			);
-
-// 	}
-// }
 
 function getMeshFromMapaValue(id, position) {
 	switch (id) {
@@ -82,9 +65,6 @@ function Scene({ }) {
 		<>
 		<LoadScene />
 		<spotLight intensity={1.2} color="white" position={[0,0,0]} />
-		{/* <Physics gravity={[0, 0, 0]}>
-			<Player />
-		</Physics> */}
 		<OrbitControls />
 		</>
 	);
