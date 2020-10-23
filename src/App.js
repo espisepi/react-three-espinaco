@@ -27,6 +27,9 @@ function getMeshFromMapaValue(id, position) {
 		case 1:
 			return <Box args={[1,1,1]} position={position} />
 
+		default:
+			return null;
+
 	}
 }
 
@@ -39,13 +42,14 @@ function LoadScene({}) {
 		[1,0,0,0,1],
 		[1,0,1,0,1],
 		[1,0,0,0,1],
-		[1,1,1,1,1],
+		[1,1,0,1,1],
 	];
 
 	// Obtenemos el tamano del mapa
 	// https://stackoverflow.com/questions/10237615/get-size-of-dimensions-in-array
 	const [ sizeY, sizeX ] = [ mapa.length, mapa[0].length ];
 
+	// Rellenamos el array de meshes
 	const meshes = [];
 	const [ separacionX, separacionY] = [ 1, 1 ];
 
