@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { extend as applyThree, Canvas, useFrame, useThree } from 'react-three-fiber';
 import { Box, OrbitControls } from 'drei';
 
+import DragControls from './components/controls/DragControls';
+
 import useCreatorMap from './hooks/useCreatorMap';
 import simpleReducer from './reducers/simpleReducer';
 
@@ -28,7 +30,8 @@ function Scene({ }) {
 		<>
 		<LoadScene />
 		<spotLight intensity={1.2} color="white" position={[0,0,0]} />
-		<OrbitControls />
+		<DragControls dragY={false} />
+		{/* <OrbitControls /> */}
 		</>
 	);
 }
