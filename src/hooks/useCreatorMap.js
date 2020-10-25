@@ -14,10 +14,8 @@ export default function useCreatorMap(mapa, reducer) {
 
 		for(let y = 0; y < sizeY; y++) {
 			for(let x = 0; x < sizeX; x++) {
-	
 				let id = mapa[y][x];
-				let position = new THREE.Vector3( x * separacionX, 0, y * separacionY );
-	
+				let position = [ x * separacionX, 0, y * separacionY ]
 				let mesh = reducer(id, position);
 				if(mesh){
 					meshes.push(mesh);
@@ -32,3 +30,7 @@ export default function useCreatorMap(mapa, reducer) {
 	return meshes;
 
 }
+
+
+// Codigo que producia el fallo: Found non-callable @@iterator
+// let position = new THREE.Vector3( x * separacionX, 0, y * separacionY );

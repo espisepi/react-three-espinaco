@@ -38,9 +38,9 @@ function LoadScene({}) {
 	];
 	const mapaTestProcesado = splitterArray(mapaTest,5);
 
-	const meshesTest = useCreatorMap(mapaTestProcesado, simpleReducer);
+	const meshes = useCreatorMap(mapa, simpleReducer);
 
-	return meshesTest;
+	return meshes;
 }
 
 function Scene({ }) {
@@ -54,10 +54,6 @@ function Scene({ }) {
 			<LoadScene />
 			<Ground position={[0,-1,0]} />
 			<Player />
-			{/* {array.forEach((el,index)=>(
-				<Cube key={index}/>
-			))} */}
-		
 		</Physics>
 		<PointerLockControls />
 		</>

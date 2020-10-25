@@ -3,10 +3,10 @@ import { useBox } from 'use-cannon';
 
 
 export const Cube = (props) => {
-    // const [ ref ] = useBox(() => ({ type: "Static", ...props }));
+    const [ ref ] = useBox(() => ({ type: "Static", ...props }));
 
     return (
-        <mesh receiveShadow castShadow position={props.position}>
+        <mesh ref={ref} receiveShadow castShadow position={props.position}>
             <boxBufferGeometry />
             <meshStandardMaterial attach='material' color='red' />
         </mesh>
