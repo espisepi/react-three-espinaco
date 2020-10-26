@@ -38,7 +38,7 @@ function LoadScene({}) {
 	const mapaTestProcesado = splitterArray(mapaTest,5);
 
 	const options = {
-		separacion: [2,2],
+		separacion: [5,5],
 	}
 	const meshes = useCreatorMap(mapa, simpleReducer, options);
 

@@ -7,7 +7,7 @@ export default function simpleReducer(id, position) {
 		case 0:
 			return null;
 		case 1:
-			return <Cube position={position} />
+			return <Cube position={position} args={[5,5,5]}/>
 
 		default:
 			return null;

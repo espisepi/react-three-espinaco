@@ -6,8 +6,8 @@ export const Cube = (props) => {
     const [ ref ] = useBox(() => ({ type: "Static", ...props }));
 
     return (
-        <mesh ref={ref} receiveShadow castShadow position={props.position}>
-            <boxBufferGeometry />
+        <mesh ref={ref} receiveShadow castShadow>
+            <boxBufferGeometry args={props.args} />
             <meshStandardMaterial attach='material' color='red' />
         </mesh>
     );
