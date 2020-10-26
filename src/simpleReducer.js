@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box} from 'drei';
-import { Cube } from '../components/Cube';
+import { Cube } from './components/Cube';
 
 export default function simpleReducer(id, position) {
 	switch (id) {
