@@ -8,12 +8,12 @@ import { Cube } from './components/Cube';
 
 import useCreatorMap from './useCreatorMap';
 import simpleReducer from './simpleReducer';
-import {mapa} from './mapas';
+import {mapa as mapa} from './mapas';
 
 
 function LoadScene({}) {
 	const options = {
-		separacion: [5,5],
+		separacion: [2,2],
 	}
 	const meshes = useCreatorMap(mapa, simpleReducer, options);
 	return meshes;
