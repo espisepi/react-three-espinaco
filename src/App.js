@@ -15,7 +15,6 @@ function splitterArray (array, len) {
 	for(let i = 0; i < arrayLength; i += len ) {
 		res.push(array.slice(i, i + len ));
 	}
-	console.log(res);
 	return res;
 }
 
@@ -38,7 +37,10 @@ function LoadScene({}) {
 	];
 	const mapaTestProcesado = splitterArray(mapaTest,5);
 
-	const meshes = useCreatorMap(mapa, simpleReducer);
+	const options = {
+		separacion: [2,2],
+	}
+	const meshes = useCreatorMap(mapa, simpleReducer, options);
 
 	return meshes;
 }

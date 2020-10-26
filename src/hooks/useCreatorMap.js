@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
 
-export default function useCreatorMap(mapa, reducer) {
+export default function useCreatorMap(mapa, reducer, options) {
 	// Obtenemos el tamano del mapa
 	// https://stackoverflow.com/questions/10237615/get-size-of-dimensions-in-array
 	const [ sizeY, sizeX ] = [ mapa.length, mapa[0].length ];
@@ -10,7 +10,7 @@ export default function useCreatorMap(mapa, reducer) {
 	const meshes = useMemo(() => {
 
 		const meshes = [];
-		const [ separacionX, separacionY] = [ 1, 1 ];
+		const [ separacionX, separacionY] = options.separacion || [ 1, 1 ];
 
 		for(let y = 0; y < sizeY; y++) {
 			for(let x = 0; x < sizeX; x++) {
