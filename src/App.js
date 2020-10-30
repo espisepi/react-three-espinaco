@@ -10,6 +10,8 @@ import useCreatorMap from './useCreatorMap';
 import simpleReducer from './simpleReducer';
 import {mapa as mapa} from './mapas';
 
+import { VideoPoints, AudioComponents } from './components/drei-espinaco/VideoPoints';
+import  Ocean  from './components/drei-espinaco/Ocean';
 
 function LoadScene({}) {
 	const options = {
@@ -29,6 +31,7 @@ function Scene({ }) {
 			<LoadScene />
 			<Ground position={[0,-1,0]} />
 			<Player />
+			<Ocean />
 		</Physics>
 		<PointerLockControls />
 		</>
