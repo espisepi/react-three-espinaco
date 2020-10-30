@@ -1,5 +1,5 @@
-import React from 'react';
-import { Canvas} from 'react-three-fiber';
+import React, { useEffect, useState, useRef } from 'react';
+import { Canvas, useThree } from 'react-three-fiber';
 import { PointerLockControls, OrbitControls } from 'drei';
 import { Physics } from 'use-cannon';
 import { Ground } from './components/Ground';
@@ -13,6 +13,10 @@ import {mapa as mapa} from './mapas';
 import { VideoPoints, AudioComponents } from './components/drei-espinaco/VideoPoints';
 import  Ocean  from './components/drei-espinaco/Ocean';
 
+import loadVideo from './helpers/loadVideo';
+
+import * as THREE from 'three';
+
 function LoadScene({}) {
 	const options = {
 		separacion: [2,2],
@@ -21,8 +25,29 @@ function LoadScene({}) {
 	return meshes;
 }
 
+function BackgroundVideo({}) {
+	const [textureVideo, setTextureVideo] = useState(null);
+	useEffect( () => {
+		async function load(){
+			const videoDom = await loadVideo('assets/musica/070Shake.mp4');
+			const textureVideo1 = await new THREE.VideoTexture(videoDom);
+			setTextureVideo(textureVideo1);
+		}
+		load();
+	}, [])
+
+	const { scene } = useThree();
+	useEffect(()=>{
+		scene.background = textureVideo;
+		console.log(scene);
+	}, [scene, textureVideo])
+
+	return null;
+}
+
 function Scene({ }) {
 	// const array = new Array(16).fill(5);
+
 	return (
 		<>
 		<ambientLight intensity={0.3} />
@@ -31,8 +56,9 @@ function Scene({ }) {
 			<LoadScene />
 			<Ground position={[0,-1,0]} />
 			<Player />
-			<Ocean />
+			{/* <Ocean /> */}
 		</Physics>
+		<BackgroundVideo />
 		<PointerLockControls />
 		</>
 	);
@@ -41,11 +67,27 @@ function Scene({ }) {
 
 function App({ }) {
 
+	const [play, setPlay] = useState(false);
+
 	return (
 		<>
+
 		<Canvas className="canvas">
 			<Scene />
 		</Canvas>
+
+		{/*------ must Click before inicializate scene --------*/}
+		{/* { play ? (
+		<Canvas className="canvas">
+			<Scene />
+		</Canvas>
+		) : (
+		<div style={{position:'relative', width:'100%', height:'100vh'}}>
+			<button onClick={()=> setPlay(true) }>CLICK</button>
+		</div>
+		) } */}
+		
+		
 		</>
 		);
 }
