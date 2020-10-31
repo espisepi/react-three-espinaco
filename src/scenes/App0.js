@@ -55,7 +55,7 @@ function Scene({ }) {
 		<Physics gravity={[0, -30, 0]}>
 			<LoadScene />
 			<Ground position={[0,-1,0]} />
-			<Player />
+			<Player position={[0, 10, 20]} />
 			{/* <Ocean /> */}
 		</Physics>
 		{/* <BackgroundVideo /> */}
