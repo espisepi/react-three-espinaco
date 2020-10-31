@@ -257,31 +257,13 @@ function initVideo(url, webcam) {
             video.load();
             video.play();
             resolve(video);        
-        }else if(url && url.includes("assets")){
+        }else {
             video.src = url;
             video.load();
             video.play();
             resolve(video);
-        } else{
-            const option = {
-                video: true,
-                audio: false
-            };
-            navigator.mediaDevices.getUserMedia(option)
-                .then((stream) => {
-                    video.srcObject = stream;
-                    video.addEventListener("loadeddata", () => {
-                        // videoWidth = video.videoWidth;
-                        // videoHeight = video.videoHeight;
-                        resolve(video);
-                        // createParticles();
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            }
-        });
+        }
+    });
   }
 
 function getImageData(video) {
