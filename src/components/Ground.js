@@ -12,8 +12,8 @@ export const Ground = (props) => {
   return (
     <mesh ref={ref} receiveShadow>
       <planeBufferGeometry args={[1000, 1000]} />
-      <meshStandardMaterial  side={THREE.BackSide} />
-      {/* <meshStandardMaterial map={texture} color="green" /> */}
+      {/* <meshStandardMaterial  side={THREE.BackSide} /> */}
+      <meshStandardMaterial map={texture} color="green" />
     </mesh>
   )
 }
