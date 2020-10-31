@@ -75,8 +75,10 @@ function App({ }) {
 		<Canvas className="canvas">
 			<Scene />
 		</Canvas>
+		
 
 		{/*------ must Click before inicializate scene --------*/}
+
 		{/* { play ? (
 		<Canvas className="canvas">
 			<Scene />
