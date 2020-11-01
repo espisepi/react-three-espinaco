@@ -10,7 +10,7 @@ import { useFrame } from 'react-three-fiber';
     [  5, -5, 5 ],
     [ 10,  0, 10 ]
 ];
-export default function Curve({points = pointsDefault, draw = false, top = 0, children }) {
+export default function Curve({points = pointsDefault, draw = false, top, children }) {
 
     /* Create a curve */
     const line = useRef(null);
@@ -36,11 +36,15 @@ export default function Curve({points = pointsDefault, draw = false, top = 0, ch
         const time = getTimeWithElapsedTime(clock.elapsedTime); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
 
         /* curvePosition and curveTarget were modified by the curve object*/
-        curve.getPoint(top, curvePosition);
-        curve.getPointAt(top, curveTarget);
+        if(top){
+            curve.getPoint(top, curvePosition);
+            curve.getPointAt(top, curveTarget);
+        } else {
+            curve.getPoint(time, curvePosition);
+            curve.getPointAt(time, curveTarget);
+        }
 
-        // curve.getPoint(time, curvePosition);
-        // curve.getPointAt(time, curveTarget);
+        
 
         group.current.position.copy(curvePosition);
         group.current.lookAt(curveTarget);
@@ -48,10 +52,6 @@ export default function Curve({points = pointsDefault, draw = false, top = 0, ch
         
        } 
     });
-
-    function getTimeWithScroll(top) {
-
-    }
 
     function getTimeWithElapsedTime(elapsedTime) {
         return Math.abs( Math.sin( elapsedTime * 0.2 ) );
