@@ -1,4 +1,4 @@
-import React, {useRef, useMemo, useEffect} from 'react';
+import React, {useRef, useMemo, useEffect, useState} from 'react';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Box } from 'drei';
 import Loading from '../../components/Loading';
@@ -46,7 +46,7 @@ function Curve({points = pointsDefault, draw = false, children }) {
     useFrame(({clock, camera})=>{
 
        if(group){
-        const time = Math.abs( Math.sin( clock.elapsedTime * 0.2 ) ); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
+        const time = getTimeWithElapsedTime(clock.elapsedTime); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
 
         /* curvePosition and curveTarget were modified by the curve object*/
         curve.getPoint(time, curvePosition);
@@ -58,6 +58,14 @@ function Curve({points = pointsDefault, draw = false, children }) {
         
        } 
     });
+
+    function getTimeWithScroll(top) {
+
+    }
+
+    function getTimeWithElapsedTime(elapsedTime) {
+        return Math.abs( Math.sin( elapsedTime * 0.2 ) );
+    }
 
 
 
@@ -86,14 +94,24 @@ function Curve({points = pointsDefault, draw = false, children }) {
 
 export default function App2(props) {
 
+    const pages = 4;
+    const scrollArea = useRef();
+    const [scrollTop, setScrollTop] = useState(0);
+    const onScroll = (e) => (setScrollTop(e.target.scrollTop));
+    console.log(scrollTop)
     return (
-    <Canvas className="canvas" >
-        <ambientLight />
-        {/* <Loading /> */}
-        <Curve draw={true} >
-            <Box />
-        </Curve>
-        <OrbitControls />
-    </Canvas>
+    <>
+        <Canvas className="canvas" >
+            <ambientLight />
+            {/* <Loading /> */}
+            <Curve draw={true} >
+                <Box />
+            </Curve>
+            <OrbitControls />
+        </Canvas>
+        <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
+            <div style={{ height: `${pages * 100}vh` }} />
+        </div>
+    </>
     );
 }
