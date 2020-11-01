@@ -23,7 +23,7 @@ const pointsDefault = [
     [  5, -5, 5 ],
     [ 10,  0, 10 ]
 ];
-function Curve({draw = false, children, points = pointsDefault}) {
+function Curve({points = pointsDefault, draw = false, children }) {
 
     /* Create a curve */
     const line = useRef(null);
