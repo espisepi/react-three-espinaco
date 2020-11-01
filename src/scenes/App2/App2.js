@@ -15,21 +15,26 @@ function Camera(props) {
     return <perspectiveCamera ref={ref} {...props} />
 }
 
-function Curve({draw = false, children}) {
+ /* Define points from a curve */
+const pointsDefault = [
+    [ -10, 0, 10 ],
+    [ -5,  5, 5 ],
+    [  0,  0, 0 ],
+    [  5, -5, 5 ],
+    [ 10,  0, 10 ]
+];
+function Curve({draw = false, children, points = pointsDefault}) {
 
     /* Create a curve */
     const line = useRef(null);
     const { curve, geometry, material } = useMemo(()=>{
+        const pointsProcessed = points.map( p => new THREE.Vector3( p[0], p[1], p[2] ) );
         const curve = new THREE.CatmullRomCurve3( [
-            new THREE.Vector3( -10, 0, 10 ),
-            new THREE.Vector3( -5, 5, 5 ),
-            new THREE.Vector3( 0, 0, 0 ),
-            new THREE.Vector3( 5, -5, 5 ),
-            new THREE.Vector3( 10, 0, 10 )
+            ...pointsProcessed
         ] );
 
-        const points = curve.getPoints( 200 );
-        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+        const pointsCurve = curve.getPoints( 200 );
+        const geometry = new THREE.BufferGeometry().setFromPoints( pointsCurve );
         const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
         return { curve, geometry, material };
     }, []);
@@ -43,13 +48,9 @@ function Curve({draw = false, children}) {
        if(group){
         const time = Math.abs( Math.sin( clock.elapsedTime * 0.2 ) ); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
 
-        /* carPosition and carTarget were modified by the curve */
+        /* curvePosition and curveTarget were modified by the curve object*/
         curve.getPoint(time, curvePosition);
         curve.getPointAt(time, curveTarget);
-        // if(line){
-        //     curvePosition.applyMatrix4(line.current.matrixWorld);
-        //     curveTarget.applyMatrix4(line.current.matrixWorld);
-        // }
 
         group.current.position.copy(curvePosition);
         group.current.lookAt(curveTarget);
