@@ -3,8 +3,6 @@ import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Box } from 'drei';
 import * as THREE from 'three';
 
-import './styles.css';
-
 import Loading from '../../components/Loading';
 import Curve from '../../drei-espinaco/Curve';
 
