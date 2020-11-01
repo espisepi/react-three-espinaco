@@ -7,6 +7,8 @@ import * as THREE from 'three';
 
 import { useSpring } from 'react-spring/three';
 
+import './styles.css';
+
 function Camera(props) {
     const ref = useRef()
     const { setDefaultCamera } = useThree()
