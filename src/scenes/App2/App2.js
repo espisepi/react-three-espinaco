@@ -1,11 +1,21 @@
-import React, {useRef, useMemo} from 'react';
-import { Canvas, useFrame } from 'react-three-fiber';
+import React, {useRef, useMemo, useEffect} from 'react';
+import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Box } from 'drei';
 import Loading from '../../components/Loading';
 
 import * as THREE from 'three';
 
-function Curve(props) {
+function Camera(props) {
+    const ref = useRef()
+    const { setDefaultCamera } = useThree()
+    // Make the camera known to the system
+    useEffect(() => void setDefaultCamera(ref.current), [])
+    // Update it every frame
+    useFrame(() => ref.current.updateMatrixWorld())
+    return <perspectiveCamera ref={ref} {...props} />
+}
+
+function Curve({draw = false, children}) {
 
     /* Create a curve */
     const line = useRef(null);
@@ -53,15 +63,19 @@ function Curve(props) {
     return (
         <>
         <group ref={group}>
-            <Box />
+            {children}
         </group>
 
-        {/* Pintamos la curva en pantalla */}
-        <line ref={line}
-            geometry={geometry}
-            material={material}
-        />
-
+        {/* Drawing the curve in scene */}
+        { draw ? 
+            (
+                <line ref={line}
+                    geometry={geometry}
+                    material={material}
+                    />
+            ) : null 
+        }
+        
         </>
         
     );
@@ -75,7 +89,9 @@ export default function App2(props) {
     <Canvas className="canvas" >
         <ambientLight />
         {/* <Loading /> */}
-        <Curve />
+        <Curve draw={true} >
+            <Box />
+        </Curve>
         <OrbitControls />
     </Canvas>
     );
