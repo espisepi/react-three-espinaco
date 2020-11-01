@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Canvas, useThree } from 'react-three-fiber';
-import { PointerLockControls, OrbitControls } from 'drei';
+import { PointerLockControls, OrbitControls, Box } from 'drei';
 import { Physics } from 'use-cannon';
 import { Ground } from '../components/Ground';
 import { Player } from '../components/Player';
@@ -16,6 +16,8 @@ import  Ocean  from '../drei-espinaco/Ocean';
 import loadVideo from '../helpers/loadVideo';
 
 import * as THREE from 'three';
+
+import Curve from '../drei-espinaco/Curve';
 
 function LoadScene({}) {
 	const options = {
@@ -58,6 +60,9 @@ function Scene({ }) {
 			<Player position={[0, 10, 20]} />
 			{/* <Ocean /> */}
 		</Physics>
+		<Curve>
+			<Box />
+		</Curve>
 		{/* <BackgroundVideo /> */}
 		<PointerLockControls />
 		</>

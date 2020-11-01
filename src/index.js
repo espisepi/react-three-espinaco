@@ -5,7 +5,7 @@ import './styles.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App2 />
+    <App0 />
   </React.StrictMode>,
   document.getElementById('root')
 );
