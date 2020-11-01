@@ -8,28 +8,33 @@ import './styles.css';
 import Loading from '../../components/Loading';
 import Curve from '../../drei-espinaco/Curve';
 
+import Camera from '../../components/Camera';
+
+const pointsForCurve = [
+    [0,0,-20],
+    [0,1,0],
+    [0,-1,20]
+]
+
 export function Scene({top = 0}) {
     /* Normalizamos la variable top */
     const { size } = useThree();
     const scrollMax = size.height * 4;
     const topNormalized = top / scrollMax;
-    console.log(topNormalized)
 
     return (
         <>
         <ambientLight />
-        {/* <Loading /> */}
-        <Curve draw={true} top={topNormalized} >
-            <Box />
+        <Curve points={pointsForCurve} draw={true} top={topNormalized} >
+            <Box position={[0,0,-10]} />
         </Curve>
-        <OrbitControls />
+        {/* <OrbitControls /> */}
         </>
     );
 }
 
 export default function App2(props) {
     const pages = 4;
-    // const [{ top, mouse }, set] = useSpring(() => ({ top: 0, mouse: [0, 0] }))
     const [ top, setTop ] = useState(0);
     const onScroll = useCallback(e => setTop(e.target.scrollTop), [])
     
