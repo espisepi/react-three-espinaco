@@ -26,6 +26,8 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
         return { curve, geometry, material };
     }, []);
 
+    console.log(top)
+
     /* Movement of group object with the curve */
     const group = useRef(null);
     const curvePosition = new THREE.Vector3();
@@ -36,7 +38,7 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
         const time = getTimeWithElapsedTime(clock.elapsedTime); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
 
         /* curvePosition and curveTarget were modified by the curve object*/
-        if(top){
+        if(top != undefined){
             curve.getPoint(top, curvePosition);
             curve.getPointAt(top, curveTarget);
         } else {
