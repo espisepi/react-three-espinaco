@@ -1,3 +1,5 @@
+// Thanks to https://codesandbox.io/embed/7psew (Paul Henschel, drcmda)
+
 import * as THREE from 'three'
 import React, { Suspense, useEffect, useRef, useState, useCallback, useLayoutEffect } from 'react'
 import { Canvas, useThree, useFrame, useLoader } from 'react-three-fiber'
