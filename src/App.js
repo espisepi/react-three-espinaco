@@ -1,11 +1,13 @@
 import App0 from './scenes/App0';
 import App1 from './scenes/App1';
 import App2 from './scenes/App2/App2';
+import App3 from './scenes/App3/App3';
 
 export {
     App0,
     App1,
-    App2
+    App2,
+    App3
 }
 
 
