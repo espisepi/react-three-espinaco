@@ -35,7 +35,7 @@ export default function App3(props) {
     const [pages, setPages] = useState(0);
     return (
         <>
-        <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+        <Canvas className="canvas" style={{backgroundColor:'#43776e'}}>
             <Scene onReflow={setPages} />
         </Canvas>
         <div
@@ -70,17 +70,16 @@ function Content({ onReflow }) {
       <group ref={group}>
         <Flex dir="column" position={[-viewport.width / 2, viewport.height / 2, 0]} size={[viewport.width, viewport.height, 0]} onReflow={handleReflow}>
           {state.content.map((props, index) => (
-            // <Page
-            //   key={index}
-            //   left={!(index % 2)}
-            //   textScaleFactor={scale}
-            //   onReflow={(w, h) => {
-            //     sizesRef.current[index] = h
-            //     state.threshold = Math.max(4, (4 / (15.8 * 3)) * sizesRef.current.reduce((acc, e) => acc + e, 0))
-            //   }}
-            //   {...props}
-            // />
-            null // BORRAR AL DESCOMENTAR!
+            <Page
+              key={index}
+              left={!(index % 2)}
+              textScaleFactor={scale}
+              onReflow={(w, h) => {
+                sizesRef.current[index] = h
+                state.threshold = Math.max(4, (4 / (15.8 * 3)) * sizesRef.current.reduce((acc, e) => acc + e, 0))
+              }}
+              {...props}
+            />
           ))}
           {/* <Box dir="row" width="100%" height="100%" align="center" justify="center">
             <Box centerAnchor>

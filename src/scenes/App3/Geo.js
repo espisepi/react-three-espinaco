@@ -10,7 +10,7 @@ import state from './state'
 export default function Model(props) {
   const group = useRef()
   const shadow = useRef()
-  const { nodes } = useGLTFLoader('/geo.min.glb', true)
+  const { nodes } = useGLTFLoader('assets/obj/geo.min.glb', true)
   useFrame(({ clock }) => {
     const t = (1 + Math.sin(clock.getElapsedTime() * 1.5)) / 2
     group.current.position.y = t / 3
