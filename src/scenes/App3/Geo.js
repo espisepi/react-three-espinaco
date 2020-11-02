@@ -11,8 +11,6 @@ export default function Model(props) {
   const group = useRef()
   const shadow = useRef()
   const { nodes } = useGLTFLoader('assets/obj/geo.min.glb', true)
-  console.log(nodes)
-  console.log('oyee')
   useFrame(({ clock }) => {
     const t = (1 + Math.sin(clock.getElapsedTime() * 1.5)) / 2
     group.current.position.y = t / 3
