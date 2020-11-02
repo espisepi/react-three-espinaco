@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import React, { useRef } from 'react'
-import { useFrame } from 'react-three-fiber'
+import { useFrame, useLoader } from 'react-three-fiber'
 import { useGLTFLoader } from 'drei/loaders/useGLTFLoader'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MeshDistortMaterial } from 'drei/shaders/MeshDistortMaterial'
 import { Shadow } from 'drei/misc/Shadow'
 import Text from './Text'
@@ -10,7 +11,10 @@ import state from './state'
 export default function Model(props) {
   const group = useRef()
   const shadow = useRef()
+  // const { nodes } = useLoader(GLTFLoader,'assets/obj/geo.min.glb');
   const { nodes } = useGLTFLoader('assets/obj/geo.min.glb', true)
+  console.log(nodes)
+  console.log('oyee')
   useFrame(({ clock }) => {
     const t = (1 + Math.sin(clock.getElapsedTime() * 1.5)) / 2
     group.current.position.y = t / 3

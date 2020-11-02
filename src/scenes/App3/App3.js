@@ -81,7 +81,7 @@ function Content({ onReflow }) {
               {...props}
             />
           ))}
-          {/* <Box dir="row" width="100%" height="100%" align="center" justify="center">
+          <Box dir="row" width="100%" height="100%" align="center" justify="center">
             <Box centerAnchor>
               {state.lines.map((props, index) => (
                 <Line key={index} {...props} />
@@ -105,7 +105,7 @@ function Content({ onReflow }) {
               <Layercard {...state.depthbox[0]} text={state.depthbox[1].text} boxWidth={bW} boxHeight={bH} map={texture} textScaleFactor={scale} />
               <Geo position={[bW / 2, -bH / 2, state.depthbox[1].depth]} />
             </Box>
-          </Box> */}
+          </Box>
         </Flex>
       </group>
     )
