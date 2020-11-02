@@ -35,7 +35,16 @@ export default function App3(props) {
     const [pages, setPages] = useState(0);
     return (
         <>
-        <Canvas className="canvas" style={{backgroundColor:'#43776e'}}>
+        <Canvas className="canvas" style={{backgroundColor:'#43776e'}}
+        concurrent
+        colorManagement
+        shadowMap
+        noEvents
+        pixelRatio={2}
+        camera={{ position: [0, 0, 10], far: 1000 }}
+        gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
+        onCreated={({ gl }) => gl.setClearColor('#43776e')}
+        >
             <Scene onReflow={setPages} />
         </Canvas>
         <div
