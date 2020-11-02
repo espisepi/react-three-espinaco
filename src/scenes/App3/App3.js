@@ -1,7 +1,7 @@
 // Thanks to https://codesandbox.io/embed/7psew (Paul Henschel, drcmda)
 
 import * as THREE from 'three'
-import React, { Suspense, useEffect, useRef, useState, useCallback, useLayoutEffect } from 'react'
+import React, { Suspense, useEffect, useRef, useState, useCallback } from 'react'
 import { Canvas, useThree, useFrame, useLoader } from 'react-three-fiber'
 import { Flex, Box } from 'react-three-flex'
 import { useAspect } from 'drei/misc/useAspect'
@@ -14,6 +14,7 @@ import Geo from './Geo';
 import state from './state';
 import Page from './Page';
 import Layercard from './Layercard';
+import Effects from './Effects';
 
 
 export default function App3(props) {
@@ -54,6 +55,7 @@ export function Scene({ onReflow }) {
         <Content onReflow={onReflow} />
       </Suspense>
       <OrbitControls />
+      <Effects />
       </>
   );
 }

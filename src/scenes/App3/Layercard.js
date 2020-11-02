@@ -1,7 +1,6 @@
 import * as THREE from 'three'
-import React, { Suspense, useEffect, useRef, useState, useCallback, useLayoutEffect } from 'react'
-import { Canvas, useThree, useFrame, useLoader } from 'react-three-fiber'
-import { Box, useFlexSize } from 'react-three-flex'
+import React, { useRef } from 'react'
+import { useThree, useFrame } from 'react-three-fiber'
 import state from './state'
 import Text from './Text'
 
