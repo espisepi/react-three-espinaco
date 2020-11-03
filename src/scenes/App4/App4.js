@@ -27,4 +27,10 @@ export default function App4(props) {
         </Suspense>
     </Canvas>
     );
+
+    
+    /* Mobile Performance */
+    // <Plane args={[50,50,50,50]}/>
+    // <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[20,0,0]}/>
+    // <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[-20,0,0]}/>
 }
