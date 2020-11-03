@@ -4,7 +4,7 @@ import { Water } from 'three/examples/jsm/objects/Water';
 import * as THREE from 'three';
 
 extend({Water});
-const Ocean = () => {
+const Ocean = ({ geometry=new THREE.BoxBufferGeometry( 100, 100, 100 ), position=[0,49.5,0] }) => {
     const { scene } = useThree();
     const water = useRef();
     useEffect(()=>{
@@ -13,25 +13,12 @@ const Ocean = () => {
     useFrame(()=>{
         water.current.material.uniforms[ 'time' ].value += 1.0 / 400.0;
     });
-
-    useEffect(()=>{
-        water.current.material.side = THREE.DoubleSide;
-    },[water])
+    
     return(
-        // <mesh visible position={[0, 0, 0]} rotation={[0, 0, 0]}>
-        //   <sphereGeometry attach="geometry" args={[1, 16, 16]} />
-        //   <meshStandardMaterial
-        //     attach="material"
-        //     color="white"
-        //     transparent
-        //     opacity={0.6}
-        //     roughness={1}
-        //     metalness={0}
-        //   />
-        // </mesh>
-        <group position={[0,49.5,0]}>
-            <water ref={water} args={[new THREE.BoxBufferGeometry( 100, 100, 100),
+        <group position={position}>
+            <water ref={water} args={[geometry,
                 {
+                    side:THREE.DoubleSide,
                     textureWidth: 512,
                     textureHeight: 512,
                     waterNormals: new THREE.TextureLoader().load( 'assets/img/waternormals.jpg', function ( texture ) {
