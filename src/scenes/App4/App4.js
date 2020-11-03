@@ -21,6 +21,8 @@ export default function App4(props) {
         <PointerLockControls />
         <Suspense fallback={null} >
         <Plane args={[100,100,100,100]}/>
+        <Plane args={[100,100,100,100]} rotation={[0, -Math.PI / 2, 0]} position={[30,0,0]}/>
+        <Plane args={[100,100,100,100]} rotation={[0, -Math.PI / 2, 0]} position={[-30,0,0]}/>
         <GroupComponent />
         </Suspense>
     </Canvas>

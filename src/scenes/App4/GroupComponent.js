@@ -40,7 +40,7 @@ export default function GroupComponent() {
     <group ref={group} visible={true}>
       {/* <FireCustom position={[0.2,0.8,-0.5]} rotation={[0.0,0.0,0.0]}/> */}
     {/* //   <AudioVisualizerShader audio={audio} /> */}
-      <AudioVisualizer audio={audio} position={[0, 0.1, 0]} mesh={mesh} />
+      <AudioVisualizer audio={audio} position={[0, 0.5, 0]} mesh={mesh} />
       {/* <PlaneTexture /> */}
     </group>
     </>
