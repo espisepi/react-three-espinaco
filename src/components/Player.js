@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { useSphere } from "use-cannon"
 import { useThree, useFrame } from "react-three-fiber"
 
-const SPEED = 5
+const SPEED = 50
 const keys = { KeyW: "forward", KeyS: "backward", KeyA: "left", KeyD: "right", Space: "jump" }
 const moveFieldByKey = (key) => keys[key]
 const direction = new THREE.Vector3()
