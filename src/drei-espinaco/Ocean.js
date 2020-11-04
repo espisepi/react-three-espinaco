@@ -4,19 +4,19 @@ import { Water } from 'three/examples/jsm/objects/Water';
 import * as THREE from 'three';
 
 extend({Water});
-const Ocean = ({ geometry=new THREE.BoxBufferGeometry( 100, 100, 100 ), position=[0,49.5,0] }) => {
+const Ocean = ({ geometry=new THREE.BoxBufferGeometry( 100, 100, 100 ), position=[0,0,0], rotation=[0,Math.PI/2,0] }) => {
     const { scene } = useThree();
     const water = useRef();
     useEffect(()=>{
         water.current.rotation.x = - Math.PI / 2;
     });
     useFrame(()=>{
-        water.current.material.uniforms[ 'time' ].value += 1.0 / 400.0;
+        water.current.material.uniforms[ 'time' ].value += 1.0 / 60.0;
     });
     
     return(
-        <group position={position}>
-            <water ref={water} args={[geometry,
+        <group >
+            <water ref={water} position={position} rotation={rotation} args={[geometry,
                 {
                     side:THREE.DoubleSide,
                     textureWidth: 512,
