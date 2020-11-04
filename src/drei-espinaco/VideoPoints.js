@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
@@ -63,14 +63,7 @@ export const VideoPoints = ({ audio, videoSrc, configuration }) => {
                                                 color.b = mid
                                                 distance = 2;                
                                             `;
-    const {scene} = useThree();
-    let particles; // Iniciamos las particulas cuando el video se ha cargado
-    let video;
 
-    const getVideo = async () =>{
-        video = await initVideo(videoSrc);
-    };
-    getVideo();
 
     const fftSize = 2048;
     const frequencyRange = {
@@ -88,12 +81,28 @@ export const VideoPoints = ({ audio, videoSrc, configuration }) => {
     
     const configurationArray = configuration.split("\n");
 
+    const {scene} = useThree();
+
+    const [video, setVideo] = useState(null);
+    const [particles, setParticles] = useState(null);
+
+    useEffect(()=>{
+        const getVideo = async () =>{
+            const res = await initVideo(videoSrc);
+            setVideo(res);
+        };
+        getVideo();
+    }, [videoSrc]);
+
     useFrame(({clock})=>{
-        if(video && video.readyState === 4 && !particles){
-            particles = createParticles(video);
-            particles.scale.set(0.05,0.05,0.05)
-            scene.add(particles);
+        
+        if( !particles && video && video.readyState === 4 ){
+            const res = createParticles(video);
+            res.scale.set(0.05,0.05,0.05);
+            scene.add(res);
+            setParticles(res);
         }
+        
         let data, bass, mid, treble;
         if(analyser){
             data = analyser.getFrequencyData();
