@@ -22,7 +22,7 @@ export default function App5(props) {
 
         <Physics gravity={[0, -30, 0]}>
 			<Ground position={[0,-1,0]} visible={false} />
-			<Player position={[0, 50, 20]} />
+			<Player position={[0, 50, -100]} />
 		</Physics>
         <PointerLockControls />
 

@@ -4,11 +4,12 @@ import { useThree } from 'react-three-fiber';
 import loadVideo from '../helpers/loadVideo';
 
 
-export default function BackgroundVideo({url = 'assets/musica/070Shake.mp4'}) {
+export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', muted = false }) {
 	const [textureVideo, setTextureVideo] = useState(null);
 	useEffect( () => {
 		async function load(){
 			const videoDom = await loadVideo(url);
+			videoDom.muted=muted;
 			const textureVideo1 = await new THREE.VideoTexture(videoDom);
 			textureVideo1.minFilter = THREE.LinearFilter;
 			textureVideo1.magFilter = THREE.LinearFilter;
