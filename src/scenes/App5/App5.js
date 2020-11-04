@@ -17,7 +17,7 @@ export default function App5(props) {
         <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
-        <Background />
+        <Background url='assets/musica/elane-low.mp4' />
         <Ocean geometry={new THREE.BoxBufferGeometry( 100, 500, 100 )} position={[0,49,0]} />
 
         <Physics gravity={[0, -30, 0]}>
