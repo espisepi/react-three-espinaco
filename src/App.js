@@ -4,6 +4,7 @@ import App2 from './scenes/App2/App2';
 import App3 from './scenes/App3/App3';
 import App4 from './scenes/App4/App4';
 import App5 from './scenes/App5/App5';
+import App6 from './scenes/App6/App6';
 
 export {
     App0,
@@ -11,7 +12,8 @@ export {
     App2,
     App3,
     App4,
-    App5
+    App5,
+    App6
 }
 
 
