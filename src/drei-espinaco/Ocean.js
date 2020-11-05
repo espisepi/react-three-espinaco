@@ -5,9 +5,11 @@ import * as THREE from 'three';
 
 extend({Water});
 const Ocean = ({ geometry=new THREE.BoxBufferGeometry( 100, 100, 100 ), position=[0,0,0], rotation=[0,Math.PI/2,0] }) => {
-    const { scene } = useThree();
+    const { scene,gl } = useThree();
     const water = useRef();
     useEffect(()=>{
+        gl.toneMapping = 0;
+        gl.outputEncoding = 3000;
         water.current.rotation.x = - Math.PI / 2;
     });
     useFrame(()=>{
