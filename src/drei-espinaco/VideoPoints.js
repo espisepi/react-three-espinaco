@@ -3,9 +3,7 @@ import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
-export const AudioComponents = () => {
-    let audioSrc = 'assets/musica/070shake.mp3';
-    const videoSrc = 'assets/musica/070shake.mp4';
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position=[0,0,0], rotation=[0,0,0], scale=[0.05,0.05,0.05] }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -32,7 +30,7 @@ export const AudioComponents = () => {
     },[]);
    return(
      <>
-      <VideoPoints audio={audio} videoSrc={videoSrc} configuration={configuration} />
+      <VideoPoints audio={audio} videoSrc={videoSrc} configuration={configuration} position={position} rotation={rotation} scale={scale} />
     </>
     );
     
@@ -52,7 +50,7 @@ export const AudioComponents = () => {
                                     distance = 2;
                                 `; 
  */
-export const VideoPoints = ({ audio, videoSrc, configuration }) => {
+export const VideoPoints = ({ audio, videoSrc, configuration, position=[0,0,0], rotation=[0,0,0], scale=[1,1,1] }) => {
     videoSrc = videoSrc || '';
     configuration = configuration || `
                                                 r = bass + 0.5;
@@ -98,7 +96,10 @@ export const VideoPoints = ({ audio, videoSrc, configuration }) => {
         
         if( !particles && video && video.readyState === 4 ){
             const res = createParticles(video);
-            res.scale.set(0.05,0.05,0.05);
+            res.position.set(...position);
+            res.rotation.set(...rotation);
+            res.scale.set(...scale);
+            // res.scale.set(0.05,0.05,0.05);
             scene.add(res);
             setParticles(res);
         }
