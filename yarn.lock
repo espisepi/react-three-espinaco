@@ -1365,6 +1365,14 @@
     "@react-spring/core" "9.0.0-rc.3"
     "@react-spring/shared" "9.0.0-rc.3"
 
+"@react-three/postprocessing@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-1.4.1.tgz#bc55edac6dfb6b268b4de2fcc8fd179b582479e8"
+  integrity sha512-i7jM9GFP6wGlPg3iKueDU+HrnRkSf+zhJMHc5E9Ku5+nZjGdeM4Dk1aUkb+AhnloGkcpiB5LBmqPpdvVWRgSCQ==
+  dependencies:
+    postprocessing "^6.17.1"
+    react-merge-refs "^1.1.0"
+
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.3.tgz#5405ee8e444ed212db44e79351f0c70a582aae25"
@@ -8471,6 +8479,11 @@ postcss@^7, postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, po
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+postprocessing@^6.17.1:
+  version "6.18.0"
+  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.18.0.tgz#4ed25b60e682e159ecb43932822f94dde2768107"
+  integrity sha512-AUmV+465StCApG6QG5J7lSYn1DmtwLDcaIQ7+aoyXsnw3qmhM3u31Xr0qpWrEmLDW52bQ9VntVCdXixHT5BUuA==
 
 prelude-ls@~1.1.2:
   version "1.1.2"

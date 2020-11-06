@@ -28,6 +28,9 @@ export default function Home() {
             <div style={{width:'200px', height:'200px'}}>
                 <Link to="/app7">app7</Link>
             </div>
+            <div style={{width:'200px', height:'200px'}}>
+                <Link to="/dirty">dirty</Link>
+            </div>
         </div>
     );
 }

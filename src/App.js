@@ -6,6 +6,7 @@ import App4 from './scenes/App4/App4';
 import App5 from './scenes/App5/App5';
 import App6 from './scenes/App6/App6';
 import App7 from './scenes/App7/App7';
+import AppDirty from './scenes/AppDirty/AppDirty';
 
 export {
     App0,
@@ -15,7 +16,8 @@ export {
     App4,
     App5,
     App6,
-    App7
+    App7,
+    AppDirty
 }
 
 
@@ -25,13 +27,21 @@ export {
 // import { OrbitControls } from 'drei';
 // import Loading from '../../components/Loading';
 
-// export default function App0(props) {
-
-//     return (
-//     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+// export function Scene() {
+//     return(
+//         <>
 //         <ambientLight />
 //         <Loading />
 //         <OrbitControls />
+//         </>
+//     );
+// }
+
+// export default function AppDirty(props) {
+
+//     return (
+//     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+//         <Scene />
 //     </Canvas>
 //     );
 // }

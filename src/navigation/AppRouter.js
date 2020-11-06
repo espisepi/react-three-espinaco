@@ -62,6 +62,11 @@ export default function AppRouter () {
                         path="/app7"
                         component={App.App7}
                     />
+                    <PublicRoute
+                        exact
+                        path="/dirty"
+                        component={App.AppDirty}
+                    />
                 </Switch>
             {/* </div> */}
         </Router>
