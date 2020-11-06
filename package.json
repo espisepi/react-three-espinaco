@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-spring/three": "^9.0.0-rc.3",
     "@react-three/postprocessing": "^1.4.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -15,6 +16,7 @@
     "react-spring": "^8.0.27",
     "react-three-fiber": "^5.0.6",
     "react-three-flex": "^0.5.2",
+    "react-use-gesture": "^8.0.0",
     "three": "^0.121.1",
     "use-cannon": "^0.5.3"
   },

@@ -53,3 +53,10 @@
     line-height: 0.9em;
   }
   
+  .bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    background: lightcoral;
+  }
