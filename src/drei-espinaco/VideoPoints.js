@@ -1,11 +1,9 @@
 
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
-export const AudioComponents = () => {
-    let audioSrc = 'assets/musica/070shake.mp3';
-    const videoSrc = 'assets/musica/070shake.mp4';
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position=[0,0,0], rotation=[0,0,0], scale=[0.05,0.05,0.05] }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -16,23 +14,33 @@ export const AudioComponents = () => {
           distance = 1;
           density = 1;
       `;
-  
+    
     if(audioSrc.includes("www.youtube.com")){
       audioSrc = 'http://164.90.215.243:5000/download?URL=' + audioSrc; // Tengo que tener levantada esa maquina en DigitalOcean
     }
+
+    const [audio, setAudio] = useState(null);
     const audioBuffer = useLoader(THREE.AudioLoader, audioSrc);
-    const audioListener = useMemo(() => new THREE.AudioListener(),[]);
-    const audio = useMemo(() => new THREE.Audio(audioListener),[]);
+    useEffect(()=>{
+        if(audioBuffer){
+            const audioListener = new THREE.AudioListener();
+            const audioTemp = new THREE.Audio(audioListener);
+            audioTemp.setBuffer(audioBuffer);
+            audioTemp.setLoop(true);
+            audioTemp.setVolume(0.5);
+            audioTemp.play();
+
+            setAudio(audioTemp);
+        }
+        return ()=> {
+            setAudio(null);
+        }
+    },[audioBuffer]);
+
   
-    useMemo(()=>{
-        audio.setBuffer(audioBuffer);
-        audio.setLoop(true);
-        audio.setVolume(0.5);
-        audio.play();
-    },[]);
    return(
      <>
-      <VideoPoints audio={audio} videoSrc={videoSrc} configuration={configuration} />
+      <VideoPoints audio={audio} videoSrc={videoSrc} configuration={configuration} position={position} rotation={rotation} scale={scale} />
     </>
     );
     
@@ -52,7 +60,7 @@ export const AudioComponents = () => {
                                     distance = 2;
                                 `; 
  */
-export const VideoPoints = ({ audio, videoSrc, configuration }) => {
+export const VideoPoints = ({ audio, videoSrc, configuration, position=[0,0,0], rotation=[0,0,0], scale=[1,1,1] }) => {
     videoSrc = videoSrc || '';
     configuration = configuration || `
                                                 r = bass + 0.5;
@@ -63,14 +71,8 @@ export const VideoPoints = ({ audio, videoSrc, configuration }) => {
                                                 color.b = mid
                                                 distance = 2;                
                                             `;
-    const {scene} = useThree();
-    let particles; // Iniciamos las particulas cuando el video se ha cargado
-    let video;
 
-    const getVideo = async () =>{
-        video = await initVideo(videoSrc);
-    };
-    getVideo();
+    const configurationArray = configuration.split("\n");
 
     const fftSize = 2048;
     const frequencyRange = {
@@ -81,19 +83,41 @@ export const VideoPoints = ({ audio, videoSrc, configuration }) => {
         treble: [5200, 14000],
     };
 
-    let analyser;
-    if(audio){
-        analyser = new THREE.AudioAnalyser(audio, fftSize);
-    }
-    
-    const configurationArray = configuration.split("\n");
+    const [analyser, setAnalyser] = useState(null);
+    useEffect(()=>{
+        if(audio){
+            setAnalyser(new THREE.AudioAnalyser(audio, fftSize));
+        }
+    },[audio]);
+
+    const {scene} = useThree();
+
+    const [video, setVideo] = useState(null);
+    const [particles, setParticles] = useState(null);
+
+    useEffect(()=>{
+        const getVideo = async () =>{
+            const res = await initVideo(videoSrc);
+            setVideo(res);
+        };
+        getVideo();
+
+        return ()=> {
+            setVideo(null);}
+    }, [videoSrc]);
 
     useFrame(({clock})=>{
-        if(video && video.readyState === 4 && !particles){
-            particles = createParticles(video);
-            particles.scale.set(0.05,0.05,0.05)
-            scene.add(particles);
+        
+        if( !particles && video && video.readyState === 4 ){
+            const res = createParticles(video);
+            res.position.set(...position);
+            res.rotation.set(...rotation);
+            res.scale.set(...scale);
+            // res.scale.set(0.05,0.05,0.05);
+            scene.add(res);
+            setParticles(res);
         }
+        
         let data, bass, mid, treble;
         if(analyser){
             data = analyser.getFrequencyData();

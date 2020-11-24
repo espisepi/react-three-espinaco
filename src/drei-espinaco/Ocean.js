@@ -4,34 +4,23 @@ import { Water } from 'three/examples/jsm/objects/Water';
 import * as THREE from 'three';
 
 extend({Water});
-const Ocean = () => {
-    const { scene } = useThree();
+const Ocean = ({ geometry=new THREE.BoxBufferGeometry( 100, 100, 100 ), position=[0,0,0], rotation=[0,Math.PI/2,0] }) => {
+    const { scene,gl } = useThree();
     const water = useRef();
     useEffect(()=>{
+        gl.toneMapping = 0;
+        gl.outputEncoding = 3000;
         water.current.rotation.x = - Math.PI / 2;
     });
     useFrame(()=>{
-        water.current.material.uniforms[ 'time' ].value += 1.0 / 400.0;
+        water.current.material.uniforms[ 'time' ].value += 1.0 / 60.0;
     });
-
-    useEffect(()=>{
-        water.current.material.side = THREE.DoubleSide;
-    },[water])
+    
     return(
-        // <mesh visible position={[0, 0, 0]} rotation={[0, 0, 0]}>
-        //   <sphereGeometry attach="geometry" args={[1, 16, 16]} />
-        //   <meshStandardMaterial
-        //     attach="material"
-        //     color="white"
-        //     transparent
-        //     opacity={0.6}
-        //     roughness={1}
-        //     metalness={0}
-        //   />
-        // </mesh>
-        <group position={[0,49.5,0]}>
-            <water ref={water} args={[new THREE.BoxBufferGeometry( 100, 100, 100),
+        <group >
+            <water ref={water} position={position} rotation={rotation} args={[geometry,
                 {
+                    side:THREE.DoubleSide,
                     textureWidth: 512,
                     textureHeight: 512,
                     waterNormals: new THREE.TextureLoader().load( 'assets/img/waternormals.jpg', function ( texture ) {
