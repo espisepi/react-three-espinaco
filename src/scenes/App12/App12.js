@@ -4,7 +4,7 @@ import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
 import Stars from '../../drei-espinaco/Stars';
 
-import SimondevPersonController from './SimondevPersonController';
+import SimondevPersonController from '../../drei-espinaco/simondev/SimondevPersonController';
 
 export function Scene() {
 
