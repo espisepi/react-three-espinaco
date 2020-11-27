@@ -4,38 +4,15 @@ import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
 import Stars from '../../drei-espinaco/Stars';
 
-import {BasicCharacterController, ThirdPersonCamera} from './simondevClasses';
+import SimondevPersonController from './SimondevPersonController';
 
 export function Scene() {
-
-    const {camera, scene} = useThree();
-
-    const [controls] = useState(()=>{
-        const params = {
-            camera: camera,
-            scene: scene,
-          }
-        return new BasicCharacterController(params);
-    });
-
-    const [thirdPersonCamera] = useState(()=>{
-        return new ThirdPersonCamera({
-            camera: camera,
-            target: controls,
-        });
-    });
-
-    useFrame((state, delta)=>{
-        if(controls) { controls.Update(delta) }
-        if(thirdPersonCamera){ thirdPersonCamera.Update(delta) }
-    });
 
     return(
         <>
         <ambientLight />
-        <Loading />
         <Stars />
-        {/* <OrbitControls /> */}
+        <SimondevPersonController />
         </>
     );
 }
