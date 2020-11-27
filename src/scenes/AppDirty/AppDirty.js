@@ -1,50 +1,85 @@
-import React, {Suspense, useEffect} from 'react';
+import React, {Suspense, useEffect, useState, useMemo} from 'react';
 import * as THREE from 'three';
-import { Canvas, useThree, useFrame } from 'react-three-fiber';
-import { OrbitControls, Box } from 'drei';
+import { Canvas, useThree, useFrame, useLoader } from 'react-three-fiber';
+import { OrbitControls, PointerLockControls } from 'drei';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader';
 import Loading from '../../components/Loading';
 import Background from '../../drei-espinaco/Background';
 import Ocean from '../../drei-espinaco/Ocean';
 import MusicPoints,{AudioComponents} from '../../drei-espinaco/MusicPoints';
 import Camera from '../../components/Camera';
 
-import {Physics, useBox, useSphere} from 'use-cannon';
+import {Physics, useBox, useSphere, useConvexPolyhedron} from 'use-cannon';
+import { Ground } from '../../components/Ground';
+import { Player } from '../../components/Player';
 
-function Ground() {
-    const [ref, api] = useBox( ()=> ( { args:[100,1,100] }) );
+function Box({mesh}) {
+    console.log(mesh)
+    const geo = useMemo(() => new THREE.Geometry().fromBufferGeometry(mesh.geometry), [mesh])
+    const [ref] = useConvexPolyhedron(() => ({ mass: 100, args: geo, onCollide: e => console.log('collision', e.contact.impactVelocity) }))
+    return <mesh ref={ref} geometry={mesh.geometry} material={mesh.material} />;
+}
+
+function LoadScenario(){
+    const { nodes } = useLoader(GLTFLoader, 'assets/obj/scenarios/scenario1.glb');
+    const scene = nodes.Scene;
+    // console.log(scene)
+    // Rellenamos el array de meshes
+	const objects = useMemo(() => {
+        const meshes = [];
+		scene.traverse((child) =>{
+            // Objects with Physics defined
+            if(child.hasOwnProperty('userData') && child.userData.hasOwnProperty('data') && child.userData.data === 'physics') {
+                if(child.userData.type === 'trimesh'){
+                    const box = Box({mesh:child});
+                    meshes.push(box);    
+                }
+                
+            }else {
+                console.log(child)
+                const meshClean = (<primitive object={child}></primitive>);
+                meshes.push(meshClean)
+            }
+        });
+		return meshes;
+	},[]);
     return (
-        <mesh ref={ref}>
-            <boxBufferGeometry attach='geometry' args={[100,1,100]}/>
-            <meshStandardMaterial attach='material' color='red' />
-        </mesh>
+        objects
     );
 }
 
-function Ball() {
-    const [ref, api] = useSphere( () => ( { mass: 0.5, position:[0,2,0],args:[1.0], onCollide: e => {
-        api.applyForce(1,[-100,4,0]);
-    } } ) );
-    return (
-        <mesh ref={ref}>
-            <sphereBufferGeometry attach='geometry'  args={[1.0]} />
-            <meshStandardMaterial attach='material' color='blue' />
-        </mesh>
-    );
+function LoadGLTF(){
+    const {nodes} = useLoader(GLTFLoader, 'assets/obj/scenarios/untitled.glb');
+    console.log(nodes)
+    return <primitive object={nodes.Cube} />;
 }
 
+function LoadFBX(){
+    const nodes = useLoader(FBXLoader, 'assets/obj/scenarios/untitled.fbx');
+    console.log(nodes)
+    return <mesh ref={nodes.children} />;
+}
 
 export function Scene({y=0}) {
+
+    const { scene } = useThree()
+    // console.log(scene)
     
     return(
         <>
         <ambientLight />
+        {/* <pointLight /> */}
         <Suspense fallback={<Loading/>}>
         </Suspense>
-        <Physics gravity={[0,-100,0]}>
-            <Ball />
-            <Ground />
+        <Physics gravity={[0,-30,0]}>
+            {/* <LoadScenario /> */}
+            {/* <LoadGLTF /> */}
+            <LoadFBX />
+            <Ground position={[0,-1,0]} />
+			<Player position={[0, 10, 20]} />
         </Physics>
-        <OrbitControls />
+        <PointerLockControls />
         </>
     );
 }
