@@ -115,12 +115,13 @@ export class BasicCharacterController {
       }
       if (this._input._keys.left) {
         _A.set(0, 1, 0);
-        _Q.setFromAxisAngle(_A, 4.0 * Math.PI * timeInSeconds * this._acceleration.y);
+        // espisepi: modify 2.0 to change velocity of camera movement left
+        _Q.setFromAxisAngle(_A, 2.0 * Math.PI * timeInSeconds * this._acceleration.y);
         _R.multiply(_Q);
       }
       if (this._input._keys.right) {
         _A.set(0, 1, 0);
-        _Q.setFromAxisAngle(_A, 4.0 * -Math.PI * timeInSeconds * this._acceleration.y);
+        _Q.setFromAxisAngle(_A, 2.0 * -Math.PI * timeInSeconds * this._acceleration.y);
         _R.multiply(_Q);
       }
   
