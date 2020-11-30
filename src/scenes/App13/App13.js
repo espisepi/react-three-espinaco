@@ -12,6 +12,7 @@ import { Player } from '../../components/Player';
 import Stars from '../../drei-espinaco/Stars';
 import Joystick from '../../drei-espinaco/Joystick';
 import SimondevPersonController from '../../drei-espinaco/simondev/SimondevPersonController';
+import Fullscreen from '../../drei-espinaco/Fullscreen';
 
 export function Scene() {
     const gltf = useLoader(GLTFLoader, 'assets/obj/cabezaPiedra.glb');
@@ -32,16 +33,6 @@ export function Scene() {
 
 export default function App13(props) {
 
-    const handleFullscreen = useCallback(()=>{
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-        } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen(); 
-          }
-        }
-    },[]);
-
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}} shadowMap >
@@ -51,7 +42,7 @@ export default function App13(props) {
         </Suspense>
     </Canvas>
     <Joystick />
-    <div onClick={handleFullscreen} style={{ position:'absolute', width:'20px', height:'20px', bottom: 0, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <Fullscreen />
     </>
     );
 }
