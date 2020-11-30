@@ -8,12 +8,12 @@ export default function Joystick() {
 
     const handleEvent = useCallback((evt, data)=>{
 
-        if (data?.direction?.y === 'up') {
+        if (data?.direction?.y === 'up' && ( data?.angle?.degree >= 15.0 && data?.angle?.degree <= 165.0 ) ) {
             document.dispatchEvent(new KeyboardEvent('keydown', { key: 'w', keyCode: '87' }));
         } else {
             document.dispatchEvent(new KeyboardEvent('keyup', { key: 'w', keyCode: '87' }));
         }
-        if (data?.direction?.y === 'down') {
+        if (data?.direction?.y === 'down' && ( data?.angle?.degree >= 195.0 && data?.angle?.degree <= 345.0 ) ) {
             document.dispatchEvent(new KeyboardEvent('keydown', { key: 's', keyCode: '83' }));
         } else {
             document.dispatchEvent(new KeyboardEvent('keyup', { key: 's', keyCode: '83' }));
