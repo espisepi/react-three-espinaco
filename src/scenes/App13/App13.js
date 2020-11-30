@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useEffect } from 'react';
+import React, { Suspense, useRef, useEffect, useCallback } from 'react';
 import { Canvas, useLoader, useFrame } from 'react-three-fiber';
 import { OrbitControls, Stats, PointerLockControls } from 'drei';
 import Loading from '../../components/Loading';
@@ -32,6 +32,16 @@ export function Scene() {
 
 export default function App13(props) {
 
+    const handleFullscreen = useCallback(()=>{
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen(); 
+          }
+        }
+    },[]);
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}} shadowMap >
@@ -41,6 +51,7 @@ export default function App13(props) {
         </Suspense>
     </Canvas>
     <Joystick />
+    <div onClick={handleFullscreen} style={{ position:'absolute', width:'20px', height:'20px', bottom: 0, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
 }
