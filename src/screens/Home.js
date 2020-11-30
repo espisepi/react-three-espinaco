@@ -44,6 +44,9 @@ export default function Home() {
                 <Link to="/app12">app12</Link>
             </div>
             <div style={{width:'200px', height:'200px'}}>
+                <Link to="/app13">app13</Link>
+            </div>
+            <div style={{width:'200px', height:'200px'}}>
                 <Link to="/dirty">dirty</Link>
             </div>
         </div>
