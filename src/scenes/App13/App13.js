@@ -13,6 +13,7 @@ import Stars from '../../drei-espinaco/Stars';
 import Joystick from '../../drei-espinaco/Joystick';
 import SimondevPersonController from '../../drei-espinaco/simondev/SimondevPersonController';
 import Fullscreen from '../../drei-espinaco/Fullscreen';
+import { AudioComponents } from '../../drei-espinaco/VideoPoints';
 
 export function Scene() {
     const gltf = useLoader(GLTFLoader, 'assets/obj/cabezaPiedra.glb');
@@ -25,6 +26,9 @@ export function Scene() {
         <group position={[0,-5,0]} scale={[50, 50, 50]} >
             <primitive object={gltf.scene} />
         </group>
+        {/* <Suspense fallback={<Loading />}>
+            <AudioComponents scale={[0.5,0.5,0.5]}/>
+        </Suspense> */}
         <SimondevPersonController />
         {/* <OrbitControls /> */}
         </>
