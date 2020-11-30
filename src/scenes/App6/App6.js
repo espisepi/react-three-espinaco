@@ -13,6 +13,9 @@ import { Physics } from 'use-cannon';
 import { Ground } from '../../components/Ground';
 import { Player } from '../../components/Player';
 
+import SimondevPersonController from '../../drei-espinaco/simondev/SimondevPersonController';
+import Joystick from '../../drei-espinaco/Joystick';
+
 function AssetGltf({ url, speed = 1 }) {
     const { nodes, materials, animations } = useLoader(GLTFLoader, url);
     const [ mixer ] = useState(() => new THREE.AnimationMixer());
@@ -31,7 +34,8 @@ function AssetGltf({ url, speed = 1 }) {
 export default function App6(props) {
 
     return (
-    <Canvas className="canvas" style={{backgroundColor:'#000000'}} camera-rotation={[0,Math.PI/2,0]}>
+    <>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera-rotation={[0,Math.PI/2,0]}>
         <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
@@ -42,15 +46,19 @@ export default function App6(props) {
             <AssetGltf url="assets/obj/Horse.glb" />
         </Suspense>
 
-        <Physics gravity={[0, -30, 0]}>
+        {/* <Physics gravity={[0, -30, 0]}>
 			<Ground position={[0,-1,0]} visible={false} />
 			<Player position={[0, 50, -100]} />
 		</Physics>
-        <PointerLockControls />
+        <PointerLockControls /> */}
+
+        <SimondevPersonController />
 
         {/* <OrbitControls /> */}
         
     </Canvas>
+    <Joystick />
+    </>
     );
 }
 
