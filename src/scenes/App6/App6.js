@@ -15,6 +15,7 @@ import { Player } from '../../components/Player';
 
 import SimondevPersonController from '../../drei-espinaco/simondev/SimondevPersonController';
 import Joystick from '../../drei-espinaco/Joystick';
+import Fullscreen from '../../drei-espinaco/Fullscreen';
 
 function AssetGltf({ url, speed = 1 }) {
     const { nodes, materials, animations } = useLoader(GLTFLoader, url);
@@ -58,6 +59,7 @@ export default function App6(props) {
         
     </Canvas>
     <Joystick />
+    <Fullscreen />
     </>
     );
 }
