@@ -47,8 +47,8 @@ export default function ShadertoyMusic() {
         iMouse: { value: new THREE.Vector2 },
         iChannelTime: { value: new THREE.Vector4 }
     }
-    const vertexShader = AudioVisualizer.vertexShader;
-    const fragmentShader = AudioVisualizer.fragmentShader;
+    const vertexShader = MusicShader.vertexShader;
+    const fragmentShader = MusicShader.fragmentShader;
 
     const material = new THREE.ShaderMaterial({
         vertexShader,
@@ -56,7 +56,7 @@ export default function ShadertoyMusic() {
         uniforms,
         side: THREE.DoubleSide
     });
-    useFrame(({clock, gl}) => {
+    useFrame(({clock, gl, camera}) => {
         const canvas = gl.domElement;
         if(analyser){
             analyser.getFrequencyData();
@@ -65,11 +65,11 @@ export default function ShadertoyMusic() {
         uniforms.iResolution.value.set(canvas.width, canvas.height, 1);
         uniforms.iTime.value = clock.elapsedTime;
         uniforms.iChannelTime.value.set(clock.elapsedTime, 0, 0, 0);
-        uniforms.iMouse.value.set(clock.elapsedTime, clock.elapsedTime / 2.0)
+        uniforms.iMouse.value.set(camera.rotation.x * 4.0, camera.rotation.y * 4.0)
     });
     return (
         <mesh
-            geometry={new THREE.PlaneBufferGeometry(10,10)}
+            geometry={new THREE.BoxBufferGeometry(500,500,500)}
             material={material}
         />
     );

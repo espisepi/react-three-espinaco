@@ -173,9 +173,9 @@ const MusicShader = {
     col *= vec3(1.0)*clamp( (iChannelTime[0]-61.8)/(65.0-61.8), 0.0, 1.0 );
 
 
-    col *= 0.15+0.85*pow( 16.0*q.x*q.y*(1.0-q.x)*(1.0-q.y), 0.15 );
+    col *= 0.15+0.45*pow( 16.0*q.x*q.y*(1.0-q.x)*(1.0-q.y), 0.15 );
 
-    col = vec3(1.0,0.0,0.0);
+    //col = vec3(1.0,0.0,0.0);
     fragColor=vec4( col, 1.0 );
     }
 
