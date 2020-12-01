@@ -17,16 +17,16 @@ import { AudioComponents } from '../../drei-espinaco/VideoPoints';
 import ShadertoyMusic from '../../drei-espinaco/ShadertoyMusic';
 
 export function Scene() {
-    const gltf = useLoader(GLTFLoader, 'assets/obj/cabezaPiedra.glb');
+    // const gltf = useLoader(GLTFLoader, 'assets/obj/cabezaPiedra.glb');
     const group = useRef();
 
     return(
         <>
         <Stats />
         <Stars />
-        <group position={[0,-5,0]} scale={[50, 50, 50]} >
+        {/* <group position={[0,-5,0]} scale={[50, 50, 50]} >
             <primitive object={gltf.scene} />
-        </group>
+        </group> */}
         <ShadertoyMusic />
         {/* <Suspense fallback={<Loading />}>
             <AudioComponents scale={[0.5,0.5,0.5]}/>
