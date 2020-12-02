@@ -485,9 +485,9 @@ export class BasicCharacterController {
       this._currentLookat = new THREE.Vector3();
     }
   
-    _CalculateIdealOffset() {
-      // const idealOffset = new THREE.Vector3(-15 / 2, 20, -30 / 4); // espisepi: Resident Evil 4
-      const idealOffset = new THREE.Vector3(-15, 20, -30);
+    // zoomType -> 0 (3rd person), 1 (1st person)
+    _CalculateIdealOffset(zoomType = 0) {
+      const idealOffset = zoomType ? new THREE.Vector3(-15 / 2, 20, -30 / 4) : new THREE.Vector3(-15, 20, -30)
       idealOffset.applyQuaternion(this._params.target.Rotation);
       idealOffset.add(this._params.target.Position);
       return idealOffset;
@@ -500,8 +500,8 @@ export class BasicCharacterController {
       return idealLookat;
     }
   
-    Update(timeElapsed) {
-      const idealOffset = this._CalculateIdealOffset();
+    Update(timeElapsed, zoomType) {
+      const idealOffset = this._CalculateIdealOffset(zoomType);
       const idealLookat = this._CalculateIdealLookat();
   
       // const t = 0.05;

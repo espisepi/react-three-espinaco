@@ -84,6 +84,12 @@ export default function App6(props) {
         setVisible(v => !v)
     },[]);
 
+    // 0: (3rd person)   ,   1: (1st person)
+    const [zoomType, setZoomType] = useState(0);
+    const changeZoom = useCallback(() => {
+        setZoomType(z => !z)
+    });
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera-rotation={[0,Math.PI/2,0]}>
@@ -104,7 +110,7 @@ export default function App6(props) {
 		</Physics>
         <PointerLockControls /> */}
 
-        <SimondevPersonController visible={visible} />
+        <SimondevPersonController visible={visible} zoomType={zoomType} />
 
         {/* <OrbitControls /> */}
         
@@ -112,6 +118,7 @@ export default function App6(props) {
     <Joystick />
     <Fullscreen />
     <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={changeZoom} style={{ position:'absolute', width:'20px', height:'20px', bottom: 80, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
 }
