@@ -486,7 +486,7 @@ export class BasicCharacterController {
     }
   
     _CalculateIdealOffset() {
-      // const idealOffset = new THREE.Vector3(-15 / 2, 20, -30 / 4); // Resident Evil 4
+      // const idealOffset = new THREE.Vector3(-15 / 2, 20, -30 / 4); // espisepi: Resident Evil 4
       const idealOffset = new THREE.Vector3(-15, 20, -30);
       idealOffset.applyQuaternion(this._params.target.Rotation);
       idealOffset.add(this._params.target.Position);

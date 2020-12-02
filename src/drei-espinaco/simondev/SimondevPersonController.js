@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFrame, useThree } from 'react-three-fiber';
 import {BasicCharacterController, ThirdPersonCamera} from './simondevClasses';
 
-export default function SimondevPersonController() {
+export default function SimondevPersonController({visible=true}) {
 
     const {camera, scene} = useThree();
 
@@ -25,6 +25,10 @@ export default function SimondevPersonController() {
         if(controls) { controls.Update(delta) }
         if(thirdPersonCamera){ thirdPersonCamera.Update(delta) }
     });
+
+    useFrame(()=>{
+        if(controls._target) { controls._target.visible = visible }
+    })
 
     return null;
 

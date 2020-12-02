@@ -1,8 +1,8 @@
 /** CLIP GataCattana (L) */
 
-import React, { Suspense, useEffect, useRef, useState, useMemo } from 'react';
+import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
-import { OrbitControls, PointerLockControls } from 'drei';
+import { OrbitControls, PointerLockControls, Stats } from 'drei';
 import * as THREE from 'three';
 import Loading from '../../components/Loading';
 import Background from '../../drei-espinaco/Background';
@@ -79,9 +79,15 @@ function AssetGltf({ url, speed = 1 }) {
 
 export default function App6(props) {
 
+    const [visible, setVisible] = useState(true);
+    const changeVisible = useCallback(()=>{
+        setVisible(v => !v)
+    },[]);
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera-rotation={[0,Math.PI/2,0]}>
+        <Stats />
         <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
@@ -98,13 +104,14 @@ export default function App6(props) {
 		</Physics>
         <PointerLockControls /> */}
 
-        <SimondevPersonController />
+        <SimondevPersonController visible={visible} />
 
         {/* <OrbitControls /> */}
         
     </Canvas>
     <Joystick />
     <Fullscreen />
+    <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
 }
