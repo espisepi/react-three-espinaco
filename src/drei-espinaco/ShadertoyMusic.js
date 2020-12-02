@@ -65,11 +65,11 @@ export default function ShadertoyMusic() {
         uniforms.iResolution.value.set(canvas.width, canvas.height, 1);
         uniforms.iTime.value = clock.elapsedTime;
         uniforms.iChannelTime.value.set(clock.elapsedTime, 0, 0, 0);
-        uniforms.iMouse.value.set(camera.rotation.x * 4.0, camera.rotation.y * 4.0)
+        uniforms.iMouse.value.set(camera.rotation.x, camera.rotation.y)
     });
     return (
         <mesh
-            geometry={new THREE.BoxBufferGeometry(500,500,500)}
+            geometry={new THREE.PlaneBufferGeometry(500,500)}
             material={material}
         />
     );

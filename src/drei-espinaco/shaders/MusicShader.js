@@ -110,7 +110,8 @@ const MusicShader = {
     vec2 q = fragCoord.xy/iResolution.xy;
     vec2 p = -1.0+2.0*q;
     p.x *= iResolution.x/iResolution.y;
-    vec2 mo = iMouse.xy/iResolution.xy;
+    //vec2 mo = iMouse.xy/iResolution.xy;
+    vec2 mo = iMouse.xy;
         
     float time = iTime;
 
