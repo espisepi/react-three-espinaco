@@ -70,11 +70,12 @@ function AssetGltf({ url, speed = 1 }) {
     });
 
     return (
-        <group ref={group} dispose={null} scale={[0.2,0.2,0.2]} position={[0,-7,0]} rotation={[0,Math.PI / 2, 0]}>
+        <group ref={group} dispose={null} scale={[0.2,0.2,0.2]} position={[0,-7,100]} rotation={[0,Math.PI / 2, 0]}>
             <primitive object={nodes.mesh_0} />
         </group>
     );
 }
+
 
 export default function App6(props) {
 
@@ -85,7 +86,7 @@ export default function App6(props) {
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
         <Background url='assets/musica/gotham.mp4' />
-        <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,0]} />
+        <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,70]} />
 
         <Suspense fallback={<Loading />}>
             <AssetGltf url="assets/obj/Horse.glb" />
