@@ -117,8 +117,8 @@ export default function App6(props) {
     </Canvas>
     <Joystick />
     <Fullscreen />
-    <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
-    <div onClick={changeZoom} style={{ position:'absolute', width:'20px', height:'20px', bottom: 80, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={changeZoom} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 80, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
 }
