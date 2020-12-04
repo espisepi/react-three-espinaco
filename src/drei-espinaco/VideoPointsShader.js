@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
-export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale }) => {
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale, muted=false }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -36,6 +36,13 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
             setAudio(null);
         }
     },[audioBuffer]);
+
+    useEffect(()=>{
+        if(audio){
+            const volume = muted ? 0.0 : 0.5;
+            audio.setVolume(volume);
+        }
+    }, [audio, muted]);
 
   
    return(
