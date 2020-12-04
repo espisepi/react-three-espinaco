@@ -17,7 +17,7 @@ export default function App1(props) {
         <Stats />
         <ambientLight />
         <Suspense fallback={<Loading />}>
-            <AudioComponents scale={[1,1,1]}/>
+            <AudioComponents scale={[1.0,1.0,1.0]} />
         </Suspense>
         <Stars />
         <SimondevPersonController />

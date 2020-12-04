@@ -142,8 +142,8 @@ export const VideoPointsShader = ({ audio, videoSrc, configuration, position=[0,
 
             particles.material.uniforms.iTime.value = clock.elapsedTime;
             particles.material.uniforms.bass.value = bass;
-            particles.material.uniforms.bass.mid = mid;
-            particles.material.uniforms.bass.treble = treble;
+            particles.material.uniforms.mid.value = mid;
+            particles.material.uniforms.treble.value = treble;
 
             // const density = 2;
             // const useCache = parseInt(t) % 2 === 0;  // To reduce CPU usage.
@@ -216,12 +216,23 @@ function createParticles(video){
 
                 vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
                 float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
-                // r = bass + 0.5;
-                // g = treble;
-                // b = mid;
-
+                float threshold = 300.0;
                 vec3 pos = position;
-                pos.z += gray * ( bass + 0.5) * 2.0;
+
+                float r = bass + 0.5;
+                float g = treble;
+                float b = mid;
+                float distance = 100.0;
+                if ( gray < threshold ) {
+                    if (gray < threshold / 3.0) {
+                        pos.z = gray * r * distance;
+                    } else if (gray < threshold / 2.0) {
+                        pos.z = gray * g * distance;
+                    } else {
+                        pos.z = gray * b * distance;
+                    }
+                }
+                // pos.z += gray * 5.0;
 
 
                 float size = 1.0;
@@ -252,13 +263,15 @@ function createParticles(video){
             vec2 uv = fragCoord.xy / iResolution.xy;
             uv.x *= iResolution.x / iResolution.y;
 
-            vec3 color = vec3(bass+0.6,0.0,0.0);
+            
             //vec3 color = mix(colorA,colorB,bass+0.3);
 
             vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
+            float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
+            vec3 color = vec3(bass+gray,0.0,0.0);
 
             
-            fragColor = vec4( textureVideo.rgb, 1.0 );
+            fragColor = vec4(color, 1.0 );
 
 
         }
