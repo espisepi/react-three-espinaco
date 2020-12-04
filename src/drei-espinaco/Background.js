@@ -20,10 +20,11 @@ export function BackgroundVideoRaw({video}) {
 
 
 export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', muted = false }) {
-	const [textureVideo, setTextureVideo] = useState(null);
+	const [textureVideo, setTextureVideo] = useState({});
 	useEffect( () => {
+		let videoDom;
 		async function load(){
-			const videoDom = await loadVideo(url);
+			videoDom = await loadVideo(url);
 			videoDom.muted=muted;
 			const textureVideo1 = await new THREE.VideoTexture(videoDom);
 			textureVideo1.minFilter = THREE.LinearFilter;
@@ -32,6 +33,12 @@ export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', mu
 			setTextureVideo(textureVideo1);
 		}
 		load();
+
+		// Remove sound when user out of scene page
+		return () => {
+			videoDom.removeAttribute('src'); // empty source
+			videoDom.load();
+		} 
 	}, [])
 
 	useEffect(()=>{
@@ -39,16 +46,6 @@ export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', mu
 			textureVideo.image.muted = muted;
 		}
 	}, [textureVideo, muted] );
-
-	// Remove sound when user out of scene page
-	useEffect(()=>{
-		return () => {
-			setTextureVideo(textureVideo => {
-				textureVideo.image.removeAttribute('src'); // empty source
-				textureVideo.image.load();
-			});
-		}
-	},[]);
 
 
 	const { scene } = useThree();
