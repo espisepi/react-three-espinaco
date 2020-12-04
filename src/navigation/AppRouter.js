@@ -7,6 +7,7 @@ import {
 import { PublicRoute } from './PublicRoute';
 
 import Home from '../screens/Home';
+import Dev from '../screens/Dev';
 
 // import { App0, App1, App2, App3, App4, App5, App6, App7 } from '../App';
 import * as App from '../App';
@@ -20,6 +21,12 @@ export default function AppRouter () {
                         exact
                         path="/"
                         component={Home}
+                    />
+
+                    <PublicRoute
+                        exact
+                        path="/dev"
+                        component={Dev}
                     />
 
                     <PublicRoute
