@@ -40,6 +40,16 @@ export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', mu
 		}
 	}, [textureVideo, muted] );
 
+	// Remove sound when user out of scene page
+	useEffect(()=>{
+		return () => {
+			setTextureVideo(textureVideo => {
+				textureVideo.image.removeAttribute('src'); // empty source
+				textureVideo.image.load();
+			});
+		}
+	},[]);
+
 
 	const { scene } = useThree();
 	useEffect(()=>{

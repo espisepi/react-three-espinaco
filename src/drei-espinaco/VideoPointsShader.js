@@ -33,7 +33,10 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
             setAudio(audioTemp);
         }
         return ()=> {
-            setAudio(null);
+            setAudio(audio => {
+                audio.stop();
+                audio.setBuffer(null);
+            });
         }
     },[audioBuffer]);
 
