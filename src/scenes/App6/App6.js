@@ -90,6 +90,11 @@ export default function App6(props) {
         setZoomType(z => !z)
     });
 
+    const [muted, setMuted] = useState(0);
+    const changeMuted = useCallback(() => {
+        setMuted(m => !m)
+    });
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera-rotation={[0,Math.PI/2,0]}>
@@ -97,7 +102,7 @@ export default function App6(props) {
         <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
-        <Background url='assets/musica/gotham.mp4' />
+        <Background url='assets/musica/gotham.mp4' muted={muted} />
         <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,70]} />
 
         <Suspense fallback={<Loading />}>
@@ -119,6 +124,7 @@ export default function App6(props) {
     <Fullscreen />
     <div onClick={changeZoom} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 80, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={changeMuted} style={{ position:'absolute', width:'20px', height:'20px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
 }

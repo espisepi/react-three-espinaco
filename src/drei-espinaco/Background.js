@@ -34,6 +34,13 @@ export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', mu
 		load();
 	}, [])
 
+	useEffect(()=>{
+		if(textureVideo?.image){
+			textureVideo.image.muted = muted;
+		}
+	}, [textureVideo, muted] );
+
+
 	const { scene } = useThree();
 	useEffect(()=>{
 		scene.background = textureVideo;
