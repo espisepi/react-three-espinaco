@@ -8,7 +8,7 @@ export default function loadVideo(url) {
         video.muted = true;
         video.src = url;
         video.load();
-        video.play();
+        // video.play();
         resolve(video);
     });
 }
