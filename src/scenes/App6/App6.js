@@ -79,13 +79,13 @@ function AssetGltf({ url, speed = 1 }) {
 
 export default function App6(props) {
 
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     const changeVisible = useCallback(()=>{
         setVisible(v => !v)
     },[]);
 
     // 0: (3rd person)   ,   1: (1st person)
-    const [zoomType, setZoomType] = useState(0);
+    const [zoomType, setZoomType] = useState(1);
     const changeZoom = useCallback(() => {
         setZoomType(z => !z)
     });
