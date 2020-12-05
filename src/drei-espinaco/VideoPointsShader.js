@@ -283,7 +283,7 @@ function createParticles(video){
             vec3 color = vec3(bass+gray,0.0,0.0);
 
             
-            fragColor = vec4(color, 1.0 );
+            fragColor = vec4(textureVideo.rgb, 1.0 );
 
 
         }
