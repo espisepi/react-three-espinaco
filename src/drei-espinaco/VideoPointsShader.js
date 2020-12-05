@@ -232,17 +232,19 @@ function createParticles(video){
                 float r = bass + 0.5;
                 float g = treble;
                 float b = mid;
-                float distance = 100.0;
-                if ( gray < threshold ) {
-                    if (gray < threshold / 3.0) {
-                        pos.z = gray * r * distance;
-                    } else if (gray < threshold / 2.0) {
-                        pos.z = gray * g * distance;
-                    } else {
-                        pos.z = gray * b * distance;
-                    }
+                float distance = 500.0;
+                float distance2 = 100.0;
+                float distance3 = 30.0;
+
+                if(gray < 0.3){
+                    pos.z = - gray * r * bass * distance;
+                } else if(gray < 0.6) {
+                    pos.z = gray * r * bass * distance2;
+                } else {
+                    pos.z = gray * bass * distance3;
                 }
-                // pos.z += gray * 5.0;
+                
+                pos.z += gray * bass;
 
 
                 float size = 1.0;
