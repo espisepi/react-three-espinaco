@@ -30,7 +30,7 @@ export default function App1(props) {
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}}>
-        <Stats />
+        {/* <Stats /> */}
         <ambientLight />
         <Suspense fallback={<Loading />}>
             <AudioComponents scale={[1.0,1.0,1.0]} muted={muted} />

@@ -54,7 +54,7 @@ export default function AppDirty(props) {
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Scene />
-        <Stats />
+        {/* <Stats /> */}
         <ambientLight />
         <Background url='assets/musica/elane-low.mp4' muted={muted}  />
         {/* <Suspense fallback={<Loading/>}>

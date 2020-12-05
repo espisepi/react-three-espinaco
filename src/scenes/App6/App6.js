@@ -98,7 +98,7 @@ export default function App6(props) {
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera-rotation={[0,Math.PI/2,0]}>
-        <Stats />
+        {/* <Stats /> */}
         <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
