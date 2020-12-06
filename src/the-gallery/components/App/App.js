@@ -13,6 +13,7 @@ import Player from '../Player/Player';
 import Lights from '../Lights/Lights';
 
 import Joystick from '../../../drei-espinaco/Joystick';
+import FullScreen from '../../../drei-espinaco/Fullscreen';
 
 
 const App = () => {
@@ -83,6 +84,7 @@ const App = () => {
         {/* <Stats  showPanel={0} /> */}
       </Canvas>
       <Joystick />
+      <FullScreen />
     </>
   );
 }
