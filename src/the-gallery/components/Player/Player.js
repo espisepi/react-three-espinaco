@@ -30,19 +30,43 @@ const Player = (props) => {
     api.velocity.subscribe(v => velocity.current = v)
   }, [api.velocity])
   
-  useFrame(() => {
+  useFrame(({clock}) => {
+    /* --------- espisepi code ---------- */
+    const _Q = new THREE.Quaternion();
+    const _A = new THREE.Vector3();
+    const _R = camera.quaternion.clone();
+
+    const acceleration = new THREE.Vector3(1, 0.25, 50.0);
+    if(left) {
+      _A.set(0, 1, 0);
+      // espisepi: modify 2.0 to change velocity of camera movement left
+      _Q.setFromAxisAngle(_A, 0.1 * acceleration.y);
+      _R.multiply(_Q);
+    }
+    if(right) {
+      _A.set(0, 1, 0);
+      _Q.setFromAxisAngle(_A, - 0.1  * acceleration.y);
+      _R.multiply(_Q);
+    }
+    // console.log(controlObject.quaternion);
+    camera.quaternion.copy(_R);
+
+    /* --------- final espisepi code ---------- */
+
     //copy position of our physical sphere
     camera.position.copy(ref.current.position)
 
     const frontVector = new THREE.Vector3(0, 0, Number(backward) - Number(forward))
-    const sideVector = new THREE.Vector3(Number(left) - Number(right), 0, 0)
+    // const sideVector = new THREE.Vector3(Number(left) - Number(right), 0, 0)
 
     const direction = new THREE.Vector3()
     //calculate direction aligned with the camera
-    direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(speed).applyEuler(camera.rotation)
+    // direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(speed).applyEuler(camera.rotation)
+    direction.subVectors(frontVector, direction).normalize().multiplyScalar(speed).applyEuler(camera.rotation)
     
     //apply the velocity to our sphere
     api.velocity.set(direction.x, velocity.current[1], direction.z)
+    api.rotation.set(1, clock.elapsedTime, 1);
 
     //to limit jump by check if jumping and velocity in y compared to almost zero i.e we are standing or at the top of our jump change value 100 to 0.01
     if (jump && Math.abs(velocity.current[1].toFixed(2)) < 100) {

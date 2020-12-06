@@ -19,7 +19,7 @@ const usePlayerControls = () => {
         left: false,
         right: false,
         jump: false,
-        speed: 15
+        speed: 3
     })
 
     useEffect(() => {        
