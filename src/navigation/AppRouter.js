@@ -106,6 +106,11 @@ export default function AppRouter () {
                     />
                     <PublicRoute
                         exact
+                        path="/app15"
+                        component={App.App15}
+                    />
+                    <PublicRoute
+                        exact
                         path="/dirty"
                         component={App.AppDirty}
                     />
