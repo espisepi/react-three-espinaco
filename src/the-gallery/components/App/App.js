@@ -12,6 +12,8 @@ import Camera from '../Camera/Camera';
 import Player from '../Player/Player';
 import Lights from '../Lights/Lights';
 
+import Joystick from '../../../drei-espinaco/Joystick';
+
 
 const App = () => {
   const [night, setNight] = useState(true)
@@ -45,6 +47,7 @@ const App = () => {
           gl.shadowMap.enabled = true
           gl.shadowMap.type = THREE.PCFSoftShadowMap
         }}
+        style={{position: 'absolute'}}
       >
         <Camera fov={60} />
         
@@ -79,6 +82,7 @@ const App = () => {
         </Physics>
         {/* <Stats  showPanel={0} /> */}
       </Canvas>
+      <Joystick />
     </>
   );
 }

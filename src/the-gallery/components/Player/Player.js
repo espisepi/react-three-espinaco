@@ -53,7 +53,7 @@ const Player = (props) => {
 
   return (
     <>
-    <PointerLockControls />
+    {/* <PointerLockControls /> */}
     <mesh ref={ref}></mesh>
     </>
     )

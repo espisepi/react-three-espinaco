@@ -5,22 +5,9 @@ import Loading from '../../components/Loading';
 
 import App from '../../the-gallery/components/App/App';
 
-export function Scene() {
-    return(
-        <>
-        <ambientLight />
-        <Loading />
-        <OrbitControls />
-        </>
-    );
-}
-
-export default function AppDirty(props) {
+export default function App15(props) {
 
     return (
         <App />
-    // <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
-    //     <Scene />
-    // </Canvas>
     );
 }
