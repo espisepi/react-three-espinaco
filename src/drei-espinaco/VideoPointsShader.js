@@ -1,4 +1,5 @@
-
+/* Author this code: espisepi */
+/* Code based in: https://tympanus.net/codrops/2019/09/06/how-to-create-a-webcam-audio-visualizer-with-three-js/ */
 import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
@@ -232,17 +233,27 @@ function createParticles(video){
                 float r = bass + 0.5;
                 float g = treble;
                 float b = mid;
-                float distance = 500.0;
-                float distance2 = 100.0;
-                float distance3 = 30.0;
+                float distance = 400.0;
+                float distance2 = 300.0;
+                float distance3 = 2.0;
 
-                if(gray < 0.3){
-                    pos.z = - gray * r * bass * distance;
+                if(gray < 0.2){
+                    pos.z = - gray * ( bass * distance) ;
+                } else if(gray < 0.4) {
+                    pos.z = - gray * bass * distance2;
                 } else if(gray < 0.6) {
-                    pos.z = gray * r * bass * distance2;
-                } else {
-                    pos.z = gray * bass * distance3;
+                    pos.z = - gray * bass * distance3;
+                } else if(gray < 0.8) {
+                    pos.z = - gray * bass * distance2;
                 }
+
+                // if(gray < 0.3){
+                //     pos.z = - gray * r * bass * distance;
+                // } else if(gray < 0.6) {
+                //     pos.z = gray * r * bass * distance2;
+                // } else {
+                //     pos.z = gray * bass * distance3;
+                // }
                 
                 pos.z += gray * bass;
 
@@ -280,10 +291,13 @@ function createParticles(video){
 
             vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
             float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
-            vec3 color = vec3(bass+gray,0.0,0.0);
+            vec3 color_red = vec3(bass+gray,0.0,0.0);
+            vec3 color = textureVideo.rgb;                        
+            color = ( textureVideo.rgb  ) * vec3(bass , bass , bass ) * 1.0;
+            
 
             
-            fragColor = vec4(textureVideo.rgb, 1.0 );
+            fragColor = vec4(color, 1.0 );
 
 
         }
