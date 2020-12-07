@@ -13,7 +13,7 @@ export default function Home() {
                 <Link to="/app14" className="card2 elane"></Link>
                 <Link to="/app1" className="card2 shake070"></Link>
         </div>
-        <Canvas style={{position: 'absolute', top:'0', margin:'0'}}>
+        <Canvas style={{position: 'absolute', top:'0', margin:'0', backgroundColor:'black'}}>
             <Stars />
         </Canvas>
         </>
