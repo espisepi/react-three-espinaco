@@ -63,7 +63,7 @@ export default function AppDirty(props) {
         <Ocean geometry={new THREE.BoxBufferGeometry( 100, 500, 100 )} position={[0, 49, 0 ]}  />
         <FixImage />
         {/* <SimondevPersonController /> */}
-        <OrbitControls ref={controls} />
+        <OrbitControls ref={controls} rotateSpeed={0.5}/>
     </Canvas>
     {/* <Joystick /> */}
     <Fullscreen />
