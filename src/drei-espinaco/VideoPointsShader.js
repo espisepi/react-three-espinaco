@@ -293,7 +293,7 @@ function createParticles(video){
             float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
             vec3 color_red = vec3(bass+gray,0.0,0.0);
             vec3 color = textureVideo.rgb;                        
-            color = ( textureVideo.rgb  ) * vec3(bass , bass , bass ) * 1.0;
+            color = ( textureVideo.rgb  ) * vec3(bass + 0.5 , bass + 0.5 , bass + 0.5 ) * 1.0;
             
 
             
