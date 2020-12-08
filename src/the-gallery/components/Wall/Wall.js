@@ -56,13 +56,15 @@ const Wall = ({
 
     scene.traverse( function ( child ) {
         if ( child.isMesh ) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            child.material.side = THREE.DoubleSide;
+            // child.castShadow = true;
+            // child.receiveShadow = true;
+            child.material = new THREE.MeshPhongMaterial();
+            child.material.side = THREE.BackSide;
             child.material.normalMap = normal;
             child.material.map = texture;
-            child.material.metalness = 0;
-            child.material.roughness = 1;
+            // child.material.metalness = 0;
+            // child.material.roughness = 1;
+            console.log(child.material)
         }
     })
  

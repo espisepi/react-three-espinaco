@@ -75,8 +75,8 @@ const App = () => {
         <Physics gravity={[0, -30, 0]}>
           <Suspense fallback={null}>
             <Ground /> 
-            {/* <Building />            
-            <Art />  
+            <Building />            
+            {/* <Art />  
             <Furniture />                */}
           </Suspense>      
           <Player />       

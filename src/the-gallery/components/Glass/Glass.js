@@ -12,7 +12,7 @@ const Glass = ({
     url
  }) => {
     const { scene } = useLoader(GLTFLoader, url, draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
-    const newMaterial = new THREE.MeshPhysicalMaterial({
+    const newMaterial = new THREE.MeshStandardMaterial({
         color: "skyblue"
       });
 
@@ -21,7 +21,7 @@ const Glass = ({
             child.material = newMaterial;
             child.material.transparent = true;
             child.material.opacity = 0.2; 
-            child.material.clearcoat = 1; 
+            // child.material.clearcoat = 1; 
             child.material.roughness = 0;
             child.material.metalness = 1;
         }
