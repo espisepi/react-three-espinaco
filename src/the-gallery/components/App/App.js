@@ -2,7 +2,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas } from 'react-three-fiber';
 import { Physics } from 'use-cannon';
-import { Stars, Sky, /* Stats */ } from "@react-three/drei";
+import { Stars, Sky, Stats } from "@react-three/drei";
 import Moon from '../Moon/Moon';
 import Building from '../Building/Building';
 import Ground from '../Ground/Ground';
@@ -18,7 +18,7 @@ import FullScreen from '../../../drei-espinaco/Fullscreen';
 
 const App = () => {
   const [night, setNight] = useState(true)
-  const [performance, setPerformance] = useState(true)
+  const [performance, setPerformance] = useState(false)
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -75,13 +75,13 @@ const App = () => {
         <Physics gravity={[0, -30, 0]}>
           <Suspense fallback={null}>
             <Ground /> 
-            <Building />            
+            {/* <Building />            
             <Art />  
-            <Furniture />               
+            <Furniture />                */}
           </Suspense>      
           <Player />       
         </Physics>
-        {/* <Stats  showPanel={0} /> */}
+        <Stats  showPanel={0} />
       </Canvas>
       <Joystick />
       <FullScreen />
