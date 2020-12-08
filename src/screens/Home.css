@@ -7,14 +7,14 @@
 }
 
 .elane {
-  background-image: url("/assets/img/home/elane.png");
+  background-image: url("/assets/img/home/elane_.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .shake070 {
-  background-image: url("/assets/img/home/070shake.png");
+  background-image: url("/assets/img/home/070shake_.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
