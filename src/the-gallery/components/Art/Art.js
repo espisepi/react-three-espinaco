@@ -1,5 +1,6 @@
 import React from 'react';
 import Picture from '../Picture/Picture';
+import PictureLow from '../Picture/PictureLow';
 import Display from '../Display/Display';
 
 const Art = () => {
@@ -7,28 +8,28 @@ const Art = () => {
     return (
         <>
         {/* liam portrait */}
-        <Picture 
-            url={"assets/3D/Portrait/scene.gltf"}
-            scale={[4, 4, 4]}
+        <PictureLow 
+            url={"assets/3D/Portrait/textures/initialShadingGroup_baseColor.jpg"}
+            scale={[6, 6, 6]}
             position={[19.3, 7, 0]}            
-            rotation={[0, -Math.PI, 0]}
+            rotation={[0, -Math.PI / 2, 0]}
             metalness={0.9}
             roughness={0.9}
         />
         <Display position={[20, 5, 0]} size={[1, 18, 11]} />
            
         {/* creation of adam */}
-        <Picture 
+        {/* <Picture 
             url={"assets/3D/Hands/scene.gltf"}
             scale={[0.1, 0.1, 0.1]}
             position={[34.7, 12, 12]}            
             rotation={[0, -Math.PI / 2, Math.PI]}
             metalness={0}
             roughness={0.9}
-        />
+        /> */}
 
         {/* wedding */}
-        <Picture 
+        {/* <Picture 
             url={"assets/3D/Wedding/scene.gltf"}
             scale={[2.5, 2.5, 2.5]}
             position={[19.3, 7, 25]}            
@@ -36,10 +37,10 @@ const Art = () => {
             metalness={0.0}
             roughness={0.3}
         />
-         <Display position={[20, 5, 25]} size={[1, 18, 11]} />
+         <Display position={[20, 5, 25]} size={[1, 18, 11]} /> */}
 
         {/* wilson portrait */}
-         <Picture 
+         {/* <Picture 
             url={"assets/3D/Wilson/scene.gltf"}
             scale={[2.5, 2.5, 2.5 ]}
             position={[-19.3, 7, 0]}            
@@ -47,10 +48,10 @@ const Art = () => {
             metalness={0}
             roughness={0.3}
         />
-         <Display position={[-20, 5, 0]} size={[1, 18, 11]} />
+         <Display position={[-20, 5, 0]} size={[1, 18, 11]} /> */}
 
         {/* old man portrait */}
-        <Picture 
+        {/* <Picture 
             url={"assets/3D/OldMan/scene.gltf"}
             scale={[4, 4, 4]}
             position={[-19.4, 7, 25]}            
@@ -58,17 +59,17 @@ const Art = () => {
             metalness={0.9}
             roughness={0.9}
         />
-         <Display position={[-20, 5, 25]} size={[1, 18, 11]} />
+         <Display position={[-20, 5, 25]} size={[1, 18, 11]} /> */}
 
          {/* girl portrait */}
-         <Picture 
+         {/* <Picture 
             url={"assets/3D/Girl/scene.gltf"}
             scale={[6.5, 6.5, 6.5]}
             position={[-34.6, 10, 12]}            
             rotation={[-Math.PI / 2, 0, 0]}
             metalness={0.7}
             roughness={0.8}
-        />
+        /> */}
          
     </>
 
