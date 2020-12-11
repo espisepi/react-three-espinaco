@@ -76,7 +76,7 @@ const App = () => {
           <Suspense fallback={null}>
             <Ground /> 
             <Building />            
-            {/* <Art />   */}
+            <Art />  
             {/* <Furniture />                */}
           </Suspense>      
           <Player />       
