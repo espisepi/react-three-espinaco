@@ -33,7 +33,7 @@ const Ground = () => {
 
     return (
         <>
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, 22]} >
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, 22]} visible={false} >
                 <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
                 <meshLambertMaterial attach="material">
                     <primitive attach="map" object={grassMap} />

@@ -15,13 +15,13 @@ const Building = () => {
             />
 
             {/* side windows */}
-            <WindowFrame 
+            {/* <WindowFrame 
                 scale={[0.008, 0.008, 0.008]}
                 position={[6.5, 8.5, -15]}
                 rotation={[0, Math.PI ,0]}
                 modelUrl={"assets/3D/WindowNoGlassL/scene.gltf"}
                 mapUrl={"assets/3D/WindowNoGlassL/Textures/Material_49_baseColor.png"}
-            />
+            /> */}
             <WindowFrame 
                 scale={[0.008, 0.008, 0.008]}
                 position={[-6.5, 8.5, -15]}
