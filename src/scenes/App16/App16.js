@@ -4,7 +4,9 @@ import { Canvas, useLoader, useFrame } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { draco, OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
+import Stars from '../../drei-espinaco/Stars';
 import InstancedMesh from '../../drei-espinaco/InstancedMesh';
+import WindowFrame from '../../the-gallery/components/WindowFrame/WindowFrame';
 
 export function Scene() {
 
@@ -38,9 +40,19 @@ export function Scene() {
         {position: [10, 0, 0], scale: scale, rotation: rotation}
       ];
 
+    const windowFrameObjectsAutomatic = [];
+    for(let i = 0; i< 10; i++){
+        const object = {
+            position: [Math.random()*5,Math.random()*5,Math.random()*5],
+            scale: [0.008, 0.008, 0.008]
+        }
+        windowFrameObjectsAutomatic.push(object);
+    }
+
     return(
         <>
-        <InstancedMesh geometry={geometry} material={material} objects={windowFrameObjects} />
+        <Stars />
+        <InstancedMesh geometry={geometry} material={material} objects={windowFrameObjectsAutomatic} />
         <ambientLight />
         <pointLight />
         <OrbitControls />
