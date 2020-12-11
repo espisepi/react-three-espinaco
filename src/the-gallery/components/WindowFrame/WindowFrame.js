@@ -18,12 +18,11 @@ const WindowFrame = ({
     const map = useMemo(() => new THREE.TextureLoader().load(mapUrl), [mapUrl]);
     map.flipY=false;
 
-    let geometry;
-    let material;
-    scene.traverse( function ( child ) {
+    const { geometry, material } = useMemo(() => {
+      let geometry;
+      let material;
+      scene.traverse( function ( child ) {
         if ( child.isMesh ) {
-            geometry = child.geometry;
-            material = child.material;
             child.material = new THREE.MeshStandardMaterial();
             // child.castShadow = true;
             // child.receiveShadow = true;
@@ -32,52 +31,42 @@ const WindowFrame = ({
             // child.material.clearcoatRoughness = 0.6;
             child.material.roughness = 0.9;
             child.material.map = map;
+            geometry = child.geometry;
+            material = child.material;
         }
-    })
+      });
+      return { geometry, material };
+    },[scene]);
+    
 
-    // scene === mesh
     const tempObject = new THREE.Object3D()
-    const tempColor = new THREE.Color()
-    const colors = new Array(1000).fill()
-    const [hovered, set] = useState()
-    const colorArray = useMemo(() => Float32Array.from(new Array(1000).fill().flatMap((_, i) => tempColor.set(colors[i]).toArray())), [])
-  
     const ref = useRef()
-    const previous = useRef()
-    useEffect(() => void (previous.current = hovered), [hovered])
+
+    const windowFrameObjects = [
+      {position: [27, 0, 0], scale: scale, rotation: rotation},
+      {position: [5, 0, 0], scale: scale, rotation: rotation},
+      {position: [10, 0, 0], scale: scale, rotation: rotation}
+    ];
+
+    useEffect(()=>{
+      windowFrameObjects.map((object, id) => {
+        if(object.position){
+          tempObject.position.set(...object.position);    
+        }
+        if(object.scale){
+          tempObject.scale.set(...object.scale);
+        }
+        if(object.rotation){
+          tempObject.rotation.set(...object.rotation);
+        }
+        tempObject.updateMatrix();
+        ref.current.setMatrixAt(id, tempObject.matrix);
+      });
+      ref.current.instanceMatrix.needsUpdate = true;
+    },[ref]);
   
-    useFrame(state => {
-      const time = state.clock.getElapsedTime()
-    //   ref.current.rotation.x = Math.sin(time / 4)
-    //   ref.current.rotation.y = Math.sin(time / 2)
-      let i = 0
-    //   for (let x = 0; x < 10; x++)
-    //     for (let y = 0; y < 10; y++)
-    //       for (let z = 0; z < 10; z++) {
-            const id = i++
-    //         tempObject.position.set(5, 5, 5);
-            // tempObject.position.set(5 - x, 5 - y, 5 - z)
-            // tempObject.rotation.y = Math.sin(x / 4 + time) + Math.sin(y / 4 + time) + Math.sin(z / 4 + time)
-            // tempObject.rotation.z = tempObject.rotation.y * 2
-            // if (hovered !== previous.current) {
-            //   tempColor.set(id === hovered ? 'white' : colors[id]).toArray(colorArray, id * 3)
-            //   ref.current.geometry.attributes.color.needsUpdate = true
-            // }
-            // const scale = id === hovered ? 2 : 1
-            // tempObject.scale.set(scale, scale, scale)
-            tempObject.updateMatrix()
-            ref.current.setMatrixAt(0, tempObject.matrix)
-    //       }
-      ref.current.instanceMatrix.needsUpdate = true
-    })
-  console.log(geometry)
-  console.log(material)
     return (
-      <instancedMesh ref={ref} args={[geometry, material, 2]}>
-        {/* <boxBufferGeometry attach="geometry" args={[0.7, 0.7, 0.7]}>
-          <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
-        </boxBufferGeometry>
-        <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors} /> */}
+      <instancedMesh ref={ref} args={[geometry, material, windowFrameObjects.length]} >
       </instancedMesh>
         // <primitive 
         //     scale={scale}
