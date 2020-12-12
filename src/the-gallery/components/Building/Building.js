@@ -4,6 +4,20 @@ import WindowFrame from '../WindowFrame/WindowFrame';
 import Glass from '../Glass/Glass';
 
 const Building = () => {
+
+    const windowFrameObjects = [
+        {
+            position: [6.5, 8.5, -15],
+            rotation: [-Math.PI/2, 0 ,0],
+            scale: [0.008, 0.008, 0.008]
+        },
+        {
+            position: [-6.5, 8.5, -15],
+            rotation: [0, Math.PI ,0],
+            scale: [0.008, 0.008, 0.008]
+        }
+
+    ]
   
     return (
         <>
@@ -21,14 +35,15 @@ const Building = () => {
                 rotation={[0, Math.PI ,0]}
                 modelUrl={"assets/3D/WindowNoGlassL/scene.gltf"}
                 mapUrl={"assets/3D/WindowNoGlassL/Textures/Material_49_baseColor.png"}
+                objects={windowFrameObjects}
             />
-            <WindowFrame 
+            {/* <WindowFrame 
                 scale={[0.008, 0.008, 0.008]}
                 position={[-6.5, 8.5, -15]}
                 rotation={[0, Math.PI ,0]}
                 modelUrl={"assets/3D/WindowNoGlassR/scene.gltf"}
                 mapUrl={"assets/3D/WindowNoGlassR/Textures/Material_49_baseColor.png"}
-            />
+            /> */}
             <Glass            
                 scale={[0.008, 0.008, 0.008]}
                 position={[6.5, 8.5, -15]}
