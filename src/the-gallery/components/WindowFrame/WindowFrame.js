@@ -43,11 +43,7 @@ const WindowFrame = ({
         return res;
     },[scene, objects])
 
-    console.log(meshes)
-    console.log(objects)
-
     if(meshes && objects){
-        console.log(BufferGeometryUtils)
         const geometry = BufferGeometryUtils.mergeBufferGeometries([meshes[0].geometry, meshes[1].geometry], false)
         return (
         <>

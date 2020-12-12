@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Picture from '../Picture/Picture';
 import PictureLow from '../Picture/PictureLow';
 import Display from '../Display/Display';
 
 const Art = () => {
+    
+    const displayObjects = useMemo(()=>{
+        return [
+            {
+                position: [20, 5, 0],
+                scale: [1, 18, 11]
+            },
+            {
+                position: [20, 5, 25],
+                scale: [1, 18, 11]
+            },
+            {
+                position: [-20, 5, 0],
+                scale: [1, 18, 11]
+            },
+            {
+                position: [-20, 5, 25],
+                scale: [1, 18, 11]
+            }
+        ];
+    });
+
   
     return (
         <>
@@ -16,7 +38,7 @@ const Art = () => {
             metalness={0.9}
             roughness={0.9}
         />
-        <Display position={[20, 5, 0]} size={[1, 18, 11]} />
+        <Display position={[20, 5, 0]} size={[1, 18, 11]} objects={displayObjects} />
            
         {/* creation of adam */}
         {/* <Picture 
@@ -36,8 +58,8 @@ const Art = () => {
             rotation={[Math.PI / 2, Math.PI, 0]}
             metalness={0.0}
             roughness={0.3}
-        />
-         <Display position={[20, 5, 25]} size={[1, 18, 11]} /> */}
+        /> */}
+         {/* <Display position={[20, 5, 25]} size={[1, 18, 11]} /> */}
 
         {/* wilson portrait */}
          {/* <Picture 
@@ -47,8 +69,8 @@ const Art = () => {
             rotation={[-Math.PI / 2, 0, 0]}
             metalness={0}
             roughness={0.3}
-        />
-         <Display position={[-20, 5, 0]} size={[1, 18, 11]} /> */}
+        /> */}
+         {/* <Display position={[-20, 5, 0]} size={[1, 18, 11]} /> */}
 
         {/* old man portrait */}
         {/* <Picture 
@@ -58,8 +80,8 @@ const Art = () => {
             rotation={[0, 0, 0]}
             metalness={0.9}
             roughness={0.9}
-        />
-         <Display position={[-20, 5, 25]} size={[1, 18, 11]} /> */}
+        /> */}
+         {/* <Display position={[-20, 5, 25]} size={[1, 18, 11]} /> */}
 
          {/* girl portrait */}
          {/* <Picture 

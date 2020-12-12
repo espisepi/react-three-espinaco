@@ -10,14 +10,12 @@ const InstancedMesh = ({
     objects
 
 }) => {
-    
-    
-
+  
     const tempObject = new THREE.Object3D()
     const ref = useRef()
 
     useEffect(()=>{
-      objects.map((object, id) => {
+      objects.forEach((object, id) => {
         if(object.position){
           tempObject.position.set(...object.position);    
         }
@@ -36,13 +34,6 @@ const InstancedMesh = ({
     return (
       <instancedMesh ref={ref} args={[geometry, material, objects.length]} >
       </instancedMesh>
-        // <primitive 
-        //     scale={scale}
-        //     position={position}
-        //     rotation={rotation}
-        //     object={scene}
-        //     dispose={null}
-        // /> 
     )
   }
 
