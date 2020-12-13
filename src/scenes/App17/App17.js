@@ -1,12 +1,11 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import * as THREE from 'three';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls } from 'drei';
+import { OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 import InstancedMesh from '../../drei-espinaco/InstancedMesh';
 
 export function Map({args=[]}) {
-    
     const instancedMeshes = useMemo(()=>{
         const res = [];
         args.forEach( (mesh) => {
@@ -38,11 +37,14 @@ export function randomMapCreation(){
 
     /** ------- Add first meshed to map array -------- */
     meshedTemp.geometry = new THREE.BoxBufferGeometry(1,1,1);
-    meshedTemp.material = new THREE.MeshPhysicalMaterial({color:'red'});
-    for(let i=0; i < 5; i++){
-        objectTemp.position = [Math.random()*5,Math.random()*5,Math.random()*5];
-        meshedTemp.objects.push(objectTemp);
+    meshedTemp.material = new THREE.MeshPhysicalMaterial({color:'red', clearcoat:0.9});
+    for(let i=0; i < 50; i++){
+        const object = Object.assign({},objectTemp);
+        object.position = [Math.random()*5,Math.random()*5,Math.random()*5];
+        meshedTemp.objects.push(object);
     }
+    map.push(meshedTemp);
+
     return map;
 }
 
@@ -62,20 +64,21 @@ const mapSimple = [
                 scale: [1,1,1]
             }
         ]
-
     },
+
 ]
 
 export function Scene() {
 
     const [map, setMap] = useState([]);
     useEffect(()=>{
-        setMap(mapSimple);
+        setMap(randomMapCreation());
     },[mapSimple]);
 
     return(
         <>
-        <ambientLight />
+        {/* <ambientLight /> */}
+        <pointLight />
         <Loading />
         <Map args={map} />
         <OrbitControls />
@@ -87,6 +90,7 @@ export default function App17(props) {
 
     return (
     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+        <Stats />
         <Scene />
     </Canvas>
     );
