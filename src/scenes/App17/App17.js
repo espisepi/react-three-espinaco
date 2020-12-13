@@ -1,9 +1,16 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState, Suspense} from 'react';
 import * as THREE from 'three';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 import InstancedMesh from '../../drei-espinaco/InstancedMesh';
+
+
+import { Physics } from 'use-cannon';
+import Ground from '../../the-gallery/components/Ground/Ground';
+import Player from '../../the-gallery/components/Player/Player';
+import Joystick from '../../drei-espinaco/Joystick';
+import FullScreen from '../../drei-espinaco/Fullscreen';
 
 export function Map({args=[]}) {
     const instancedMeshes = useMemo(()=>{
@@ -38,9 +45,9 @@ export function randomMapCreation(){
     /** ------- Add first meshed to map array -------- */
     meshedTemp.geometry = new THREE.BoxBufferGeometry(1,1,1);
     meshedTemp.material = new THREE.MeshPhysicalMaterial({color:'red', clearcoat:0.9});
-    for(let i=0; i < 50; i++){
+    for(let i=0; i < 50000; i++){
         const object = Object.assign({},objectTemp);
-        object.position = [Math.random()*5,Math.random()*5,Math.random()*5];
+        object.position = [Math.random()*50,Math.random()*50,Math.random()*50];
         meshedTemp.objects.push(object);
     }
     map.push(meshedTemp);
@@ -77,11 +84,15 @@ export function Scene() {
 
     return(
         <>
-        {/* <ambientLight /> */}
-        <pointLight />
-        <Loading />
+        <pointLight args={[0xff0000, 10, 100]} />
         <Map args={map} />
-        <OrbitControls />
+        {/* <OrbitControls /> */}
+        <Physics gravity={[0, -30, 0]}>
+          <Suspense fallback={null}>
+            <Ground /> 
+          </Suspense>      
+          <Player />       
+        </Physics>
         </>
     );
 }
@@ -89,10 +100,13 @@ export function Scene() {
 export default function App17(props) {
 
     return (
-    <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+    <>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Stats />
         <Scene />
     </Canvas>
+    <Joystick />
+    </>
     );
 }
 
