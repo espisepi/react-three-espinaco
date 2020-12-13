@@ -6,9 +6,9 @@ import { Ground } from '../components/Ground';
 import { Player } from '../components/Player';
 import { Cube } from '../components/Cube';
 
-import useCreatorMap from '../drei-espinaco/map-creator/useCreatorMap';
-import simpleReducer from '../drei-espinaco/map-creator/simpleReducer';
-import {mapa as mapa} from '../drei-espinaco/map-creator/mapas';
+import useCreatorMap from '../drei-espinaco/map-creator-old/useCreatorMap';
+import simpleReducer from '../drei-espinaco/map-creator-old/simpleReducer';
+import {mapa as mapa} from '../drei-espinaco/map-creator-old/mapas';
 
 import { VideoPoints, AudioComponents } from '../drei-espinaco/VideoPoints';
 import  Ocean  from '../drei-espinaco/Ocean';
