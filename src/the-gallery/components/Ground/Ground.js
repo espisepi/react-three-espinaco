@@ -33,12 +33,12 @@ const Ground = () => {
 
     return (
         <>
-            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, 22]} visible={true} >
+            {/* <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, 22]} visible={true} >
                 <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
                 <meshLambertMaterial attach="material">
                     <primitive attach="map" object={grassMap} />
                 </meshLambertMaterial>
-            </mesh>
+            </mesh> */}
             
             {/* <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 22]} >
                 <Reflector>
@@ -48,7 +48,8 @@ const Ground = () => {
 
             <mesh ref={ref} receiveShadow>
                 <planeBufferGeometry attach="geometry" args={[70, 75]} />
-                <meshStandardMaterial 
+                <meshBasicMaterial attach="material" color='red' visible={false} />
+                {/* <meshStandardMaterial 
                     attach="material"
                     reflectivity={0}
                     transparent
@@ -58,7 +59,7 @@ const Ground = () => {
                     <primitive attach="map" object={marbleMap} />
                     <primitive attach="alphaMap" object={marbleAlphaMap} />
                     <primitive attach="normalMap" object={marbleNormalMap} />
-                </meshStandardMaterial>
+                </meshStandardMaterial> */}
             </mesh>
         </>
     );

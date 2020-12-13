@@ -7,7 +7,7 @@ import Loading from '../../components/Loading';
 import Map from '../../drei-espinaco/Map';
 import randomMapCreation from '../../drei-espinaco/map-creator/maps/randomMapCreation';
 import mapSimple from '../../drei-espinaco/map-creator/maps/mapSimple';
-import mapGallery from '../../drei-espinaco/map-creator/maps/mapGallery';
+import useMapGallery from '../../drei-espinaco/map-creator/maps/useMapGallery';
 
 import { Physics } from 'use-cannon';
 import Ground from '../../the-gallery/components/Ground/Ground';
@@ -18,13 +18,15 @@ import FullScreen from '../../drei-espinaco/Fullscreen';
 
 export function Scene() {
 
-    const [map, setMap] = useState([]);
-    useEffect(()=>{
-        setMap(mapGallery());
-    },[mapSimple]);
+    // const [map, setMap] = useState([]);
+    const map = useMapGallery();
+    // useEffect(()=>{
+    //     setMap(mapGallery());
+    // },[mapSimple]);
 
     return(
         <>
+        <ambientLight />
         <pointLight args={[0xff0000, 10, 100]} />
         <Map args={map} />
         {/* <OrbitControls /> */}

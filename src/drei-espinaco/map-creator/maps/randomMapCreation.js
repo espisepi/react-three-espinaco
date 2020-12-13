@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 export default function randomMapCreation(){
+    /** -------- Common Attributes ---------- */
     const map = [];
     const meshedTemp = {
         geometry: new THREE.BoxBufferGeometry(1,1,1),
