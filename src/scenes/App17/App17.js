@@ -23,28 +23,55 @@ export function Map({args=[]}) {
     return instancedMeshes;
 }
 
+export function randomMapCreation(){
+    const map = [];
+    const meshedTemp = {
+        geometry: new THREE.BoxBufferGeometry(1,1,1),
+        material: new THREE.MeshBasicMaterial({color:'red'}),
+        objects: []
+    }
+    const objectTemp = {
+        position: [0,0,0],
+        rotation: [0,0,0],
+        scale: [1,1,1]
+    }
+
+    /** ------- Add first meshed to map array -------- */
+    meshedTemp.geometry = new THREE.BoxBufferGeometry(1,1,1);
+    meshedTemp.material = new THREE.MeshPhysicalMaterial({color:'red'});
+    for(let i=0; i < 5; i++){
+        objectTemp.position = [Math.random()*5,Math.random()*5,Math.random()*5];
+        meshedTemp.objects.push(objectTemp);
+    }
+    return map;
+}
+
+const mapSimple = [
+    {
+        geometry: new THREE.BoxBufferGeometry(1,1,1),
+        material: new THREE.MeshStandardMaterial({color:'red'}),
+        objects: [
+            {
+                position: [0,0,5],
+                rotation: [0,0,0],
+                scale: [1,1,1]
+            },
+            {
+                position: [0,0,-5],
+                rotation: [0,0,0],
+                scale: [1,1,1]
+            }
+        ]
+
+    },
+]
+
 export function Scene() {
 
-    const map = useMemo(()=>([
-        {
-            geometry: new THREE.BoxBufferGeometry(1,1,1),
-            material: new THREE.MeshStandardMaterial({color:'red'}),
-            objects: [
-                {
-                    position: [0,0,5],
-                    rotation: [0,0,0],
-                    scale: [1,1,1]
-                },
-                {
-                    position: [0,0,-5],
-                    rotation: [0,0,0],
-                    scale: [1,1,1]
-                }
-            ]
-
-        },
-
-    ]), []);
+    const [map, setMap] = useState([]);
+    useEffect(()=>{
+        setMap(mapSimple);
+    },[mapSimple]);
 
     return(
         <>
@@ -67,30 +94,42 @@ export default function App17(props) {
 
 
 
-/** ----- Getting Started ----- */
-/*
+/** 
+   ----- Getting Started -----
 
-const map = useMemo(()=>([
-        {
-            geometry: new THREE.BoxBufferGeometry(1,1,1),
-            material: new THREE.MeshStandardMaterial({color:'red'}),
-            objects: [
-                {
-                    position: [0,0,5],
-                    rotation: [0,0,0],
-                    scale: [1,1,1]
-                },
-                {
-                    position: [0,0,-5],
-                    rotation: [0,0,0],
-                    scale: [1,1,1]
-                }
-            ]
+const mapSimple = [
+    {
+        geometry: new THREE.BoxBufferGeometry(1,1,1),
+        material: new THREE.MeshStandardMaterial({color:'red'}),
+        objects: [
+            {
+                position: [0,0,5],
+                rotation: [0,0,0],
+                scale: [1,1,1]
+            },
+            {
+                position: [0,0,-5],
+                rotation: [0,0,0],
+                scale: [1,1,1]
+            }
+        ]
 
-        },
+    },
+]
 
-    ]), []);
+export function Scene() {
 
-return <Map args={map} />;
+    const [map, setMap] = useState([]);
+    useEffect(()=>{
+        setMap(mapSimple);
+    },[mapSimple]);
+
+    return(
+        <>
+        <ambientLight />
+        <Map args={map} />
+        </>
+    );
+}
 
 */
