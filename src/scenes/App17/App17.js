@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 import Map from '../../drei-espinaco/Map';
 import randomMapCreation from '../../drei-espinaco/map-creator/maps/randomMapCreation';
 import mapSimple from '../../drei-espinaco/map-creator/maps/mapSimple';
+import mapGallery from '../../drei-espinaco/map-creator/maps/mapGallery';
 
 import { Physics } from 'use-cannon';
 import Ground from '../../the-gallery/components/Ground/Ground';
@@ -19,7 +20,7 @@ export function Scene() {
 
     const [map, setMap] = useState([]);
     useEffect(()=>{
-        setMap(mapSimple);
+        setMap(mapGallery());
     },[mapSimple]);
 
     return(
