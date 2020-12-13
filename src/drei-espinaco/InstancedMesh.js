@@ -10,7 +10,6 @@ const InstancedMesh = ({
     objects
 
 }) => {
-  
     const tempObject = new THREE.Object3D()
     const ref = useRef()
 
