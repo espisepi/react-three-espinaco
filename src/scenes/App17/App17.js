@@ -27,7 +27,7 @@ export function Scene() {
     return(
         <>
         <ambientLight />
-        <pointLight args={[0xff0000, 10, 100]} />
+        <pointLight args={[0xffffff, 2, 100]} />
         <Map args={map} />
         {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
