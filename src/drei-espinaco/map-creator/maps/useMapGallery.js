@@ -90,9 +90,9 @@ export default function useMapGallery(){
     marbleMap.wrapT = THREE.MirroredRepeatWrapping;
     // marbleMap.repeat.set(size, size);
 
-    const marbleAlphaMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/castle_brick/castle_brick_02_red_ao_1k.jpg"), []);
-    marbleAlphaMap.wrapS = THREE.MirroredRepeatWrapping;
-    marbleAlphaMap.wrapT = THREE.MirroredRepeatWrapping;
+    const marbleAoMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/castle_brick/castle_brick_02_red_ao_1k.jpg"), []);
+    marbleAoMap.wrapS = THREE.MirroredRepeatWrapping;
+    marbleAoMap.wrapT = THREE.MirroredRepeatWrapping;
     // marbleAlphaMap.repeat.set(size, size);
 
     const marbleNormalMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/castle_brick/castle_brick_02_red_nor_1k.jpg"), []);
@@ -118,21 +118,41 @@ export default function useMapGallery(){
     // }
 
     imeshTemp = {
-        geometry: new THREE.PlaneBufferGeometry(1,1,1,1),
+        geometry: new THREE.PlaneBufferGeometry(1,1,100,100),
         material: new THREE.MeshStandardMaterial({
                                                   map:marbleMap,
-                                                  alphaMap: marbleAlphaMap,
+                                                  alphaMap: marbleAoMap,
+                                                //   aoMap: marbleAoMap,
                                                   normalMap: marbleNormalMap,
-                                                //   bumpMap: marbleDisplacementMap,
-                                                //   bumpScale: 52,
+                                                  bumpMap: marbleDisplacementMap,
+                                                  bumpScale: 52,
                                                   displacementMap: marbleDisplacementMap,
-                                                  displacementScale: 3,
-                                                  displacementBias: -0.428,
+                                                  displacementScale: 0.05,
+                                                  displacementBias: -0.01,
                                                   roughnessMap: marbleRoughnessMap,
                                                   side: THREE.DoubleSide}),
         objects: [
             {
                 position: [0,0,0],
+                rotation: [Math.PI / 2, 0, 0],
+                scale: [ 100, 100, 100]
+            },
+            {
+                position: [0,0,100],
+                rotation: [Math.PI / 2, 0, 0],
+                scale: [ 100, 100, 100]
+            },
+            {
+                position: [100,0,0],
+                rotation: [Math.PI / 2, 0, 0],
+                scale: [ 100, 100, 100]
+            },{
+                position: [0,0,-100],
+                rotation: [Math.PI / 2, 0, 0],
+                scale: [ 100, 100, 100]
+            },
+            {
+                position: [-100,0,0],
                 rotation: [Math.PI / 2, 0, 0],
                 scale: [ 100, 100, 100]
             },
