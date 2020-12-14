@@ -19,14 +19,8 @@ function CreatePhysicBox({object, visible = false}) {
 
 export default function MapPhysics({args=[], visible}) {
 
-    const physicMeshes = useMemo(()=>[], [args]);
-
-    // I do this on this way to can use hooks inside forEarch loop
-    // only execute when args is changed
-    const firstTime = useMemo(()=>[], [args]);
-    if(firstTime.length === 0) {
-        firstTime.push(1);
-
+    const physicMeshes = useMemo(()=>{
+        const physicMeshes = [];
         args.forEach( (physic) => {
             if(physic.type === 'plane'){
                 physic.objects.forEach((object) => {
@@ -43,7 +37,8 @@ export default function MapPhysics({args=[], visible}) {
             }
         } );
 
-    }
+        return physicMeshes;
+    }, [args]);
     
-    return physicMeshes;
+    return physicMeshes ? physicMeshes : null;
 }
