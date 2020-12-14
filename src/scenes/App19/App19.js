@@ -5,12 +5,8 @@ import { OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import Map from '../../drei-espinaco/Map';
-import randomMapCreation from '../../drei-espinaco/map-creator/maps/randomMapCreation';
-import mapSimple from '../../drei-espinaco/map-creator/maps/mapSimple';
-import useMapGallery from '../../drei-espinaco/map-creator/maps/useMapGallery';
-
 import MapPhysics from '../../drei-espinaco/map-creator/physics/MapPhysics';
-import simpleMapPhysics from '../../drei-espinaco/map-creator/physics/maps/simpleMapPhysics';
+import useFullmapGallery from '../../drei-espinaco/map-creator/fullmaps/useFullmapGallery';
 
 import { Physics } from 'use-cannon';
 import Ground from '../../the-gallery/components/Ground/Ground';
@@ -23,12 +19,14 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 
 export function Scene() {
 
-    const map = useMapGallery();
+    // const map = useMapGallery();
 
-    const [mapPhysics, setMapPhysics] = useState([]);
-    useEffect(()=>{
-      setMapPhysics(simpleMapPhysics);
-    },[simpleMapPhysics]);
+    // const [mapPhysics, setMapPhysics] = useState([]);
+    // useEffect(()=>{
+    //   setMapPhysics(simpleMapPhysics);
+    // },[simpleMapPhysics]);
+
+    const {map, mapPhysics} = useFullmapGallery();
 
     return(
         <>
@@ -37,7 +35,7 @@ export function Scene() {
         <Map args={map} />
         {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
-          <MapPhysics args={simpleMapPhysics} visible={true} />
+          <MapPhysics args={mapPhysics} visible={true} />
           <Suspense fallback={null}>
             <Ground /> 
           </Suspense>  
