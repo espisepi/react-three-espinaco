@@ -9,6 +9,9 @@ import randomMapCreation from '../../drei-espinaco/map-creator/maps/randomMapCre
 import mapSimple from '../../drei-espinaco/map-creator/maps/mapSimple';
 import useMapGallery from '../../drei-espinaco/map-creator/maps/useMapGallery';
 
+import MapPhysics from '../../drei-espinaco/map-creator/physics/MapPhysics';
+import simpleMapPhysics from '../../drei-espinaco/map-creator/physics/maps/simpleMapPhysics';
+
 import { Physics } from 'use-cannon';
 import Ground from '../../the-gallery/components/Ground/Ground';
 import Player from '../../the-gallery/components/Player/Player';
@@ -24,6 +27,11 @@ export function Scene() {
     //     setMap(mapGallery());
     // },[mapSimple]);
 
+    const [mapPhysics, setMapPhysics] = useState([]);
+    useEffect(()=>{
+      setMapPhysics(simpleMapPhysics);
+    },[simpleMapPhysics]);
+
     return(
         <>
         <ambientLight intensity={0.1} />
@@ -31,6 +39,7 @@ export function Scene() {
         <Map args={map} />
         {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
+          <MapPhysics args={simpleMapPhysics} />
           <Suspense fallback={null}>
             <Ground /> 
           </Suspense>      
