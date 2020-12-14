@@ -39,7 +39,7 @@ export function Scene() {
         <Map args={map} />
         {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
-          <MapPhysics args={simpleMapPhysics} />
+          <MapPhysics args={simpleMapPhysics} visible={true} />
           <Suspense fallback={null}>
             <Ground /> 
           </Suspense>      
