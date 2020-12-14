@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 export default function Dev() {
     return (
-        <div style={{display:'flex', flexFlow:'row nowrap'}}>
+        <div style={{display:'flex', flexFlow:'row wrap'}}>
             <div style={{width:'200px', height:'200px'}}>
                 <Link to="/app0">app0</Link>
             </div>
@@ -57,6 +57,9 @@ export default function Dev() {
             </div>
             <div style={{width:'200px', height:'200px'}}>
                 <Link to="/app17">app17</Link>
+            </div>
+            <div style={{width:'200px', height:'200px'}}>
+                <Link to="/app18">app18</Link>
             </div>
             <div style={{width:'200px', height:'200px'}}>
                 <Link to="/dirty">dirty</Link>
