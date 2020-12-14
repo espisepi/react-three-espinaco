@@ -18,6 +18,8 @@ import Player from '../../the-gallery/components/Player/Player';
 import Joystick from '../../drei-espinaco/Joystick';
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
+import Vehicle from './Vehicle';
+
 
 export function Scene() {
 
@@ -36,14 +38,15 @@ export function Scene() {
         <>
         <ambientLight intensity={0.1} />
         <pointLight args={[0xffffff, 1, 100]} />
-        <Map args={map} />
+        {/* <Map args={map} /> */}
         {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
           <MapPhysics args={simpleMapPhysics} visible={true} />
           <Suspense fallback={null}>
             <Ground /> 
-          </Suspense>      
-          <Player />       
+          </Suspense>  
+          <Vehicle position={[0, 10, 0]} rotation={[0, 0, Math.PI]} />    
+          {/* <Player />        */}
         </Physics>
         </>
     );
