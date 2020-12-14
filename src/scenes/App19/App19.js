@@ -18,6 +18,7 @@ import Player from '../../the-gallery/components/Player/Player';
 import Joystick from '../../drei-espinaco/Joystick';
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
+import Vehicle from '../../drei-espinaco/Vehicle';
 
 
 export function Scene() {
@@ -46,7 +47,7 @@ export function Scene() {
     );
 }
 
-export default function App17(props) {
+export default function App19(props) {
 
     return (
     <>
