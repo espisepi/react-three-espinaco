@@ -1,17 +1,17 @@
 import React, {useMemo} from 'react';
 import { usePlane, useBox } from "use-cannon";
 
-function CreatePhysic({object}) {
+function CreatePhysicBox({object}) {
     console.log(object)
     const [ref] = useBox(() => ({ 
                         position: object.position,
                         rotation: object.rotation,
-                        args: [object.args[0],object.args[1],0.1]
+                        args: object.args
                     }));
 
     return (
         <mesh ref={ref}>
-            <boxBufferGeometry args={[object.args[0],object.args[1],0.1]} />
+            <boxBufferGeometry args={object.args} />
             <meshBasicMaterial color='green' wireframe={true} />
         </mesh>
     );
@@ -31,17 +31,20 @@ export default function MapPhysics({args=[]}) {
         args.forEach( (physic) => {
             if(physic.type === 'plane'){
                 physic.objects.forEach((object) => {
-                    const physicMesh = <CreatePhysic object={object} />;
+                    object.args.push(0.1); // args = [x,y,0.1] box mesh
+                    const physicMesh = <CreatePhysicBox object={object} />;
                     physicMeshes.push(physicMesh);
                 });
             }
             if(physic.type === 'box'){
-
+                physic.objects.forEach((object) => {
+                    const physicMesh = <CreatePhysicBox object={object} />;
+                    physicMeshes.push(physicMesh);
+                });
             }
         } );
 
     }
     
-    console.log(physicMeshes);
     return physicMeshes;
 }
