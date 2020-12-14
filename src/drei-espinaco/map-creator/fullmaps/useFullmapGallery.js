@@ -1,9 +1,15 @@
 import React, {useMemo} from 'react';
 import * as THREE from 'three';
+import { useLoader } from 'react-three-fiber';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { draco } from 'drei';
 
 export default function useFullmapGallery() {
 
     /** ------------ Load Resources ------------- */
+    const [wallMap, wallNormalMap] = useLoader(THREE.TextureLoader,['assets/3D/Wall/Textures/White_Wall.jpg','assets/3D/Wall/Textures/White_Wall_NORMAL.jpg']);
+    const { scene: wallScene  } = useLoader(GLTFLoader, 'assets/3D/Wall/scene.gltf', draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
+    console.log(wallScene)
 
 
     /** ------------ Create Scenario ------------- */
@@ -11,6 +17,7 @@ export default function useFullmapGallery() {
         const map = [];
         const mapPhysics = [];
 
+        /** Hello World */
         const imesh0 = {
             geometry: new THREE.BoxBufferGeometry(1,1,1),
             material: new THREE.MeshBasicMaterial({color:'red'}),
@@ -34,7 +41,21 @@ export default function useFullmapGallery() {
         }
         map.push(imesh0);
         mapPhysics.push(physicMesh0);
-        
+
+        /** Wall */
+        const imeshWall = {
+            geometry: wallScene.children[0].geometry,
+            material:  wallScene.children[0].material,
+            objects:[
+                {
+                    position: [0,0,0],
+                    rotation: [0,0,0],
+                    scale: [1,1,1]
+                }
+            ]
+        }
+        map.push(imeshWall);
+
 
         return {
             map:map,

@@ -19,26 +19,18 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 
 export function Scene() {
 
-    // const map = useMapGallery();
-
-    // const [mapPhysics, setMapPhysics] = useState([]);
-    // useEffect(()=>{
-    //   setMapPhysics(simpleMapPhysics);
-    // },[simpleMapPhysics]);
-
     const {map, mapPhysics} = useFullmapGallery();
 
     return(
         <>
-        <ambientLight intensity={0.1} />
+        <ambientLight intensity={1.0} />
+        <pointLight />
         <pointLight args={[0xffffff, 1, 100]} />
         <Map args={map} />
         {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
           <MapPhysics args={mapPhysics} visible={true} />
-          <Suspense fallback={null}>
-            <Ground /> 
-          </Suspense>  
+          <Ground /> 
           <Player />       
         </Physics>
         </>
@@ -51,7 +43,9 @@ export default function App19(props) {
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Stats />
-        <Scene />
+        <Suspense fallback={<Loading />}>
+            <Scene />
+        </Suspense>
     </Canvas>
     <Joystick />
     </>
