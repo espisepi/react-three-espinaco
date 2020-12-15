@@ -16,6 +16,9 @@ import FullScreen from '../../drei-espinaco/Fullscreen';
 
 import Vehicle from '../../drei-espinaco/Vehicle';
 
+import Wall from '../../the-gallery/components/Wall/Wall.js';
+import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
+
 
 export function Scene() {
 
@@ -23,16 +26,19 @@ export function Scene() {
 
     return(
         <>
-        <ambientLight intensity={1.0} />
-        <pointLight />
+        <ambientLight intensity={0.0} />
         <pointLight args={[0xffffff, 1, 100]} />
-        <Map args={map} />
-        {/* <OrbitControls /> */}
         <Physics gravity={[0, -30, 0]}>
-          <MapPhysics args={mapPhysics} visible={true} />
-          <Ground /> 
+          <Wall 
+            position={[0, 0, -13.5]}
+            modelUrl={"assets/3D/Wall/scene.gltf"}
+            mapUrl={"assets/3D/Wall/Textures/White_Wall.jpg"}
+            normalMapUrl={"assets/3D/Wall/Textures/White_Wall_NORMAL.jpg"}
+          />
+          <GroundPhysic visible={false} /> 
           <Player />       
         </Physics>
+        {/* <OrbitControls /> */}
         </>
     );
 }
