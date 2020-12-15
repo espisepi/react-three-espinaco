@@ -18,16 +18,14 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 
 import Wall from '../../the-gallery/components/Wall/Wall.js';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
+import Lights from '../../the-gallery/components/Lights/Lights';
 
 
 export function Scene() {
 
-    const {map, mapPhysics} = useFullmapGallery();
-
     return(
         <>
-        <ambientLight intensity={0.0} />
-        <pointLight args={[0xffffff, 1, 100]} />
+        <Lights night={true} performance={false} />
         <Physics gravity={[0, -30, 0]}>
           <Wall 
             position={[0, 0, -13.5]}
@@ -35,7 +33,7 @@ export function Scene() {
             mapUrl={"assets/3D/Wall/Textures/White_Wall.jpg"}
             normalMapUrl={"assets/3D/Wall/Textures/White_Wall_NORMAL.jpg"}
           />
-          <GroundPhysic visible={false} /> 
+          <Ground /> 
           <Player />       
         </Physics>
         {/* <OrbitControls /> */}
@@ -47,7 +45,11 @@ export default function App19(props) {
 
     return (
     <>
-    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}
+        onCreated={({ gl }) => { 
+        gl.shadowMap.enabled = true
+        gl.shadowMap.type = THREE.PCFSoftShadowMap
+    }}>
         <Stats />
         <Suspense fallback={<Loading />}>
             <Scene />
