@@ -18,14 +18,27 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 
 import Wall from '../../the-gallery/components/Wall/Wall.js';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
-import Lights from '../../the-gallery/components/Lights/Lights';
+// import Lights from '../../the-gallery/components/Lights/Lights';
 
+function Lights() {
+    return(
+        <>
+        <ambientLight intensity={0.07} />
+        <directionalLight
+                position={[29, 50, -60]}
+                intensity={0.2}
+                color="skyblue"            
+        />
+        <pointLight />
+        </>
+    )
+}
 
 export function Scene() {
 
     return(
         <>
-        <Lights night={true} performance={false} />
+        <Lights />
         <Physics gravity={[0, -30, 0]}>
           <Wall 
             position={[0, 0, -13.5]}
