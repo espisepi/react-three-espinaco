@@ -1,6 +1,6 @@
-import React, {useEffect, useMemo, useState, Suspense} from 'react';
+import React, {useEffect, useMemo, useState, useRef, Suspense} from 'react';
 import * as THREE from 'three';
-import { Canvas } from 'react-three-fiber';
+import { Canvas, useFrame } from 'react-three-fiber';
 import { OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
@@ -18,6 +18,7 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 
 import Wall from '../../the-gallery/components/Wall/Wall.js';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
+import InstancedMesh from '../../drei-espinaco/InstancedMesh';
 // import Lights from '../../the-gallery/components/Lights/Lights';
 
 function Lights() {
@@ -34,12 +35,30 @@ function Lights() {
     )
 }
 
+function Cubes() {
+    const ref = useRef();
+    const geometry = new THREE.BoxBufferGeometry(5,5,5);
+    const material = new THREE.MeshBasicMaterial({color:'green', wireframe: true});
+    const objects = [
+        {
+            position:[0,0,0]
+        },
+        {
+            position:[7,0,0]
+        },
+    ];
+
+    
+    return <InstancedMesh geometry={geometry} material={material} objects={objects} />;
+}
+
 export function Scene() {
 
     return(
         <>
         <Lights />
         <Physics gravity={[0, -30, 0]}>
+          <Cubes />
           <Wall 
             position={[0, 0, -13.5]}
             modelUrl={"assets/3D/Wall/scene.gltf"}
