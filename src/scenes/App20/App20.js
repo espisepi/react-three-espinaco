@@ -55,18 +55,6 @@ function Cubes() {
     return <InstancedMesh geometry={geometry} material={material} objects={objects} />;
 }
 
-function createPointsRecursive(numPoints=50, initialPoint=[0,0,0], spaceBetween=[10,0,0]) {
-    const pointsList = [];
-    for(let i = 0; i < numPoints; i++) {
-        pointsList.push([
-            initialPoint[0] + i * spaceBetween[0],
-            initialPoint[1] + i * spaceBetween[1],
-            initialPoint[2] + i * spaceBetween[2]
-        ]);
-    }
-    return pointsList;
-}
-
 function transformPointsToObjects(pointsList=[], rotation=[0,0,0], scale=[1,1,1]) {
     const objects = [];
     pointsList.forEach((point) => {
@@ -79,29 +67,52 @@ function transformPointsToObjects(pointsList=[], rotation=[0,0,0], scale=[1,1,1]
     return objects;
 }
 
+function createPointsRecursive(numPoints=50, initialPoint=[0,0,0], spaceBetweenPoint=[10,0,0]) {
+    const pointsList = [];
+    for(let i = 0; i < numPoints; i++) {
+        pointsList.push([
+            initialPoint[0] + i * spaceBetweenPoint[0], // x
+            initialPoint[1] + i * spaceBetweenPoint[1], // y
+            initialPoint[2] + i * spaceBetweenPoint[2]  // z
+        ]);
+    }
+    return pointsList;
+}
+
+function createMapPoints(numPoints=50, initialPoint=[0,0,0], spaceBetweenPoint=[10,0,0], numGroups=10, spaceBetweenGroup=[0,0,20]){
+    let pointsList = [];
+        for(let i = 0; i < numGroups; i++){
+            pointsList = pointsList.concat(createPointsRecursive(numPoints, initialPoint, spaceBetweenPoint));
+            initialPoint[0] += spaceBetweenGroup[0];
+            initialPoint[1] += spaceBetweenGroup[1];
+            initialPoint[2] += spaceBetweenGroup[2];
+        }
+    return pointsList;
+}
+
 function Art() {
-    const objects = useMemo(()=>{
-
-        const pointsList = createPointsRecursive(50);
-        const objects = transformPointsToObjects(pointsList, [0,0,0], [1, 18, 11]);
-        
-        return objects;
-    });
-
 
     const map = useLoader(THREE.TextureLoader,'assets/img/jipis/charls/doggy3.jpeg');
 
-    // scale={[12, 6, 1]}
+    const objects = useMemo(()=>{
+        const numPoints = 50;
+        const initialPoint = [0,0,0];
+        const spaceBetweenPoint = [10, 0, 0];
+        const numGroups = 10;
+        const spaceBetweenGroup = [0,0,20];
+        
+        const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [1, 18, 11]);  
 
-    
-    
+        return objects;
+    });
+
     return (
     <>
-    <mesh scale={[60, 90, 1]} position={[0, 0, 0]} rotation={[0, 0, 0]}>
+    {/* <mesh scale={[60, 90, 1]} position={[0, 0, 0]} rotation={[0, 0, 0]}>
         <planeBufferGeometry attach="geometry" args={[1,1,1000,1000]} />
         <meshStandardMaterial attach="material" map={map} side={THREE.DoubleSide} displacementMap={map} displacementScale={20.5} />
-    </mesh>
-    {/* <Display position={[20, 5, 0]} size={[1, 18, 11]} objects={displayObjects} /> */}
+    </mesh> */}
     <InstancedMesh geometry={new THREE.BoxBufferGeometry(1,1,1)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} objects={objects} /> 
     </>);
 }
@@ -112,13 +123,6 @@ export function Scene() {
         <>
         <Lights />
         <Physics gravity={[0, -30, 0]}>
-          {/* <Cubes /> */}
-          {/* <Wall 
-            position={[0, 0, -13.5]}
-            modelUrl={"assets/3D/Wall/scene.gltf"}
-            mapUrl={"assets/3D/Wall/Textures/White_Wall.jpg"}
-            normalMapUrl={"assets/3D/Wall/Textures/White_Wall_NORMAL.jpg"}
-          /> */}
           <Art />
           <GroundPhysic />
           <Player />       
