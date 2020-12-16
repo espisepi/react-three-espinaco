@@ -130,9 +130,6 @@ function People() {
         mixer.update(clock.getDelta()*5.0);
     });
 
-    
-    console.log(fbx);
-
     const geometry1 = fbx.children[1].geometry;
     const material1 = fbx.children[1].material;
 
@@ -147,9 +144,6 @@ function People() {
             position: [100,0,0]
         }
     ]
-
-    console.log(geometry1)
-    console.log(geometry2)
 
     // const {scene} = useThree();
     // scene.add(fbx);
