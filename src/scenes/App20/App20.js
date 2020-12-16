@@ -1,8 +1,9 @@
+// https://codesandbox.io/s/react-three-fiber-gltf-camera-animation-forked-pecl6?file=/src/Model.js
 import React, {useEffect, useMemo, useState, useRef, Suspense} from 'react';
 import * as THREE from 'three';
 import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader.js';
-import { Canvas, useFrame, useLoader } from 'react-three-fiber';
-import { OrbitControls, useFBX, Stats } from 'drei';
+import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
+import { OrbitControls, useFBX, useAnimations, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import Map from '../../drei-espinaco/Map';
@@ -119,10 +120,52 @@ function Art() {
 }
 
 function People() {
-    // assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx
-    // const fbx = useLoader(FBXLoader, 'assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx');
-    let fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
+    const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
+    const fbxWalk = useFBX('assets/obj/simondev/resources/zombie/walk.fbx');
+    const mixer = new THREE.AnimationMixer( fbx );
+
+    const action = mixer.clipAction( fbxWalk.animations[ 0 ] );
+    action.play();
+    useFrame(({clock})=>{
+        mixer.update(clock.getDelta()*5.0);
+    });
+
+    
+    console.log(fbx);
+
+    const geometry1 = fbx.children[1].geometry;
+    const material1 = fbx.children[1].material;
+
+    const geometry2 = fbx.children[2].geometry;
+    const material2 = fbx.children[2].material;
+
+    const objects = [
+        {
+            position: [0,0,0]
+        },
+        {
+            position: [100,0,0]
+        }
+    ]
+
+    console.log(geometry1)
+    console.log(geometry2)
+
+    // const {scene} = useThree();
+    // scene.add(fbx);
     return <primitive object={fbx} dispose={null} />
+    // return (
+    // <>
+    //     <InstancedMesh geometry={geometry1} material={material1} objects={objects} />
+    //     <InstancedMesh geometry={geometry2} material={material2} objects={objects} />
+    // </>
+    // );
+    // return (
+    // <>
+    //     <mesh geometry={geometry1} material={material1} />
+    //     <mesh geometry={geometry2} material={material2} />
+    // </>
+    // );
 }
 
 export function Scene() {
