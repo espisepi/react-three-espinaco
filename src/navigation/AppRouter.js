@@ -44,11 +44,11 @@ export default function AppRouter () {
                         path="/app2"
                         component={App.App2}
                     />
-                    <PublicRoute
+                    {/* <PublicRoute
                         exact
                         path="/app3"
                         component={App.App3}
-                    />
+                    /> */}
                     <PublicRoute
                         exact
                         path="/app4"

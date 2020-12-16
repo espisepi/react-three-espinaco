@@ -2,7 +2,7 @@ import React from 'react';
 import * as THREE from 'three';
 import { useLoader } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { draco } from 'drei';
+import { useGLTF } from 'drei';
 
 
 const Glass = ({
@@ -11,7 +11,7 @@ const Glass = ({
     rotation,
     url
  }) => {
-    const { scene } = useLoader(GLTFLoader, url, draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
+    const { scene } = useGLTF( url);
     const newMaterial = new THREE.MeshStandardMaterial({
         color: "skyblue"
       });

@@ -2,13 +2,13 @@ import React, {useMemo} from 'react';
 import * as THREE from 'three';
 import { useLoader } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { draco } from 'drei';
+import { useGLTF } from 'drei';
 
 export default function useFullmapGallery() {
 
     /** ------------ Load Resources ------------- */
     const [wallMap, wallNormalMap] = useLoader(THREE.TextureLoader,['assets/3D/Wall/Textures/White_Wall.jpg','assets/3D/Wall/Textures/White_Wall_NORMAL.jpg']);
-    const { scene: wallScene  } = useLoader(GLTFLoader, 'assets/3D/Wall/scene.gltf', draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
+    const { scene: wallScene  } = useGLTF('assets/3D/Wall/scene.gltf');
     console.log(wallScene)
 
 

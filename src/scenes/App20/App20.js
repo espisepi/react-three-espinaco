@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo, useState, useRef, Suspense} from 'react';
 import * as THREE from 'three';
+import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader.js';
 import { Canvas, useFrame, useLoader } from 'react-three-fiber';
-import { OrbitControls, Stats } from 'drei';
+import { OrbitControls, useFBX, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import Map from '../../drei-espinaco/Map';
@@ -117,6 +118,13 @@ function Art() {
     </>);
 }
 
+function People() {
+    // assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx
+    // const fbx = useLoader(FBXLoader, 'assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx');
+    let fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
+    return <primitive object={fbx} dispose={null} />
+}
+
 export function Scene() {
 
     return(
@@ -124,6 +132,7 @@ export function Scene() {
         <Lights />
         <Physics gravity={[0, -30, 0]}>
           <Art />
+          <People />
           <GroundPhysic />
           <Player />       
         </Physics>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLoader } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useBox } from "use-cannon";
-import { draco } from 'drei';
+import { useGLTF } from 'drei';
 
 const Bench = ({
   url,
@@ -19,7 +19,7 @@ const Bench = ({
         position: physicsPosition
      }))
 
-    const { scene } = useLoader(GLTFLoader, url, draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
+    const { scene } = useGLTF(url);
 
     scene.traverse( function ( child ) {
       if ( child.isMesh ) {                                     

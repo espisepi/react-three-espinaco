@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoader } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { draco } from 'drei';
+import { useGLTF } from 'drei';
 
 const Picture = ({
   url,
@@ -12,7 +12,7 @@ const Picture = ({
   roughness
 
 }) => {
-    const { scene } = useLoader(GLTFLoader, url, draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
+    const { scene } = useGLTF(URL);
     scene.traverse( function ( child ) {
       if ( child.isMesh ) {                                     
           child.castShadow = true;

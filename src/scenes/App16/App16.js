@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState, useEffect, Suspense } from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader, useFrame } from 'react-three-fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { draco, OrbitControls, Stats } from 'drei';
+import { useGLTF, OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 import Stars from '../../drei-espinaco/Stars';
 import InstancedMesh from '../../drei-espinaco/InstancedMesh';
@@ -12,7 +12,7 @@ export function Scene() {
 
     const modelUrl="assets/3D/WindowNoGlassR/scene.gltf";
     const mapUrl="assets/3D/WindowNoGlassR/Textures/Material_49_baseColor.png";
-    const { scene } = useLoader(GLTFLoader, modelUrl, draco("https://www.gstatic.com/draco/versioned/decoders/1.4.0/"));
+    const { scene } = useGLTF(modelUrl);
     const map = useMemo(() => new THREE.TextureLoader().load(mapUrl), [mapUrl]);
     map.flipY=false;
 
