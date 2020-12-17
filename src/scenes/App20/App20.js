@@ -3,7 +3,7 @@ import React, {useEffect, useMemo, useState, useRef, Suspense} from 'react';
 import * as THREE from 'three';
 import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader.js';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
-import { OrbitControls, useFBX, useAnimations, Stats } from 'drei';
+import { OrbitControls, useFBX, useGLTF, useAnimations, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import Map from '../../drei-espinaco/Map';
@@ -25,6 +25,7 @@ import InstancedMesh from '../../drei-espinaco/InstancedMesh';
 
 import PictureLow from '../../the-gallery/components/Picture/PictureLow';
 import Display from '../../the-gallery/components/Display/Display';
+import { MeshStandardMaterial } from 'three';
 
 function Lights() {
     return(
@@ -162,6 +163,32 @@ function People() {
     // );
 }
 
+function Trees() {
+    const {scene} = useGLTF('assets/obj/city/tree/scene.gltf');
+    const meshes = [];
+    scene.traverse((object) => {
+        if(object.isMesh){
+            meshes.push(object);
+        }
+    });
+    
+    const numPoints = 2;
+    const initialPoint = [0,0,0];
+    const spaceBetweenPoint = [100, 0, 0];
+    const numGroups = 2;
+    const spaceBetweenGroup = [100,0,20];
+    
+    const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
+    const objects = transformPointsToObjects(pointsList, [-Math.PI / 2,0,0], [18,18,18]); 
+
+    return (
+        <>
+        <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
+        <InstancedMesh geometry={meshes[1].geometry} material={meshes[1].material} objects={objects} />
+        </>
+    );
+}
+
 export function Scene() {
 
     return(
@@ -170,6 +197,7 @@ export function Scene() {
         <Physics gravity={[0, -30, 0]}>
           <Art />
           <People />
+          <Trees />
           <GroundPhysic />
           <Player />       
         </Physics>
