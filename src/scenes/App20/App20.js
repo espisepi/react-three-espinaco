@@ -149,6 +149,20 @@ function InstancedFBX({src='', objects=[]}) {
     return <InstancedMeshes meshes={meshes} objects={objects} />;
 }
 
+function InstancedGLTF({src='', objects=[]}) {
+    const {scene} = useGLTF(src);
+    const meshes = useMemo(()=>{
+        const meshes = [];
+        scene.traverse((object) => {
+            if(object.isMesh){
+                meshes.push(object)
+            }
+        });
+        return meshes;
+    },[src]);
+    return <InstancedMeshes meshes={meshes} objects={objects} />;
+}
+
 function People() {
     const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
     const fbxWalk = useFBX('assets/obj/simondev/resources/zombie/walk.fbx');
@@ -213,12 +227,13 @@ function Trees() {
     const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
     const objects = transformPointsToObjects(pointsList, [-Math.PI / 2,0,0], [18,18,18]); 
 
-    return (
-        <>
-        <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
-        <InstancedMesh geometry={meshes[1].geometry} material={meshes[1].material} objects={objects} />
-        </>
-    );
+    return <InstancedGLTF src='assets/obj/city/tree/scene.gltf' objects={objects} />
+    // return (
+    //     <>
+    //     <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
+    //     <InstancedMesh geometry={meshes[1].geometry} material={meshes[1].material} objects={objects} />
+    //     </>
+    // );
 }
 
 export function Scene() {
