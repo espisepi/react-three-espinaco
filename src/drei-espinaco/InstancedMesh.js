@@ -15,15 +15,12 @@ const InstancedMesh = ({
 
     useEffect(()=>{
       objects.forEach((object, id) => {
-        if(object.position){
-          tempObject.position.set(...object.position);    
-        }
-        if(object.scale){
-          tempObject.scale.set(...object.scale);
-        }
-        if(object.rotation){
-          tempObject.rotation.set(...object.rotation);
-        }
+        const position = object.position ? object.position : [0,0,0];
+        const rotation = object.rotation ? object.rotation : [0,0,0];
+        const scale = object.scale ? object.scale : [1,1,1];
+        tempObject.position.set(...position); 
+        tempObject.rotation.set(...rotation);
+        tempObject.scale.set(...scale);
         tempObject.updateMatrix();
         ref.current.setMatrixAt(id, tempObject.matrix);
       });

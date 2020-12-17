@@ -186,10 +186,11 @@ function People() {
 
     const objects = [
         {
-            position: [0,0,0]
+            position: [0,0,0],
+            scale: [0.1,0.1,0.1]
         },
         {
-            position: [100,0,0]
+            position: [100,0,0],
         }
     ]
 
