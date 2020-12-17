@@ -120,6 +120,21 @@ function Art() {
     </>);
 }
 
+function InstancedMeshes({meshes=[], objects=[]}){
+    const res = [];
+    meshes.forEach(mesh => {
+        if(mesh.geometry && mesh.material){
+            const imesh = <InstancedMesh geometry={mesh.geometry} material={mesh.material} objects={objects} />;
+            res.push(imesh);
+        } else {
+            console.log('InstancedMeshes log: mesh not have geometry or material, mesh is not created');
+            console.log(mesh);
+            console.log('---------------------------------------------------');
+        }
+    });
+    return res;
+}
+
 function People() {
     const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
     const fbxWalk = useFBX('assets/obj/simondev/resources/zombie/walk.fbx');
@@ -150,12 +165,13 @@ function People() {
     // const {scene} = useThree();
     // scene.add(fbx);
     // return <primitive object={fbx} dispose={null} />
-    return (
-    <>
-        <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
-        <InstancedMesh geometry={meshes[1].geometry} material={meshes[1].material} objects={objects} />
-    </>
-    );
+    return <InstancedMeshes meshes={meshes} objects={objects} />;
+    // return (
+    // <>
+    //     <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
+    //     <InstancedMesh geometry={meshes[1].geometry} material={meshes[1].material} objects={objects} />
+    // </>
+    // );
     // return (
     // <>
     //     <mesh geometry={meshes[0].geometry} material={meshes[0].material} />
