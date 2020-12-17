@@ -28,6 +28,8 @@ import PictureLow from '../../the-gallery/components/Picture/PictureLow';
 import Display from '../../the-gallery/components/Display/Display';
 import { MeshStandardMaterial } from 'three';
 
+import { createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
+
 function Lights() {
     return(
         <>
@@ -59,40 +61,6 @@ function Cubes() {
     return <InstancedMesh geometry={geometry} material={material} objects={objects} />;
 }
 
-function transformPointsToObjects(pointsList=[], rotation=[0,0,0], scale=[1,1,1]) {
-    const objects = [];
-    pointsList.forEach((point) => {
-        objects.push({
-            position: point,
-            rotation: rotation,
-            scale: scale
-        })
-    });
-    return objects;
-}
-
-function createPointsRecursive(numPoints=50, initialPoint=[0,0,0], spaceBetweenPoint=[10,0,0]) {
-    const pointsList = [];
-    for(let i = 0; i < numPoints; i++) {
-        pointsList.push([
-            initialPoint[0] + i * spaceBetweenPoint[0], // x
-            initialPoint[1] + i * spaceBetweenPoint[1], // y
-            initialPoint[2] + i * spaceBetweenPoint[2]  // z
-        ]);
-    }
-    return pointsList;
-}
-
-function createMapPoints(numPoints=50, initialPoint=[0,0,0], spaceBetweenPoint=[10,0,0], numGroups=10, spaceBetweenGroup=[0,0,20]){
-    let pointsList = [];
-        for(let i = 0; i < numGroups; i++){
-            pointsList = pointsList.concat(createPointsRecursive(numPoints, initialPoint, spaceBetweenPoint));
-            initialPoint[0] += spaceBetweenGroup[0];
-            initialPoint[1] += spaceBetweenGroup[1];
-            initialPoint[2] += spaceBetweenGroup[2];
-        }
-    return pointsList;
-}
 
 function Art() {
 
