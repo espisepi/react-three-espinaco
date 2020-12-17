@@ -21,7 +21,7 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 import Wall from '../../the-gallery/components/Wall/Wall.js';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 // import InstancedMesh from '../../drei-espinaco/InstancedMesh';
-import {InstancedMesh, InstancedMeshes, InstancedFBX} from '../../drei-espinaco/instancedMesh/';
+import {InstancedMesh, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
 // import Lights from '../../the-gallery/components/Lights/Lights';
 
 import PictureLow from '../../the-gallery/components/Picture/PictureLow';
