@@ -7,12 +7,12 @@ import { draco } from 'drei';
 const InstancedMesh = ({ 
     geometry,
     material,
-    objects
-
+    objects,
+    createObjectsMod
 }) => {
+    const ref = useRef() // <instancedMesh ref={ref} ... />
 
-    const ref = useRef()
-
+    /** ----------- Initialize objects with position, rotation and scale --------------- */
     useEffect(()=>{
       const tempObject = new THREE.Object3D();
       objects.forEach((object, id) => {
@@ -32,8 +32,10 @@ const InstancedMesh = ({
       });
       ref.current.instanceMatrix.needsUpdate = true;
     },[ref, objects]);
+    /** -------------------------- Fin ------------------------------- */
 
 
+    /** ------------- Methods to Modify attributes of objects in each frame ----------------- */
     const tempObject = useMemo(()=> new THREE.Object3D(),[]);
     const modifyImesh = useCallback((imesh, id, object)=>{
       if(objects[id]){
@@ -61,26 +63,18 @@ const InstancedMesh = ({
       }
     })
 
-    const createObjectsMod = useCallback((state)=>{
-      const objectsMod = [
-        {
-          ids: [0,1],
-          object: {
-            rotation: [0,state.clock.getElapsedTime(),0]
-          }
-        }
-      ];
-      return objectsMod;
-  });
-
     const modifyObjects = useCallback((imesh,state)=>{
       const objectsMod = createObjectsMod(state);
       setImeshFromObjectsMod(imesh,objectsMod);
     },[])
 
     useFrame((state)=>{
-      modifyObjects(ref.current, state);
+      if(createObjectsMod){
+        modifyObjects(ref.current, state);
+      }
     });
+
+    /** -------------------------- FIN ------------------------------------ */
   
     return (
       <instancedMesh ref={ref} args={[geometry, material, objects.length]} >
@@ -89,3 +83,19 @@ const InstancedMesh = ({
   }
 
   export default InstancedMesh;
+
+
+
+
+  /** Getting Started Examples */
+    // createObjectsMod = useCallback((state)=>{
+    //   const objectsMod = [
+    //     {
+    //       ids: [0,1],
+    //       object: {
+    //         rotation: [0,state.clock.getElapsedTime(),0]
+    //       }
+    //     }
+    //   ];
+    //   return objectsMod;
+    // });

@@ -1,5 +1,5 @@
 // https://codesandbox.io/s/react-three-fiber-gltf-camera-animation-forked-pecl6?file=/src/Model.js
-import React, {useEffect, useMemo, useState, useRef, Suspense} from 'react';
+import React, {useEffect, useMemo, useState, useRef, useCallback, Suspense} from 'react';
 import * as THREE from 'three';
 import {FBXLoader} from 'three/examples/jsm/loaders/FBXLoader.js';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
@@ -120,12 +120,12 @@ function Art() {
     </>);
 }
 
-function InstancedMeshes({meshes=[], objects=[]}){
+function InstancedMeshes({meshes=[], objects=[], createObjectsMod}){
     const imeshes = useMemo(()=>{
         const imeshes = [];
         meshes.forEach(mesh => {
             if(mesh.geometry && mesh.material){
-                const imesh = <InstancedMesh geometry={mesh.geometry} material={mesh.material} objects={objects} />;
+                const imesh = <InstancedMesh geometry={mesh.geometry} material={mesh.material} objects={objects} createObjectsMod={createObjectsMod} />;
                 imeshes.push(imesh);
             } else {
                 console.log('InstancedMeshes log: mesh not have geometry or material, mesh is not created');
@@ -138,7 +138,7 @@ function InstancedMeshes({meshes=[], objects=[]}){
     return imeshes;
 }
 
-function InstancedFBX({src='', objects=[]}) {
+function InstancedFBX({ src='', objects=[], createObjectsMod }) {
     const fbx = useFBX(src);
     const meshes = useMemo(()=>{
         const meshes = [];
@@ -149,10 +149,10 @@ function InstancedFBX({src='', objects=[]}) {
         });
         return meshes;
     },[src]);
-    return <InstancedMeshes meshes={meshes} objects={objects} />;
+    return <InstancedMeshes meshes={meshes} objects={objects} createObjectsMod={createObjectsMod} />;
 }
 
-function InstancedGLTF({src='', objects=[]}) {
+function InstancedGLTF({src='', objects=[], createObjectsMod}) {
     const {scene} = useGLTF(src);
     const meshes = useMemo(()=>{
         const meshes = [];
@@ -163,7 +163,7 @@ function InstancedGLTF({src='', objects=[]}) {
         });
         return meshes;
     },[src]);
-    return <InstancedMeshes meshes={meshes} objects={objects} />;
+    return <InstancedMeshes meshes={meshes} objects={objects} createObjectsMod={createObjectsMod} />;
 }
 
 function People() {
@@ -194,11 +194,23 @@ function People() {
         }
     ]
 
+    const createObjectsMod = useCallback((state)=>{
+      const objectsMod = [
+        {
+          ids: [0,1],
+          object: {
+            rotation: [0,state.clock.getElapsedTime(),0]
+          }
+        }
+      ];
+      return objectsMod;
+    });
+
     // const {scene} = useThree();
     // scene.add(fbx);
     // return <primitive object={fbx} dispose={null} />
     // return <InstancedMeshes meshes={meshes} objects={objects} />;
-    return <InstancedFBX src='assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx' objects={objects} />
+    return <InstancedFBX src='assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx' objects={objects} createObjectsMod={createObjectsMod} />
     // return (
     // <>
     //     <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
@@ -229,7 +241,7 @@ function Trees() {
     const spaceBetweenGroup = [100,0,20];
     
     const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
-    const objects = transformPointsToObjects(pointsList, [-Math.PI / 2,0,0], [18,18,18]); 
+    const objects = transformPointsToObjects(pointsList, [-Math.PI / 2,0,0], [18,18,18]);
 
     return <InstancedGLTF src='assets/obj/city/tree/scene.gltf' objects={objects} />
     // return (
