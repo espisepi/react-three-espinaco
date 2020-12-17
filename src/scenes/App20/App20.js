@@ -121,18 +121,21 @@ function Art() {
 }
 
 function InstancedMeshes({meshes=[], objects=[]}){
-    const res = [];
-    meshes.forEach(mesh => {
-        if(mesh.geometry && mesh.material){
-            const imesh = <InstancedMesh geometry={mesh.geometry} material={mesh.material} objects={objects} />;
-            res.push(imesh);
-        } else {
-            console.log('InstancedMeshes log: mesh not have geometry or material, mesh is not created');
-            console.log(mesh);
-            console.log('---------------------------------------------------');
-        }
-    });
-    return res;
+    const imeshes = useMemo(()=>{
+        const imeshes = [];
+        meshes.forEach(mesh => {
+            if(mesh.geometry && mesh.material){
+                const imesh = <InstancedMesh geometry={mesh.geometry} material={mesh.material} objects={objects} />;
+                imeshes.push(imesh);
+            } else {
+                console.log('InstancedMeshes log: mesh not have geometry or material, mesh is not created');
+                console.log(mesh);
+                console.log('---------------------------------------------------');
+            }
+        });
+        return imeshes;
+    },[meshes, objects]);
+    return imeshes;
 }
 
 function InstancedFBX({src='', objects=[]}) {
