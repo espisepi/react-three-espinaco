@@ -20,7 +20,8 @@ import Vehicle from '../../drei-espinaco/Vehicle';
 
 import Wall from '../../the-gallery/components/Wall/Wall.js';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
-import InstancedMesh from '../../drei-espinaco/InstancedMesh';
+// import InstancedMesh from '../../drei-espinaco/InstancedMesh';
+import {InstancedMesh, InstancedMeshes, InstancedFBX} from '../../drei-espinaco/instancedMesh/';
 // import Lights from '../../the-gallery/components/Lights/Lights';
 
 import PictureLow from '../../the-gallery/components/Picture/PictureLow';
@@ -120,51 +121,11 @@ function Art() {
     </>);
 }
 
-function InstancedMeshes({meshes=[], objects=[], createObjectsMod}){
-    const imeshes = useMemo(()=>{
-        const imeshes = [];
-        meshes.forEach(mesh => {
-            if(mesh.geometry && mesh.material){
-                const imesh = <InstancedMesh geometry={mesh.geometry} material={mesh.material} objects={objects} createObjectsMod={createObjectsMod} />;
-                imeshes.push(imesh);
-            } else {
-                console.log('InstancedMeshes log: mesh not have geometry or material, mesh is not created');
-                console.log(mesh);
-                console.log('---------------------------------------------------');
-            }
-        });
-        return imeshes;
-    },[meshes, objects]);
-    return imeshes;
-}
 
-function InstancedFBX({ src='', objects=[], createObjectsMod }) {
-    const fbx = useFBX(src);
-    const meshes = useMemo(()=>{
-        const meshes = [];
-        fbx.traverse((object) => {
-            if(object.isMesh){
-                meshes.push(object)
-            }
-        });
-        return meshes;
-    },[src]);
-    return <InstancedMeshes meshes={meshes} objects={objects} createObjectsMod={createObjectsMod} />;
-}
 
-function InstancedGLTF({src='', objects=[], createObjectsMod}) {
-    const {scene} = useGLTF(src);
-    const meshes = useMemo(()=>{
-        const meshes = [];
-        scene.traverse((object) => {
-            if(object.isMesh){
-                meshes.push(object)
-            }
-        });
-        return meshes;
-    },[src]);
-    return <InstancedMeshes meshes={meshes} objects={objects} createObjectsMod={createObjectsMod} />;
-}
+
+
+
 
 function People() {
     const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
