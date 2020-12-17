@@ -135,6 +135,20 @@ function InstancedMeshes({meshes=[], objects=[]}){
     return res;
 }
 
+function InstancedFBX({src='', objects=[]}) {
+    const fbx = useFBX(src);
+    const meshes = useMemo(()=>{
+        const meshes = [];
+        fbx.traverse((object) => {
+            if(object.isMesh){
+                meshes.push(object)
+            }
+        });
+        return meshes;
+    },[src]);
+    return <InstancedMeshes meshes={meshes} objects={objects} />;
+}
+
 function People() {
     const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx')
     const fbxWalk = useFBX('assets/obj/simondev/resources/zombie/walk.fbx');
@@ -165,7 +179,8 @@ function People() {
     // const {scene} = useThree();
     // scene.add(fbx);
     // return <primitive object={fbx} dispose={null} />
-    return <InstancedMeshes meshes={meshes} objects={objects} />;
+    // return <InstancedMeshes meshes={meshes} objects={objects} />;
+    return <InstancedFBX src='assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx' objects={objects} />
     // return (
     // <>
     //     <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
