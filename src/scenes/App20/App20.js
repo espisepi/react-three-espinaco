@@ -131,11 +131,12 @@ function People() {
         mixer.update(clock.getDelta()*5.0);
     });
 
-    const geometry1 = fbx.children[1].geometry;
-    const material1 = fbx.children[1].material;
-
-    const geometry2 = fbx.children[2].geometry;
-    const material2 = fbx.children[2].material;
+    const meshes = [];
+    fbx.traverse((object) => {
+        if(object.isMesh){
+            meshes.push(object)
+        }
+    });
 
     const objects = [
         {
@@ -148,17 +149,17 @@ function People() {
 
     // const {scene} = useThree();
     // scene.add(fbx);
-    return <primitive object={fbx} dispose={null} />
+    // return <primitive object={fbx} dispose={null} />
+    return (
+    <>
+        <InstancedMesh geometry={meshes[0].geometry} material={meshes[0].material} objects={objects} />
+        <InstancedMesh geometry={meshes[1].geometry} material={meshes[1].material} objects={objects} />
+    </>
+    );
     // return (
     // <>
-    //     <InstancedMesh geometry={geometry1} material={material1} objects={objects} />
-    //     <InstancedMesh geometry={geometry2} material={material2} objects={objects} />
-    // </>
-    // );
-    // return (
-    // <>
-    //     <mesh geometry={geometry1} material={material1} />
-    //     <mesh geometry={geometry2} material={material2} />
+    //     <mesh geometry={meshes[0].geometry} material={meshes[0].material} />
+    //     <mesh geometry={meshes[1].geometry} material={meshes[1].material} />
     // </>
     // );
 }
