@@ -74,9 +74,25 @@ function Horse2() {
         const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
         return objects;
     });
-
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+}
 
+function Horse3() {
+    const objects = useMemo(()=>{
+        const pointsList = createMapPoints(5, [200,0,200], [20,0,0], 5, [0,20,0]);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
+        return objects;
+    });
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+}
+
+function Horse4() {
+    const objects = useMemo(()=>{
+        const pointsList = createMapPoints(5, [200,0,300], [20,0,0], 5, [0,20,20]);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
+        return objects;
+    });
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
 export function Scene() {
@@ -85,6 +101,8 @@ export function Scene() {
         <Cesped />
         <Horse />
         <Horse2 />
+        <Horse3 />
+        <Horse4 />
         <Physics>
             <Player />
             <GroundPhysic />
