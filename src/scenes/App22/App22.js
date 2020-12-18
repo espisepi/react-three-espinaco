@@ -95,6 +95,11 @@ function Horse4() {
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
+function Gallery() {
+    const objects=[{position:[0,0,-100],scale:[6,6,6]},{position:[200,0,-100],rotation:[Math.PI,0,0],scale:[6,6,6]}];
+    return <InstancedGLTF src='assets/obj/gallery_chapel_baked/scene.gltf' objects={objects} />
+}
+
 export function Scene() {
     return(
         <>
@@ -103,6 +108,7 @@ export function Scene() {
         <Horse2 />
         <Horse3 />
         <Horse4 />
+        <Gallery />
         <Physics>
             <Player />
             <GroundPhysic />
