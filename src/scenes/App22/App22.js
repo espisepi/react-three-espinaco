@@ -48,11 +48,19 @@ function Cesped() {
     return <InstancedMesh geometry={geometry} material={material} objects={objects} />;
 }
 
+function Horse() {
+    const objects = [];
+    for(let i = 0; i< 10; i++){
+        objects.push({position:[i*100,0,0]})
+    }
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+}
+
 export function Scene() {
     return(
         <>
         <Cesped />
-
+        <Horse />
         <Physics>
             <Player />
             <GroundPhysic />
