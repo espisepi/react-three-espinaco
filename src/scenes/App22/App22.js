@@ -56,11 +56,32 @@ function Horse() {
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
+function Horse2() {
+
+    const objects = useMemo(()=>{
+        const numPoints = 10;
+        const initialPoint = [50,0,-200];
+        // const initialPoint2 = [150,0,0];
+        const spaceBetweenPoint = [20, 0, 0];
+        const numGroups = 10;
+        const spaceBetweenGroup = [0,0,40];
+
+        const pointsList = createMapsPoints(numPoints, [initialPoint], spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
+
+        return objects;
+    });
+
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+
+}
+
 export function Scene() {
     return(
         <>
         <Cesped />
         <Horse />
+        <Horse2 />
         <Physics>
             <Player />
             <GroundPhysic />
