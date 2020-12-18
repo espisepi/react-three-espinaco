@@ -10,17 +10,22 @@ import Loading from '../../components/Loading';
 import {InstancedMesh, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
 import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 
+import Joystick from '../../drei-espinaco/Joystick';
+import { Physics } from 'use-cannon';
+import Player from '../../the-gallery/components/Player/Player';
+import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
+
 function Cesped() {
     const objects = useMemo(()=>{
-        const numPoints = 10;
+        const numPoints = 20;
         const initialPoint = [0,-1,0];
-        const initialPoint2 = [20,-1,0];
-        const spaceBetweenPoint = [1, 0, 0];
-        const numGroups = 10;
-        const spaceBetweenGroup = [0,0,1];
+        const initialPoint2 = [150,-1,0];
+        const spaceBetweenPoint = [6, 0, 0];
+        const numGroups = 20;
+        const spaceBetweenGroup = [0,0,6];
 
         const pointsList = createMapsPoints(numPoints, [initialPoint, initialPoint2], spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);
+        const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [6, 6, 6]);
    
         return objects;
     });
@@ -47,6 +52,11 @@ export function Scene() {
     return(
         <>
         <Cesped />
+
+        <Physics>
+            <Player />
+            <GroundPhysic />
+        </Physics>
         </>
     );
 }
@@ -54,14 +64,17 @@ export function Scene() {
 export default function App22(props) {
 
     return (
-    <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+    <>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Stats />
         <ambientLight intensity={0.4}/>
         <pointLight />
         <Suspense fallback={<Loading />}>
             <Scene />
         </Suspense>
-        <OrbitControls />
+        {/* <OrbitControls /> */}
     </Canvas>
+    <Joystick />
+    </>
     );
 }
