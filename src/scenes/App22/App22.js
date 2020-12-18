@@ -56,19 +56,22 @@ function Horse() {
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
+function createTileMap(initialPoints=[[0,0,0]],size=[1,1], row=5, column=5){
+    const numPoints = row;
+    const spaceBetweenPoint = [size[0], 0, 0];
+    const numGroups = column;
+    const spaceBetweenGroup = [0,0,size[1]];
+
+    const pointsList = Array.isArray(initialPoints[0]) ? 
+                                        (createMapsPoints(numPoints, initialPoints, spaceBetweenPoint, numGroups, spaceBetweenGroup))
+                                        : (createMapPoints(numPoints, initialPoints, spaceBetweenPoint, numGroups, spaceBetweenGroup));
+    return pointsList;
+}
+
 function Horse2() {
-
     const objects = useMemo(()=>{
-        const numPoints = 10;
-        const initialPoint = [50,0,-200];
-        // const initialPoint2 = [150,0,0];
-        const spaceBetweenPoint = [20, 0, 0];
-        const numGroups = 10;
-        const spaceBetweenGroup = [0,0,40];
-
-        const pointsList = createMapsPoints(numPoints, [initialPoint], spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        const pointsList = createTileMap([[0,0,200]],[20,30],5,5);
         const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
-
         return objects;
     });
 
