@@ -8,7 +8,7 @@ import { OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import {InstancedMesh, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
-import { createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
+import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 
 function Trees() {
     const objects = useMemo(()=>{
@@ -27,34 +27,19 @@ function Trees() {
     return <InstancedGLTF src='assets/obj/city/tree/scene.gltf' objects={objects} />;
 }
 
-function createMapsPoints(numPoints, initialPoints=[[0,0,0],[10,0,0]], spaceBetweenPoint, numGroups, spaceBetweenGroup) {
-    const res = [];
-    initialPoints.forEach((initialPoint) => {
-        const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);
-        res.push(...objects);
-    });
-    return res;
-}
-
 function Cesped() {
     const objects = useMemo(()=>{
         const numPoints = 10;
         const initialPoint = [0,-1,0];
+        const initialPoint2 = [20,-1,0];
         const spaceBetweenPoint = [1, 0, 0];
         const numGroups = 10;
         const spaceBetweenGroup = [0,0,1];
 
-        const res = createMapsPoints(numPoints, [initialPoint, [20,-1,0]], spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        
-        // const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        // const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);  
-
-        // const pointsList2 = createMapPoints(numPoints, [15,-1,0], spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        // const objects2 = transformPointsToObjects(pointsList2, [-Math.PI/2,0,0], [1, 1, 1]);  
-        
-        // const res = objects.concat(...objects2);
-        return res;
+        const pointsList = createMapsPoints(numPoints, [initialPoint, initialPoint2], spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);
+   
+        return objects;
     });
 
     const geometry = useMemo(() => new THREE.PlaneBufferGeometry(1,1,1,1), []);
