@@ -27,6 +27,16 @@ function Trees() {
     return <InstancedGLTF src='assets/obj/city/tree/scene.gltf' objects={objects} />;
 }
 
+function createMapsPoints(numPoints, initialPoints=[[0,0,0],[10,0,0]], spaceBetweenPoint, numGroups, spaceBetweenGroup) {
+    const res = [];
+    initialPoints.forEach((initialPoint) => {
+        const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);
+        res.push(...objects);
+    });
+    return res;
+}
+
 function Cesped() {
     const objects = useMemo(()=>{
         const numPoints = 10;
@@ -34,14 +44,16 @@ function Cesped() {
         const spaceBetweenPoint = [1, 0, 0];
         const numGroups = 10;
         const spaceBetweenGroup = [0,0,1];
-        
-        const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);  
 
-        const pointsList2 = createMapPoints(numPoints, [15,-1,0], spaceBetweenPoint, numGroups, spaceBetweenGroup);
-        const objects2 = transformPointsToObjects(pointsList2, [-Math.PI/2,0,0], [1, 1, 1]);  
+        const res = createMapsPoints(numPoints, [initialPoint, [20,-1,0]], spaceBetweenPoint, numGroups, spaceBetweenGroup);
         
-        const res = objects.concat(...objects2);
+        // const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        // const objects = transformPointsToObjects(pointsList, [-Math.PI/2,0,0], [1, 1, 1]);  
+
+        // const pointsList2 = createMapPoints(numPoints, [15,-1,0], spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        // const objects2 = transformPointsToObjects(pointsList2, [-Math.PI/2,0,0], [1, 1, 1]);  
+        
+        // const res = objects.concat(...objects2);
         return res;
     });
 
