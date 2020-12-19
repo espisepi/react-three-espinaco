@@ -102,24 +102,73 @@ function Gallery() {
     return <InstancedGLTF src='assets/obj/gallery_chapel_baked/scene.gltf' objects={objects} />
 }
 
+function InstancedPhysics(){
+
+    const [ref] = useBox(() => ({
+        mass:1,
+        args: [1,1,1],
+        rotation: [-Math.PI / 2, 0, 0],
+        position: [0, 10, 22],
+    }));
+
+    const objects = [
+        {
+            position: [0,0,0],
+        },
+        {
+            position: [5,0,0],
+        }
+    ]
+
+    const createObjectsMod = useCallback((state)=>{
+      const objectsMod = [
+        {
+          ids: [0],
+          object: {
+            position: [ref.current.position.x,ref.current.position.y,ref.current.position.z],
+            rotation: [ref.current.rotation.x,ref.current.rotation.y,ref.current.rotation.z]
+          }
+        }
+      ];
+      return objectsMod;
+    });
+
+
+    return (
+    <>
+    <mesh ref={ref} 
+        geometry={new THREE.BoxBufferGeometry(1,1,1)}
+        material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})}
+    />
+    <InstancedMesh 
+        geometry={new THREE.BoxBufferGeometry(1,1,1)}
+        material={new THREE.MeshBasicMaterial({color:'ref'})}
+        objects={objects}
+        createObjectsMod={createObjectsMod}
+    />
+    </>
+    );
+}
+
 export function Scene() {
     return(
         <>
         <Cesped />
         <Horse />
-        <Horse2 />
+        {/* <Horse2 />
         <Horse3 />
         <Horse4 />
-        <Gallery />
+        <Gallery /> */}
         <Physics>
             <Player />
             <GroundPhysic />
+            <InstancedPhysics />
         </Physics>
         </>
     );
 }
 
-export default function App22(props) {
+export default function App23(props) {
 
     return (
     <>
