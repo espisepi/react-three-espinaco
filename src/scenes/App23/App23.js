@@ -80,22 +80,34 @@ function InstancedMeshPhysics(){
     const visible = true;
     const geometry = new THREE.BoxBufferGeometry(1,1,1);
     const material = new THREE.MeshBasicMaterial({color:'red'});
-    const objects = [
-        {
-            position: [0,0,0],
-            props: {
-                mass: 1,
-                args: [1,1,1]
-            }
-        },
-        {
-            position: [5,0,0],
-            props: {
-                mass: 1,
-                args: [1,1,1]
-            }
+    const objects = [];
+    for(let i = 0; i< 10; i++){
+        for(let j = 0; j < 10; j++){
+            objects.push({
+                position:[j * 1,i*1,0],
+                props: {
+                    mass: 1,
+                    args: [1,1,1]
+                }
+            })
         }
-    ];
+    }
+    // const objects = [
+    //     {
+    //         position: [0,0,0],
+    //         props: {
+    //             mass: 1,
+    //             args: [1,1,1]
+    //         }
+    //     },
+    //     {
+    //         position: [5,0,0],
+    //         props: {
+    //             mass: 1,
+    //             args: [1,1,1]
+    //         }
+    //     }
+    // ];
     
     const physicMeshes = [];
     if(geometry.type === 'BoxBufferGeometry'){
