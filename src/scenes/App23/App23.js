@@ -1,9 +1,9 @@
 // https://3dtextures.me/
 // https://threejsfundamentals.org/threejs/lessons/threejs-textures.html
 
-import React, { Suspense, useMemo, useCallback } from 'react';
+import React, { Suspense, useMemo, useCallback, useRef } from 'react';
 import * as THREE from 'three';
-import { Canvas, useLoader, useFrame } from 'react-three-fiber';
+import { Canvas, useLoader, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
@@ -58,91 +58,81 @@ function Horse() {
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
-function createTileMap(initialPoints=[[0,0,0]],size=[1,1], row=5, column=5){
-    const numPoints = row;
-    const spaceBetweenPoint = [size[0], 0, 0];
-    const numGroups = column;
-    const spaceBetweenGroup = [0,0,size[1]];
 
-    const pointsList = Array.isArray(initialPoints[0]) ? 
-                                        (createMapsPoints(numPoints, initialPoints, spaceBetweenPoint, numGroups, spaceBetweenGroup))
-                                        : (createMapPoints(numPoints, initialPoints, spaceBetweenPoint, numGroups, spaceBetweenGroup));
-    return pointsList;
-}
-
-function Horse2() {
-    const objects = useMemo(()=>{
-        const pointsList = createTileMap([[0,0,200]],[20,30],5,5);
-        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
-        return objects;
-    });
-    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
-}
-
-function Horse3() {
-    const objects = useMemo(()=>{
-        const pointsList = createMapPoints(5, [200,0,200], [20,0,0], 5, [0,20,0]);
-        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
-        return objects;
-    });
-    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
-}
-
-function Horse4() {
-    const objects = useMemo(()=>{
-        const pointsList = createMapPoints(5, [200,0,300], [20,0,0], 5, [0,20,20]);
-        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
-        return objects;
-    });
-    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
-}
-
-function Gallery() {
-    const objects=[{position:[0,0,-100],scale:[6,6,6]},{position:[200,0,-100],rotation:[Math.PI,0,0],scale:[6,6,6]}];
-    return <InstancedGLTF src='assets/obj/gallery_chapel_baked/scene.gltf' objects={objects} />
-}
-
-function InstancedPhysics(){
-
+function CreatePhysicBox({object, visible = true}) {
+    const position = object.position ? object.position : [0,0,0];
+    const rotation = object.rotation ? object.rotation : [0,0,0];
+    const scale = object.scale ? object.scale : [1,1,1];
     const [ref] = useBox(() => ({
-        mass:1,
-        args: [1,1,1],
-        rotation: [-Math.PI / 2, 0, 0],
-        position: [0, 10, 22],
-    }));
+                                    position: position,
+                                    rotation: rotation,
+                                    scale: scale,
+                                    ...object.props}));
+    return (
+        <mesh ref={ref}>
+            <boxBufferGeometry args={[1,1,1]} />
+            <meshBasicMaterial color='green' wireframe={true} visible={visible} />
+        </mesh>
+    );
+}
 
+function InstancedMeshPhysics(){
+    const visible = true;
+    const geometry = new THREE.BoxBufferGeometry(1,1,1);
+    const material = new THREE.MeshBasicMaterial({color:'red'});
     const objects = [
         {
             position: [0,0,0],
+            props: {
+                mass: 1,
+                args: [1,1,1]
+            }
         },
         {
             position: [5,0,0],
+            props: {
+                mass: 1,
+                args: [1,1,1]
+            }
         }
-    ]
-
+    ];
+    
+    const physicMeshes = [];
+    if(geometry.type === 'BoxBufferGeometry'){
+        objects.forEach((object) => {
+            const physicMesh = <CreatePhysicBox object={object} visible={visible} />;
+            physicMeshes.push(physicMesh);
+        });
+    }
+    
+    const uuid = useMemo(()=>THREE.MathUtils.generateUUID(),[]);
     const createObjectsMod = useCallback((state)=>{
-      const objectsMod = [
-        {
-          ids: [0],
-          object: {
-            position: [ref.current.position.x,ref.current.position.y,ref.current.position.z],
-            rotation: [ref.current.rotation.x,ref.current.rotation.y,ref.current.rotation.z]
-          }
-        }
-      ];
+        const objectsMod = [];
+        state.scene.children.forEach(object => {
+            if(object.uuid === uuid) {
+                object.children.forEach( (meshPhysic,id) => {
+                    objectsMod.push({
+                        ids: [id],
+                        object: {
+                            position: [meshPhysic.position.x,meshPhysic.position.y,meshPhysic.position.z],
+                            rotation: [meshPhysic.rotation.x,meshPhysic.rotation.y,meshPhysic.rotation.z],
+                            scale: [meshPhysic.scale.x,meshPhysic.scale.y,meshPhysic.scale.z],
+                        }
+                    });
+                });
+            }
+        });
       return objectsMod;
     });
-
-
+    
     return (
     <>
-    <mesh ref={ref} 
-        geometry={new THREE.BoxBufferGeometry(1,1,1)}
-        material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})}
-    />
-    <InstancedMesh 
-        geometry={new THREE.BoxBufferGeometry(1,1,1)}
-        material={new THREE.MeshBasicMaterial({color:'ref'})}
+    <group uuid={uuid}>
+        {physicMeshes ? physicMeshes : null}
+    </group>
+    <InstancedMesh
+        geometry={geometry}
+        material={material}
         objects={objects}
         createObjectsMod={createObjectsMod}
     />
@@ -155,14 +145,10 @@ export function Scene() {
         <>
         <Cesped />
         <Horse />
-        {/* <Horse2 />
-        <Horse3 />
-        <Horse4 />
-        <Gallery /> */}
         <Physics>
             <Player />
             <GroundPhysic />
-            <InstancedPhysics />
+            <InstancedMeshPhysics />
         </Physics>
         </>
     );
