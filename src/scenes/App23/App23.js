@@ -4,7 +4,7 @@
 import React, { Suspense, useMemo, useCallback, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader, useFrame, useThree } from 'react-three-fiber';
-import { OrbitControls, Stats } from 'drei';
+import { OrbitControls, Reflector, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import {InstancedMesh, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
@@ -221,9 +221,14 @@ function CustomMesh(){
     geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
     geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 
-    const material = new THREE.MeshBasicMaterial({color:'red', wireframe:true});
+    const material = new THREE.MeshPhysicalMaterial({color:'red', clearcoat:1.0, wireframe:true});
 
     return <mesh geometry={geometry} material={material} />
+    // return (
+    // <Reflector>
+    // <bufferGeometry args={[2, 5]} attach="geometry" />
+    // </Reflector>
+    // );
 }
 
 export function Scene() {
