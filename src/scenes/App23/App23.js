@@ -239,7 +239,7 @@ export function Scene() {
         <Physics>
             <Player />
             <GroundPhysic />
-            {/* <InstancedMeshPhysics /> */}
+            <InstancedMeshPhysics />
             <CustomMesh />
         </Physics>
         </>
