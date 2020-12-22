@@ -17,12 +17,22 @@ export function CreatePhysicBoxes({objects, visible = true}) {
     const physicMeshes = useMemo(()=>{
         const physicMeshes = [];
         objects.forEach((object) => {
-           object.propsPhysics.forEach((props) => {
+            if(Array.isArray(object.propsPhysics)){
+                object.propsPhysics.forEach((props) => {
+                    props.position = props.position || object.position;
+                    props.rotation = props.rotation || object.rotation;
+                    const physicMesh = <CreatePhysicBox props={props} visible={visible} />
+                    physicMeshes.push(physicMesh);
+               });
+            }
+            else {
+                const props = object.propsPhysics;
                 props.position = props.position || object.position;
                 props.rotation = props.rotation || object.rotation;
                 const physicMesh = <CreatePhysicBox props={props} visible={visible} />
                 physicMeshes.push(physicMesh);
-           });
+            }
+           
         });
         return physicMeshes;
     },[objects]);
