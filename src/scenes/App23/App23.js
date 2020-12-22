@@ -141,8 +141,25 @@ function CustomMesh(){
 
 function BreakWall() {
     const geometry = new THREE.BoxBufferGeometry(1,1,1);
-    const material = new THREE.MeshBasicMaterial({color:'red'});
-    return <InstancedMeshPhysics />;
+    const material = new THREE.MeshBasicMaterial({color:'blue'});
+    const objects = [];
+    if(objects.length === 0) {
+        for(let i = 0; i< 10; i++){
+            for(let j = 0; j < 10; j++){
+                objects.push({
+                    position:[j * 1,i*1,0],
+                    scale: [1,1,1],
+                    propsPhysics: [
+                        {
+                            mass: 1,
+                            args: [1,1,1]
+                        }
+                    ]
+                });
+            }
+        }
+    }
+    return <InstancedMeshPhysics geometry={geometry} material={material} objects={objects} createObjectsModBoolean={true} visible={true} />;
 }
 
 export function Scene() {

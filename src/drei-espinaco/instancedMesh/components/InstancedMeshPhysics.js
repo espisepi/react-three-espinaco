@@ -27,7 +27,7 @@ export function CreatePhysicBoxes({objects, visible = true}) {
     return physicMeshes ? physicMeshes : null;
 }
 
-export default function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), material=new THREE.MeshBasicMaterial({color:'red'}), objects=[], createObjectsModBoolean = false, visible = true}){
+export default function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), material=new THREE.MeshBasicMaterial({color:'red'}), objects=[], createObjectsModBoolean = false, visible = false}){
 
     // if objects array is empty, initialize it with these default values
     if(objects.length === 0) {
@@ -46,7 +46,6 @@ export default function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeomet
             }
         }
     }
-    
     
     const uuid = useMemo(()=>THREE.MathUtils.generateUUID(),[]);
     const createObjectsMod = useCallback((state)=>{
