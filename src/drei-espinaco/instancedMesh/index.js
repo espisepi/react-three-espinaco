@@ -7,6 +7,7 @@ import InstancedMeshesPhysics from './components/InstancedMeshesPhysics';
 import InstancedFBX from './components/InstancedFBX';
 import InstancedGLTF from './components/InstancedGLTF';
 import InstancedGLTFPhysics from './components/InstancedGLTFPhysics';
+import InstancedPhysics from './components/InstancedPhysics';
 
 export {
     InstancedMesh,
@@ -16,4 +17,5 @@ export {
     InstancedFBX,
     InstancedGLTF,
     InstancedGLTFPhysics,
+    InstancedPhysics
 }

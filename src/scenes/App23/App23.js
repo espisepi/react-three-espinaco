@@ -7,7 +7,7 @@ import { Canvas, useLoader, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Reflector, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
-import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTFPhysics} from '../../drei-espinaco/instancedMesh/';
+import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
 import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 
 import Joystick from '../../drei-espinaco/Joystick';
@@ -173,16 +173,52 @@ function BreakWall() {
     return <InstancedMeshPhysics geometry={geometry} material={material} objects={objects} createObjectsModBoolean={true} visible={true} />;
 }
 
+function Gallery() {
+    const position = [-100,0,-100];
+    const objects=[
+        {
+            position:position,
+            scale:[6,6,6],
+            propsPhysics: [
+                {
+                    // mass: 1,
+                    args:[1,100,200],
+                    position:[position[0], position[1], position[2]]
+                },
+                {
+                    // mass: 1,
+                    args:[1,100,200],
+                    position:[position[0] + 55, position[1], position[2]]
+                },
+                {
+                    // mass: 1,
+                    args:[1,100,200],
+                    position:[position[0] - 55, position[1], position[2]]
+                },
+            ]
+        }
+    ];
+    return (
+    <>
+        <InstancedGLTF src='assets/obj/gallery_chapel_baked/scene.gltf' objects={objects} />
+        <InstancedPhysics objects={objects} visible={true} />
+    </>
+    );
+}
+
 export function Scene() {
     return(
         <>
         <Cesped />
         <Physics>
+        <Suspense fallback={<Loading />}>
             <Horse />
             <Player />
             <GroundPhysic />
             <BreakWall />
+            <Gallery />
             {/* <CustomMesh /> */}
+            </Suspense>
         </Physics>
         </>
     );
