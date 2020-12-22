@@ -7,7 +7,7 @@ import { Canvas, useLoader, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Reflector, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
-import {InstancedMesh, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
+import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
 import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 
 import Joystick from '../../drei-espinaco/Joystick';
@@ -58,79 +58,7 @@ function Horse() {
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
-function CreatePhysicBox({props, visible}) {
-    const [ref] = useBox(() => ({...props}));
-    return (
-    <mesh ref={ref}>
-            <boxBufferGeometry args={[...props.args]} />
-            <meshBasicMaterial color='green' wireframe={true} visible={visible} />
-    </mesh>
-    );
-}
 
-
-function CreatePhysicBoxes({objects, visible = true}) {
-    const physicMeshes = [];
-    objects.forEach((object) => {
-       object.propsPhysics.forEach((props) => {
-        props.position = props.position || object.position;
-        props.rotation = props.rotation || object.rotation;
-        const physicMesh = <CreatePhysicBox props={props} visible={visible} />
-        physicMeshes.push(physicMesh);
-       });
-    });
-    return physicMeshes ? physicMeshes : null;
-}
-
-function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), material=new THREE.MeshBasicMaterial({color:'red'}), objects=[], visible = true}){
-    for(let i = 0; i< 5; i++){
-        for(let j = 0; j < 5; j++){
-            objects.push({
-                position:[j * 1,i*1,0],
-                scale: [1,1,1],
-                propsPhysics: [
-                    {
-                        mass: 1,
-                        args: [1,1,1]
-                    }
-                ]
-            });
-        }
-    }
-    
-    const uuid = useMemo(()=>THREE.MathUtils.generateUUID(),[]);
-    const createObjectsMod = useCallback((state)=>{
-        const objectsMod = [];
-        state.scene.children.forEach(object => {
-            if(object.uuid === uuid) {
-                object.children.forEach( (meshPhysic,id) => {
-                    objectsMod.push({
-                        ids: [id],
-                        object: {
-                            position: [meshPhysic.position.x,meshPhysic.position.y,meshPhysic.position.z],
-                            rotation: [meshPhysic.rotation.x,meshPhysic.rotation.y,meshPhysic.rotation.z]
-                        }
-                    });
-                });
-            }
-        });
-      return objectsMod;
-    });
-    
-    return (
-    <>
-    <group uuid={uuid}>
-        <CreatePhysicBoxes objects={objects} visible={visible} />
-    </group>
-    <InstancedMesh
-        geometry={geometry}
-        material={material}
-        objects={objects}
-        createObjectsMod={createObjectsMod}
-    />
-    </>
-    );
-}
 
 function getPointsVisuals(){
     const res = [];
@@ -211,6 +139,10 @@ function CustomMesh(){
     // );
 }
 
+function BreakWall() {
+    return <InstancedMeshPhysics />;
+}
+
 export function Scene() {
     return(
         <>
@@ -219,7 +151,7 @@ export function Scene() {
         <Physics>
             <Player />
             <GroundPhysic />
-            <InstancedMeshPhysics />
+            <BreakWall />
             {/* <CustomMesh /> */}
         </Physics>
         </>
