@@ -106,8 +106,7 @@ function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), mate
                         ids: [id],
                         object: {
                             position: [meshPhysic.position.x,meshPhysic.position.y,meshPhysic.position.z],
-                            rotation: [meshPhysic.rotation.x,meshPhysic.rotation.y,meshPhysic.rotation.z],
-                            scale: [meshPhysic.scale.x,meshPhysic.scale.y,meshPhysic.scale.z],
+                            rotation: [meshPhysic.rotation.x,meshPhysic.rotation.y,meshPhysic.rotation.z]
                         }
                     });
                 });
