@@ -58,42 +58,44 @@ function Horse() {
     return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
-
-function CreatePhysicBox({object, visible = true}) {
-    const position = object.position ? object.position : [0,0,0];
-    const rotation = object.rotation ? object.rotation : [0,0,0];
-    const [ref] = useBox(() => ({
-                                    position: position,
-                                    rotation: rotation,
-                                    ...object.props}));
+function CreatePhysicBox({props, visible}) {
+    const [ref] = useBox(() => ({...props}));
     return (
-        <mesh ref={ref}>
-            <boxBufferGeometry args={[...object.props.args]} />
+    <mesh ref={ref}>
+            <boxBufferGeometry args={[...props.args]} />
             <meshBasicMaterial color='green' wireframe={true} visible={visible} />
-        </mesh>
+    </mesh>
     );
 }
 
-function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), material=new THREE.MeshBasicMaterial({color:'red'}), objects=[], visible = true}){
-    for(let i = 0; i< 10; i++){
-        for(let j = 0; j < 10; j++){
-            objects.push({
-                position:[j * 5,i*5,0],
-                scale: [5,5,5],
-                props: {
-                    mass: 1,
-                    args: [5,5,5]
-                }
-            })
-        }
-    }
-    
+
+function CreatePhysicBoxes({objects, visible = true}) {
     const physicMeshes = [];
-    if(geometry.type === 'BoxBufferGeometry'){
-        objects.forEach((object) => {
-            const physicMesh = <CreatePhysicBox object={object} visible={visible} />;
-            physicMeshes.push(physicMesh);
-        });
+    objects.forEach((object) => {
+       object.propsPhysics.forEach((props) => {
+        props.position = props.position || object.position;
+        props.rotation = props.rotation || object.rotation;
+        const physicMesh = <CreatePhysicBox props={props} visible={visible} />
+        physicMeshes.push(physicMesh);
+       });
+    });
+    return physicMeshes ? physicMeshes : null;
+}
+
+function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), material=new THREE.MeshBasicMaterial({color:'red'}), objects=[], visible = true}){
+    for(let i = 0; i< 5; i++){
+        for(let j = 0; j < 5; j++){
+            objects.push({
+                position:[j * 1,i*1,0],
+                scale: [1,1,1],
+                propsPhysics: [
+                    {
+                        mass: 1,
+                        args: [1,1,1]
+                    }
+                ]
+            });
+        }
     }
     
     const uuid = useMemo(()=>THREE.MathUtils.generateUUID(),[]);
@@ -118,7 +120,7 @@ function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), mate
     return (
     <>
     <group uuid={uuid}>
-        {physicMeshes ? physicMeshes : null}
+        <CreatePhysicBoxes objects={objects} visible={visible} />
     </group>
     <InstancedMesh
         geometry={geometry}
