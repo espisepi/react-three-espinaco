@@ -140,6 +140,8 @@ function CustomMesh(){
 }
 
 function BreakWall() {
+    const geometry = new THREE.BoxBufferGeometry(1,1,1);
+    const material = new THREE.MeshBasicMaterial({color:'red'});
     return <InstancedMeshPhysics />;
 }
 
