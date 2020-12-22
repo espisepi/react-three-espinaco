@@ -62,52 +62,31 @@ function Horse() {
 function CreatePhysicBox({object, visible = true}) {
     const position = object.position ? object.position : [0,0,0];
     const rotation = object.rotation ? object.rotation : [0,0,0];
-    const scale = object.scale ? object.scale : [1,1,1];
     const [ref] = useBox(() => ({
                                     position: position,
                                     rotation: rotation,
-                                    scale: scale,
                                     ...object.props}));
     return (
         <mesh ref={ref}>
-            <boxBufferGeometry args={[1,1,1]} />
+            <boxBufferGeometry args={[...object.props.args]} />
             <meshBasicMaterial color='green' wireframe={true} visible={visible} />
         </mesh>
     );
 }
 
-function InstancedMeshPhysics(){
-    const visible = true;
-    const geometry = new THREE.BoxBufferGeometry(1,1,1);
-    const material = new THREE.MeshBasicMaterial({color:'red'});
-    const objects = [];
+function InstancedMeshPhysics({geometry=new THREE.BoxBufferGeometry(1,1,1), material=new THREE.MeshBasicMaterial({color:'red'}), objects=[], visible = true}){
     for(let i = 0; i< 10; i++){
         for(let j = 0; j < 10; j++){
             objects.push({
-                position:[j * 1,i*1,0],
+                position:[j * 5,i*5,0],
+                scale: [5,5,5],
                 props: {
                     mass: 1,
-                    args: [1,1,1]
+                    args: [5,5,5]
                 }
             })
         }
     }
-    // const objects = [
-    //     {
-    //         position: [0,0,0],
-    //         props: {
-    //             mass: 1,
-    //             args: [1,1,1]
-    //         }
-    //     },
-    //     {
-    //         position: [5,0,0],
-    //         props: {
-    //             mass: 1,
-    //             args: [1,1,1]
-    //         }
-    //     }
-    // ];
     
     const physicMeshes = [];
     if(geometry.type === 'BoxBufferGeometry'){
@@ -240,7 +219,7 @@ export function Scene() {
             <Player />
             <GroundPhysic />
             <InstancedMeshPhysics />
-            <CustomMesh />
+            {/* <CustomMesh /> */}
         </Physics>
         </>
     );
