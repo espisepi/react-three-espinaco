@@ -13,17 +13,20 @@ export function CreatePhysicBox({props, visible}) {
     );
 }
 
-
 export function CreatePhysicBoxes({objects, visible = true}) {
-    const physicMeshes = [];
-    objects.forEach((object) => {
-       object.propsPhysics.forEach((props) => {
-        props.position = props.position || object.position;
-        props.rotation = props.rotation || object.rotation;
-        const physicMesh = <CreatePhysicBox props={props} visible={visible} />
-        physicMeshes.push(physicMesh);
-       });
-    });
+    const physicMeshes = useMemo(()=>{
+        const physicMeshes = [];
+        objects.forEach((object) => {
+           object.propsPhysics.forEach((props) => {
+                props.position = props.position || object.position;
+                props.rotation = props.rotation || object.rotation;
+                const physicMesh = <CreatePhysicBox props={props} visible={visible} />
+                physicMeshes.push(physicMesh);
+           });
+        });
+        return physicMeshes;
+    },[objects]);
+
     return physicMeshes ? physicMeshes : null;
 }
 
