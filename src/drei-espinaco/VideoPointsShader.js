@@ -235,12 +235,15 @@ function createParticles(video){
                 float b = mid;
                 float distance = 400.0;
                 float distance2 = 300.0;
-                float distance3 = 2.0;
+                float distance3 = 100.0;
 
-                if(gray < 0.2){
+                if(gray < 0.1){
+                    pos.z = - gray * ( bass * 1.0) ;
+                } else if (gray < 0.3) {
                     pos.z = - gray * ( bass * distance) ;
                 } else if(gray < 0.4) {
-                    pos.z = - gray * bass * distance2;
+                    // pos.z = - gray * bass * distance2;
+                    pos.z = -1000.0;
                 } else if(gray < 0.6) {
                     pos.z = - gray * bass * distance3;
                 } else if(gray < 0.8) {

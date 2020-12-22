@@ -33,10 +33,10 @@ export default function App1(props) {
         {/* <Stats /> */}
         <ambientLight />
         <Suspense fallback={<Loading />}>
-            <AudioComponents scale={[1.0,1.0,1.0]} muted={muted} />
+            <AudioComponents scale={[1.0,1.0,1.0]} position={[0,0,200]} muted={muted} />
+            <SimondevPersonController visible={visible} zoomType={zoomType} />
         </Suspense>
         <Stars />
-        <SimondevPersonController visible={visible} zoomType={zoomType} />
         {/* <OrbitControls /> */}
     </Canvas>
     <Joystick />
