@@ -7,7 +7,7 @@ import { Canvas, useLoader, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Reflector, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
-import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF} from '../../drei-espinaco/instancedMesh/';
+import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTFPhysics} from '../../drei-espinaco/instancedMesh/';
 import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 
 import Joystick from '../../drei-espinaco/Joystick';
@@ -52,10 +52,21 @@ function Cesped() {
 
 function Horse() {
     const objects = [];
-    for(let i = 0; i< 10; i++){
-        objects.push({position:[i*100,0,0]})
+    for(let i = 1; i< 10; i++){
+        objects.push(
+            {
+                position:[i*100,0,0],
+                scale:[1,1,1],
+                propsPhysics: [{
+                    mass: 1,
+                    position:[i*100,100,0],
+                    args:[100,200,100]
+                }]
+            }
+        )
     }
-    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+    // return null;
+    return <InstancedGLTFPhysics src='assets/obj/Horse.glb' objects={objects} createObjectsModBoolean={true} visible={true} />
 }
 
 
@@ -166,8 +177,8 @@ export function Scene() {
     return(
         <>
         <Cesped />
-        <Horse />
         <Physics>
+            <Horse />
             <Player />
             <GroundPhysic />
             <BreakWall />
