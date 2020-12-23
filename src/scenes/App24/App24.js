@@ -63,7 +63,7 @@ function BreakWall() {
     for(let i = 0; i < 5; i++){
         for(let j = 0; j < 5; j++){
             objects.push({
-                position:[j * 5+0.2,i*2+0.2,0],
+                position:[j * 5+0.2,i*2+1.0,0],
                 scale: scale,
                 propsPhysics: [
                     {
