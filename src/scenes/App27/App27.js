@@ -1,8 +1,17 @@
-import React, { Suspense, useMemo, useCallback, useRef, useEffect } from 'react';
+// https://github.com/mrdoob/three.js/blob/master/examples/webgl_materials_texture_canvas.html
+// https://konvajs.org/docs/select_and_transform/Keep_Ratio.html
+// https://konvajs.org/docs/sandbox/Image_Resize.html
+
+import React, { Suspense, useMemo, useCallback, useRef, useEffect, useState } from 'react';
 import * as Konva from 'konva';
+import * as THREE from 'three';
+import { Canvas } from 'react-three-fiber';
+import { OrbitControls } from 'drei';
+import Stars from '../../drei-espinaco/Stars';
 
 export default function App27(props) {
     const container = useRef();
+    const [konvaCanvas, setKonvaCanvas] = useState();
     useEffect(()=>{
         if(container.current) {
             var width = window.innerWidth;
@@ -67,15 +76,36 @@ export default function App27(props) {
                   'bottom-right',
                 ],
               });
-              layer.add(tr2);
+            layer.add(tr2);
 
             layer.draw();
+
+            const konvaCanvasTemp = container.current.children[0].children[0];
+            setKonvaCanvas(konvaCanvasTemp);
         }
     },[container]);
+
+    const mesh = useRef();
+    const [map, setMap] = useState();
+    useEffect(()=>{
+        if(konvaCanvas){
+            console.log(konvaCanvas)
+            const mapTemp = new THREE.CanvasTexture(konvaCanvas);
+            setMap(mapTemp);
+        }
+    },[konvaCanvas]);
 
     return (
     <>
     <div ref={container} id="container"></div>
+    <Canvas>
+        <Stars />
+        <mesh ref={mesh}>
+            <boxBufferGeometry attach='geometry' args={[1,1,1]} />
+            <meshBasicMaterial attach='material' map={map} />
+        </mesh>
+        <OrbitControls />
+    </Canvas>
     </>
     );
 }
