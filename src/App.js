@@ -24,6 +24,7 @@ import App22 from './scenes/App22/App22';
 import App23 from './scenes/App23/App23';
 import App24 from './scenes/App24/App24';
 import App25 from './scenes/App25/App25';
+import App26 from './scenes/App26/App26';
 import AppDirty from './scenes/AppDirty/AppDirty';
 
 export {
@@ -53,6 +54,7 @@ export {
     App23,
     App24,
     App25,
+    App26,
     AppDirty
 }
 
