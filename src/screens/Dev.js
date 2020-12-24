@@ -89,7 +89,7 @@ export default function Dev() {
                 <Link to="/app27">app27</Link>
             </div>
             <div style={{width:'200px', height:'200px'}}>
-                <Link to="/dirty">dirty</Link>
+                <Link to="/app28">app28</Link>
             </div>
         </div>
     );
