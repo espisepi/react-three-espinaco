@@ -1,7 +1,7 @@
 // https://codeworkshop.dev/blog/2020-06-23-build-a-game-with-react-three-fiber-and-recoil/
 
-import React, { Suspense, useRef, useState } from "react";
-import { Canvas, useLoader, useFrame } from "react-three-fiber";
+import React, { Suspense, useRef, useState, useCallback, useEffect, useMemo } from "react";
+import { Canvas, useLoader, useFrame, useThree } from "react-three-fiber";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { TextureLoader } from "three";
@@ -12,6 +12,9 @@ import {
   scoreState
 } from "./gameState";
 // import "./styles.css";
+
+import { OrbitControls } from 'drei';
+import Fullscreen from '../../drei-espinaco/Fullscreen';
 
 // Game settings.
 const LASER_RANGE = 100;
@@ -71,13 +74,13 @@ function Terrain() {
 function ArWing() {
   const [shipPosition, setShipPosition] = useRecoilState(shipPositionState);
   const ship = useRef();
-  useFrame(({ mouse }) => {
-    setShipPosition({
-      position: { x: mouse.x * 6, y: mouse.y * 2 },
-      rotation: { z: -mouse.x * 0.5, x: -mouse.x * 0.5, y: -mouse.y * 0.2 }
-    });
-  });
-  // Update the ships position from the updated state.
+  // useFrame(({ mouse }) => {
+  //   setShipPosition({
+  //     position: { x: mouse.x * 6, y: mouse.y * 2 },
+  //     rotation: { z: -mouse.x * 0.5, x: -mouse.x * 0.5, y: -mouse.y * 0.2 }
+  //   });
+  // });
+  // // Update the ships position from the updated state.
   useFrame(() => {
     ship.current.rotation.z = shipPosition.rotation.z;
     ship.current.rotation.y = shipPosition.rotation.x;
@@ -88,7 +91,7 @@ function ArWing() {
 
   const { nodes } = useLoader(GLTFLoader, "assets/obj/arwing.glb");
   return (
-    <group ref={ship}>
+    <group name='ship' ref={ship}>
       <mesh visible geometry={nodes.Default.geometry}>
         <meshStandardMaterial
           attach="material"
@@ -111,17 +114,32 @@ function Target() {
   // A png with transparency to use as the target sprite.
   const texture = loader.load("assets/img/target.png");
 
-  // Update the position of the reticle based on the ships current position.
-  useFrame(({ mouse }) => {
-    rearTarget.current.position.y = -mouse.y * 10;
-    rearTarget.current.position.x = -mouse.x * 30;
+  const handleOnPointer = useCallback((e)=>{
+    // x,y => [0,1]
+    const mouse = { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight };
+    // x,y => [-1,1]
+    mouse.x = (mouse.x - 0.5) * 2.0;
+    mouse.y = (mouse.y - 0.5) * 2.0;
+    rearTarget.current.position.y = -mouse.y ;
+    rearTarget.current.position.x = -mouse.x;
 
-    frontTarget.current.position.y = -mouse.y * 20;
-    frontTarget.current.position.x = -mouse.x * 60;
-  });
+    frontTarget.current.position.y = -mouse.y;
+    frontTarget.current.position.x = -mouse.x;
+  },[]);
+
+  // Update the position of the reticle based on the ships current position.
+  // useFrame(({ mouse }) => {
+  //   rearTarget.current.position.y = -mouse.y * 10;
+  //   rearTarget.current.position.x = -mouse.x * 30;
+
+  //   frontTarget.current.position.y = -mouse.y * 20;
+  //   frontTarget.current.position.x = -mouse.x * 60;
+  // });
   // Sprite material has a prop called map to set the texture on.
   return (
-    <group>
+    <group 
+      name='groupTarget'
+    >
       <sprite position={[0, 0, -8]} ref={rearTarget}>
         <spriteMaterial attach="material" map={texture} />
       </sprite>
@@ -150,23 +168,51 @@ function Enemies() {
 // An invisible clickable element in the front of the scene.
 // Manages creating lasers with the correct initial velocity on click.
 function LaserController() {
-  const shipPosition = useRecoilValue(shipPositionState);
+  const [shipPosition, setShipPosition] = useRecoilState(shipPositionState);
   const [lasers, setLasers] = useRecoilState(laserPositionState);
+
+  const [groupTarget, setGroupTarget] = useState();
+  const {scene} = useThree();
+  useEffect(()=>{
+    scene.children.forEach(object => {
+      if(object.name === 'groupTarget') {
+        setGroupTarget(object);
+      }
+    })
+  },[scene.children.length]);
+
+  const handleOnPointer = useCallback((e)=>{
+    // x,y => [0,1]
+    const mouse = { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight };
+    // x,y => [-1,1]
+    mouse.x = (mouse.x - 0.5) * 2.0;
+    mouse.y = (mouse.y - 0.5) * 2.0;
+
+    setShipPosition({
+          position: { x: mouse.x, y: mouse.y },
+          rotation: { z: -mouse.x , x: -mouse.x, y: -mouse.y }
+        });
+
+    if(groupTarget) {
+      groupTarget.children[0].position.y = -mouse.y * 10;
+      groupTarget.children[0].position.x = mouse.x * 30;
+
+      groupTarget.children[1].position.y = -mouse.y * 20;
+      groupTarget.children[1].position.x = mouse.x * 60;
+    }    
+  },[groupTarget]);
+
   return (
     <mesh
       position={[0, 0, -8]}
-      onClick={() =>
-        setLasers([
-          ...lasers,
-          {
-            id: Math.random(), // This needs to be unique.. Random isn't perfect but it works. Could use a uuid here.
-            x: 0,
-            y: 0,
-            z: 0,
-            velocity: [shipPosition.rotation.x * 6, shipPosition.rotation.y * 5]
-          }
-        ])
-      }
+      onClick={(e) => handleOnPointer(e)}
+      onPointerUp={(e) => handleOnPointer(e)}
+      onPointerDown={(e) => handleOnPointer(e)}
+      onPointerOver={(e) => handleOnPointer(e)}
+      onPointerOut={(e) => handleOnPointer(e)}
+      onPointerEnter={(e) => handleOnPointer(e)}
+      onPointerLeave={(e) => handleOnPointer(e)}
+      onPointerMove={(e) => handleOnPointer(e)}
     >
       <planeBufferGeometry attach="geometry" args={[100, 100]} />
       <meshStandardMaterial
@@ -265,8 +311,10 @@ export default function App() {
           <Lasers />
           <LaserController />
           <GameTimer />
+          {/* <OrbitControls /> */}
         </RecoilRoot>
       </Canvas>
+      <Fullscreen />
     </>
   );
 }
