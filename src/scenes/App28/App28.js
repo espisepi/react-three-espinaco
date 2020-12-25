@@ -202,7 +202,7 @@ function LaserController() {
       groupTarget.children[1].position.y = -mouse.y * 20;
       groupTarget.children[1].position.x = mouse.x * 60;
     }    
-  });
+  }, { pointerEvents: true });
 
   const handleOnPointer = useCallback((e)=>{
     // x,y => [0,1]
@@ -322,7 +322,7 @@ function GameTimer() {
 export default function App() {
   return (
     <>
-      <Canvas style={{ background: "black", position:'absolute' }}>
+      <Canvas style={{ background: "black", position:'absolute', width:'100%', height:'100vh', touchAction:'auto' }}>
         <RecoilRoot>
           <directionalLight intensity={1} />
           <ambientLight intensity={0.1} />
@@ -335,7 +335,7 @@ export default function App() {
           <Lasers />
           <LaserController />
           <GameTimer />
-          {/* <OrbitControls /> */}
+          <OrbitControls />
         </RecoilRoot>
       </Canvas>
       <Fullscreen />
