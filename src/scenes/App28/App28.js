@@ -13,6 +13,8 @@ import {
 } from "./gameState";
 // import "./styles.css";
 
+import { useDrag } from 'react-use-gesture';
+
 import { OrbitControls } from 'drei';
 import Fullscreen from '../../drei-espinaco/Fullscreen';
 
@@ -181,6 +183,27 @@ function LaserController() {
     })
   },[scene.children.length]);
 
+  const bind = useDrag(({ offset: [x, y] }) => {
+    // x,y => [0,1]
+    const mouse = { x: x / window.innerWidth, y: y / window.innerHeight };
+    // x,y => [-1,1]
+    mouse.x = (mouse.x - 0.5) * 2.0;
+    mouse.y = (mouse.y - 0.5) * 2.0;
+    
+    setShipPosition({
+      position: { x: mouse.x, y: mouse.y },
+      rotation: { z: -mouse.x , x: -mouse.x, y: -mouse.y }
+    });
+
+    if(groupTarget) {
+      groupTarget.children[0].position.y = -mouse.y * 10;
+      groupTarget.children[0].position.x = mouse.x * 30;
+
+      groupTarget.children[1].position.y = -mouse.y * 20;
+      groupTarget.children[1].position.x = mouse.x * 60;
+    }    
+  });
+
   const handleOnPointer = useCallback((e)=>{
     // x,y => [0,1]
     const mouse = { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight };
@@ -204,15 +227,16 @@ function LaserController() {
 
   return (
     <mesh
+      {...bind()}
       position={[0, 0, -8]}
-      onClick={(e) => handleOnPointer(e)}
-      onPointerUp={(e) => handleOnPointer(e)}
-      onPointerDown={(e) => handleOnPointer(e)}
-      onPointerOver={(e) => handleOnPointer(e)}
-      onPointerOut={(e) => handleOnPointer(e)}
-      onPointerEnter={(e) => handleOnPointer(e)}
-      onPointerLeave={(e) => handleOnPointer(e)}
-      onPointerMove={(e) => handleOnPointer(e)}
+      // onClick={(e) => handleOnPointer(e)}
+      // onPointerUp={(e) => handleOnPointer(e)}
+      // onPointerDown={(e) => handleOnPointer(e)}
+      // onPointerOver={(e) => handleOnPointer(e)}
+      // onPointerOut={(e) => handleOnPointer(e)}
+      // onPointerEnter={(e) => handleOnPointer(e)}
+      // onPointerLeave={(e) => handleOnPointer(e)}
+      // onPointerMove={(e) => handleOnPointer(e)}
     >
       <planeBufferGeometry attach="geometry" args={[100, 100]} />
       <meshStandardMaterial
