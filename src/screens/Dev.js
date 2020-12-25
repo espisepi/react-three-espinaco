@@ -91,6 +91,9 @@ export default function Dev() {
             <div style={{width:'200px', height:'200px'}}>
                 <Link to="/app28">app28</Link>
             </div>
+            <div style={{width:'200px', height:'200px'}}>
+                <Link to="/app29">app29</Link>
+            </div>
         </div>
     );
 }
