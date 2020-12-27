@@ -1,3 +1,5 @@
+// https://discourse.threejs.org/t/correctly-remove-mesh-from-scene-and-dispose-material-and-geometry/5448/2
+
 import React, { Suspense, useState, useCallback, useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, useGLTF } from 'drei';
@@ -12,15 +14,22 @@ import { useSpring } from '@react-spring/core';
 import { a } from '@react-spring/three';
 
 function Model3D({src}) {
-    const mesh = useRef(null);
-    useEffect(()=>{
-        console.log(src)
-        if(mesh.current) {
-            console.log(mesh)
-        }
-    },[src]);
+    const { scene, gl } = useThree();
     const gltf = useGLTF(src);
-    return <a.primitive object={gltf.scene} />;
+    useEffect(()=>{
+        scene.add(gltf.scene);
+        return () => {
+            gltf.scene.traverse( object => {
+                if(object.isMesh){
+                    object.geometry.dispose();
+                    object.material.dispose();
+                }
+            });
+            scene.remove(gltf.scene);
+            gl.renderLists.dispose();
+        }
+    },[gltf]);
+    return null;
 }
 
 function PanelOptions({visible=false, controls}) {
