@@ -13,6 +13,8 @@ import { modelActiveState, modelsState } from './state';
 import { useSpring } from '@react-spring/core';
 import { a } from '@react-spring/three';
 
+import { Flex, Box, useReflow } from "react-three-flex";
+
 function Model3D({src}) {
     const { scene, gl } = useThree();
     const gltf = useGLTF(src);
@@ -46,19 +48,54 @@ function PanelOptions({visible=false, controls}) {
     
     return (
     <>
-        <mesh>
+        {/* <mesh>
             <planeBufferGeometry args={[1,1,1,1]} />
             <meshBasicMaterial color='red' />
-        </mesh>
+        </mesh> */}
 
-        <mesh scale={[0.2,0.2,0.2]} position={[0,0,0.1]} onClick={()=>handleOption(0)}>
+        <Flex
+            flexDirection="column"
+            size={[5, 5, 0]}
+        >
+
+        <Box
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="center"
+          flexWrap="wrap"
+          width="100%"
+        >
+          <Box margin={0.05}>
+            <mesh position={[2.5 / 2, -1, 0]}>
+              <planeBufferGeometry args={[2.5, 2]} />
+              <meshStandardMaterial
+                color={["#2d4059", "#ea5455", "#decdc3", "#e5e5e5"][0 % 4]}
+              />
+            </mesh>
+            <Box flexDirection="column" padding={0.1}>
+              <Box flexDirection="row" flexWrap="wrap" width={2} flexGrow={1}>
+              {models.array.map((k, i) => (
+                  <Box margin={0.05}>
+                    <mesh position={[0.3 / 2, -0.3 / 2, 0.1]} onClick={()=>handleOption(i)}>
+                      <planeBufferGeometry args={[0.3, 0.3]} />
+                      <meshStandardMaterial />
+                    </mesh>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          </Box>
+          </Box>
+        </Flex>
+
+        {/* <mesh scale={[0.2,0.2,0.2]} position={[0,0,0.1]} onClick={()=>handleOption(0)}>
             <planeBufferGeometry args={[1,1,1,1]} />
             <meshBasicMaterial color='blue' />
         </mesh>
         <mesh scale={[0.2,0.2,0.2]} position={[0.5,0,0.1]} onClick={()=>handleOption(1)}>
             <planeBufferGeometry args={[1,1,1,1]} />
             <meshBasicMaterial color='blue' />
-        </mesh>
+        </mesh> */}
     </>
     );
 }
