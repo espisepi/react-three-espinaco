@@ -87,7 +87,7 @@ export default function App() {
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
         <Suspense fallback={null}>
           <Shoe />
-          <Environment files="assets/env/royal_esplanade_1k.hdr" />
+          <Environment files="assets/env/royal_esplanade_1k.hdr" background={false} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
         <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
