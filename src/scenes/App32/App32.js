@@ -34,15 +34,15 @@ const modelState = proxy({
         {
             src: 'assets/obj/cabezaPiedra.glb',
             scale: [1,1,1]
-          },
-          {
+        },
+        {
             src: 'assets/obj/arwing.glb',
             scale: [1,1,1]
-          },
-          {
+        },
+        {
             src: 'assets/obj/Horse.glb',
             scale: [1,1,1]
-          }
+        }
     ]
 });
 
@@ -132,7 +132,7 @@ function PanelItems() {
     return (
       <>
       <div style={{ display: snap.showPanelItems ? "block" : "none", position:'absolute' }}>
-        <div style={{display:'flex', flexDirection:'row'}}>
+        <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
             { snap.items.map((k,i) => (
                 <div style={{width:'50px', height:'50px', backgroundColor:'red'}} onClick={()=>handleSelectedItem(i)}></div>
             ))}
