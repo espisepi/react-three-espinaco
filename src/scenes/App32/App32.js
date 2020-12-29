@@ -1,11 +1,12 @@
-import React, { Suspense, useRef, useState, useEffect } from "react"
-import { Canvas, useFrame } from "react-three-fiber"
+import React, { Suspense, useRef, useState, useEffect, useCallback } from "react"
+import { Canvas, useFrame, useThree } from "react-three-fiber"
 import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useProxy } from "valtio"
 
 import "react-colorful/dist/index.css"
 import './style.css';
+import { Flex } from "react-three-flex"
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -22,6 +23,28 @@ const state = proxy({
     patch: "#ffffff",
   },
 })
+
+const modelState = proxy({
+    showPanelItems: false,
+    current: {
+        src: 'assets/obj/cabezaPiedra.glb',
+        scale: [1,1,1]
+    },
+    items: [
+        {
+            src: 'assets/obj/cabezaPiedra.glb',
+            scale: [1,1,1]
+          },
+          {
+            src: 'assets/obj/arwing.glb',
+            scale: [1,1,1]
+          },
+          {
+            src: 'assets/obj/Horse.glb',
+            scale: [1,1,1]
+          }
+    ]
+});
 
 function Shoe() {
   const ref = useRef()
@@ -79,20 +102,64 @@ function Picker() {
   )
 }
 
+function Model3D({src}) {
+    const { scene, gl } = useThree();
+    const gltf = useGLTF(src);
+    useEffect(()=>{
+        scene.add(gltf.scene);
+        return () => {
+            gltf.scene.traverse( object => {
+                if(object.isMesh){
+                    object.geometry.dispose();
+                    object.material.dispose();
+                }
+            });
+            scene.remove(gltf.scene);
+            gl.renderLists.dispose();
+        }
+    },[gltf]);
+    return null;
+}
+
+function PanelItems() {
+    const snap = useProxy(modelState);
+
+    const handleSelectedItem = useCallback((index) => {
+        const itemSelected = snap.items[index];
+        modelState.current = itemSelected;
+    },[]);
+
+    return (
+      <>
+      <div style={{ display: snap.showPanelItems ? "block" : "none", position:'absolute' }}>
+        <div style={{display:'flex', flexDirection:'row'}}>
+            { snap.items.map((k,i) => (
+                <div style={{width:'50px', height:'50px', backgroundColor:'red'}} onClick={()=>handleSelectedItem(i)}></div>
+            ))}
+        </div>
+      </div>
+      <div onClick={()=>modelState.showPanelItems = !modelState.showPanelItems} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+      </>
+    )
+  }
+
+
 export default function App() {
-  return (
+    const snap = useProxy(modelState);
+    return (
     <>
-      <Canvas concurrent style={{backgroundColor:'white'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
+      <Canvas concurrent style={{backgroundColor:'white', position:'absolute'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
         <ambientLight intensity={0.3} />
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
         <Suspense fallback={null}>
-          <Shoe />
+          <Model3D  src={snap.current.src} />
           <Environment files="assets/env/royal_esplanade_1k.hdr" background={false} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
         <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
       </Canvas>
       <Picker />
+      <PanelItems />
     </>
   )
 }
