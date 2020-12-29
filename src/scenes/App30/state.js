@@ -22,7 +22,7 @@ export const modelsState = atom({
       scale: [1,1,1]
     },
     {
-      src: 'assets/obj/arwing.glb',
+      src: 'assets/obj/Horse.glb',
       scale: [1,1,1]
     }
   ]}
