@@ -135,14 +135,12 @@ function PanelItems() {
 
     return (
       <>
-      <div style={{ display: snap.showPanelItems ? "block" : "none", position:'absolute', width:'100%', height:'100vh', backgroundColor:'#333333', opacity:'0.5' }}>
-        <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
-            { snap.items.map((k,i) => (
-                <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${k.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center'}} onClick={()=>handleSelectedItem(i)}></div>
-            ))}
-        </div>
+      <div style={{position:'absolute', width:'100%', height:'100vh', backgroundColor:'#333333', opacity:'0.5' }}></div>
+      <div style={{position:'absolute', display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
+          { snap.items.map((k,i) => (
+              <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${k.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center', borderRadius:'20px' }} onClick={()=>handleSelectedItem(i)}></div>
+          ))}
       </div>
-      <div onClick={()=>modelState.showPanelItems = !modelState.showPanelItems} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
       </>
     )
   }
@@ -163,7 +161,8 @@ export default function App() {
         <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
       </Canvas>
       <Picker />
-      <PanelItems />
+      {snap.showPanelItems ? (<PanelItems />) : null}
+      <div onClick={()=>modelState.showPanelItems = !modelState.showPanelItems} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
   )
 }
