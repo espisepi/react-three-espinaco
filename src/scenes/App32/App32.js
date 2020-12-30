@@ -28,19 +28,23 @@ const modelState = proxy({
     showPanelItems: false,
     current: {
         src: 'assets/obj/cabezaPiedra.glb',
+        img: 'assets/img/home/070shake.png',
         scale: [1,1,1]
     },
     items: [
         {
             src: 'assets/obj/cabezaPiedra.glb',
+            img: 'assets/img/home/070shake.png',
             scale: [1,1,1]
         },
         {
             src: 'assets/obj/arwing.glb',
+            img: 'assets/img/home/070shake.png',
             scale: [1,1,1]
         },
         {
             src: 'assets/obj/Horse.glb',
+            img: 'assets/img/home/070shake.png',
             scale: [1,1,1]
         }
     ]
@@ -131,10 +135,10 @@ function PanelItems() {
 
     return (
       <>
-      <div style={{ display: snap.showPanelItems ? "block" : "none", position:'absolute' }}>
+      <div style={{ display: snap.showPanelItems ? "block" : "none", position:'absolute', width:'100%', height:'100vh', backgroundColor:'#333333', opacity:'0.5' }}>
         <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
             { snap.items.map((k,i) => (
-                <div style={{width:'50px', height:'50px', backgroundColor:'red'}} onClick={()=>handleSelectedItem(i)}></div>
+                <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${k.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center'}} onClick={()=>handleSelectedItem(i)}></div>
             ))}
         </div>
       </div>
