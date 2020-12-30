@@ -48,6 +48,7 @@ const modelState = proxy({
         {
             src: 'assets/obj/minerales/3.glb',
             img: 'assets/img/home/070shake.png',
+            position:[0,0.3,0],
             scale: [1,1,1]
         }
     ]
@@ -114,6 +115,9 @@ function Model3D({}) {
     const gltf = useGLTF(snap.current.src);
     const { scene, gl } = useThree();
     useEffect(()=>{
+        if(snap.current.position){
+          gltf.scene.position.set(...snap.current.position);
+        }
         scene.add(gltf.scene);
         return () => {
             gltf.scene.traverse( object => {
