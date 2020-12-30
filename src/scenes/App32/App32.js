@@ -5,6 +5,7 @@ import { HexColorPicker } from "react-colorful"
 import { proxy, useProxy } from "valtio"
 
 import Stars from '../../drei-espinaco/Stars';
+import Loading from '../../components/Loading';
 
 import "react-colorful/dist/index.css"
 import './style.css';
@@ -108,9 +109,10 @@ function Picker() {
   )
 }
 
-function Model3D({src}) {
+function Model3D({}) {
+    const snap = useProxy(modelState);
+    const gltf = useGLTF(snap.current.src);
     const { scene, gl } = useThree();
-    const gltf = useGLTF(src);
     useEffect(()=>{
         scene.add(gltf.scene);
         return () => {
@@ -160,8 +162,8 @@ export default function App() {
         <ambientLight intensity={0.3} />
         {/* <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} /> */}
         {/* <Stars /> */}
-        <Suspense fallback={null}>
-          <Model3D  src={snap.current.src} />
+        <Suspense fallback={<Loading />}>
+          <Model3D />
           <Environment files="assets/env/herkulessaulen_1k.hdr" background={true} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
