@@ -158,7 +158,7 @@ export default function App() {
     <>
       <Canvas concurrent style={{backgroundColor:'black', position:'absolute'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
         <ambientLight intensity={0.3} />
-        <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
+        {/* <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} /> */}
         {/* <Stars /> */}
         <Suspense fallback={null}>
           <Model3D  src={snap.current.src} />
