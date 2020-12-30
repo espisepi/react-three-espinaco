@@ -131,6 +131,8 @@ function PanelItems() {
     const handleSelectedItem = useCallback((index) => {
         const itemSelected = snap.items[index];
         modelState.current = itemSelected;
+
+        modelState.showPanelItems = false;
     },[]);
 
     return (
@@ -138,7 +140,9 @@ function PanelItems() {
       <div style={{position:'absolute', width:'100%', height:'100vh', backgroundColor:'#333333', opacity:'0.5' }}></div>
       <div style={{position:'absolute', display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
           { snap.items.map((k,i) => (
-              <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${k.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center', borderRadius:'20px' }} onClick={()=>handleSelectedItem(i)}></div>
+              <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${k.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center', borderRadius:'20px', cursor:'pointer' }}
+                           className='panel-items-children'
+                           onClick={()=>handleSelectedItem(i)}></div>
           ))}
       </div>
       </>
