@@ -169,7 +169,7 @@ export default function App() {
         <Suspense fallback={<Loading />}>
           <Model3D />
           <Environment files="assets/env/herkulessaulen_1k.hdr" background={true} />
-          <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
+          {/* <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} /> */}
         </Suspense>
         <OrbitControls enableZoom={true} enablePan={false} />
       </Canvas>
