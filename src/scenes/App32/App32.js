@@ -4,6 +4,8 @@ import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useProxy } from "valtio"
 
+import Stars from '../../drei-espinaco/Stars';
+
 import "react-colorful/dist/index.css"
 import './style.css';
 import { Flex } from "react-three-flex"
@@ -154,15 +156,16 @@ export default function App() {
     const snap = useProxy(modelState);
     return (
     <>
-      <Canvas concurrent style={{backgroundColor:'white', position:'absolute'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
+      <Canvas concurrent style={{backgroundColor:'black', position:'absolute'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
         <ambientLight intensity={0.3} />
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
+        {/* <Stars /> */}
         <Suspense fallback={null}>
           <Model3D  src={snap.current.src} />
-          <Environment files="assets/env/royal_esplanade_1k.hdr" background={false} />
+          <Environment files="assets/env/herkulessaulen_1k.hdr" background={true} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
-        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
+        <OrbitControls enableZoom={true} enablePan={false} />
       </Canvas>
       <Picker />
       {snap.showPanelItems ? (<PanelItems />) : null}
