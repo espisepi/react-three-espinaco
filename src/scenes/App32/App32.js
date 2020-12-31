@@ -9,7 +9,9 @@ import Loading from '../../components/Loading';
 
 import "react-colorful/dist/index.css"
 import './style.css';
-import { Flex } from "react-three-flex"
+import { Flex } from "react-three-flex";
+
+import Hamburger from 'hamburger-react';
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -146,7 +148,7 @@ function PanelItems() {
     return (
       <>
       <div style={{position:'absolute', width:'100%', height:'100vh', backgroundColor:'#333333', opacity:'0.5' }}></div>
-      <div style={{position:'absolute', display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
+      <div style={{top:'30px', position:'absolute', display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
           { snap.items.map((k,i) => (
               <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${k.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center', borderRadius:'20px', cursor:'pointer' }}
                            className='panel-items-children'
@@ -160,6 +162,11 @@ function PanelItems() {
 
 export default function App() {
     const snap = useProxy(modelState);
+
+    const handleShowPanelItems = useCallback(()=>{
+      modelState.showPanelItems = !modelState.showPanelItems;
+    },[]);
+
     return (
     <>
       <Canvas concurrent style={{backgroundColor:'black', position:'absolute'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
@@ -175,7 +182,8 @@ export default function App() {
       </Canvas>
       <Picker />
       {snap.showPanelItems ? (<PanelItems />) : null}
-      <div onClick={()=>modelState.showPanelItems = !modelState.showPanelItems} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+      <Hamburger toggled={snap.showPanelItems} toggle={handleShowPanelItems} />
+      {/* <div onClick={()=>modelState.showPanelItems = !modelState.showPanelItems} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
   )
 }

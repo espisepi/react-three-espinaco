@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "drei": "^2.1.0",
     "gsap": "^3.5.1",
+    "hamburger-react": "^2.4.0",
     "konva": "^7.2.2",
     "react": "^16.14.0",
     "react-colorful": "^4.4.4",
