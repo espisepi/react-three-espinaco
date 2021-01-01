@@ -21,9 +21,9 @@ import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 
 import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
 import { createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
-// import Lights from '../../the-gallery/components/Lights/Lights';
 
 import Ocean from '../../drei-espinaco/Ocean';
+import Stars from '../../drei-espinaco/Stars';
 
 function Lights() {
     return(
@@ -204,6 +204,7 @@ export function Scene() {
     return(
         <>
         <Lights />
+        <Stars />
         <Physics gravity={[0, -30, 0]}>
           <Wall 
             position={[0, 0, -13.5]}
