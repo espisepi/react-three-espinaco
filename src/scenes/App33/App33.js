@@ -20,6 +20,7 @@ import FullScreen from '../../drei-espinaco/Fullscreen';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 
 import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
+import { createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 // import Lights from '../../the-gallery/components/Lights/Lights';
 
 function Lights() {
@@ -44,8 +45,8 @@ function Cesped({}) {
     grassMap.repeat.set(70, 70);
 
     return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, -150]} visible={true} >
-                <planeBufferGeometry attach="geometry" args={[500, 500]} />
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.3, -200]} visible={true} >
+                <planeBufferGeometry attach="geometry" args={[700, 700]} />
                 <meshLambertMaterial attach="material">
                     <primitive attach="map" object={grassMap} />
                 </meshLambertMaterial>
@@ -138,6 +139,21 @@ function Wall({
     );
 }
 
+function Trees() {
+    const pointsList = [];
+
+    for(let i = 0; i < 10; i++) {
+        const x = -200 + Math.random() * 500;
+        const y = 0.0;
+        const z = -400 + Math.random() * 300;
+        pointsList.push([x,y,z]);
+    }
+    
+    const objects = transformPointsToObjects(pointsList, [-Math.PI / 2,0,0], [18,18,18]);
+
+    return <InstancedGLTF src='assets/obj/city/tree/scene.gltf' objects={objects} />
+}
+
 export function Scene() {
 
     return(
@@ -151,11 +167,12 @@ export function Scene() {
             mapUrl={"assets/3D/Wall/Textures/White_Wall.jpg"}
             normalMapUrl={"assets/3D/Wall/Textures/White_Wall_NORMAL.jpg"}
           />
-          <GroundPhysic /> 
-          <Player />       
+          <Trees />
+          {/* <GroundPhysic />  */}
+          {/* <Player />        */}
         </Physics>
         <Cesped />
-        {/* <OrbitControls /> */}
+        <OrbitControls />
         </>
     );
 }
@@ -174,7 +191,7 @@ export default function App33(props) {
             <Scene />
         </Suspense>
     </Canvas>
-    <Joystick />
+    {/* <Joystick /> */}
     </>
     );
 }
