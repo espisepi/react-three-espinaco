@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState, useRef, Suspense} from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from 'react-three-fiber';
-import { OrbitControls, Stats, useGLTF } from 'drei';
+import { OrbitControls, Stats, useGLTF, useFBX } from 'drei';
 import Loading from '../../components/Loading';
 
 import Map from '../../drei-espinaco/Map';
@@ -178,6 +178,27 @@ function Boxes() {
     </>);
 }
 
+function ZombieDance ({}) {
+    const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx');
+    const fbxDance = useFBX('assets/obj/simondev/resources/zombie/dance.fbx');
+    const mixer = useMemo(()=>new THREE.AnimationMixer( fbx ),[]);
+    useEffect(()=>{
+        const action = mixer.clipAction( fbxDance.animations[ 0 ] );
+        action.play();
+    },[])
+    useFrame(({clock}, dt)=>{
+        mixer.update(dt);
+    });
+
+    const position = useMemo(()=>([
+        -200 + Math.random() * 500,
+        0.0,
+        -400 + Math.random() * 300
+    ]),[]);
+
+    return  <primitive object={fbx} dispose={null} position={position} scale={[0.05,0.05,0.05]} />;
+}
+
 export function Scene() {
 
     return(
@@ -195,6 +216,7 @@ export function Scene() {
           {/* <GroundPhysic />  */}
           {/* <Player />        */}
         </Physics>
+        <ZombieDance />
         <Ocean geometry={new THREE.PlaneBufferGeometry( 800, 800, 1, 1 )} position={[0,0.1,350]} rotation={[Math.PI/2,0,0]} />
         <Boxes />
         <Cesped />
