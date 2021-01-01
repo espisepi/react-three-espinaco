@@ -23,10 +23,12 @@ import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, Inst
 import { createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 // import Lights from '../../the-gallery/components/Lights/Lights';
 
+import Ocean from '../../drei-espinaco/Ocean';
+
 function Lights() {
     return(
         <>
-        <ambientLight intensity={0.07} />
+        <ambientLight intensity={0.5} />
         {/* <directionalLight
                 position={[29, 50, -60]}
                 intensity={0.2}
@@ -193,6 +195,7 @@ export function Scene() {
           {/* <GroundPhysic />  */}
           {/* <Player />        */}
         </Physics>
+        <Ocean geometry={new THREE.PlaneBufferGeometry( 800, 800, 1, 1 )} position={[0,0.1,350]} rotation={[Math.PI/2,0,0]} />
         <Boxes />
         <Cesped />
         <OrbitControls />
