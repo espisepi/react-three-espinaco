@@ -4,12 +4,8 @@ import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useProxy } from "valtio"
 
-import Stars from '../../drei-espinaco/Stars';
-import Loading from '../../components/Loading';
-
 import "react-colorful/dist/index.css"
 import './style.css';
-import { Flex } from "react-three-flex";
 
 import Hamburger from 'hamburger-react';
 
@@ -55,6 +51,21 @@ const modelState = proxy({
         }
     ]
 });
+
+function Loading() {
+  const { camera } = useThree();
+  useEffect(()=>{
+    camera.position.set(0,0,-3);
+  },[camera]);
+  return (
+      <group >
+          <mesh>
+              <sphereBufferGeometry attach='geometry' args={[1,32,16]} />
+              <meshPhysicalMaterial attach='material' color='#774936' clearcoat={1.0} metalness={1.0} />
+          </mesh>
+      </group>
+  );
+}
 
 function Shoe() {
   const ref = useRef()
@@ -115,7 +126,10 @@ function Picker() {
 function Model3D({}) {
     const snap = useProxy(modelState);
     const gltf = useGLTF(snap.current.src);
-    const { scene, gl } = useThree();
+    const { scene, gl, camera } = useThree();
+    useEffect(()=>{
+      camera.position.set(0,0,-3);
+    },[gltf]);
     useEffect(()=>{
         if(snap.current.position){
           gltf.scene.position.set(...snap.current.position);
