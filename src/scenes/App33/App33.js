@@ -154,6 +154,28 @@ function Trees() {
     return <InstancedGLTF src='assets/obj/city/tree/scene.gltf' objects={objects} />
 }
 
+function Boxes() {
+
+    const objects = useMemo(()=>{
+        const numPoints = 50;
+        const initialPoint = [-100,10,200];
+        const spaceBetweenPoint = [10, 0, 0];
+        const numGroups = 50;
+        const spaceBetweenGroup = [0,0,20];
+        
+        const pointsList = createMapPoints(numPoints, initialPoint, spaceBetweenPoint, numGroups, spaceBetweenGroup);
+        
+        const objects = transformPointsToObjects(pointsList, [0,Math.PI/2,0], [1, 18, 11]);  
+
+        return objects;
+    });
+
+    return (
+    <>
+    <InstancedMesh geometry={new THREE.BoxBufferGeometry(1,1,1)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} objects={objects} /> 
+    </>);
+}
+
 export function Scene() {
 
     return(
@@ -171,6 +193,7 @@ export function Scene() {
           {/* <GroundPhysic />  */}
           {/* <Player />        */}
         </Physics>
+        <Boxes />
         <Cesped />
         <OrbitControls />
         </>
