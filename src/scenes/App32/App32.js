@@ -39,7 +39,7 @@ const modelState = proxy({
             scale: [1,1,1]
         },
         {
-            src: 'assets/obj/arwing.glb',
+            src: 'assets/obj/minerales/4.glb',
             img: 'assets/img/home/070shake.png',
             scale: [1,1,1]
         },
