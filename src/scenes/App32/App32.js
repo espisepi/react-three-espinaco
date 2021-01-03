@@ -29,29 +29,30 @@ const modelState = proxy({
     showPanelItems: false,
     current: {
         src: 'assets/obj/cabezaPiedra.glb',
-        img: 'assets/img/home/070shake.png',
+        img: 'assets/obj/cabezaPiedra.jpg',
         scale: [1,1,1]
     },
     items: [
         {
             src: 'assets/obj/cabezaPiedra.glb',
-            img: 'assets/img/home/070shake.png',
+            img: 'assets/obj/cabezaPiedra.jpg',
             scale: [1,1,1]
+        },
+        {
+          src: 'assets/obj/minerales/3.glb',
+          img: 'assets/obj/minerales/3.jpg',
+          position:[0,0.3,0],
+          scale: [1,1,1]
         },
         {
             src: 'assets/obj/minerales/4.glb',
-            img: 'assets/img/home/070shake.png',
+            img: 'assets/obj/minerales/4.jpg',
             scale: [1,1,1]
         },
-        {
-            src: 'assets/obj/minerales/3.glb',
-            img: 'assets/img/home/070shake.png',
-            position:[0,0.3,0],
-            scale: [1,1,1]
-        },
+        
         {
           src: 'assets/obj/minerales/5.glb',
-          img: 'assets/img/home/070shake.png',
+          img: 'assets/obj/minerales/5.jpg',
           scale: [1,1,1]
         }
     ]
