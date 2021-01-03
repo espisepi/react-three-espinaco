@@ -48,6 +48,11 @@ const modelState = proxy({
             img: 'assets/img/home/070shake.png',
             position:[0,0.3,0],
             scale: [1,1,1]
+        },
+        {
+          src: 'assets/obj/minerales/5.glb',
+          img: 'assets/img/home/070shake.png',
+          scale: [1,1,1]
         }
     ]
 });
