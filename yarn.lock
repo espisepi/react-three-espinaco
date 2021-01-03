@@ -9173,10 +9173,10 @@ react-three-fiber@^5.0.6:
     use-asset "^0.1.1"
     utility-types "^3.10.0"
 
-react-three-flex@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/react-three-flex/-/react-three-flex-0.5.2.tgz#d6670f4e3f1b6f332d654010bd37f49298912e11"
-  integrity sha512-XciDjhZBnd1s/1LQtawg3vLBEh/Wp2yRzTKjq9tnpw9x2oxqRa2yVpn7LCxR1DPu2s/pKFUuT/TGtGqB3wCJoA==
+react-three-flex@^0.4.0:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/react-three-flex/-/react-three-flex-0.4.5.tgz#c1a3dc70b4cdbfddabbaf31b849ea8bc2a19eb82"
+  integrity sha512-yR32wbiTolCKnBPPmS+7v/LAVjZTtCcFb+O5iNChpbyPoNIOxuuyGIeJmUK7Xi7aWJC22cWSKTa3KwfOoxlVSg==
   dependencies:
     yoga-layout-prebuilt "^1.9.6"
 
