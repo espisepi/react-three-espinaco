@@ -32,20 +32,20 @@ function Title() {
       height="100%"
     >
       <Box margin={0.05}>
-        <Text fontSize={0.5} letterSpacing={0.1}>
-          REACT
+        <Text fontSize={0.3} letterSpacing={0.1}>
+          WELLCOME
           <meshStandardMaterial />
         </Text>
       </Box>
       <Box margin={0.05}>
-        <Text fontSize={0.5} letterSpacing={0.1}>
-          THREE
+        <Text fontSize={0.3} letterSpacing={0.1}>
+          TO MY
           <meshStandardMaterial />
         </Text>
       </Box>
       <Box margin={0.05}>
-        <Text fontSize={0.5} letterSpacing={0.1}>
-          FIBER
+        <Text fontSize={0.3} letterSpacing={0.1}>
+          PORTFOLIO
           <meshStandardMaterial />
         </Text>
       </Box>
@@ -58,9 +58,15 @@ function BackGrid() {
   useEffect(() => {
     scene.fog = new THREE.FogExp2(0, 0.05);
   }, [scene]);
+  
+  const mesh = useRef();
+  useFrame(({clock})=>{
+    mesh.current.position.z = 0.5 * (clock.elapsedTime % 5);
+  });
 
   return (
     <Plane
+      ref={mesh}
       position={[0, -1, -8]}
       rotation={[Math.PI / 2, 0, 0]}
       args={[80, 80, 128, 128]}
@@ -83,8 +89,13 @@ function RotatingObj() {
       scale={[0.3, 0.3, 0.3]}
       args={[1, 0.4, 128, 32]}
     >
-      <meshStandardMaterial />
+      {/* <meshStandardMaterial /> */}
+      <meshPhysicalMaterial clearcoat={1.0} />
     </TorusKnot>
+    // <mesh ref={ref}>
+    //   <boxBufferGeometry attach='geometry' args={[1,1,1]} />
+    //   <meshPhysicalMaterial
+    // </mesh>
   );
 }
 
