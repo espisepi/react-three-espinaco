@@ -9,6 +9,8 @@ import './style.css';
 
 import Hamburger from 'hamburger-react';
 
+import Stars from '../../drei-espinaco/Stars'
+
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
 const state = proxy({
@@ -192,7 +194,7 @@ export default function App() {
       <Canvas concurrent style={{backgroundColor:'black', position:'absolute'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
         <ambientLight intensity={0.3} />
         {/* <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} /> */}
-        {/* <Stars /> */}
+        <Stars />
         <Suspense fallback={<Loading />}>
           <Model3D />
           <Environment files="assets/env/herkulessaulen_1k.hdr" background={true} />
