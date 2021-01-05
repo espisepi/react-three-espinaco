@@ -33,7 +33,8 @@ const modelState = proxy({
         src: 'assets/obj/minerales/3.glb',
         img: 'assets/obj/minerales/3.jpg',
         position:[0,0.3,0],
-        scale: [1,1,1]
+        scale: [1,1,1],
+        camera: [0,0,1] // Camera position
     },
     items: [
         {
@@ -137,7 +138,12 @@ function Model3D({}) {
     const gltf = useGLTF(snap.current.src);
     const { scene, gl, camera } = useThree();
     useEffect(()=>{
-      camera.position.set(0,0,-3);
+      if(snap.current.camera){
+        const position = snap.current.camera;
+        camera.position.set(position[0],position[1], position[2]); 
+      } else {
+        camera.position.set(0,0,-3); 
+      }
     },[gltf]);
     useEffect(()=>{
         if(snap.current.position){
