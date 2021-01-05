@@ -30,16 +30,12 @@ const state = proxy({
 const modelState = proxy({
     showPanelItems: false,
     current: {
-        src: 'assets/obj/cabezaPiedra.glb',
-        img: 'assets/obj/cabezaPiedra.jpg',
+        src: 'assets/obj/minerales/3.glb',
+        img: 'assets/obj/minerales/3.jpg',
+        position:[0,0.3,0],
         scale: [1,1,1]
     },
     items: [
-        {
-            src: 'assets/obj/cabezaPiedra.glb',
-            img: 'assets/obj/cabezaPiedra.jpg',
-            scale: [1,1,1]
-        },
         {
           src: 'assets/obj/minerales/3.glb',
           img: 'assets/obj/minerales/3.jpg',
@@ -56,7 +52,12 @@ const modelState = proxy({
           src: 'assets/obj/minerales/5.glb',
           img: 'assets/obj/minerales/5.jpg',
           scale: [1,1,1]
-        }
+        },
+        {
+          src: 'assets/obj/cabezaPiedra.glb',
+          img: 'assets/obj/cabezaPiedra.jpg',
+          scale: [1,1,1]
+      }
     ]
 });
 
