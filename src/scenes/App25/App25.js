@@ -134,32 +134,22 @@ function Page({ onChangePages }) {
             justifyContent="center"
             flexWrap="wrap"
             width="100%"
-            marginTop={0.3}
+            marginTop={0.5}
             marginBottom={0.1}
           >
-            <Box centerAnchor>
+            <Box margin={0.1} centerAnchor>
               <RotatingObj />
             </Box>
-            <Box marginLeft={0.3}>
-              <Text fontSize={0.4} maxWidth={1}>
+            <Box marginTop={0.3}>
+              <Text fontSize={0.3} maxWidth={vpWidth}>
                 BUILD BY
-                <meshStandardMaterial />
+                <meshBasicMaterial />
               </Text>
             </Box>
-          </Box>
-          <Box
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            flexWrap="wrap"
-            width="100%"
-            marginTop={0.1}
-            marginBottom={0.5}
-          >
-            <Box marginLeft={0.3}>
-              <Text fontSize={0.4} maxWidth={vpWidth}>
+            <Box marginTop={0.1} >
+              <Text fontSize={0.3} maxWidth={vpWidth}>
                 JOSE ANGEL
-                <meshStandardMaterial />
+                <meshBasicMaterial />
               </Text>
             </Box>
           </Box>
