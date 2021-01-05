@@ -80,22 +80,22 @@ function RotatingObj() {
   const ref = useRef();
   useFrame(
     ({ clock }) =>
-      (ref.current.rotation.x = ref.current.rotation.y = clock.getElapsedTime())
+      (ref.current.rotation.y = clock.getElapsedTime())
   );
   return (
-    <TorusKnot
-      ref={ref}
-      position={[0, 0, 0]}
-      scale={[0.3, 0.3, 0.3]}
-      args={[1, 0.4, 128, 32]}
-    >
-      {/* <meshStandardMaterial /> */}
-      <meshPhysicalMaterial clearcoat={1.0} />
-    </TorusKnot>
-    // <mesh ref={ref}>
-    //   <boxBufferGeometry attach='geometry' args={[1,1,1]} />
-    //   <meshPhysicalMaterial
-    // </mesh>
+    // <TorusKnot
+    //   ref={ref}
+    //   position={[0, 0, 0]}
+    //   scale={[0.3, 0.3, 0.3]}
+    //   args={[1, 0.4, 128, 32]}
+    // >
+    //   {/* <meshStandardMaterial /> */}
+    //   <meshPhysicalMaterial clearcoat={1.0} />
+    // </TorusKnot>
+    <mesh ref={ref}>
+      <boxBufferGeometry attach='geometry' args={[0.7,0.7,0.7]} />
+      <meshBasicMaterial attach='material' wireframe={true} />
+    </mesh>
   );
 }
 
@@ -142,7 +142,7 @@ function Page({ onChangePages }) {
             </Box>
             <Box marginLeft={0.3}>
               <Text fontSize={0.4} maxWidth={1}>
-                Flexing some Layout
+                BUILD BY
                 <meshStandardMaterial />
               </Text>
             </Box>
@@ -158,7 +158,7 @@ function Page({ onChangePages }) {
           >
             <Box marginLeft={0.3}>
               <Text fontSize={0.4} maxWidth={vpWidth}>
-                with REACT THREE FLEX
+                JOSE ANGEL
                 <meshStandardMaterial />
               </Text>
             </Box>
