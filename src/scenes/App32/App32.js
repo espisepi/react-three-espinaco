@@ -223,7 +223,7 @@ export default function App() {
       </Canvas>
       <Picker />
       {snap.showPanelItems ? (<PanelItems />) : null}
-      <Hamburger toggled={snap.showPanelItems} toggle={handleShowPanelItems} color='#774936' />
+      <Hamburger toggled={snap.showPanelItems} toggle={handleShowPanelItems} color='#FFFFFF' />
       {/* <div onClick={()=>modelState.showPanelItems = !modelState.showPanelItems} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
   )
