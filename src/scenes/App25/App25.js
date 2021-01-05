@@ -188,7 +188,7 @@ function Page({ onChangePages }) {
               </Box>
               <Box flexDirection="row" flexWrap="wrap" width={2} flexGrow={1}>
                 {new Array(8).fill(0).map((k, i) => (
-                  <Box margin={0.05}>
+                  <Box key={'product'+i} margin={0.05}>
                     <mesh position={[0.3 / 2, -0.3 / 2, 0]}>
                       <planeBufferGeometry args={[0.3, 0.3]} />
                       <meshStandardMaterial />
@@ -215,7 +215,7 @@ function Page({ onChangePages }) {
               </Box>
               <Box flexDirection="row" flexWrap="wrap" width={2} flexGrow={1}>
                 {new Array(8).fill(0).map((k, i) => (
-                  <Box margin={0.05}>
+                  <Box key={'services'+i} margin={0.05}>
                     <mesh position={[0.3 / 2, -0.3 / 2, 0]}>
                       <planeBufferGeometry args={[0.3, 0.3]} />
                       <meshStandardMaterial />
@@ -260,7 +260,7 @@ function Page({ onChangePages }) {
           // width="70%"
         >
           {new Array(8 * 4).fill(0).map((k, i) => (
-            <Box margin={0.05} key={i}>
+            <Box key={'item'+i} margin={0.05} key={i}>
               <mesh position={[0.5, -0.5, 0]}>
                 <planeBufferGeometry args={[1, 1]} />
                 <meshStandardMaterial
