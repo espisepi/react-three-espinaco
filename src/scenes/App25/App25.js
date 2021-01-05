@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { Canvas, useThree, useFrame } from "react-three-fiber";
 import { useAspect, Html, TorusKnot, Plane } from "drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 import { Flex, Box, useReflow } from "react-three-flex";
 import { Text } from "./Text";
 
@@ -298,6 +298,24 @@ export default function App() {
   const onScroll = (e) => (state.top = e.target.scrollTop);
   // useEffect(() => void onScroll({ target: scrollArea.current }), [])
   const [pages, setPages] = useState(0);
+
+  const [activeGlitch, setActiveGlitch] = useState(false);
+  const handleActiveGlitch = useCallback(()=>{
+    setActiveGlitch(true)
+  },[]);
+  const handleActiveGlitchOut = useCallback(()=>{
+    setActiveGlitch(false)
+  },[]);
+  const composer = useRef(null);
+  useEffect(()=>{
+    if(composer.current){
+      if(activeGlitch){
+        composer.current.passes[2].effects[1].mode = 1
+      } else {
+        composer.current.passes[2].effects[1].mode = 0
+      }
+    }
+  },[composer.current, activeGlitch])
   return (
     <>
       <Canvas
@@ -306,6 +324,7 @@ export default function App() {
         gl={{ alpha: false }}
         camera={{ position: [0, 0, 2], zoom: 1 }}
         style={{
+          // zIndex:'10'
             // position:'absolute',
             // width:'100%',
             // height:'100vh'
@@ -328,12 +347,13 @@ export default function App() {
           {/* <Cube /> */}
         </Suspense>
 
-        <EffectComposer>
+        <EffectComposer ref={composer}>
           <Bloom
             luminanceThreshold={0.3}
             luminanceSmoothing={0.9}
             height={1024}
           />
+          <Glitch active={true} delay={new THREE.Vector2(0,1)} />
         </EffectComposer>
       </Canvas>
       <div className="scrollArea" 
@@ -347,7 +367,9 @@ export default function App() {
             }} 
             ref={scrollArea}
             onScroll={onScroll}>
-        <div style={{ height: `${pages * 100}vh` }} />
+        <div style={{ height: `${pages * 100}vh` }} >
+          <div onPointerDown={handleActiveGlitch} onPointerOut={handleActiveGlitchOut} onPointerUp={handleActiveGlitchOut} style={{width:'100%', height:'70vh'}}></div>
+        </div>
       </div>
     </>
   );
