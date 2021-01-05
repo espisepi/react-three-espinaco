@@ -1,4 +1,5 @@
 import React, { Suspense, useRef, useState, useEffect, useCallback } from "react"
+import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from "react-three-fiber"
 import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
 import { HexColorPicker } from "react-colorful"
@@ -34,30 +35,33 @@ const modelState = proxy({
         img: 'assets/obj/minerales/3.jpg',
         position:[0,0.3,0],
         scale: [1,1,1],
-        camera: [0,0,1] // Camera position
+        camera: [0.62,0.29,0.55] // Camera position
     },
     items: [
         {
           src: 'assets/obj/minerales/3.glb',
           img: 'assets/obj/minerales/3.jpg',
           position:[0,0.3,0],
-          scale: [1,1,1]
+          scale: [1,1,1],
+          camera: [0.62,0.29,0.55]
         },
-        {
-            src: 'assets/obj/minerales/4.glb',
-            img: 'assets/obj/minerales/4.jpg',
-            scale: [1,1,1]
-        },
-        
         {
           src: 'assets/obj/minerales/5.glb',
           img: 'assets/obj/minerales/5.jpg',
-          scale: [1,1,1]
+          position:[0.0,-0.1,-0.2],
+          scale: [1,1,1],
+          camera: [-0.93, 0.16, 0.16],
         },
+        // {
+        //     src: 'assets/obj/minerales/4.glb',
+        //     img: 'assets/obj/minerales/4.jpg',
+        //     scale: [1,1,1]
+        // },
         {
           src: 'assets/obj/cabezaPiedra.glb',
           img: 'assets/obj/cabezaPiedra.jpg',
-          scale: [1,1,1]
+          position: [0.0,-0.2,-0.2],
+          camera: [-0.88,0.64,-0.30]
       }
     ]
 });
@@ -137,6 +141,8 @@ function Model3D({}) {
     const snap = useProxy(modelState);
     const gltf = useGLTF(snap.current.src);
     const { scene, gl, camera } = useThree();
+    // const axesHelper = new THREE.AxesHelper( 5 );
+    // scene.add( axesHelper );
     useEffect(()=>{
       if(snap.current.camera){
         const position = snap.current.camera;
@@ -145,9 +151,15 @@ function Model3D({}) {
         camera.position.set(0,0,-3); 
       }
     },[gltf]);
+    // useFrame(()=>{
+    //   console.log(camera.position)
+    // })
     useEffect(()=>{
         if(snap.current.position){
           gltf.scene.position.set(...snap.current.position);
+        }
+        if(snap.current.rotation){
+          gltf.scene.rotation.set(...snap.current.rotation);
         }
         scene.add(gltf.scene);
         return () => {
