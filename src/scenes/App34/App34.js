@@ -2,7 +2,7 @@
 
 import React, {useEffect, useCallback} from 'react';
 import * as THREE from 'three';
-import { Canvas, useLoader } from 'react-three-fiber';
+import { Canvas, useLoader, useThree } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
 
@@ -38,26 +38,27 @@ export function Scene() {
     const snapHotspots = useProxy(hotspotsState);
     const envSrc = snapHotspots.current.env;
     const texture = useLoader(THREE.TextureLoader, envSrc);
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.encoding = THREE.sRGBEncoding;
+
+    // equirectangular background
+    const {scene} = useThree();
     useEffect(()=>{
-    
-    },[]);
+        scene.background = texture;
+    },[texture]);
+
 
     const handleOnClick = useCallback(({location})=>{
         hotspotsState.current = location;
     },[]);
-
     return(
         <>
         <ambientLight />
         <OrbitControls />
         <group>
-        <mesh>
-            <sphereBufferGeometry args={[500, 60, 40]} />
-            <meshBasicMaterial map={texture} side={THREE.BackSide} />
-        </mesh>
         <mesh position={snapHotspots.current.children[0].position} onClick={()=>handleOnClick(snapHotspots.current.children[0])}>
             <sphereGeometry args={[1.25, 32, 32]} />
-            <meshBasicMaterial color="white" />
+            <meshBasicMaterial envMap={texture} side={THREE.FrontSide}/>
         </mesh>
         </group>
         </>
