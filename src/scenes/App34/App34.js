@@ -3,19 +3,19 @@
 import React, {useEffect, useCallback, useState, useRef} from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader, useThree, useFrame } from 'react-three-fiber';
-import { OrbitControls } from 'drei';
+import { OrbitControls, Stats } from 'drei';
 // import Loading from '../../components/Loading';
 
 import { proxy, useProxy } from "valtio";
 import { Suspense } from 'react';
 
 const hotspot0 = {
-    position: [0,2,0],
+    position: [0,-2,-10],
     img: '',
     location: null
 }
 const hotspot1 = {
-    position: [0,2,0],
+    position: [-10,2,-10],
     img: ''
 }
 
@@ -52,7 +52,9 @@ export function Scene() {
     const texture = useLoader(THREE.TextureLoader, envSrc);
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.encoding = THREE.sRGBEncoding;
-    texturesState.new = texture;
+    
+    const envHotspots = snapHotspots.current.children.map(h => h.location.env);
+    const texturesHotspot = useLoader(THREE.TextureLoader, envHotspots);
 
     // equirectangular background
     const {scene, camera} = useThree();
@@ -60,7 +62,7 @@ export function Scene() {
         scene.background = texture;
     },[texture]);
 
-    const handleOnClick = useCallback(({location})=>{
+    const handleOnClick = useCallback(({location, position})=>{
         hotspotsState.next = location;
         animationState.run = true;
     },[]);
@@ -72,8 +74,6 @@ export function Scene() {
             camera.add(meshLoading.current)
         }
     },[meshLoading.current]);
-    
-    // console.log(snapTextures)
     return(
         <>
         <ambientLight />
@@ -82,10 +82,14 @@ export function Scene() {
             <sphereBufferGeometry args={[500, 60, 40]} />
             <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
         </mesh>
-        <mesh position={snapHotspots.current.children[0].position} onPointerDown={()=>handleOnClick(snapHotspots.current.children[0])}>
-            <sphereGeometry args={[1.25, 32, 32]} />
-            <meshBasicMaterial envMap={texture} side={THREE.FrontSide}/>
-        </mesh>
+        {snapHotspots.current.children.map( (hotspot, id) => {
+            return (
+                <mesh key={id} position={hotspot.position} onPointerDown={()=>handleOnClick(hotspot)}>
+                    <sphereGeometry args={[1.25, 32, 32]} />
+                    <meshBasicMaterial map={texturesHotspot[id]} side={THREE.FrontSide}/>
+                </mesh>
+            );
+        })}
         </group>
         </>
     );
@@ -149,6 +153,7 @@ export default function AppDirty(props) {
 
     return (
     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+        <Stats />
         <Suspense fallback={null}>
             <OrbitControls />
             <Scene />
