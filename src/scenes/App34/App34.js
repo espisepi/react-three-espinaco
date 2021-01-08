@@ -1,6 +1,6 @@
 // https://codesandbox.io/s/r3f-sky-dome-forked-rj0tn?file=/src/index.js:633-1162 (L)
 
-import React, {useEffect, useCallback, useState, useRef} from 'react';
+import React, {useEffect, useCallback, useState, useRef, useMemo} from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader, useThree, useFrame } from 'react-three-fiber';
 import { OrbitControls, Stats } from 'drei';
@@ -11,24 +11,33 @@ import { Suspense } from 'react';
 
 const hotspot0 = {
     position: [0,-2,-10],
-    img: '',
-    location: null
+    img: ''
 }
 const hotspot1 = {
     position: [-10,2,-10],
     img: ''
 }
+const hotspot2 = {
+    position: [10,2,-10],
+    img: ''
+}
 
 const location0 = {
     env:'assets/env/360jpg/cannon.jpg',
-    children: [hotspot1]
+    children: [hotspot1, hotspot2]
 }
 const location1 = {
     env:'assets/env/360jpg/lilienstein.jpg',
     children: [hotspot0]
 }
+const location2 = {
+    env:'assets/env/360jpg/wasteland_clouds.jpg',
+    children: [hotspot0]
+}
+
 hotspot0.location = location0;
 hotspot1.location = location1;
+hotspot2.location = location2;
 
 
 const hotspotsState = proxy({
@@ -53,7 +62,16 @@ export function Scene() {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.encoding = THREE.sRGBEncoding;
     
-    const envHotspots = snapHotspots.current.children.map(h => h.location.env);
+    const envHotspots = useMemo(()=>{
+        // const current = snapHotspots.current;
+        // const res = [];
+        // for(let i = 0; i<current.children.length; i++ ){
+        //     console.log(current.children[i].location);
+        // }
+        // snapHotspots.current.children.forEach(h=>console.log(h.location))
+        const res = snapHotspots.current.children.map(h => h.location.env);
+        return res;
+    },[snapHotspots.current]);
     const texturesHotspot = useLoader(THREE.TextureLoader, envHotspots);
 
     // equirectangular background
@@ -86,7 +104,7 @@ export function Scene() {
             return (
                 <mesh key={id} position={hotspot.position} onPointerDown={()=>handleOnClick(hotspot)}>
                     <sphereGeometry args={[1.25, 32, 32]} />
-                    <meshBasicMaterial color='#CD9FCC' map={texturesHotspot[id]} side={THREE.FrontSide}/>
+                    <meshBasicMaterial color='#CD9FCC' map={texturesHotspot[id]}  side={THREE.FrontSide}/>
                 </mesh>
             );
         })}
