@@ -32,12 +32,14 @@ hotspot1.location = location1;
 
 
 const hotspotsState = proxy({
-        current: location0
+        current: location0,
+        next: location0
 });
 
 const animationState = proxy({run:false});
 
 const texturesState = proxy({
+    current: null,
     old: null,
     new: null
 })
@@ -45,6 +47,7 @@ const texturesState = proxy({
 export function Scene() {
     const snapHotspots = useProxy(hotspotsState);
     const snapAnimation = useProxy(animationState);
+    // const snapTextures = useProxy(texturesState);
     const envSrc = snapHotspots.current.env;
     const texture = useLoader(THREE.TextureLoader, envSrc);
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -58,8 +61,7 @@ export function Scene() {
     },[texture]);
 
     const handleOnClick = useCallback(({location})=>{
-        texturesState.old = texture;
-        hotspotsState.current = location;
+        hotspotsState.next = location;
         animationState.run = true;
     },[]);
 
@@ -70,7 +72,8 @@ export function Scene() {
             camera.add(meshLoading.current)
         }
     },[meshLoading.current]);
-
+    
+    // console.log(snapTextures)
     return(
         <>
         <ambientLight />
@@ -113,12 +116,15 @@ function RunAnimation() {
             if(iTime <= 3.14){
                 // console.log(texturesSnap.old.clone())
                 // console.log(mesh.current.material)
-                const textureTemp = texturesSnap.old.clone();
+                // const textureTemp = texturesSnap.old.clone();
+                // texturesState.current = texturesState.old;
                 // mesh.current.material.envMap = textureTemp.clone();
                 // textureTemp.mapping = THREE.EquirectangularReflectionMapping;
                 // textureTemp.encoding = THREE.sRGBEncoding;
                 // setTexture(textureTemp);
             }else{
+                hotspotsState.current = hotspotsState.next;
+                // texturesState.current = texturesState.new;
                 // setTexture(texturesSnap.new);
             }
 
