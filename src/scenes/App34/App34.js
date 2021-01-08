@@ -82,7 +82,7 @@ export function Scene() {
             <sphereBufferGeometry args={[500, 60, 40]} />
             <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
         </mesh>
-        <mesh position={snapHotspots.current.children[0].position} onClick={()=>handleOnClick(snapHotspots.current.children[0])}>
+        <mesh position={snapHotspots.current.children[0].position} onPointerDown={()=>handleOnClick(snapHotspots.current.children[0])}>
             <sphereGeometry args={[1.25, 32, 32]} />
             <meshBasicMaterial envMap={texture} side={THREE.FrontSide}/>
         </mesh>
