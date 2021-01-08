@@ -86,7 +86,7 @@ export function Scene() {
             return (
                 <mesh key={id} position={hotspot.position} onPointerDown={()=>handleOnClick(hotspot)}>
                     <sphereGeometry args={[1.25, 32, 32]} />
-                    <meshBasicMaterial map={texturesHotspot[id]} side={THREE.FrontSide}/>
+                    <meshBasicMaterial color='#CD9FCC' map={texturesHotspot[id]} side={THREE.FrontSide}/>
                 </mesh>
             );
         })}
