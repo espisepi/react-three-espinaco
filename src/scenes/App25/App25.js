@@ -79,19 +79,13 @@ function BackGrid() {
 function RotatingObj() {
   const ref = useRef();
   useFrame(
-    ({ clock }) =>
-      (ref.current.rotation.y = clock.getElapsedTime())
+    ({ clock }) =>{
+      if(ref.current){
+        ref.current.rotation.y = clock.getElapsedTime();
+      }
+    }
   );
   return (
-    // <TorusKnot
-    //   ref={ref}
-    //   position={[0, 0, 0]}
-    //   scale={[0.3, 0.3, 0.3]}
-    //   args={[1, 0.4, 128, 32]}
-    // >
-    //   {/* <meshStandardMaterial /> */}
-    //   <meshPhysicalMaterial clearcoat={1.0} />
-    // </TorusKnot>
     <mesh ref={ref}>
       <boxBufferGeometry attach='geometry' args={[0.7,0.7,0.7]} />
       <meshBasicMaterial attach='material' wireframe={true} />
@@ -256,7 +250,6 @@ export default function App() {
 
         <Suspense fallback={<Html center>loading..</Html>}>
           <Page onChangePages={setPages} />
-          {/* <Cube /> */}
         </Suspense>
 
         <EffectComposer ref={composer}>
