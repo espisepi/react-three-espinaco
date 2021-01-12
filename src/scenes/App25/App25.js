@@ -114,6 +114,10 @@ function Page({ onChangePages }) {
     },
     [onChangePages, vpHeight]
   );
+
+  const handleClickProject = useCallback(()=>{
+    console.log('olaaa')
+  });
   return (
     <group ref={group}>
       <BackGrid />
@@ -146,7 +150,7 @@ function Page({ onChangePages }) {
                 <meshBasicMaterial />
               </Text>
             </Box>
-            <Box marginTop={0.1} >
+            <Box marginTop={0.1}  >
               <Text fontSize={0.3} maxWidth={vpWidth}>
                 JOSE ANGEL
                 <meshBasicMaterial />
@@ -156,92 +160,7 @@ function Page({ onChangePages }) {
         </group>
 
         <Box
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center"
-          flexWrap="wrap"
-          width="100%"
-        >
-          <Box margin={0.05}>
-            <mesh position={[2.5 / 2, -1, 0]}>
-              <planeBufferGeometry args={[2.5, 2]} />
-              <meshStandardMaterial
-                color={["#2d4059", "#ea5455", "#decdc3", "#e5e5e5"][0 % 4]}
-              />
-            </mesh>
-            <Box flexDirection="column" padding={0.1}>
-              <Box marginBottom={0.1} marginLeft={0.05}>
-                <Text fontSize={0.2} letterSpacing={0.1}>
-                  OUR PRODUCTS
-                  <meshStandardMaterial />
-                </Text>
-              </Box>
-              <Box flexDirection="row" flexWrap="wrap" width={2} flexGrow={1}>
-                {new Array(8).fill(0).map((k, i) => (
-                  <Box key={'product'+i} margin={0.05}>
-                    <mesh position={[0.3 / 2, -0.3 / 2, 0]}>
-                      <planeBufferGeometry args={[0.3, 0.3]} />
-                      <meshStandardMaterial />
-                    </mesh>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-
-          <Box margin={0.05}>
-            <mesh position={[2.5 / 2, -1, 0]}>
-              <planeBufferGeometry args={[2.5, 2]} />
-              <meshStandardMaterial
-                color={["#2d4059", "#ea5455", "#decdc3", "#e5e5e5"][1 % 4]}
-              />
-            </mesh>
-            <Box flexDirection="column" padding={0.1}>
-              <Box marginBottom={0.1} marginLeft={0.05}>
-                <Text fontSize={0.2} letterSpacing={0.1}>
-                  OUR SERVICES
-                  <meshStandardMaterial />
-                </Text>
-              </Box>
-              <Box flexDirection="row" flexWrap="wrap" width={2} flexGrow={1}>
-                {new Array(8).fill(0).map((k, i) => (
-                  <Box key={'services'+i} margin={0.05}>
-                    <mesh position={[0.3 / 2, -0.3 / 2, 0]}>
-                      <planeBufferGeometry args={[0.3, 0.3]} />
-                      <meshStandardMaterial />
-                    </mesh>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-
-        <group position-z={0.4}>
-          <Box
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            width="100%"
-            marginTop={0.8}
-            marginBottom={1}
-          >
-            <Box margin={0.1}>
-              <Text fontSize={0.2} letterSpacing={0.1} maxWidth={vpWidth * 0.8}>
-                ORDER WITH CONFIDENCE
-                <meshStandardMaterial />
-              </Text>
-            </Box>
-            <Box margin={0.1}>
-              <Text fontSize={0.2} letterSpacing={0.1} maxWidth={vpWidth * 0.8}>
-                ONE DAY DELIVERY
-                <meshStandardMaterial />
-              </Text>
-            </Box>
-          </Box>
-        </group>
-
-        <Box
+          marginTop={0.2}
           flexDirection="row"
           alignItems="center"
           justifyContent="center"
@@ -256,6 +175,9 @@ function Page({ onChangePages }) {
                 <meshStandardMaterial
                   color={["#2d4059", "#ea5455", "#decdc3", "#e5e5e5"][i % 4]}
                 />
+                <Html scaleFactor={1} center>
+                  <div style={{width:'450px', height:'450px', backgroundColor:'red'}} onPointerDown={handleClickProject}></div>
+                </Html>
               </mesh>
             </Box>
           ))}
