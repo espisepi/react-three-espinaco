@@ -357,9 +357,8 @@ export default function App() {
             }} 
             ref={scrollArea}
             onScroll={onScroll}>
-        <div style={{ height: `${pages * 100}vh` }} >
-          <div onPointerDown={handleActiveGlitch} onPointerOut={handleActiveGlitchOut} onPointerUp={handleActiveGlitchOut} style={{width:'100%', height:'70vh'}}></div>
-        </div>
+        <div style={{ height: `${pages * 100}vh`, width:'5px' }} ></div>
+        <div onPointerDown={handleActiveGlitch} onPointerOut={handleActiveGlitchOut} onPointerUp={handleActiveGlitchOut} style={{width:'100%', height:'70vh', position:'absolute', top:0}}></div>
       </div>
     </>
   );
