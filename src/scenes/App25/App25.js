@@ -4,13 +4,16 @@ import React, {
   useEffect,
   useRef,
   useState,
-  useCallback
+  useCallback,
+  useMemo
 } from "react";
 import { Canvas, useThree, useFrame } from "react-three-fiber";
 import { useAspect, Html, TorusKnot, Plane } from "drei";
 import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 import { Flex, Box, useReflow } from "react-three-flex";
 import { Text } from "./Text";
+
+import { useHistory } from "react-router-dom";
 
 const state = {
   top: 0
@@ -109,8 +112,33 @@ function Page({ onChangePages }) {
     [onChangePages, vpHeight]
   );
 
-  const handleClickProject = useCallback(()=>{
-    console.log('olaaa')
+  const projects = useMemo(()=>([
+    {
+      name: 'app6',
+      img: '/assets/img/home/gatacattana.png'
+    },
+    {
+      name: 'app14',
+      img: '/assets/img/home/elane.png'
+    },
+    {
+      name: 'app1',
+      img: '/assets/img/home/070shake.png'
+    },
+    {
+      name: 'app32',
+      img: '/assets/img/home/070shake.png'
+    },
+    {
+      name: 'app31',
+      img: '/assets/img/home/070shake.png'
+    },
+  ]),[]);
+
+  const handleClickProject = useCallback((nameApp)=>{
+    const path = window.location.href;
+    const pathNew = path.replace("app25", nameApp);
+    window.location.href = pathNew;
   });
   return (
     <group ref={group}>
@@ -162,7 +190,7 @@ function Page({ onChangePages }) {
           width="100%"
           // width="70%"
         >
-          {new Array(8 * 4).fill(0).map((k, i) => (
+          {projects.map((project, i) => (
             <Box key={'item'+i} margin={0.05} key={i}>
               <mesh position={[0.5, -0.5, 0]}>
                 <planeBufferGeometry args={[1, 1]} />
@@ -170,7 +198,8 @@ function Page({ onChangePages }) {
                   color={["#2d4059", "#ea5455", "#decdc3", "#e5e5e5"][i % 4]}
                 />
                 <Html scaleFactor={1} center>
-                  <div style={{width:'450px', height:'450px', backgroundColor:'red'}} onPointerDown={handleClickProject}></div>
+                  <div style={{width:'450px', height:'450px', backgroundColor:'red', backgroundPosition:'center', backgroundSize:'cover'}}
+                       onPointerDown={()=>handleClickProject(project.name)}></div>
                 </Html>
               </mesh>
             </Box>
