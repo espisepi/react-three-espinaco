@@ -54,7 +54,6 @@ export default function PicturesDisplay() {
         rotation: d.rotation,
         args: d.scale
     }}));
-    console.log(displaysPhysics);
 
     const alphaMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/BiancoMarble/BIANCO-ao.jpg"), []);
     const diffuseMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/BiancoMarble/BIANCO-diffuse.jpg"), []);
