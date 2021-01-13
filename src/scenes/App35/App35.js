@@ -23,7 +23,7 @@ function Picture({
     return (
         <mesh scale={scale} position={position} rotation={rotation}>
             <planeBufferGeometry attach="geometry" args={[1,1,1,1]} />
-            <meshLambertMaterial attach="material" map={map} side={THREE.DoubleSide} />
+            <meshLambertMaterial attach="material" map={map} side={THREE.BackSide} />
         </mesh>
     )
 }
@@ -32,32 +32,37 @@ function PicturesDisplay() {
     const pictures = useMemo(()=>{
         return [
             {
-                img: 'assets/3D/Portrait/textures/initialShadingGroup_baseColor.jpg',
-                position: [20, 5, 0],
-                rotation: [0,0,0],
+                img: 'assets/img/jipis/charls/doggy.jpeg',
+                position: [19.4, 5, 0],
+                rotation: [0,Math.PI/2,0],
                 scale: [10,10,1],
                 display: {
                     position: [20, 5, 0],
-                    rotation: [0,0,0],
-                    scale: [1, 18, 11]
+                    rotation: [0,Math.PI/2,0],
+                    scale: [15, 18, 1]
                 }
             },
             {
-                img: 'assets/3D/Portrait/textures/initialShadingGroup_baseColor.jpg',
-                position: [30, 7, 4],
-                rotation: [0,0,0],
-                scale:[5,5,1],
+                img: 'assets/img/jipis/charls/doggy2.jpeg',
+                position: [19.4, 5, 25],
+                rotation: [0,Math.PI/2,0],
+                scale:[10,10,1],
                 display: {
                     position: [20, 5, 25],
-                    rotation: [0,0,0],
-                    scale: [1, 18, 11]
+                    rotation: [0,Math.PI/2,0],
+                    scale: [15, 18, 1]
                 }
             }
         ];
     });
 
     const displays = pictures.map(p => p.display);
-    console.log(displays);
+    const displaysPhysics = displays.map(d => ({propsPhysics: {
+        position: d.position,
+        rotation: d.rotation,
+        args: d.scale
+    }}));
+    console.log(displaysPhysics);
 
     const alphaMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/BiancoMarble/BIANCO-ao.jpg"), []);
     const diffuseMap = useMemo(() => new THREE.TextureLoader().load("assets/Textures/BiancoMarble/BIANCO-diffuse.jpg"), []);
@@ -65,8 +70,7 @@ function PicturesDisplay() {
 
     return (
         <>
-        {pictures.map(p => (<Picture img={p.img} position={p.position} rotation={p.rotation} scale={p.scale} />))}
-        {/* <Picture scale={[5,5,1]}/> */}
+        {pictures.map((p,i) => (<Picture key={i} img={p.img} position={p.position} rotation={p.rotation} scale={p.scale} />))}
         <InstancedMesh 
             geometry={new THREE.BoxBufferGeometry(1,1,1)}
             material={new THREE.MeshStandardMaterial({
@@ -78,6 +82,7 @@ function PicturesDisplay() {
             })}
             objects={displays}
         />
+        <InstancedPhysics objects={displaysPhysics} visible={false} />
         </>
     );
 }
@@ -94,7 +99,6 @@ export function Scene() {
             <GroundPhysic />
         </Suspense>
         </Physics>
-        <Loading />
         {/* <OrbitControls /> */}
         </>
     );
