@@ -12,7 +12,7 @@ import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
 import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
 
-import PicturesDisplay from './PicturesDisplay';
+import PicturesDisplay from './displays/PicturesDisplay';
 import Scene01 from './scenes/Scene01';
 import Scene02 from './scenes/Scene02';
 

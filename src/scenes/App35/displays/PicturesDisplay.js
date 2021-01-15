@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { useLoader } from 'react-three-fiber';
-import {InstancedMesh, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
+import {InstancedMesh, InstancedPhysics} from '../../../drei-espinaco/instancedMesh/';
+
+import { Images } from '../State';
 
 
 function Picture({
@@ -24,7 +26,7 @@ export default function PicturesDisplay() {
     const pictures = useMemo(()=>{
         return [
             {
-                img: 'assets/img/jipis/charls/doggy.jpeg',
+                img: Images[0],
                 position: [19.4, 5, 0],
                 rotation: [0,Math.PI/2,0],
                 scale: [10,10,1],
@@ -35,7 +37,7 @@ export default function PicturesDisplay() {
                 }
             },
             {
-                img: 'assets/img/jipis/charls/doggy2.jpeg',
+                img: Images[1],
                 position: [19.4, 5, 25],
                 rotation: [0,Math.PI/2,0],
                 scale:[10,10,1],
