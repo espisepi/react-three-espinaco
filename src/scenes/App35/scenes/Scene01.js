@@ -2,6 +2,7 @@ import React from 'react';
 import * as THREE from 'three';
 import { Sky } from 'drei';
 import Ocean from '../../../drei-espinaco/Ocean';
+import PicturesDisplay from '../displays/PicturesDisplay';
 
 export default function Scene01(){
     return(
@@ -13,6 +14,7 @@ export default function Scene01(){
             inclination={0.65} // Sun elevation angle from 0 to 1 (default=0)
             azimuth={0.50} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
         />
+        <PicturesDisplay />
         </>
     );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Plane from '../../../drei-espinaco/Plane';
+import PicturesDisplay from '../displays/PicturesDisplay';
 
 export default function Scene02() {
     return(
@@ -10,6 +11,7 @@ export default function Scene02() {
         <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[20,0,0]}/>
         <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[-20,0,0]}/>
         </group>
+        <PicturesDisplay />
         </>
     );
 }

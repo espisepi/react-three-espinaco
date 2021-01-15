@@ -15,6 +15,7 @@ import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../
 import PicturesDisplay from './displays/PicturesDisplay';
 import Scene01 from './scenes/Scene01';
 import Scene02 from './scenes/Scene02';
+import Scene03 from './scenes/Scene03';
 
 import Ocean from '../../drei-espinaco/Ocean';
 import Plane from '../../drei-espinaco/Plane';
@@ -36,11 +37,10 @@ export function ScenePrincipal() {
         const indexFix = snapState.index % lengthScenarios;
         if(indexFix === 0){
             setCurrent(<Scene01 />);
-        } 
-        else if(indexFix === 1) {
+        }else if(indexFix === 1) {
             setCurrent(<Scene02 />);
         }else if(indexFix === 2) {
-            setCurrent(<SceneApp33 />);
+            setCurrent(<Scene03 />);
         }
     },[snapState]);
     return(
@@ -50,7 +50,6 @@ export function ScenePrincipal() {
             
             {current}
 
-            <PicturesDisplay />
             <Player mass={200.0}/>
             <GroundPhysic />
         </Suspense>
