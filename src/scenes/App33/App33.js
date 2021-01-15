@@ -199,6 +199,29 @@ function ZombieDance ({}) {
     return  <primitive object={fbx} dispose={null} position={position} scale={[0.05,0.05,0.05]} />;
 }
 
+export function SceneApp33(){
+    return(
+        <>
+        <Lights />
+        <Stars />
+        <Wall 
+            position={[0, 0, -13.5]}
+            scale={[2,1,2]}
+            modelUrl={"assets/3D/Wall/scene.gltf"}
+            mapUrl={"assets/3D/Wall/Textures/White_Wall.jpg"}
+            normalMapUrl={"assets/3D/Wall/Textures/White_Wall_NORMAL.jpg"}
+          />
+        <Trees />
+        <ZombieDance />
+        <Ocean geometry={new THREE.PlaneBufferGeometry( 800, 800, 1, 1 )} position={[0,0.1,350]} rotation={[Math.PI/2,0,0]} />
+        <Boxes />
+        <Cesped />
+        </>
+    );
+}
+
+
+
 export function Scene() {
 
     return(

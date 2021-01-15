@@ -21,6 +21,8 @@ import Plane from '../../drei-espinaco/Plane';
 
 import { proxy, useProxy } from "valtio";
 
+import {SceneApp33} from '../App33/App33';
+
 
 const state = proxy({index: 0});
 
@@ -30,13 +32,15 @@ export function ScenePrincipal() {
     const [current, setCurrent] = useState();
     
     useEffect(()=>{
-        const lengthScenarios = 2;
+        const lengthScenarios = 3;
         const indexFix = snapState.index % lengthScenarios;
         if(indexFix === 0){
             setCurrent(<Scene01 />);
         } 
         else if(indexFix === 1) {
             setCurrent(<Scene02 />);
+        }else if(indexFix === 2) {
+            setCurrent(<SceneApp33 />);
         }
     },[snapState]);
     return(
