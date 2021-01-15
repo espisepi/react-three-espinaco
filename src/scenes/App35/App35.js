@@ -16,6 +16,7 @@ import PicturesDisplay from './displays/PicturesDisplay';
 import Scene01 from './scenes/Scene01';
 import Scene02 from './scenes/Scene02';
 import Scene03 from './scenes/Scene03';
+import Scene04 from './scenes/Scene04';
 
 import Ocean from '../../drei-espinaco/Ocean';
 import Plane from '../../drei-espinaco/Plane';
@@ -33,14 +34,16 @@ export function ScenePrincipal() {
     const [current, setCurrent] = useState();
     
     useEffect(()=>{
-        const lengthScenarios = 3;
+        const lengthScenarios = 4;
         const indexFix = snapState.index % lengthScenarios;
         if(indexFix === 0){
-            setCurrent(<Scene01 />);
+            setCurrent(<Scene04 />);
         }else if(indexFix === 1) {
             setCurrent(<Scene02 />);
         }else if(indexFix === 2) {
             setCurrent(<Scene03 />);
+        }else if(indexFix === 3) {
+            setCurrent(<Scene01 />);
         }
     },[snapState]);
     return(
