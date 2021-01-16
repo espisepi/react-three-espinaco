@@ -1,11 +1,11 @@
-import React, { Suspense, useMemo, useCallback, useState, useEffect } from 'react';
+import React, { Suspense, useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { Canvas, useLoader } from 'react-three-fiber';
+import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Stats, OrbitControls, Sky } from 'drei';
 import Loading from '../../components/Loading';
 
 import Joystick from '../../drei-espinaco/Joystick';
-import { Physics } from 'use-cannon';
+import { Physics, useBox } from 'use-cannon';
 import Player from '../../the-gallery/components/Player/Player';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 
@@ -28,10 +28,66 @@ import {SceneApp33} from '../App33/App33';
 
 const state = proxy({index: 0});
 
+function Triggers({changeEnvironment}){
+
+    const ref = useRef(); // group of mesh triggers
+    const {camera} = useThree();
+    const raycaster = new THREE.Raycaster();
+    useFrame(()=>{
+        if(ref.current){
+            raycaster.set( 
+                           new THREE.Vector3(camera.position.x,camera.position.y,camera.position.z),
+                           new THREE.Vector3(0,-1.0,0)
+                        );
+            const intersects = raycaster.intersectObjects( ref.current.children );
+            if(intersects.length !== 0){
+                // console.log('oli')
+                changeEnvironment(intersects[0].object)
+            }else{
+                // console.log('nanai')
+                changeEnvironment();
+            }
+            // for ( let i = 0; i < intersects.length; i ++ ) {
+            //     const triggerMesh = intersects[i].object;
+            //     triggerMesh.userData.active = true;
+            //     triggerMesh.material.color.set( 0xff0000 );
+            // }
+        }
+    });
+
+    return(
+        <group ref={ref}>
+        <mesh name='trigger0' position={[0,0,-30]} geometry={new THREE.BoxBufferGeometry(30,10,30)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
+        </group>
+    );
+}
+
 export function ScenePrincipal() {
 
     const snapState = useProxy(state);
     const [current, setCurrent] = useState();
+    const [triggers, setTriggers] = useState({
+        trigger0: false
+    });
+
+    const changeEnvironment = useCallback((triggerMesh)=>{
+        if(triggerMesh && triggerMesh.name === 'trigger0'){
+            setTriggers({
+                trigger0: true
+            });
+        }else{
+            setTriggers({
+                trigger0: false
+            });
+        }
+    });
+    useEffect(()=>{
+        if(triggers.trigger0){
+            setCurrent(<Scene02 />);
+        }else{
+            setCurrent(<Scene04 />);
+        }
+    },[triggers.trigger0]);
     
     useEffect(()=>{
         const lengthScenarios = 4;
@@ -52,6 +108,8 @@ export function ScenePrincipal() {
         <Suspense fallback={<Loading />}>
             
             {current}
+
+            <Triggers changeEnvironment={changeEnvironment}/>
 
             <Player mass={200.0}/>
             <GroundPhysic />

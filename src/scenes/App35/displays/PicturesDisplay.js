@@ -69,7 +69,7 @@ export default function PicturesDisplay() {
             material={new THREE.MeshStandardMaterial({
                 side: THREE.DoubleSide,
                 alphaMap: alphaMap,
-                diffuseMap: diffuseMap,
+                // diffuseMap: diffuseMap,
                 normalMap: normalMap,
                 roughness: 0.5
             })}

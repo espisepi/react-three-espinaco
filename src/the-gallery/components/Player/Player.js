@@ -24,6 +24,9 @@ const Player = (props) => {
      ...props
   }))
 
+  api.collisionFilterGroup.set(1);
+    api.collisionFilterMask.set(1);
+
     const velocity = useRef([0, 0, 0])
   useEffect(() =>  {
     //update reference everytime velocity changes
