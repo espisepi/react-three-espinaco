@@ -28,7 +28,7 @@ import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 
 const state = proxy({index: 0});
 
-function Triggers({changeEnvironment}){
+function Triggers({changeEnvironment, visible=true}){
 
     const ref = useRef(); // group of mesh triggers
     const {camera} = useThree();
@@ -57,7 +57,7 @@ function Triggers({changeEnvironment}){
 
     return(
         <group ref={ref}>
-        <mesh name='trigger0' position={[0,0,-30]} geometry={new THREE.BoxBufferGeometry(30,10,30)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
+        <mesh name='trigger0' position={[0,0,-90]} visible={visible} geometry={new THREE.BoxBufferGeometry(24.72,5.0,20.89)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
         </group>
     );
 }
@@ -104,14 +104,14 @@ export function ScenePrincipal() {
     },[snapState]);
     return(
         <>
-        <Physics  >
-        <MeshTransformControls />
+        <Physics gravity={[0, -100, 0]} >
+        {/* <MeshTransformControls /> */}
         <Suspense fallback={<Loading />}>
             
             {current}
 
-            <Triggers changeEnvironment={changeEnvironment}/>
-            {/* <Player mass={200.0} height={4.0}/> */}
+            <Triggers changeEnvironment={changeEnvironment} visible={false} />
+            <Player mass={200.0} height={4.0}/>
             <GroundPhysic />
         </Suspense>
         </Physics>
@@ -132,7 +132,7 @@ export default function AppDirty(props) {
         <Stats />
         <ScenePrincipal />
     </Canvas>
-    {/* <Joystick /> */}
+    <Joystick />
     <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
