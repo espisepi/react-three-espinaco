@@ -13,10 +13,9 @@ export default function Scene02() {
         <ambientLight />
         <group scale={[30,30,30]} position={[0,0,-200]}>
         <Plane args={[50,50,50,50]}/>
-        <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[20,0,0]}/>
-        <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[-20,0,0]}/>
+        <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[10,0,0]}/>
+        <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[-10,0,0]}/>
         </group>
-        {/* <PicturesDisplay /> */}
         </>
     );
 }
