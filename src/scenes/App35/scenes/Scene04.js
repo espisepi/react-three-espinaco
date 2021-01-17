@@ -1,21 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as THREE from 'three';
+import { useLoader, useThree } from 'react-three-fiber';
 import { useGLTF } from 'drei';
+import Ocean from '../../../drei-espinaco/Ocean';
 
-export default function Scene04() {
+function GalleryModel(){
     const modelUrl = 'assets/obj/gallery_house/scene.gltf';
     const { scene } = useGLTF(modelUrl);
     scene.traverse( function ( child ) {
         if ( child.isMesh ) {
-            // console.log(child.material.map)
-            // child.castShadow = true;
-            // child.receiveShadow = true;
-            // child.material = new THREE.MeshPhongMaterial();
-            // child.material.side = THREE.DoubleSide;
-            // child.material.normalMap = normal;
-            // child.material.map = texture;
-            // child.material.metalness = 0;
-            // child.material.roughness = 1;
+            // desactivate sky of the blender model
+            if(child.material.name === 'material'){
+                child.visible = false;
+            }
         }
     });
 
@@ -28,6 +25,22 @@ export default function Scene04() {
                     object={scene}
                     dispose={null}
                 /> 
+        </>
+    );
+}
+
+export default function Scene04() {
+    const texture = useLoader(THREE.TextureLoader, 'assets/env/360jpg/umhlanga_sunrise.jpg');
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.encoding = THREE.sRGBEncoding;
+    const {scene} = useThree();
+    useEffect(()=>{
+        scene.background = texture;
+    },[texture]);
+    return(
+        <>
+        <Ocean geometry={new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 )} position={[0,-5,0]} rotation={[Math.PI/2,0,0]} />
+        <GalleryModel />
         </>
     );
 }

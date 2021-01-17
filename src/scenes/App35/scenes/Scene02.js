@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Plane from '../../../drei-espinaco/Plane';
 import PicturesDisplay from '../displays/PicturesDisplay';
+import { useThree } from 'react-three-fiber';
 
 export default function Scene02() {
+    const {scene} = useThree();
+    useEffect(()=>{
+        scene.background = null;
+    },[]);
     return(
         <>
         <ambientLight />
