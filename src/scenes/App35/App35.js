@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo, useCallback, useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
-import { Stats, OrbitControls, Sky } from 'drei';
+import { Stats, OrbitControls, TransformControls } from 'drei';
 import Loading from '../../components/Loading';
 
 import Joystick from '../../drei-espinaco/Joystick';
@@ -23,7 +23,7 @@ import Plane from '../../drei-espinaco/Plane';
 
 import { proxy, useProxy } from "valtio";
 
-import {SceneApp33} from '../App33/App33';
+import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 
 
 const state = proxy({index: 0});
@@ -104,14 +104,14 @@ export function ScenePrincipal() {
     },[snapState]);
     return(
         <>
-        <Physics>
+        <Physics  >
+        <MeshTransformControls />
         <Suspense fallback={<Loading />}>
             
             {current}
 
             <Triggers changeEnvironment={changeEnvironment}/>
-
-            <Player mass={200.0} height={4.0}/>
+            {/* <Player mass={200.0} height={4.0}/> */}
             <GroundPhysic />
         </Suspense>
         </Physics>
@@ -132,7 +132,7 @@ export default function AppDirty(props) {
         <Stats />
         <ScenePrincipal />
     </Canvas>
-    <Joystick />
+    {/* <Joystick /> */}
     <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
     );
