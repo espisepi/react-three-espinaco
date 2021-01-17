@@ -111,7 +111,7 @@ export function ScenePrincipal() {
 
             <Triggers changeEnvironment={changeEnvironment}/>
 
-            <Player mass={200.0}/>
+            <Player mass={200.0} height={4.0}/>
             <GroundPhysic />
         </Suspense>
         </Physics>

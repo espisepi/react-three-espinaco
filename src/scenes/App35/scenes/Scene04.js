@@ -39,7 +39,7 @@ export default function Scene04() {
     },[texture]);
     return(
         <>
-        <Ocean geometry={new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 )} position={[0,-5,0]} rotation={[Math.PI/2,0,0]} />
+        <Ocean geometry={new THREE.PlaneBufferGeometry( 1000, 1000, 1, 1 )} position={[0,-10,0]} rotation={[Math.PI/2,0,0]} />
         <GalleryModel />
         </>
     );

@@ -33,6 +33,7 @@ const Player = (props) => {
     api.velocity.subscribe(v => velocity.current = v)
   }, [api.velocity])
   
+  const cameraHeight = props.height || 0.0;
   useFrame(({clock}) => {
     /* --------- espisepi code ---------- */
     const _Q = new THREE.Quaternion();
@@ -57,7 +58,8 @@ const Player = (props) => {
     /* --------- final espisepi code ---------- */
 
     //copy position of our physical sphere
-    camera.position.copy(ref.current.position)
+    camera.position.copy(new THREE.Vector3(ref.current.position.x,ref.current.position.y + cameraHeight,ref.current.position.z))
+    
 
     const frontVector = new THREE.Vector3(0, 0, Number(backward) - Number(forward))
     // const sideVector = new THREE.Vector3(Number(left) - Number(right), 0, 0)
