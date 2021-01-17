@@ -47,7 +47,7 @@ function GalleryModel(){
                 },
                 {
                     args:[2.15,11.0,63.42],
-                    position:[83.59, 2.55, 0.83]
+                    position:[88.0, 2.55, 0.83]
                 },
                 {
                     args:[51.0,11.0,3.2],
