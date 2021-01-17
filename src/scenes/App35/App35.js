@@ -115,7 +115,6 @@ export function ScenePrincipal() {
             <GroundPhysic />
         </Suspense>
         </Physics>
-        {/* <OrbitControls /> */}
         </>
     );
 }
