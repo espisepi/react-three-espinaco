@@ -104,7 +104,7 @@ function GalleryModel(){
 
     return (
         <>
-        <InstancedPhysics objects={objects} visible={true} />
+        <InstancedPhysics objects={objects} visible={false} />
         <primitive 
                     position={[0,-3,0]}
                     scale={[10,10,10]}                  
