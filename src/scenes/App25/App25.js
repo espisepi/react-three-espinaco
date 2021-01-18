@@ -8,7 +8,7 @@ import React, {
   useMemo
 } from "react";
 import { Canvas, useThree, useFrame } from "react-three-fiber";
-import { useAspect, Html, TorusKnot, Plane } from "drei";
+import { useAspect, Html, TorusKnot, Plane, Stars } from "drei";
 import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 import { Flex, Box, useReflow } from "react-three-flex";
 import { Text } from "./Text";
@@ -276,6 +276,8 @@ export default function App() {
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
+
+        <Stars radius={500} />
 
         <Suspense fallback={<Html center>loading..</Html>}>
           <Page onChangePages={setPages} />
