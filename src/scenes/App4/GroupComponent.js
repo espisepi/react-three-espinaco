@@ -4,7 +4,7 @@ import {useFrame, useLoader} from 'react-three-fiber';
 import AudioVisualizer from '../../components/AudioVisualizer';
 import MulticolorShader from './shaders/MulticolorShader';
 
-export default function GroupComponent() {
+export default function GroupComponent({position=[0,0,0], scale=[1,1,1]}) {
     const group = useRef();
     // Si es invisible al principio, descomentar este codigo para ponerlo visible
     // useFrame(()=>{
@@ -31,6 +31,8 @@ export default function GroupComponent() {
          uniforms
        })
     );
+    mesh.position.set(position[0],position[1],position[2]);
+    mesh.scale.set(scale[0],scale[1],scale[2]);
     mesh.material.transparent = true;
     useFrame(({clock})=>{
       uniforms.time.value = clock.elapsedTime ;

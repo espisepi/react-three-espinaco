@@ -8,6 +8,12 @@ import Plane from '../../drei-espinaco/Plane';
 import GroupComponent from './GroupComponent';
 import GltfDrawLine from '../../drei-espinaco/GltfDrawLine';
 
+export function MusicComponent({position, scale}) {
+    return(
+        <GroupComponent position={position} scale={scale} />
+    );
+}
+
 
 export default function App4(props) {
 
