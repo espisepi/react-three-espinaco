@@ -7,7 +7,7 @@ import React, {
   useCallback,
   useMemo
 } from "react";
-import { Canvas, useThree, useFrame } from "react-three-fiber";
+import { Canvas, useThree, useFrame, useLoader } from "react-three-fiber";
 import { useAspect, Html, TorusKnot, Plane, Stars } from "drei";
 import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 import { Flex, Box, useReflow } from "react-three-flex";
@@ -134,6 +134,7 @@ function Page({ onChangePages }) {
       img: '/assets/img/home/070shake.png'
     },
   ]),[]);
+  const projectsTextures = useLoader(THREE.TextureLoader, projects.map(p=>p.img));
 
   const handleClickProject = useCallback((nameApp)=>{
     const path = window.location.href;
@@ -195,10 +196,11 @@ function Page({ onChangePages }) {
               <mesh position={[0.5, -0.5, 0]}>
                 <planeBufferGeometry args={[1, 1]} />
                 <meshStandardMaterial
-                  color={["#2d4059", "#ea5455", "#decdc3", "#e5e5e5"][i % 4]}
+                  map={projectsTextures[i]}
+                  
                 />
                 <Html scaleFactor={1} center>
-                  <div style={{width:'450px', height:'450px', backgroundColor:'red', backgroundPosition:'center', backgroundSize:'cover'}}
+                  <div style={{width:'200px', height:'200px', cursor:'pointer', opacity:0.7, backgroundColor:'#d00000', backgroundImage:`url("/assets/img/icon/directional_arrow.png")`, backgroundPosition:'center', backgroundSize:'cover'}}
                        onPointerDown={()=>handleClickProject(project.name)}></div>
                 </Html>
               </mesh>
