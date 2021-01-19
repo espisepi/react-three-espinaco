@@ -151,7 +151,7 @@ function getShader(texture) {
 }
 
 export const MusicShader = ({ audio,
-                              img='assets/img/highkili.png',
+                              img='assets/img/masnaisraelb.png',
                               geometry=new THREE.PlaneBufferGeometry(3,3,100,100),
                               position=[0,0,0],
                               rotation=[0,0,0],

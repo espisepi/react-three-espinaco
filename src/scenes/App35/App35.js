@@ -110,7 +110,6 @@ export function ScenePrincipal() {
         <Suspense fallback={<Loading />}>
             
             {current}
-            <AudioComponents />
 
             <Triggers changeEnvironment={changeEnvironment} visible={false} />
             <Player mass={200.0} height={4.0}/>
