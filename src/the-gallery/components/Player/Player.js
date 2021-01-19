@@ -37,7 +37,7 @@ const Player = (props) => {
     const _A = new THREE.Vector3();
     const _R = camera.quaternion.clone();
 
-    const acceleration = new THREE.Vector3(1, 0.25, 50.0);
+    const acceleration = new THREE.Vector3(1, 0.15, 50.0);
     if(left) {
       _A.set(0, 1, 0);
       // espisepi: modify 2.0 to change velocity of camera movement left
