@@ -24,6 +24,7 @@ import Plane from '../../drei-espinaco/Plane';
 import { proxy, useProxy } from "valtio";
 
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
+import { AudioComponents } from './MediaPointsShader';
 
 
 const state = proxy({index: 0});
@@ -109,6 +110,7 @@ export function ScenePrincipal() {
         <Suspense fallback={<Loading />}>
             
             {current}
+            <AudioComponents />
 
             <Triggers changeEnvironment={changeEnvironment} visible={false} />
             <Player mass={200.0} height={4.0}/>
