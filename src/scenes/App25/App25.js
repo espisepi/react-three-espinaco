@@ -146,7 +146,7 @@ function Page({ onChangePages }) {
 
   const handleClickProject = useCallback((nameApp)=>{
     const path = window.location.href;
-    const pathNew = path.replace("app25", nameApp);
+    const pathNew =  path.includes("app25") ? path.replace("app25", nameApp) : path.concat(nameApp);
     window.location.href = pathNew;
   });
   return (
