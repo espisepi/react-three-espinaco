@@ -114,6 +114,18 @@ function Page({ onChangePages }) {
 
   const projects = useMemo(()=>([
     {
+      name: 'app32',
+      img: '/assets/img/home/mineral.png'
+    },
+    {
+      name: 'app31',
+      img: '/assets/img/home/botines.png'
+    },
+    {
+      name: 'app35',
+      img: '/assets/img/home/gallery.png'
+    },
+    {
       name: 'app6',
       img: '/assets/img/home/gatacattana.png'
     },
@@ -124,15 +136,7 @@ function Page({ onChangePages }) {
     {
       name: 'app1',
       img: '/assets/img/home/070shake.png'
-    },
-    {
-      name: 'app32',
-      img: '/assets/img/home/070shake.png'
-    },
-    {
-      name: 'app31',
-      img: '/assets/img/home/070shake.png'
-    },
+    }
   ]),[]);
   const projectsTextures = useLoader(THREE.TextureLoader, projects.map(p=>p.img));
 
@@ -200,7 +204,7 @@ function Page({ onChangePages }) {
                   
                 />
                 <Html scaleFactor={1} center>
-                  <div style={{width:'200px', height:'200px', cursor:'pointer', opacity:0.7, backgroundColor:'#d00000', backgroundImage:`url("/assets/img/icon/directional_arrow.png")`, backgroundPosition:'center', backgroundSize:'cover'}}
+                  <div style={{width:'200px', height:'200px', cursor:'pointer', borderRadius:'50%', opacity:0.4, backgroundColor:'#edf6f9', backgroundImage:`url("/assets/img/icon/directional_arrow.png")`, backgroundPosition:'center', backgroundSize:'cover'}}
                        onPointerDown={()=>handleClickProject(project.name)}></div>
                 </Html>
               </mesh>
