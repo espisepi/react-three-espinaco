@@ -20,7 +20,7 @@ export default function AppRouter () {
                     <PublicRoute
                         exact
                         path="/"
-                        component={Home}
+                        component={App.App25}
                     />
 
                     <PublicRoute
