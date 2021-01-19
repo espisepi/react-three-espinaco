@@ -126,6 +126,10 @@ function Page({ onChangePages }) {
       img: '/assets/img/home/gallery.png'
     },
     {
+      name: 'app34',
+      img: '/assets/img/home/viewer.png'
+    },
+    {
       name: 'app6',
       img: '/assets/img/home/gatacattana.png'
     },

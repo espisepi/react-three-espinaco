@@ -104,7 +104,7 @@ export function Scene() {
             return (
                 <mesh key={id} position={hotspot.position} onPointerDown={()=>handleOnClick(hotspot)}>
                     <sphereGeometry args={[1.25, 32, 32]} />
-                    <meshBasicMaterial color='#CD9FCC' map={texturesHotspot[id]}  side={THREE.FrontSide}/>
+                    <meshBasicMaterial color='#edf6f9' map={texturesHotspot[id]}  side={THREE.FrontSide}/>
                 </mesh>
             );
         })}
@@ -171,7 +171,7 @@ export default function AppDirty(props) {
 
     return (
     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
-        <Stats />
+        {/* <Stats /> */}
         <Suspense fallback={null}>
             <OrbitControls />
             <Scene />
