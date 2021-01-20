@@ -2,7 +2,7 @@ import React, { Suspense, useMemo, useCallback, useState, useEffect, useRef } fr
 import * as THREE from 'three';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Stats, OrbitControls, TransformControls } from 'drei';
-import Loading from '../../components/Loading';
+import Loading from './Loading';
 
 import Joystick from '../../drei-espinaco/Joystick';
 import { Physics, useBox } from 'use-cannon';
