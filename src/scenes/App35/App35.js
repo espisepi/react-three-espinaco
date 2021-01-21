@@ -27,7 +27,7 @@ import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import { AudioComponents } from './MediaPointsShader';
 
 
-const state = proxy({index: 0});
+const state = proxy({index: 0, triggers:{trigger0:false}});
 
 function Triggers({changeEnvironment, visible=true}){
 
@@ -67,42 +67,35 @@ export function ScenePrincipal() {
 
     const snapState = useProxy(state);
     const [current, setCurrent] = useState();
-    const [triggers, setTriggers] = useState({
-        trigger0: false
-    });
 
     const changeEnvironment = useCallback((triggerMesh)=>{
         if(triggerMesh && triggerMesh.name === 'trigger0'){
-            setTriggers({
-                trigger0: true
-            });
+            state.triggers.trigger0 = true;
         }else{
-            setTriggers({
-                trigger0: false
-            });
+            state.triggers.trigger0 = false;
         }
     });
     useEffect(()=>{
-        if(triggers.trigger0){
+        if(snapState.triggers.trigger0){
             setCurrent(<Scene02 />);
         }else{
             setCurrent(<Scene04 />);
         }
-    },[triggers.trigger0]);
+    },[snapState.triggers.trigger0]);
     
-    useEffect(()=>{
-        const lengthScenarios = 4;
-        const indexFix = snapState.index % lengthScenarios;
-        if(indexFix === 0){
-            setCurrent(<Scene04 />);
-        }else if(indexFix === 1) {
-            setCurrent(<Scene02 />);
-        }else if(indexFix === 2) {
-            setCurrent(<Scene03 />);
-        }else if(indexFix === 3) {
-            setCurrent(<Scene01 />);
-        }
-    },[snapState]);
+    // useEffect(()=>{
+    //     const lengthScenarios = 4;
+    //     const indexFix = snapState.index % lengthScenarios;
+    //     if(indexFix === 0){
+    //         setCurrent(<Scene04 />);
+    //     }else if(indexFix === 1) {
+    //         setCurrent(<Scene02 />);
+    //     }else if(indexFix === 2) {
+    //         setCurrent(<Scene03 />);
+    //     }else if(indexFix === 3) {
+    //         setCurrent(<Scene01 />);
+    //     }
+    // },[snapState]);
     return(
         <>
         <Physics gravity={[0, -100, 0]} >
@@ -122,9 +115,9 @@ export function ScenePrincipal() {
 
 export default function AppDirty(props) {
 
-    const changeScene = useCallback(()=>{
-        state.index++;        
-    },[]);
+    // const changeScene = useCallback(()=>{
+    //     state.index++;        
+    // },[]);
 
     return (
     <>
@@ -133,7 +126,7 @@ export default function AppDirty(props) {
         <ScenePrincipal />
     </Canvas>
     <Joystick />
-    <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    {/* <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
     );
 }
