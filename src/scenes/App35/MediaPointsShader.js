@@ -23,21 +23,20 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
     const [audio, setAudio] = useState(null);
     const audioBuffer = useLoader(THREE.AudioLoader, audioSrc);
     useEffect(()=>{
+        let audioTemp;
         if(audioBuffer){
             const audioListener = new THREE.AudioListener();
-            const audioTemp = new THREE.Audio(audioListener);
+            audioTemp = new THREE.Audio(audioListener);
             audioTemp.setBuffer(audioBuffer);
             audioTemp.setLoop(true);
             audioTemp.setVolume(0.5);
             audioTemp.play();
-
             setAudio(audioTemp);
         }
         return ()=> {
-            setAudio(audio => {
-                audio.stop();
-                audio.setBuffer(null);
-            });
+            audioTemp.stop();
+            audioTemp.setBuffer(null);
+            setAudio(audioTemp);
         }
     },[audioBuffer]);
 
