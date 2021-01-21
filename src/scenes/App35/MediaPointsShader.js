@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
-export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale, muted=false }) => {
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale, muted=false, type='MusicShader' }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -47,13 +47,13 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
         }
     }, [audio, muted]);
 
-   return(
-     <>
-        <MusicShader audio={audio} position={[0,0,-200]} scale={[20,20,20]} />
-      {/* <VideoPointsShader audio={audio} videoSrc={videoSrc} configuration={configuration} position={position} rotation={rotation} scale={scale} /> */}
-    </>
-    );
-    
+    if(type === 'MusicShader'){
+        return (<MusicShader audio={audio} position={[0,0,-200]} scale={[20,20,20]} />);
+    }else if(type === 'VideoPointsShader'){
+        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} configuration={configuration} position={position} rotation={rotation} scale={scale} />);
+    }else{
+        return null;
+    }    
 }
 
 function getShader(texture) {

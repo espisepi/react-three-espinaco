@@ -17,7 +17,7 @@ export default function Scene02() {
         <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[10,0,0]}/>
         <Plane args={[50,50,50,50]} rotation={[0, -Math.PI / 2, 0]} position={[-10,0,0]}/>
         </group>
-        <AudioComponents audioSrc='assets/musica/masnaisraelb.mp3'/>
+        <AudioComponents audioSrc='assets/musica/masnaisraelb.mp3' type='MusicShader'/>
         </>
     );
 }
