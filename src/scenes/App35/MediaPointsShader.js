@@ -159,7 +159,8 @@ export const MusicShader = ({ audio,
     /** Getting mesh ready*/
     const { scene } = useThree();
     const texture = useLoader(THREE.TextureLoader,img);
-    const mesh = useMemo(()=>{
+    const [ mesh, setMesh] = useState();
+    useEffect(()=>{
         const { vertexShader, fragmentShader, uniforms } = getShader(texture);
         const material = new THREE.ShaderMaterial({
             vertexShader: vertexShader,
@@ -172,7 +173,13 @@ export const MusicShader = ({ audio,
         mesh.rotation.set(...rotation);
         mesh.scale.set(...scale);
         scene.add(mesh);
-        return mesh;
+        setMesh(mesh);
+        return () => {
+            scene.remove(mesh);
+            mesh.geometry.dispose();
+            mesh.material.dispose();
+            texture.dispose();
+        };
     },[]);
 
     const analyser = useMemo(()=>{
