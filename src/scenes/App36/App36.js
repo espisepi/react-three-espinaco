@@ -8,9 +8,12 @@ import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 // https://threejs.live/#/webgl_decals
 function Model(){
 
-    const { scene } = useThree();
+    const { scene, camera } = useThree();
+    useEffect(()=>{
+        camera.position.z = 100;
+    });
     const gltf = useGLTF('assets/obj/LeePerrySmith/LeePerrySmith.glb');
-    const [map,specularMap,normalMap] = useLoader(THREE.TextureLoader, ['assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg'])
+    const [map,specularMap,normalMap, displacementMap] = useLoader(THREE.TextureLoader, ['assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'])
 
     const decalMap = useLoader(THREE.TextureLoader, 'assets/img/highkili.png');
     
@@ -18,12 +21,15 @@ function Model(){
     // TODO: Hacer el dispose de los elementos
     useEffect(()=>{
         const mesh = gltf.scene.children[0];
+        mesh.scale.set(10,10,10);
         mesh.material = new THREE.MeshPhongMaterial( {
             specular: 0x111111,
             map: map,
             specularMap: specularMap,
             normalMap: normalMap,
-            shininess: 25
+            shininess: 25,
+            bumpMap: displacementMap,
+            bumpScale: 12
         } );
         scene.add(mesh);
 
@@ -44,7 +50,7 @@ function Model(){
         const rotation = new THREE.Euler(0,0,0);
         const scale = new THREE.Vector3(5,5,5);
         const decal = new THREE.Mesh( new DecalGeometry( mesh, position, rotation, scale ), decalMaterial );
-        scene.add(decal);
+        // scene.add(decal);
     },[]);
 
     useEffect(()=>{
@@ -58,9 +64,9 @@ function Model(){
 export function Scene() {
     return(
         <>
-        <ambientLight args={0x443333} />
-        <directionalLight args={[0xffddcc, 1]} position={[1, 0.75, 0.5]} />
-        <directionalLight args={[0xccccff, 1]} position={[-1, 0.75, 0.5]} />
+        <ambientLight args={[0x443333, 0.5]} />
+        <directionalLight args={[0xffddcc, 0.2]} position={[1, 0.75, 0.5]} />
+        <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
         <Suspense fallback={<Loading />} >
             <Model />
         </Suspense>
