@@ -10,7 +10,7 @@ function Model(){
 
     const { scene, camera } = useThree();
     useEffect(()=>{
-        camera.position.z = 100;
+        camera.position.z = 10;
     });
     const gltf = useGLTF('assets/obj/LeePerrySmith/LeePerrySmith.glb');
     const [map,specularMap,normalMap, displacementMap] = useLoader(THREE.TextureLoader, ['assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'])
@@ -21,7 +21,7 @@ function Model(){
     // TODO: Hacer el dispose de los elementos
     useEffect(()=>{
         const mesh = gltf.scene.children[0];
-        mesh.scale.set(10,10,10);
+        // mesh.scale.set(10,10,10);
         mesh.material = new THREE.MeshPhongMaterial( {
             specular: 0x111111,
             map: map,
@@ -36,8 +36,6 @@ function Model(){
         const decalMaterial = new THREE.MeshPhongMaterial({
             specular: 0x444444,
             map: decalMap,
-            // normalMap: decalNormal,
-            normalScale: new THREE.Vector2( 1, 1 ),
             shininess: 30,
             transparent: true,
             depthTest: true,
@@ -50,7 +48,7 @@ function Model(){
         const rotation = new THREE.Euler(0,0,0);
         const scale = new THREE.Vector3(5,5,5);
         const decal = new THREE.Mesh( new DecalGeometry( mesh, position, rotation, scale ), decalMaterial );
-        // scene.add(decal);
+        scene.add(decal);
     },[]);
 
     useEffect(()=>{
