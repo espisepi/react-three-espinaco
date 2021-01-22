@@ -24,6 +24,7 @@ import Plane from '../../drei-espinaco/Plane';
 import { proxy, useProxy } from "valtio";
 
 import Fullscreen from '../../drei-espinaco/Fullscreen';
+import { ActionState } from './State';
 
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import { AudioComponents } from './MediaPointsShader';
@@ -117,6 +118,26 @@ export function ScenePrincipal() {
 
 export default function AppDirty(props) {
 
+    const snapAction = useProxy(ActionState);
+
+    const divAction = useRef();
+    useEffect(()=>{
+        if(snapAction.current && divAction.current){
+            // enable div
+            divAction.current.style.display = 'block';
+            // attach snapAction.current to pointerdown event in the div
+            const action = snapAction.current;
+            divAction.current.addEventListener('pointerdown', (e) => action());
+            // add name to div
+            divAction.current.innerHTML = `${snapAction.name}`;
+        }else{
+            // disable div
+            if(divAction.current){
+                divAction.current.style.display = 'none';
+            }
+        }
+    },[snapAction.current]);
+
     // const changeScene = useCallback(()=>{
     //     state.index++;        
     // },[]);
@@ -129,6 +150,7 @@ export default function AppDirty(props) {
     </Canvas>
     <Joystick />
     <Fullscreen />
+    <div name='divAction' ref={divAction} style={{position:'absolute', top: '50px', width:'50px', height:'50px', backgroundColor:'red', zIndex:10000, cursor:'pointer'}} />
     {/* <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
     );
