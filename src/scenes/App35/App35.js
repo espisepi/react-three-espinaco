@@ -23,6 +23,8 @@ import Plane from '../../drei-espinaco/Plane';
 
 import { proxy, useProxy } from "valtio";
 
+import Fullscreen from '../../drei-espinaco/Fullscreen';
+
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import { AudioComponents } from './MediaPointsShader';
 
@@ -126,6 +128,7 @@ export default function AppDirty(props) {
         <ScenePrincipal />
     </Canvas>
     <Joystick />
+    <Fullscreen />
     {/* <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
     );
