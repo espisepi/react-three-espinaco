@@ -58,7 +58,7 @@ function Triggers({changeEnvironment, visible=true}){
 
     return(
         <group ref={ref}>
-        <mesh name='trigger0' position={[0,0,-90]} visible={visible} geometry={new THREE.BoxBufferGeometry(24.72,5.0,20.89)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
+        <mesh name='trigger0' position={[0,0,-160]} visible={visible} geometry={new THREE.BoxBufferGeometry(24.72,5.0,170.0)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
         </group>
     );
 }
