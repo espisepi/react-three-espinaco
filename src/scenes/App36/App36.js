@@ -68,7 +68,7 @@ export function Scene({link}) {
         <directionalLight args={[0xffddcc, 0.2]} position={[1, 0.75, 0.5]} />
         <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
         <Suspense fallback={<Loading />} >
-            <Model />
+            {/* <Model /> */}
             <AudioComponents videoSrc={link} audioSrc={link} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
