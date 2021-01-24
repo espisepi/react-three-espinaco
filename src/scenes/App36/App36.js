@@ -18,7 +18,6 @@ function Model(){
     const [map,specularMap,normalMap, displacementMap] = useLoader(THREE.TextureLoader, ['assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'])
 
     const decalMap = useLoader(THREE.TextureLoader, 'assets/img/highkili.png');
-    
 
     // TODO: Hacer el dispose de los elementos
     useEffect(()=>{
@@ -61,7 +60,7 @@ function Model(){
 
 }
 
-export function Scene({link='https://www.youtube.com/watch?v=dqIAuYotyok%26ab_channel=TAKERS'}) {
+export function Scene({link}) {
 
     return(
         <>
@@ -80,28 +79,38 @@ export function Scene({link='https://www.youtube.com/watch?v=dqIAuYotyok%26ab_ch
 
 export default function AppDirty(props) {
 
-    const [link, setLink] = useState('https://www.youtube.com/watch?v=dqIAuYotyok%26ab_channel=TAKERS');
-    const [input, setInput] = useState('gola');
-    const handleInput = useCallback((e)=>{
-        setInput(e.target.value);
-    })
-    const handleSubmit = useCallback((e)=>{
-        setLink(input);
-    })
+    const [link, setLink] = useState();
+    useEffect(()=>{
+        const queryString = window.location.search;
+        console.log(queryString)
+        const urlParams = new URLSearchParams(queryString);
+        const youtubeLink = urlParams.get('url');
+        console.log(youtubeLink)
+        setLink(youtubeLink);
+    });
+    
+
+    // const [input, setInput] = useState('gola');
+    // const handleInput = useCallback((e)=>{
+    //     setInput(e.target.value);
+    // })
+    // const handleSubmit = useCallback((e)=>{
+    //     setLink(input);
+    // })
 
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Scene link={link}/>
     </Canvas>
-    <input onChange={handleInput}
+    {/* <input onChange={handleInput}
             style={{position:'absolute', width:'50vw', height:'20px', color:'#ffffff', backgroundColor:'#101010', zIndex:10000}}
             type="text"
             value={input}
     />
     <div onPointerDown={handleSubmit}
             style={{position:'absolute', top:'100px', width:'50px', height:'50px', backgroundColor:'red', zIndex:10000}}
-    ></div>
+    ></div> */}
     </>
     );
 }

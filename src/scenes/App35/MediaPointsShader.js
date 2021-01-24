@@ -361,8 +361,8 @@ function createParticles(video){
                 } else if (gray < 0.3) {
                     pos.z = - gray * ( bass * distance) ;
                 } else if(gray < 0.4) {
-                    // pos.z = - gray * bass * distance2;
-                    pos.z = -1000.0;
+                    pos.z = - gray * bass * distance2;
+                    // pos.z = -1000.0;
                 } else if(gray < 0.6) {
                     pos.z = - gray * bass * distance3;
                 } else if(gray < 0.8) {
