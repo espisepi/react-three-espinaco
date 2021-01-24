@@ -62,6 +62,11 @@ function Model(){
 
 export function Scene({link}) {
 
+    const { camera } = useThree();
+    useEffect(()=>{
+        camera.position.z = 20;
+    });
+
     return(
         <>
         <ambientLight args={[0x443333, 0.5]} />
@@ -82,35 +87,50 @@ export default function AppDirty(props) {
     const [link, setLink] = useState();
     useEffect(()=>{
         const queryString = window.location.search;
-        console.log(queryString)
         const urlParams = new URLSearchParams(queryString);
         const youtubeLink = urlParams.get('url');
-        console.log(youtubeLink)
-        setLink(youtubeLink);
+        if(youtubeLink){
+            setLink(youtubeLink);
+        } else {
+            setLink('https://www.youtube.com/watch?v=SYM-RJwSGQ8&ab_channel=ToveLoVEVO')
+        }
     });
     
 
-    // const [input, setInput] = useState('gola');
-    // const handleInput = useCallback((e)=>{
-    //     setInput(e.target.value);
-    // })
-    // const handleSubmit = useCallback((e)=>{
-    //     setLink(input);
-    // })
+    const [input, setInput] = useState();
+    const handleInput = useCallback((e)=>{
+        setInput(e.target.value);
+    })
+    const handleSubmit = useCallback((e)=>{
+        const youtubeLink = input;
+        const redirectUrl = window.location.pathname + '?url=' + youtubeLink;
+        window.location.replace(redirectUrl);
+    })
 
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Scene link={link}/>
     </Canvas>
-    {/* <input onChange={handleInput}
-            style={{position:'absolute', width:'50vw', height:'20px', color:'#ffffff', backgroundColor:'#101010', zIndex:10000}}
+    <input onChange={handleInput}
+            placeholder='https://www.youtube.com/watch?v=SYM-RJwSGQ8%26ab_channel=ToveLoVEVO'
+            style={{position:'absolute', bottom:'0px', width:'60vw', height:'20px', color:'#ffffff', border:'none', backgroundColor:'transparent', zIndex:10000}}
             type="text"
             value={input}
     />
     <div onPointerDown={handleSubmit}
-            style={{position:'absolute', top:'100px', width:'50px', height:'50px', backgroundColor:'red', zIndex:10000}}
-    ></div> */}
+            style={{position:'absolute',
+                    bottom:'0px',
+                    right:'0px',
+                    width:'70px', height:'20px',
+                    textAlign: 'center',
+                    opacity:1,
+                    color:'#f1faee',
+                    border:'none',
+                    backgroundColor:'transparent',
+                    zIndex:10000,
+                    cursor:'pointer'}}
+    > Enter </div>
     </>
     );
 }
