@@ -17,7 +17,7 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
       `;
     
     if(audioSrc.includes("www.youtube.com")){
-      audioSrc = 'http://164.90.215.243:5000/download?URL=' + audioSrc; // Tengo que tener levantada esa maquina en DigitalOcean
+      audioSrc = 'https://sandl.herokuapp.com/video/video?url=' + audioSrc; // Tengo que tener levantada esa maquina en DigitalOcean
     }
 
     const [audio, setAudio] = useState(null);
@@ -461,8 +461,7 @@ function initVideo(url, webcam) {
         video.muted = true;
 
         if(url && url.includes("www.youtube.com")){
-            // const src = 'assets/musica/070shake.mp4';
-            const src = 'http://164.90.215.243:5000/download?URL=' + url;
+            const src = 'https://sandl.herokuapp.com/video/video?url=' + url;
             video.src = src;
             video.crossOrigin = 'Anonymous';
             video.load();

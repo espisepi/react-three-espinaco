@@ -5,6 +5,8 @@ import { OrbitControls, useGLTF } from 'drei';
 import Loading from '../../components/Loading';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 
+import { AudioComponents } from '../App35/MediaPointsShader';
+
 // https://threejs.live/#/webgl_decals
 function Model(){
 
@@ -67,6 +69,7 @@ export function Scene() {
         <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
         <Suspense fallback={<Loading />} >
             <Model />
+            <AudioComponents videoSrc='https://www.youtube.com/watch?v=cDEB_Rb79_s%26ab_channel=FOYONE' audioSrc='https://www.youtube.com/watch?v=cDEB_Rb79_s%26ab_channel=FOYONE' type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
         <OrbitControls />
