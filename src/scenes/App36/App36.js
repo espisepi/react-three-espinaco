@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect} from 'react';
+import React, {Suspense, useEffect, useState, useCallback} from 'react';
 import { Canvas, useLoader, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls, useGLTF } from 'drei';
@@ -61,7 +61,8 @@ function Model(){
 
 }
 
-export function Scene() {
+export function Scene({link='https://www.youtube.com/watch?v=dqIAuYotyok%26ab_channel=TAKERS'}) {
+
     return(
         <>
         <ambientLight args={[0x443333, 0.5]} />
@@ -69,7 +70,7 @@ export function Scene() {
         <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
         <Suspense fallback={<Loading />} >
             <Model />
-            <AudioComponents videoSrc='https://www.youtube.com/watch?v=cDEB_Rb79_s%26ab_channel=FOYONE' audioSrc='https://www.youtube.com/watch?v=cDEB_Rb79_s%26ab_channel=FOYONE' type='VideoPointsShader'/>
+            <AudioComponents videoSrc={link} audioSrc={link} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
         <OrbitControls />
@@ -79,9 +80,28 @@ export function Scene() {
 
 export default function AppDirty(props) {
 
+    const [link, setLink] = useState('https://www.youtube.com/watch?v=dqIAuYotyok%26ab_channel=TAKERS');
+    const [input, setInput] = useState('gola');
+    const handleInput = useCallback((e)=>{
+        setInput(e.target.value);
+    })
+    const handleSubmit = useCallback((e)=>{
+        setLink(input);
+    })
+
     return (
-    <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
-        <Scene />
+    <>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
+        <Scene link={link}/>
     </Canvas>
+    <input onChange={handleInput}
+            style={{position:'absolute', width:'50vw', height:'20px', color:'#ffffff', backgroundColor:'#101010', zIndex:10000}}
+            type="text"
+            value={input}
+    />
+    <div onPointerDown={handleSubmit}
+            style={{position:'absolute', top:'100px', width:'50px', height:'50px', backgroundColor:'red', zIndex:10000}}
+    ></div>
+    </>
     );
 }
