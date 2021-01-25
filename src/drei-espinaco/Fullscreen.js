@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 
-export default function Fullscreen() {
+export default function Fullscreen(props) {
 
     const handleFullscreen = useCallback(()=>{
         if (!document.fullscreenElement) {
@@ -13,7 +13,7 @@ export default function Fullscreen() {
     },[]);
 
     return(
-    <div onClick={handleFullscreen} style={{ position:'absolute', width:'20px', height:'20px', bottom: 0, borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
+    <div onClick={handleFullscreen} style={{ position:'absolute', width:'20px', height:'20px', bottom: 0, borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer', ...props }}></div>
     );
 }
 

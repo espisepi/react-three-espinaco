@@ -6,6 +6,7 @@ import Loading from '../../components/Loading';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 
 import { AudioComponents } from '../App35/MediaPointsShader';
+import FullScreen from '../../drei-espinaco/Fullscreen';
 
 // https://threejs.live/#/webgl_decals
 function Model(){
@@ -84,6 +85,8 @@ export function Scene({link}) {
 
 export default function AppDirty(props) {
 
+    const [placeholder, setPlaceholder] = useState('https://www.youtube.com/watch?v=SYM-RJwSGQ8%26ab_channel=ToveLoVEVO');
+
     const [link, setLink] = useState();
     useEffect(()=>{
         const queryString = window.location.search;
@@ -94,6 +97,7 @@ export default function AppDirty(props) {
         } else {
             setLink('https://www.youtube.com/watch?v=SYM-RJwSGQ8&ab_channel=ToveLoVEVO')
         }
+        setPlaceholder(link);
     });
     
 
@@ -112,9 +116,10 @@ export default function AppDirty(props) {
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Scene link={link}/>
     </Canvas>
+    <FullScreen />
     <input onChange={handleInput}
-            placeholder='https://www.youtube.com/watch?v=SYM-RJwSGQ8%26ab_channel=ToveLoVEVO'
-            style={{position:'absolute', bottom:'0px', width:'60vw', height:'20px', color:'#ffffff', border:'none', backgroundColor:'transparent', zIndex:10000}}
+            placeholder={placeholder}
+            style={{position:'absolute', top:'0px', width:'98vw', height:'20px', color:'#ffffff', border:'none', backgroundColor:'transparent', zIndex:10000}}
             type="text"
             value={input}
     />
