@@ -7,7 +7,7 @@ import { useLoader, useFrame, useThree } from 'react-three-fiber';
 const filterYoutubeLink = 'youtu';
 const herokuapp = 'https://video-dl-esp.herokuapp.com/video/video?url=';
 
-export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale, muted=false, type='MusicShader' }) => {
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', webcam, position, rotation, scale, muted=false, type='MusicShader' }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -52,7 +52,7 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
     if(type === 'MusicShader'){
         return (<MusicShader audio={audio} position={[0,0,-200]} scale={[20,20,20]} />);
     }else if(type === 'VideoPointsShader'){
-        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} configuration={configuration} position={position} rotation={rotation} scale={scale} />);
+        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} webcam={webcam} configuration={configuration} position={position} rotation={rotation} scale={scale} />);
     }else{
         return null;
     }    
@@ -271,14 +271,14 @@ export const VideoPointsShader = ({ audio, videoSrc, webcam=false, configuration
 
     useEffect(()=>{
         const getVideo = async () =>{
-            const res = webcam ? await initVideo() : await initVideo(videoSrc);
+            const res = webcam === 'true' ? await initVideo() : await initVideo(videoSrc);
             setVideo(res);
         };
         getVideo();
 
         return ()=> {
             setVideo(null);}
-    }, [videoSrc]);
+    }, [videoSrc, webcam]);
 
     useFrame(({clock})=>{
         

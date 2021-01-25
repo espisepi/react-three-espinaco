@@ -61,7 +61,7 @@ function Model(){
 
 }
 
-export function Scene({link}) {
+export function Scene({link, webcam}) {
 
     const { camera } = useThree();
     useEffect(()=>{
@@ -75,7 +75,7 @@ export function Scene({link}) {
         <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
         <Suspense fallback={<Loading />} >
             {/* <Model /> */}
-            <AudioComponents videoSrc={link} audioSrc={link} type='VideoPointsShader'/>
+            <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
         <OrbitControls />
@@ -88,6 +88,7 @@ export function RunApp36(props) {
     const [placeholder, setPlaceholder] = useState('https://www.youtube.com/watch?v=SYM-RJwSGQ8%26ab_channel=ToveLoVEVO');
 
     const [link, setLink] = useState();
+    const [webcam, setWebcam] = useState(false);
     useEffect(()=>{
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -98,6 +99,12 @@ export function RunApp36(props) {
             setLink('https://www.youtube.com/watch?v=SYM-RJwSGQ8&ab_channel=ToveLoVEVO')
         }
         setPlaceholder(link);
+
+        // Webcam option
+        const webcam = urlParams.get('webcam');
+        if(webcam){
+            setWebcam(webcam);
+        }
     });
     
 
@@ -111,12 +118,25 @@ export function RunApp36(props) {
         window.location.replace(redirectUrl);
     })
 
+    const activateWebcam = useCallback(()=>{
+        const youtubeLink = link;
+        const redirectUrl = window.location.pathname + '?url=' + youtubeLink + '&webcam=' + true;
+        window.location.replace(redirectUrl);
+    });
+    const desactivateWebcam = useCallback(()=>{
+        const youtubeLink = link;
+        const redirectUrl = window.location.pathname + '?url=' + youtubeLink + '&webcam=' + false;
+        window.location.replace(redirectUrl);
+    });
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
-        <Scene link={link}/>
+        <Scene link={link} webcam={webcam} />
     </Canvas>
     <FullScreen />
+    <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
+    <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <input onChange={handleInput}
             placeholder={placeholder}
             style={{position:'absolute', top:'0px', width:'98vw', height:'20px', color:'#ffffff', border:'none', backgroundColor:'transparent', zIndex:10000}}
