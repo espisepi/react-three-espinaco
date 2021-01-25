@@ -83,7 +83,7 @@ export function Scene({link}) {
     );
 }
 
-export default function AppDirty(props) {
+export function RunApp36(props) {
 
     const [placeholder, setPlaceholder] = useState('https://www.youtube.com/watch?v=SYM-RJwSGQ8%26ab_channel=ToveLoVEVO');
 
@@ -137,5 +137,18 @@ export default function AppDirty(props) {
                     cursor:'pointer'}}
     > Enter </div>
     </>
+    );
+}
+
+export default function App36(props) {
+    const [click, setClick] = useState(false);
+    const handleClick = useCallback((e)=>{
+        e.preventDefault();
+        setClick(true);
+    });
+    return(
+        click ? <RunApp36 /> :
+                <div onPointerDown={handleClick} 
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}> <h1>Click on Screen To Start</h1> </div>
     );
 }
