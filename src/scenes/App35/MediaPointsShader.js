@@ -4,6 +4,8 @@ import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
+const filterYoutubeLink = 'youtu';
+
 export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale, muted=false, type='MusicShader' }) => {
     const configuration = `
           r = bass + 0.5;
@@ -15,8 +17,7 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
           distance = 1;
           density = 1;
       `;
-    
-    if(audioSrc.includes("www.youtube.com")){
+    if(audioSrc.includes(filterYoutubeLink)){
       audioSrc = 'https://sandl.herokuapp.com/video/video?url=' + audioSrc; // Tengo que tener levantada esa maquina en DigitalOcean
     }
 
@@ -460,7 +461,7 @@ function initVideo(url, webcam) {
         video.autoplay = true;
         video.muted = true;
 
-        if(url && url.includes("www.youtube.com")){
+        if(url && url.includes(filterYoutubeLink)){
             const src = 'https://sandl.herokuapp.com/video/video?url=' + url;
             video.src = src;
             video.crossOrigin = 'Anonymous';
