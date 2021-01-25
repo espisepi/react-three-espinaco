@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
 const filterYoutubeLink = 'youtu';
+const herokuapp = 'https://video-dl-esp.herokuapp.com/video/video?url=';
 
 export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', position, rotation, scale, muted=false, type='MusicShader' }) => {
     const configuration = `
@@ -18,7 +19,7 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
           density = 1;
       `;
     if(audioSrc.includes(filterYoutubeLink)){
-      audioSrc = 'https://sandl.herokuapp.com/video/video?url=' + audioSrc; // Tengo que tener levantada esa maquina en DigitalOcean
+      audioSrc = herokuapp + audioSrc; // Tengo que tener levantada esa maquina en DigitalOcean
     }
 
     const [audio, setAudio] = useState(null);
@@ -233,7 +234,7 @@ export const MusicShader = ({ audio,
                                     distance = 2;
                                 `; 
  */
-export const VideoPointsShader = ({ audio, videoSrc, configuration, position=[0,0,0], rotation=[Math.PI, Math.PI, 0], scale=[1,1,1] }) => {
+export const VideoPointsShader = ({ audio, videoSrc, webcam=false, configuration, position=[0,0,0], rotation=[Math.PI, Math.PI, 0], scale=[1,1,1] }) => {
     videoSrc = videoSrc || '';
     configuration = configuration || `
                                                 r = bass + 0.5;
@@ -270,7 +271,7 @@ export const VideoPointsShader = ({ audio, videoSrc, configuration, position=[0,
 
     useEffect(()=>{
         const getVideo = async () =>{
-            const res = await initVideo(videoSrc);
+            const res = webcam ? await initVideo() : await initVideo(videoSrc);
             setVideo(res);
         };
         getVideo();
@@ -455,26 +456,47 @@ function createParticles(video){
     return particles;
 }
 
-function initVideo(url, webcam) {
-    return new Promise(resolve => {
-        const video = document.createElement("video");
-        video.autoplay = true;
-        video.muted = true;
-
-        if(url && url.includes(filterYoutubeLink)){
-            const src = 'https://sandl.herokuapp.com/video/video?url=' + url;
-            video.src = src;
-            video.crossOrigin = 'Anonymous';
-            video.load();
-            video.play();
-            resolve(video);        
-        }else {
-            video.src = url;
-            video.load();
-            video.play();
-            resolve(video);
-        }
-    });
+function initVideo(url) {
+    if(url){
+        // Get video from url
+        return new Promise(resolve => {
+            const video = document.createElement("video");
+            video.autoplay = true;
+            video.muted = true;
+    
+            if(url && url.includes(filterYoutubeLink)){
+                const src = herokuapp + url;
+                video.src = src;
+                video.crossOrigin = 'Anonymous';
+                video.load();
+                video.play();
+                resolve(video);        
+            }else {
+                video.src = url;
+                video.load();
+                video.play();
+                resolve(video);
+            }
+        });
+    } else {
+        // Activate Webcam
+        return new Promise(resolve => {
+            const video = document.createElement("video");
+            video.autoplay = true;
+            const option = { video:true, audio:false };
+            navigator.mediaDevices.getUserMedia(option)
+                .then((stream) => {
+                    video.srcObject = stream;
+                    video.addEventListener("loadeddata", () => {
+                        resolve(video);
+                    });
+                })
+                .catch((error) => {
+                    console.log('error init webcam');
+                    console.log(error);
+                });
+        });
+    }
   }
 
 function getImageData(video) {
