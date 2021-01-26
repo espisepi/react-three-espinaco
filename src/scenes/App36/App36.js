@@ -61,7 +61,7 @@ function Model(){
 
 }
 
-export function Scene({link, webcam}) {
+export function Scene({link, webcam, muted}) {
 
     const { camera } = useThree();
     useEffect(()=>{
@@ -75,7 +75,7 @@ export function Scene({link, webcam}) {
         <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
         <Suspense fallback={<Loading />} >
             {/* <Model /> */}
-            <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} type='VideoPointsShader'/>
+            <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
         <OrbitControls />
@@ -129,12 +129,18 @@ export function RunApp36(props) {
         window.location.replace(redirectUrl);
     });
 
+    const [muted, setMuted] = useState(0);
+    const changeMuted = useCallback(() => {
+        setMuted(m => !m)
+    });
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
-        <Scene link={link} webcam={webcam} />
+        <Scene link={link} webcam={webcam} muted={muted} />
     </Canvas>
     <FullScreen width='50px' height='50px' />
+    <div onClick={changeMuted} style={{ position:'absolute', width:'30px', height:'30px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
     <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <input onChange={handleInput}
