@@ -134,7 +134,7 @@ export function RunApp36(props) {
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
         <Scene link={link} webcam={webcam} />
     </Canvas>
-    <FullScreen />
+    <FullScreen width='50px' height='50px' />
     <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <input onChange={handleInput}
