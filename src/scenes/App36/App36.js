@@ -8,6 +8,8 @@ import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 import { AudioComponents } from '../App35/MediaPointsShader';
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
+import Scene1 from './scene1';
+
 // https://threejs.live/#/webgl_decals
 function Model(){
 
@@ -134,12 +136,21 @@ export function RunApp36(props) {
         setMuted(m => !m)
     });
 
+    const [sceneIndex, setSceneIndex] = useState(0);
+    const changeSceneIndex = useCallback(()=>{
+        setSceneIndex( (sceneIndex + 1) % 2 );
+    });
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
-        <Scene link={link} webcam={webcam} muted={muted} />
+        <Suspense fallback={<Loading />}>
+            {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} /> : null}
+            {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} /> : null}
+        </Suspense>
     </Canvas>
     <FullScreen width='50px' height='50px' />
+    <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
     <div onClick={changeMuted} style={{ position:'absolute', width:'30px', height:'30px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
     <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
