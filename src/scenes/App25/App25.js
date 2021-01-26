@@ -114,16 +114,20 @@ function Page({ onChangePages }) {
 
   const projects = useMemo(()=>([
     {
+      name: 'app36',
+      img: '/assets/img/home/videopoints.png'
+    },
+    {
+      name: 'app35',
+      img: '/assets/img/home/gallery.png'
+    },
+    {
       name: 'app32',
       img: '/assets/img/home/mineral.png'
     },
     {
       name: 'app31',
       img: '/assets/img/home/botines.png'
-    },
-    {
-      name: 'app35',
-      img: '/assets/img/home/gallery.png'
     },
     {
       name: 'app34',
@@ -136,10 +140,6 @@ function Page({ onChangePages }) {
     {
       name: 'app14',
       img: '/assets/img/home/elane.png'
-    },
-    {
-      name: 'app1',
-      img: '/assets/img/home/070shake.png'
     }
   ]),[]);
   const projectsTextures = useLoader(THREE.TextureLoader, projects.map(p=>p.img));
