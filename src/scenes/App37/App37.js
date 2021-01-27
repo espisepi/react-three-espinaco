@@ -4,10 +4,15 @@ import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
 
+function Persons({}) {
+    return null;
+}
+
 export function Scene() {
     return(
         <>
         <ambientLight />
+        <Persons />
         <Loading />
         <OrbitControls />
         </>
