@@ -1,8 +1,7 @@
-/**------ Boilerplate of App-X ---------*/
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Canvas, useLoader, useThree } from 'react-three-fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { OrbitControls } from 'drei';
+import { OrbitControls, useFBX, useAnimations } from 'drei';
 import Loading from '../../components/Loading';
 import { Suspense } from 'react';
 import { combineBuffer } from './combineBuffer';
@@ -13,12 +12,8 @@ function Person({}) {
     const obj = useLoader(OBJLoader, 'assets/obj/male02/male02.obj');
     return <primitive object={obj} />;
 }
-
-
-
 function Persons({}) {
     const obj = useLoader(OBJLoader, 'assets/obj/male02/male02.obj');
-
     const { scene } = useThree();
     useEffect(()=>{
         const positions = combineBuffer( obj, 'position' );
@@ -28,12 +23,32 @@ function Persons({}) {
     return null;
 }
 
+function Head({}){
+    const fbx = useFBX('assets/obj/simondev/resources/zombie/mremireh_o_desbiens.fbx');
+    const positionBufferAttribute = useMemo(()=>combineBuffer(fbx, 'position'));
+    const mesh = useMemo(()=>createMesh({ positionBufferAttribute:positionBufferAttribute, position:[0,0,0], scale:1.0, color:0xffff00 }));
+    const { scene } = useThree();
+    useEffect(()=>{
+        scene.add(mesh);
+    });
+
+    // animation
+    // const fbxWalk = useFBX('assets/obj/simondev/resources/zombie/walk.fbx');
+    // const animation = fbxWalk.animations[0]
+    // console.log(clips)
+    // useEffect(() => {
+    //     // scene.add(ref);
+    //     actions.jump.play()
+    // })
+    return null;
+}
+
 export function Scene() {
     return(
         <>
         <ambientLight />
         <Suspense fallback={<Loading />}>
-            <Persons />
+            <Head />
         </Suspense>
         <OrbitControls />
         </>
@@ -48,3 +63,5 @@ export default function AppDirty(props) {
     </Canvas>
     );
 }
+
+//https://stackoverflow.com/questions/56347639/react-useeffect-vs-usememo-vs-usestate
