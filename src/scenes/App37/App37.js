@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { Canvas, useLoader, useThree } from 'react-three-fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { OrbitControls, useFBX, useAnimations } from 'drei';
+import { OrbitControls, useFBX, useAnimations, Stats } from 'drei';
 import Loading from '../../components/Loading';
 import { Suspense } from 'react';
 import { combineBuffer } from './combineBuffer';
@@ -64,6 +64,7 @@ export function RunApp37(props) {
 
     return (
     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+        <Stats />
         <Scene />
     </Canvas>
     );
