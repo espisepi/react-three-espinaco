@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import { Canvas, useLoader, useThree } from 'react-three-fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { OrbitControls, useFBX, useAnimations } from 'drei';
@@ -44,23 +44,41 @@ function Head({}){
 }
 
 export function Scene() {
+
+    const { camera } = useThree();
+    useEffect(()=>{
+        camera.position.z = 80;
+    })
     return(
         <>
         <ambientLight />
         <Suspense fallback={<Loading />}>
-        <AudioComponents videoSrc={'assets/musica/coronil.mp4'} audioSrc={'assets/musica/coronil.mp3'} webcam={false} muted={false} type='VideoPointsShader'/>
+        <AudioComponents scale={[0.5,0.5,0.5]} videoSrc={'assets/musica/coronil.mp4'} audioSrc={'assets/musica/coronil.mp3'} webcam={false} muted={false} type='VideoPointsShader'/>
         </Suspense>
         <OrbitControls />
         </>
     );
 }
 
-export default function AppDirty(props) {
+export function RunApp37(props) {
 
     return (
     <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
         <Scene />
     </Canvas>
+    );
+}
+
+export default function App37(props) {
+    const [click, setClick] = useState(false);
+    const handleClick = useCallback((e)=>{
+        e.preventDefault();
+        setClick(true);
+    });
+    return(
+        click ? <RunApp37 /> :
+                <div onPointerDown={handleClick} 
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}> <h1>Click on Screen To Start</h1> </div>
     );
 }
 
