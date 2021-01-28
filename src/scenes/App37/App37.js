@@ -6,7 +6,7 @@ import Loading from '../../components/Loading';
 import { Suspense } from 'react';
 import { combineBuffer } from './combineBuffer';
 import { createMesh } from './createMesh';
-import { useSphere } from 'use-cannon';
+import { AudioComponents } from '../App35/MediaPointsShader';
 
 function Person({}) {
     const obj = useLoader(OBJLoader, 'assets/obj/male02/male02.obj');
@@ -48,7 +48,7 @@ export function Scene() {
         <>
         <ambientLight />
         <Suspense fallback={<Loading />}>
-            <Head />
+        <AudioComponents videoSrc={'assets/musica/coronil.mp4'} audioSrc={'assets/musica/coronil.mp3'} webcam={false} muted={false} type='VideoPointsShader'/>
         </Suspense>
         <OrbitControls />
         </>
