@@ -1,7 +1,7 @@
 // https://github.com/r21nomi/webcam-audio-visualizer/blob/master/src/index2.js
 import * as THREE from 'three';
 
-export default function VideoShader0(texture){
+export default function VideoShader1(texture){
     return new THREE.ShaderMaterial({uniforms: {
         iTime: { value: 0 },
         iResolution:  { value: new THREE.Vector3(1, 1, 1) },
@@ -42,14 +42,14 @@ export default function VideoShader0(texture){
             if(gray < 0.1){
                 pos.z = - gray * ( bass * 1.0) ;
             } else if (gray < 0.3) {
-                pos.z = - gray * ( bass * distance) ;
+                pos.z = - gray * ( bass * distance) + distance ;
             } else if(gray < 0.4) {
-                pos.z = - gray * bass * distance2;
+                pos.z = - gray * bass * distance2 + distance2;
                 // pos.z = -1000.0;
             } else if(gray < 0.6) {
-                pos.z = - gray * bass * distance3;
+                pos.z = - gray * bass * distance3 + distance3;
             } else if(gray < 0.8) {
-                pos.z = - gray * bass * distance2;
+                pos.z = - gray * bass * distance2 + distance2;
             }
 
             // if(gray < 0.3){
@@ -100,7 +100,7 @@ export default function VideoShader0(texture){
         vec3 color = textureVideo.rgb;                        
         color = ( textureVideo.rgb  ) * vec3(bass + 0.5 , bass + 0.5 , bass + 0.5 ) * 1.0;
         
-
+        // color = vec3(1.0,0.0,0.0);
         
         fragColor = vec4(color, 1.0 );
 

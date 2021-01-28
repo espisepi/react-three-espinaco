@@ -4,10 +4,13 @@ import React, { useRef, useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useLoader, useFrame, useThree } from 'react-three-fiber';
 
+import VideoShader0 from './shaders/VideoShader0';
+import VideoShader1 from './shaders/VideoShader1';
+
 const filterYoutubeLink = 'youtu';
 const herokuapp = 'https://video-dl-esp.herokuapp.com/video/video?url=';
 
-export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', webcam, position, rotation, scale, muted=false, type='MusicShader' }) => {
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', webcam, position, rotation, scale, muted=false, type='MusicShader', shaderType }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -52,7 +55,7 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
     if(type === 'MusicShader'){
         return (<MusicShader audio={audio} position={[0,0,-200]} scale={[20,20,20]} />);
     }else if(type === 'VideoPointsShader'){
-        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} webcam={webcam} configuration={configuration} position={position} rotation={rotation} scale={scale} />);
+        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} webcam={webcam} configuration={configuration} position={position} rotation={rotation} scale={scale} shaderType={shaderType} />);
     }else{
         return null;
     }    
@@ -234,7 +237,7 @@ export const MusicShader = ({ audio,
                                     distance = 2;
                                 `; 
  */
-export const VideoPointsShader = ({ audio, videoSrc, webcam=false, configuration, position=[0,0,0], rotation=[Math.PI, Math.PI, 0], scale=[1,1,1] }) => {
+export const VideoPointsShader = ({ audio, videoSrc, webcam=false, shaderType, configuration, position=[0,0,0], rotation=[Math.PI, Math.PI, 0], scale=[1,1,1] }) => {
     videoSrc = videoSrc || '';
     configuration = configuration || `
                                                 r = bass + 0.5;
@@ -283,7 +286,7 @@ export const VideoPointsShader = ({ audio, videoSrc, webcam=false, configuration
     useFrame(({clock})=>{
         
         if( !particles && video && video.readyState === 4 ){
-            const res = createParticles(video);
+            const res = createParticles(video, shaderType);
             res.position.set(...position);
             res.rotation.set(...rotation);
             res.scale.set(...scale);
@@ -313,129 +316,22 @@ export const VideoPointsShader = ({ audio, videoSrc, webcam=false, configuration
     );
 };
 
-function createParticles(video){
+function createParticles(video, shaderType){
+
     const imageData = getImageData(video);
+    const textureVideo = new THREE.VideoTexture(video);
 
-    // const texture0 = new THREE.Texture(imageData);
-    const texture0 = new THREE.VideoTexture(video);
-
-
-    const material = new THREE.ShaderMaterial({
-        uniforms: {
-            iTime: { value: 0 },
-            iResolution:  { value: new THREE.Vector3(1, 1, 1) },
-
-            bass: { value: 0.0 },
-            mid: { value: 0.0 },
-            treble: { value: 0.0 },
-
-            iChannel0: { value: texture0 }
-        },
-        vertexShader: `
-
-        varying vec2 vUv;
-
-        uniform float iTime;
-        uniform sampler2D iChannel0;
-
-        uniform float bass;
-        uniform float mid;
-        uniform float treble;
-
-
-			void main() {
-                vUv = uv;
-
-                vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
-                float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
-                float threshold = 300.0;
-                vec3 pos = position;
-
-                float r = bass + 0.5;
-                float g = treble;
-                float b = mid;
-                float distance = 400.0;
-                float distance2 = 300.0;
-                float distance3 = 100.0;
-
-                if(gray < 0.1){
-                    pos.z = - gray * ( bass * 1.0) ;
-                } else if (gray < 0.3) {
-                    pos.z = - gray * ( bass * distance) ;
-                } else if(gray < 0.4) {
-                    pos.z = - gray * bass * distance2;
-                    // pos.z = -1000.0;
-                } else if(gray < 0.6) {
-                    pos.z = - gray * bass * distance3;
-                } else if(gray < 0.8) {
-                    pos.z = - gray * bass * distance2;
-                }
-
-                // if(gray < 0.3){
-                //     pos.z = - gray * r * bass * distance;
-                // } else if(gray < 0.6) {
-                //     pos.z = gray * r * bass * distance2;
-                // } else {
-                //     pos.z = gray * bass * distance3;
-                // }
-                
-                pos.z += gray * bass;
-
-
-                float size = 1.0;
-				gl_PointSize = size ;
-
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
-
-			}
-        `,
-        fragmentShader: `
-        #include <common>
-
-        varying vec2 vUv;
-
-        uniform vec3 iResolution;
-        uniform float iTime;
-
-        uniform float bass;
-        uniform float mid;
-        uniform float treble;
-        uniform sampler2D iChannel0;
-
-        vec3 colorA = vec3(0.3,0.0,0.0);
-        vec3 colorB = vec3(1.0,0.0,0.0);
-
-        void mainImage(out vec4 fragColor, in vec2 fragCoord) {
-            
-            vec2 uv = fragCoord.xy / iResolution.xy;
-            uv.x *= iResolution.x / iResolution.y;
-
-            
-            //vec3 color = mix(colorA,colorB,bass+0.3);
-
-            vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
-            float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
-            vec3 color_red = vec3(bass+gray,0.0,0.0);
-            vec3 color = textureVideo.rgb;                        
-            color = ( textureVideo.rgb  ) * vec3(bass + 0.5 , bass + 0.5 , bass + 0.5 ) * 1.0;
-            
-
-            
-            fragColor = vec4(color, 1.0 );
-
-
-        }
-        void main() {
-            mainImage(gl_FragColor, vUv * iResolution.xy);
-        }
-        `
-    });
-
+    let shaderMaterial;
+    if(shaderType==='videoshader1'){
+        shaderMaterial = VideoShader1(textureVideo);
+    }else{
+        shaderMaterial = VideoShader0(textureVideo);
+    }
+    const material = shaderMaterial;
+        
     const geometry = new THREE.BufferGeometry();
-
     const positions = [];
     const uvs = [];
-
     for (let y = 0, height = imageData.height; y < height; y += 1) {
         for (let x = 0, width = imageData.width; x < width; x += 1) {
             const vertex = new THREE.Vector3(
@@ -447,7 +343,6 @@ function createParticles(video){
             uvs.push( x / imageData.width, y / imageData.height );
         }
     }
-
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ) );
     geometry.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
     
