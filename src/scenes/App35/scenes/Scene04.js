@@ -7,10 +7,26 @@ import Ocean from '../../../drei-espinaco/Ocean';
 import {InstancedPhysics} from '../../../drei-espinaco/instancedMesh/';
 
 function GalleryModel(){
+    const [doggy, doggy2, doggy3] = useLoader(THREE.TextureLoader, ['assets/img/jipis/charls/doggy.jpeg','assets/img/jipis/charls/doggy2.jpeg','assets/img/jipis/charls/doggy3.jpeg']);
     const modelUrl = 'assets/obj/gallery_house/scene.gltf';
     const { scene } = useGLTF(modelUrl);
     scene.traverse( function ( child ) {
         if ( child.isMesh ) {
+            console.log(child)
+
+
+            if(child.name === 'mesh_4'){ // Vertical 01
+                child.material.map = doggy2;
+            }
+
+            if(child.name === 'mesh_7'){ // Horizontal 03
+                child.material.map = doggy;
+            }
+
+            if(child.name === 'mesh_9'){ // Horizontal 04
+                child.material.map = doggy3;
+            }
+
             // desactivate sky of the blender model
             if(child.material.name === 'material'){
                 child.visible = false;
@@ -130,3 +146,15 @@ export default function Scene04() {
         </>
     );
 }
+
+
+/**
+ *  mesh_3 -> Horizontal 01
+ *  mesh_4 -> Vertical 01
+ *  mesh_5 -> Horizontal 02
+ *  mesh_6 -> Vertical 02
+ *  mesh_7 -> Horizontal 03
+ *  mesh_8 -> Vertical 03
+ *  mesh_9 -> Horizontal 04
+ * 
+ */
