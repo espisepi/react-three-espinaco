@@ -2,7 +2,7 @@ import React from 'react';
 import * as THREE from 'three';
 import { Sky } from 'drei';
 
-import { Pla } from '../../../drei-espinaco/Prefab';
+import { Pla } from '../Prefab';
 
 export default function Scene01(){
     return(

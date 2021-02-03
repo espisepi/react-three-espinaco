@@ -18,12 +18,14 @@ import { proxy, useProxy } from "valtio";
 
 import Fullscreen from '../../drei-espinaco/Fullscreen';
 
+import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
+
 export function ScenePrincipal() {
     return(
         <>
         <Physics gravity={[0, -100, 0]} >
         <Suspense fallback={<Loading />}>
-            
+            {/* <MeshTransformControls /> */}
             <Scene01 />
 
             <Player mass={200.0} height={4.0} acceleration={[300,0.25]} />
