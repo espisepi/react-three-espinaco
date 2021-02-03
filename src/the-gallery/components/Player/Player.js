@@ -1,5 +1,5 @@
+import React, { useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
-import React, { useEffect, useRef } from 'react';
 import { useSphere } from 'use-cannon';
 import { useThree, useFrame } from 'react-three-fiber';
 import PointerLockControls from '../PointerLockControls/PointerLockControls'
@@ -24,7 +24,12 @@ const Player = (props) => {
      ...props
   }))
 
-    const velocity = useRef([0, 0, 0])
+  const acceleration = useMemo(()=>{
+    const res = props.acceleration || [30,0.15];
+    return new THREE.Vector2(res[0] + speed, res[1])
+  });
+
+  const velocity = useRef([0, 0, 0])
   useEffect(() =>  {
     //update reference everytime velocity changes
     api.velocity.subscribe(v => velocity.current = v)
@@ -37,7 +42,7 @@ const Player = (props) => {
     const _A = new THREE.Vector3();
     const _R = camera.quaternion.clone();
 
-    const acceleration = new THREE.Vector3(1, 0.15, 50.0);
+    // const acceleration = new THREE.Vector3(1, 0.15, 50.0);
     if(left) {
       _A.set(0, 1, 0);
       // espisepi: modify 2.0 to change velocity of camera movement left
@@ -64,7 +69,7 @@ const Player = (props) => {
     const direction = new THREE.Vector3()
     //calculate direction aligned with the camera
     // direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(speed).applyEuler(camera.rotation)
-    direction.subVectors(frontVector, direction).normalize().multiplyScalar(speed).applyEuler(camera.rotation)
+    direction.subVectors(frontVector, direction).normalize().multiplyScalar(acceleration.x).applyEuler(camera.rotation)
     
     //apply the velocity to our sphere
     api.velocity.set(direction.x, velocity.current[1], direction.z)
