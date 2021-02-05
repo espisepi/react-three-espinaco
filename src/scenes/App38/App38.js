@@ -40,7 +40,7 @@ export function ScenePrincipal() {
     );
 }
 
-export default function App38(props) {
+export function RunApp38(props) {
 
     return (
     <>
@@ -50,6 +50,20 @@ export default function App38(props) {
     </Canvas>
     <Joystick />
     <Fullscreen />
+    
     </>
+    );
+}
+
+export default function App38(props) {
+    const [click, setClick] = useState(false);
+    const handleClick = useCallback((e)=>{
+        e.preventDefault();
+        setClick(true);
+    });
+    return(
+        click ? <RunApp38 /> :
+                <div onPointerDown={handleClick} 
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}> <h1>Click on Screen To Start</h1> </div>
     );
 }

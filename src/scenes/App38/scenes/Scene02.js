@@ -11,12 +11,13 @@ import loadVideo from '../../../helpers/loadVideo';
 
 function useTextureVideo(){
     const url = 'assets/musica/naughtyswain.mp4'
+    const muted = false;
     const [textureVideo, setTextureVideo] = useState({});
 	useEffect( () => {
 		let videoDom;
 		async function load(){
 			videoDom = await loadVideo(url);
-			videoDom.muted=false;
+			videoDom.muted=muted;
 			const textureVideo1 = await new THREE.VideoTexture(videoDom);
 			textureVideo1.minFilter = THREE.LinearFilter;
 			textureVideo1.magFilter = THREE.LinearFilter;
