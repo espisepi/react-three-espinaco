@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { Sky } from 'drei';
 
 import { Pla, Catedral } from '../Prefab';
-import { useLoader } from 'react-three-fiber';
+import { useLoader, useThree } from 'react-three-fiber';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 
 import Stars from '../../../drei-espinaco/Stars';
@@ -38,20 +38,34 @@ function useTextureVideo(){
 function Edificios() {
     const [textureVideo, setTextureVideo] = useTextureVideo();
     const obj = useLoader(OBJLoader,'assets/obj/destroyedWalls_UV1.obj');
-    obj.traverse(object => {
-        if(object.isMesh){
-            object.material.map = textureVideo;
-        }
-    });
+    const { scene } = useThree();
+    useEffect(()=>{
+        if(textureVideo?.image){
+            obj.traverse(object => {
+                if(object.isMesh){
+                    // console.log(textureVideo)
+                    // object.material.color.set("red")
+                    object.material.map = textureVideo;
+                }
+            });
+            obj.position.set(0,-20,0);
+            obj.scale.set(20,20,20);
+            scene.add(obj);
 
+            const plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(400,400,1,1),
+                                         new THREE.MeshBasicMaterial({side:THREE.DoubleSide, map: textureVideo}) );
+            plane.position.set(0,0,-250);
+            scene.add(plane);
+        }
+    },[textureVideo.image]);
 
     return (
         <>
-        <mesh position={[0,0,-250]}>
+        {/* <mesh position={[0,0,-250]}>
             <planeBufferGeometry attach='geometry' args={[400,400,1,1]} />
             <meshBasicMaterial attach='material' map={textureVideo} side={THREE.DoubleSide} />
-        </mesh>
-        <primitive object={obj} position={[0,-20,0]} scale={[20,20,20]} />
+        </mesh> */}
+        {/* <primitive object={obj} position={[0,-20,0]} scale={[20,20,20]} /> */}
         </>
     )
 }
