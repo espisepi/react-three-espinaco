@@ -29,10 +29,10 @@ export function ScenePrincipal() {
         <Physics gravity={[0, -100, 0]} >
         <Suspense fallback={<Loading />}>
             {/* <MeshTransformControls /> */}
-            <Scene02 />
+            <Scene01 />
 
-            {/* <Player mass={200.0} height={4.0} acceleration={[300,0.25]} /> */}
-            <Player mass={200.0} height={4.0} />
+            <Player mass={200.0} height={4.0} acceleration={[300,0.25]} />
+            {/* <Player mass={200.0} height={4.0} /> */}
             <GroundPhysic />
         </Suspense>
         </Physics>
@@ -45,8 +45,9 @@ export function RunApp38(props) {
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
-        {/* <Stats /> */}
+        <Stats />
         <ScenePrincipal />
+        {/* <OrbitControls /> */}
     </Canvas>
     <Joystick />
     <Fullscreen />

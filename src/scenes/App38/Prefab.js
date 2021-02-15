@@ -4,7 +4,6 @@ import {InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
 
 export function Pla(...props) {
     const {nodes} = useGLTF('assets/obj/googleEarth/pla/untitled.glb');
-    console.log(nodes);
     const objects = useMemo(()=>([
         {
             propsPhysics: [
@@ -23,10 +22,28 @@ export function Pla(...props) {
     ]));
     return (
     <>
-    <group position={[0,-20,0]} scale={[20,20,20]}>
-        <InstancedPhysics objects={objects} visible={true} />
-        <primitive object={nodes.skatepark} dispose={null} />
-    </group>
+    <InstancedPhysics objects={objects} visible={true} />
+    <primitive object={nodes.skatepark} dispose={null} />
     </>
+    );
+}
+
+export function Catedral(props) {
+    const {nodes} = useGLTF('assets/obj/googleEarth/catedral/untitled.glb');
+    console.log(nodes)
+    return (
+    <group {...props} >
+        <primitive object={nodes.Scene} />
+    </group>
+    );
+}
+
+export function CAAC(props) {
+    const {nodes} = useGLTF('assets/obj/googleEarth/caac/1.glb');
+    console.log(nodes)
+    return (
+    <group {...props} >
+        <primitive object={nodes.Scene} />
+    </group>
     );
 }
