@@ -39,6 +39,7 @@ import App37 from './scenes/App37/App37';
 import App38 from './scenes/App38/App38';
 import App39 from './scenes/App39/App39';
 import App40 from './scenes/App40/App40';
+import App41 from './scenes/App41/App41';
 import AppDirty from './scenes/AppDirty/AppDirty';
 
 export {
@@ -83,6 +84,7 @@ export {
     App38,
     App39,
     App40,
+    App41,
     AppDirty
 }
 
