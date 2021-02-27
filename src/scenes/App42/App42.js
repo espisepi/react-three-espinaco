@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState, useCallback } from 'react';
 import * as THREE from 'three';
-import { Canvas, useLoader, useThree } from 'react-three-fiber';
+import { Canvas, useLoader, useThree, useFrame } from 'react-three-fiber';
 import { OrbitControls, useGLTF } from 'drei';
 import Loading from '../../components/Loading';
 
@@ -24,7 +24,7 @@ const picturesGame = [
     },
     {
         name: 'mesh_4',
-        img: 'assets/img/gallery/lion.jpg',
+        img: 'assets/img/gallery/tiger.jpg',
         answer: ['tiger','Tiger'],
         soundAnimal: '',
         soundVocabulary: '',
@@ -43,6 +43,20 @@ const useStore = create(set => ({
     addTexture: (texture,i) => set(state => {
         state.pictures[i].texture = texture;
         return state;
+    }),
+    setIndex: (num) => set(state => {
+        if(num < state.pictures.length){
+            state.index = num;
+        } else {
+            console.error('Indice es mayor que los elementos de la lista');
+        }
+        return state;
+    }),
+    setColor: (color) => set(state => {
+        state.current.mesh.material.color = color;
+    }),
+    updateCurrent: () => set(state => {
+        state.current = state.pictures[state.index]
     })
   }))
 
@@ -57,34 +71,38 @@ const state = proxy(stateRaw);
 
 function GameInput(){
 
-    // const snapState = useProxy(state);
-
     const state = useStore(state => state)
-    console.log(state);
-
-    useEffect(()=>{
-        if(state.current.mesh){
-            state.current.mesh.material.map = state.current.texture;
-        }
-    },[state.current.mesh]);
-
+    const setIndex = useStore(state => state.setIndex);
+    const updateCurrent = useStore(state => state.updateCurrent);
+    const setColor = useStore(state => state.setColor);
+    
     const [input, setInput] = useState();
     const handleInput = useCallback((e)=>{
         setInput(e.target.value);
     })
     const handleSubmit = useCallback((e)=>{
         if(state.current.answer.includes(input)){
-            // respuesta correcta
-            state.current.mesh.material.color = new THREE.Color(0,0.5,0);
+            /** Respuesta correcta */
+            setColor(new THREE.Color(0,0.5,0));
+            if(state.index >=  state.pictures.length - 1){
+                /** Has ganado la partida */
+                // animacionNave();
+                alert('YOU WIN');
+            } else {
+                /** Continua la partida */
+                setIndex(state.index + 1);
+                updateCurrent();
+                setColor(new THREE.Color(1,1,1));
+            }
         } else {
-            // respuesta incorrecta
-            state.current.mesh.material.color = new THREE.Color(0.5,0,0);
+            /** respuesta incorrecta */
+            setColor(new THREE.Color(0.5,0,0));
         }
     })
     return (
         <>
         <input onChange={handleInput}
-            style={{position:'absolute', bottom:'0px', width:'50vw', height:'30px', border:'none', backgroundColor:'#111111', zIndex:10000}}
+            style={{position:'absolute', bottom:'0px', width:'50vw', height:'30px', border:'none', backgroundColor:'#fb8500', zIndex:10000}}
             type="text"
             value={input}
         />
@@ -133,6 +151,14 @@ export function Gallery(props) {
                 if(o.name === p.name){
                     addMesh(o,i);
                     addTexture(textures[i],i);
+                    o.material.map = textures[i];
+                    o.material.emissiveMap = null;
+                    o.material.emissive = new THREE.Color(0,0,0);
+                    if(i===0){
+                        o.material.color = null;
+                    }else{
+                        o.material.color = new THREE.Color(0,0,0);
+                    }
                 } else {
                 
                 }
@@ -140,9 +166,9 @@ export function Gallery(props) {
 
             if(o.name === 'mesh_7' || o.name === 'mesh_4' ){
                 // o.material.map = textures[0];
-                o.material.emissiveMap = null;
-                o.material.emissive = new THREE.Color(0,0,0);
-                o.material.color = new THREE.Color(0,0,0);
+                // o.material.emissiveMap = null;
+                // o.material.emissive = new THREE.Color(0,0,0);
+                // o.material.color = new THREE.Color(0,0,0);
             }
             // console.log(o);
         })
@@ -158,8 +184,8 @@ export function Gallery(props) {
 export function Scene() {
     return(
         <>
-        {/* <ambientLight /> */}
-        <pointLight position={[0,2,0]} />
+        <ambientLight intensity={0.2} />
+        <pointLight position={[0,10,0]} />
         <Physics gravity={[0, -100, 0]} >
             <Suspense fallback={<Loading />}>
                 <Gallery scale={[10,10,10]} />
