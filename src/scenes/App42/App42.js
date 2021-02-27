@@ -77,16 +77,6 @@ function playAudio(audio, volume = 1, loop = false) {
     audio.play();
 }
 
-
-const stateRaw = {
-    index: 0,
-    current: picturesGame[0],
-    array: picturesGame
-};
-
-const state = proxy(stateRaw);
-
-
 function GameInput(){
 
     const state = useStore(state => state)
@@ -157,20 +147,16 @@ export function Gallery(props) {
         p.img
     )
     const textures = useLoader(THREE.TextureLoader, images);
-    textures.forEach((t,i)=>{
-        state.array[i].texture = t;
-    });
 
-    /** load state */
-    const snapState = useProxy(state);
-
+    /** Prepare zustand state */
+    const pictures = useStore(state => state.pictures);
     const addMesh = useStore(state => state.addMesh);
     const addTexture = useStore(state => state.addTexture);
 
     useEffect(()=>{
         nodes.root.traverse((o)=>{
 
-            state.array.forEach((p,i)=>{
+            pictures.forEach((p,i)=>{
                 if(o.name === p.name){
                     addMesh(o,i);
                     addTexture(textures[i],i);
@@ -187,16 +173,15 @@ export function Gallery(props) {
                 }
             });
 
-            if(o.name === 'mesh_7' || o.name === 'mesh_4' ){
+            // if(o.name === 'mesh_7' || o.name === 'mesh_4' ){
                 // o.material.map = textures[0];
                 // o.material.emissiveMap = null;
                 // o.material.emissive = new THREE.Color(0,0,0);
                 // o.material.color = new THREE.Color(0,0,0);
-            }
+            // }
             // console.log(o);
         })
     });
-    // console.log(state.array);
     return (
     <group {...props} >
         <primitive object={nodes.root} rotation={[-Math.PI / 2, 0 ,0 ]}/>
