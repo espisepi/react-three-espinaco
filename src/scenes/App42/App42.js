@@ -4,6 +4,8 @@ import { Canvas, useLoader, useThree, useFrame } from 'react-three-fiber';
 import { OrbitControls, useGLTF } from 'drei';
 import Loading from '../../components/Loading';
 
+import Stars from '../../drei-espinaco/Stars';
+
 import Joystick from '../../drei-espinaco/Joystick';
 import { Physics, useBox } from 'use-cannon';
 import Player from '../../the-gallery/components/Player/Player';
@@ -62,6 +64,9 @@ const useStore = create(set => ({
     }),
     playSoundAnimal: () => set(state => {
         playAudio(state.current.soundAnimal);
+    }),
+    playAmbientSound: () => set(state => {
+        playAudio(audio.ambient, 1, true);
     })
 }));
 
@@ -89,6 +94,8 @@ function GameInput(){
     const updateCurrent = useStore(state => state.updateCurrent);
     const setColor = useStore(state => state.setColor);
     const playSoundAnimal = useStore(state => state.playSoundAnimal);
+    const playAmbientSound = useStore(state => state.playAmbientSound);
+    useEffect(()=>playAmbientSound(),[]);
     
     const [input, setInput] = useState();
     const handleInput = useCallback((e)=>{
@@ -200,6 +207,7 @@ export function Gallery(props) {
 export function Scene() {
     return(
         <>
+        <Stars />
         <ambientLight intensity={0.2} />
         <pointLight position={[0,10,0]} />
         <Physics gravity={[0, -100, 0]} >
