@@ -11,14 +11,16 @@ import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 
 import { proxy, useProxy } from "valtio";
 
-import create from 'zustand'
+import create from 'zustand';
+
+import * as audio from './audio';
 
 const picturesGame = [
     {
         name: 'mesh_7',
         img: 'assets/img/gallery/lion.jpg',
         answer: ['lion','Lion'],
-        soundAnimal: '',
+        soundAnimal: audio.lionSound,
         soundVocabulary: '',
         // mesh:{}
     },
@@ -26,7 +28,7 @@ const picturesGame = [
         name: 'mesh_4',
         img: 'assets/img/gallery/tiger.jpg',
         answer: ['tiger','Tiger'],
-        soundAnimal: '',
+        soundAnimal: audio.tigerSound,
         soundVocabulary: '',
         // mesh:{}
     }
@@ -56,9 +58,20 @@ const useStore = create(set => ({
         state.current.mesh.material.color = color;
     }),
     updateCurrent: () => set(state => {
-        state.current = state.pictures[state.index]
+        state.current = state.pictures[state.index];
+    }),
+    playSoundAnimal: () => set(state => {
+        playAudio(state.current.soundAnimal);
     })
-  }))
+}));
+
+function playAudio(audio, volume = 1, loop = false) {
+    audio.currentTime = 0;
+    audio.volume = volume;
+    audio.loop = loop;
+    audio.play();
+}
+
 
 const stateRaw = {
     index: 0,
@@ -75,6 +88,7 @@ function GameInput(){
     const setIndex = useStore(state => state.setIndex);
     const updateCurrent = useStore(state => state.updateCurrent);
     const setColor = useStore(state => state.setColor);
+    const playSoundAnimal = useStore(state => state.playSoundAnimal);
     
     const [input, setInput] = useState();
     const handleInput = useCallback((e)=>{
@@ -93,10 +107,12 @@ function GameInput(){
                 setIndex(state.index + 1);
                 updateCurrent();
                 setColor(new THREE.Color(1,1,1));
+                playSoundAnimal();
             }
         } else {
             /** respuesta incorrecta */
             setColor(new THREE.Color(0.5,0,0));
+            playSoundAnimal();
         }
     })
     return (
