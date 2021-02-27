@@ -204,8 +204,8 @@ export function Scene() {
         <pointLight position={[0,10,0]} />
         <Physics gravity={[0, -100, 0]} >
             <Suspense fallback={<Loading />}>
-                <Gallery scale={[10,10,10]} />
-                <Player mass={200.0} height={4.0}/>
+                <Gallery scale={[20,20,20]} />
+                <Player mass={200.0} height={20.0}/>
                 <GroundPhysic />
             </Suspense>
         </Physics>
