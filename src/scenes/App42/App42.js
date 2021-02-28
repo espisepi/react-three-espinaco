@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import { Canvas, useLoader, useThree, useFrame } from 'react-three-fiber';
-import { OrbitControls, useGLTF } from 'drei';
+import { OrbitControls, useGLTF, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import Stars from '../../drei-espinaco/Stars';
@@ -207,15 +207,29 @@ export function Scene() {
     );
 }
 
-export default function AppDirty(props) {
+export function RunApp42(props) {
 
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
+        <Stats />
         <Scene />
     </Canvas>
     <Joystick />
     <GameInput />
     </>
+    );
+}
+
+export default function App42(props) {
+    const [click, setClick] = useState(false);
+    const handleClick = useCallback((e)=>{
+        e.preventDefault();
+        setClick(true);
+    });
+    return(
+        click ? <RunApp42 /> :
+                <div onPointerDown={handleClick} 
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}> <h1>Click on Screen To Start</h1> </div>
     );
 }
