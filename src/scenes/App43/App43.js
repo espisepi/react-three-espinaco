@@ -5,6 +5,7 @@ import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
 import Camera from '../../components/Camera';
 import Curve from '../../drei-espinaco/Curve';
+import { Text } from "../../drei-espinaco/Text";
 import create from 'zustand';
 
 const [useStore, api] = create((set, get) => {
@@ -12,13 +13,19 @@ const [useStore, api] = create((set, get) => {
         camera: undefined,
         cameraPositions: [
             [0,0,0],
-            [0,0,6],
-            [2,0,0]
+            [2,0,6],
+            [2,0,0],
+            [4,0,0]
         ],
-        topNormalized: 0, // Range [0,1]
-        setTopNormalized: (topNormalized) => {
-            set({ topNormalized });
-        },
+        // topNormalized: 0, // Range [0,1]
+        // setTopNormalized: (topNormalized) => {
+        //     set({ topNormalized });
+        // },
+        index: 0,
+        setIndex: (num) => set( state => {
+            const length = state.cameraPositions.length;
+            state.index =  num % length; // index Range [0, length]
+        }),
         pictures: [
             {
                 img: 'assets/img/gallery/lion.jpg',
@@ -27,6 +34,10 @@ const [useStore, api] = create((set, get) => {
             {
                 img: 'assets/img/gallery/tiger.jpg',
                 position: [2,0,-1]
+            },
+            {
+                img: 'assets/img/masnaisraelb.png',
+                position: [4,0,-1]
             }
         ],
         actions: {
@@ -49,40 +60,33 @@ export function Picture({img, ...props}) {
 
 export function Arrows({}) {
     const cameraPositions = useStore( state => state.cameraPositions );
-    const [index, setIndex] = useState(0);
+    const [index, setIndex] = useStore( state => [state.index, state.setIndex] );
     const [newPosition, setNewPosition] = useState(new THREE.Vector3(...cameraPositions[index]));
 
     const { camera } = useThree();
-    console.log(camera.position)
-    // console.log(newPosition);
-    window.cameraGlobal = camera;
     useFrame(()=>{
-        // console.log(newPosition)
         if(group.current){
             group.current.position.lerp(newPosition, 0.1);
         }
     });
 
     const handleClick = useCallback((e)=>{
-        const length = cameraPositions.length;
-        setIndex( (index + 1) % length );
+        setIndex( index + 1 );
         setNewPosition( new THREE.Vector3(...cameraPositions[index]) );
-        console.log(index);
     });
 
     const group = useRef();
     useEffect(()=>{
         if(group.current){
-            // camera.add(group.current);
             group.current.add(camera);
         }
     },[group.current])
     return (
-        <group ref={group}>
-        <mesh position={[0,-0.3, -0.5]} scale={[0.1,0.1,0.1]} onClick={handleClick}>
-            <planeBufferGeometry attach='geometry' args={[1,1]} />
-            <meshBasicMaterial attach='material' color='red' side={THREE.DoubleSide} />
-        </mesh>
+        <group name ref={group}>
+            <mesh position={[0,-0.3, -0.5]} scale={[0.1,0.1,0.1]} onClick={handleClick}>
+                <planeBufferGeometry attach='geometry' args={[1,1]} />
+                <meshBasicMaterial attach='material' color='red' side={THREE.DoubleSide} />
+            </mesh>
         </group>
     );
 }
@@ -92,8 +96,22 @@ export function Pictures() {
     return pictures.map((data, i) => <Picture key={i} {...data} />);
 }
 
+class GameQuestion {
+    constructor(question, answer, img) {
+        this.state = {
+            question: question, // 'What animal is this ?',
+            answer: answer,     // 'lion',
+            img: img,           // 'assets/img/gallery/lion.jpg'
+        };
+    }
+    checkGame(input) {
+        return input === this.state.answer;
+    }
+}
+
+
 export function Scene() {
-    const [cameraPositions, topNormalized] = useStore(state => [state.cameraPositions, state.topNormalized]);
+    // const [cameraPositions, topNormalized] = useStore(state => [state.cameraPositions, state.topNormalized]);
     return(
         <>
         <ambientLight />
@@ -130,6 +148,27 @@ export default function App43(props) {
 
 
 /** --------------- Old function -------------- */
+
+// class GameRockPaperScissor {
+//     constructor() {
+//         this.state = {
+//             rock: 'rock',
+//             paper: 'paper',
+//             scissor: 'scissor',
+//             itemSelected: undefined
+//         }
+//     }
+//     checkGame(input) {
+//         this.update();
+//         // if(input === this.state.rock && this.itemSelected === ) { }
+//         return true; // You win
+//     }
+//     update() {// should be private function
+//         this.itemSelected = this.state.rock;
+//         return null
+//     }
+// }
+
 // export function Arrows({}) {
 //     const cameraPositions = useStore( state => state.cameraPositions );
 //     const [topNormalized, setTopNormalized] = useStore( state => [state.topNormalized,state.setTopNormalized]);
