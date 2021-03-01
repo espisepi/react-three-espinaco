@@ -26,18 +26,31 @@ const [useStore, api] = create((set, get) => {
             const length = state.cameraPositions.length;
             state.index =  num % length; // index Range [0, length]
         }),
+        getIndexFromPosition: (position) => {
+            const indexSelected = get().cameraPositions.findIndex( (p) => JSON.stringify(p) === JSON.stringify(position) );
+            return indexSelected;
+        },
+        setIndexFromPosition: (position) => set( state => {
+            console.log(position);
+            const indexSelected = state.cameraPositions.findIndex( (p) => JSON.stringify(p) === JSON.stringify(position) );
+            console.log(indexSelected);
+            state.setIndex(indexSelected);
+        }),
         pictures: [
             {
                 img: 'assets/img/gallery/lion.jpg',
-                position: [0,0,-1]
+                position: [0,0,-1],
+                cameraPosition: [0,0,0]
             },
             {
                 img: 'assets/img/gallery/tiger.jpg',
-                position: [2,0,-1]
+                position: [2,0,-1],
+                cameraPosition: [2,0,0]
             },
             {
                 img: 'assets/img/masnaisraelb.png',
-                position: [4,0,-1]
+                position: [4,0,-1],
+                cameraPosition: [4,0,0]
             }
         ],
         actions: {
@@ -50,8 +63,13 @@ const [useStore, api] = create((set, get) => {
 
 export function Picture({img, ...props}) {
     const texture = useLoader(THREE.TextureLoader, img);
+
+    const setIndexFromPosition = useStore( state => state.setIndexFromPosition );
+    const handleClick = useCallback(()=>{
+        setIndexFromPosition(props.cameraPosition);
+    });
     return (
-        <mesh {...props} visible={true}>
+        <mesh {...props} visible={true} onClick={handleClick} >
             <planeBufferGeometry attach='geometry' args={[1,1]} />
             <meshBasicMaterial attach='material' map={texture} />
         </mesh>
@@ -61,18 +79,19 @@ export function Picture({img, ...props}) {
 export function Arrows({}) {
     const cameraPositions = useStore( state => state.cameraPositions );
     const [index, setIndex] = useStore( state => [state.index, state.setIndex] );
-    const [newPosition, setNewPosition] = useState(new THREE.Vector3(...cameraPositions[index]));
+    // const [newPosition, setNewPosition] = useState(new THREE.Vector3(...cameraPositions[index]));
 
     const { camera } = useThree();
     useFrame(()=>{
         if(group.current){
+            const newPosition = new THREE.Vector3(...cameraPositions[index]);
             group.current.position.lerp(newPosition, 0.1);
         }
     });
 
     const handleClick = useCallback((e)=>{
         setIndex( index + 1 );
-        setNewPosition( new THREE.Vector3(...cameraPositions[index]) );
+        // setNewPosition( new THREE.Vector3(...cameraPositions[index]) );
     });
 
     const group = useRef();
