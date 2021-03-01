@@ -12,8 +12,8 @@ const [useStore, api] = create((set, get) => {
     return {
         camera: undefined,
         cameraPositions: [
-            [0,0,0],
             [2,0,6],
+            [0,0,0],
             [2,0,0],
             [4,0,0]
         ],
@@ -24,16 +24,14 @@ const [useStore, api] = create((set, get) => {
         index: 0,
         setIndex: (num) => set( state => {
             const length = state.cameraPositions.length;
-            state.index =  num % length; // index Range [0, length]
+            state.index =  Math.abs(num) % length; // index Range [0, length]
         }),
         getIndexFromPosition: (position) => {
             const indexSelected = get().cameraPositions.findIndex( (p) => JSON.stringify(p) === JSON.stringify(position) );
             return indexSelected;
         },
         setIndexFromPosition: (position) => set( state => {
-            console.log(position);
             const indexSelected = state.cameraPositions.findIndex( (p) => JSON.stringify(p) === JSON.stringify(position) );
-            console.log(indexSelected);
             state.setIndex(indexSelected);
         }),
         pictures: [
@@ -77,10 +75,9 @@ export function Picture({img, ...props}) {
 }
 
 export function Arrows({}) {
+
     const cameraPositions = useStore( state => state.cameraPositions );
     const [index, setIndex] = useStore( state => [state.index, state.setIndex] );
-    // const [newPosition, setNewPosition] = useState(new THREE.Vector3(...cameraPositions[index]));
-
     const { camera } = useThree();
     useFrame(()=>{
         if(group.current){
@@ -89,9 +86,14 @@ export function Arrows({}) {
         }
     });
 
-    const handleClick = useCallback((e)=>{
+    const handleLeft = useCallback((e)=>{
+        setIndex( index - 1 );
+    });
+    const handleCenter = useCallback((e)=>{
+        setIndex( 0 );
+    });
+    const handleRight = useCallback((e)=>{
         setIndex( index + 1 );
-        // setNewPosition( new THREE.Vector3(...cameraPositions[index]) );
     });
 
     const group = useRef();
@@ -102,9 +104,17 @@ export function Arrows({}) {
     },[group.current])
     return (
         <group name ref={group}>
-            <mesh position={[0,-0.3, -0.5]} scale={[0.1,0.1,0.1]} onClick={handleClick}>
+            <mesh position={[-0.1,-0.3, -0.5]} scale={[0.1,0.1,0.1]} onClick={handleLeft}>
                 <planeBufferGeometry attach='geometry' args={[1,1]} />
                 <meshBasicMaterial attach='material' color='red' side={THREE.DoubleSide} />
+            </mesh>
+            <mesh position={[0.0,-0.3, -0.5]} scale={[0.1,0.1,0.1]} onClick={handleCenter}>
+                <planeBufferGeometry attach='geometry' args={[1,1]} />
+                <meshBasicMaterial attach='material' color='green' side={THREE.DoubleSide} />
+            </mesh>
+            <mesh position={[0.1,-0.3, -0.5]} scale={[0.1,0.1,0.1]} onClick={handleRight}>
+                <planeBufferGeometry attach='geometry' args={[1,1]} />
+                <meshBasicMaterial attach='material' color='blue' side={THREE.DoubleSide} />
             </mesh>
         </group>
     );
