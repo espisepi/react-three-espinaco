@@ -64,6 +64,10 @@ export default function App38(props) {
     return(
         click ? <RunApp38 /> :
                 <div onPointerDown={handleClick} 
-                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}> <h1>Click on Screen To Start</h1> </div>
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}>
+                        <h1>Click on Screen To Start</h1>
+                        <br></br>
+                        <h1>NAUGHTY SWAIN - U DON´T KNOW (PROD. JAY CAS)</h1>
+                </div>
     );
 }
