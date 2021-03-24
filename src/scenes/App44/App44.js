@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
 
@@ -45,13 +45,17 @@ const Box = React.forwardRef( (props, ref) => {
 
 export function Scene() {
     const boxRef = useRef();
+    const { scene } = useThree();
     useEffect(()=>{
-        const box = boxRef.current;
+        
         gsap.registerPlugin(ScrollTrigger);
         // ScrollTrigger.defaults({
         //     immediateRender: false,
         //     ease: "power1.inOut",
         //   });
+
+        // Modificamos la primera caja
+        const box = boxRef.current;
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".section-one",
@@ -68,7 +72,34 @@ export function Scene() {
         .to(box.rotation, { z: 1.6 })
         .to(box.rotation, { z: 0.02, y: 3.1 }, "simultaneously")
         .to(box.position, { x: 0.16 }, "simultaneously")
-        .to(".canvas", { opacity: 0, scale: 0 }, "simultaneously")
+        .to(box.scale, { x: 0 }, "simultaneously")
+        // .to(".canvas", { opacity: 0, scale: 0 }, "simultaneously")
+
+        // Creamos la segunda caja
+        const tl2 = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".section-two",
+                start: 'top top',
+                endTrigger: ".section-three",
+                end: 'bottom bottom',
+                scrub: 1,
+                // markers:{color: 'white' }
+            }
+        });
+        const boxGreen = new THREE.Mesh(new THREE.BoxBufferGeometry(1,1,1), new THREE.MeshBasicMaterial({color:'red'}));
+        boxGreen.material.opacity = 0.0;
+        scene.add(boxGreen);
+        tl2.to( boxGreen.material, { opacity: 1.0 } )
+        tl2.to(boxGreen.rotation, { y: 5.0 });
+
+
+        // modificamos el css
+        const h1Title = document.getElementById('h1-title');
+        const barTitle = document.getElementById('bar-title')
+        tl2.to( h1Title.style , {duration:0.5, opacity: 1.0 }, "simultaneously");
+        tl2.to( barTitle.style , { width: 20 + '%' }, "simultaneously");
+
+
     },[boxRef.current]);
     return(
         <>
@@ -94,8 +125,11 @@ export default function App44(props) {
         <Scene />
     </Canvas>
     <section className="section-one" style={{ ...section, ...sectionOne }}></section>
-    <section className="section-two" style={{ ...section, ...sectionTwo }}></section>
-    <section className="section-three" style={{ ...section, ...sectionThree }}></section>
+    <section id="section-two" className="section-two" style={{ ...section, ...sectionTwo }}></section>
+    <section className="section-three" style={{ ...section, ...sectionThree }}>
+        <h1 id="h1-title" style={{margin:0,padding:0, opacity:0.0}}>Bienvenido</h1>
+        <div id="bar-title" style={{width:'0px', height:'5px', backgroundColor:'white'}}></div>
+    </section>
     {/* <Joystick /> */}
     </div>
     </>
