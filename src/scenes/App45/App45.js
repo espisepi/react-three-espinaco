@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
-import { OrbitControls } from 'drei';
+import { OrbitControls, Text } from 'drei';
 import Loading from '../../components/Loading';
 
 
@@ -14,6 +14,8 @@ import Ocean from '../../drei-espinaco/Ocean';
 
 import { gsap, Linear } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+import { AudioComponents } from '../App35/MediaPointsShader';
 
 const Box = React.forwardRef( (props, ref) => {
     // This reference will give us direct access to the mesh
@@ -54,64 +56,69 @@ export function Scene() {
         //     ease: "power1.inOut",
         //   });
 
-        // Modificamos la primera caja
-        const box = boxRef.current;
+        // Modificamos nuestro music mesh
+        const enterFunc = () => {
+            console.log('start')
+        }
+        const leaveFunc = () => {
+            console.log('completado')
+        }
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: ".section-one",
                 start: 'top top',
                 endTrigger: ".section-three",
-                end: 'bottom bottom',
+                end: 'top top',
                 scrub: 1,
                 // markers:{color: 'white' }
+                onEnter: enterFunc, onLeave: leaveFunc, onEnterBack: enterFunc, onLeaveBack: leaveFunc
             }
         });
+        
+        const box = boxRef.current;
         tl
-        .to(box.rotation, { y: 4.79 })
-        .to(box.position, { x: -0.1 }) 
-        .to(box.rotation, { z: 1.6 })
-        .to(box.rotation, { z: 0.02, y: 3.1 }, "simultaneously")
-        .to(box.position, { x: 0.16 }, "simultaneously")
-        .to(box.scale, { x: 0 }, "simultaneously")
-        // .to(".canvas", { opacity: 0, scale: 0 }, "simultaneously")
+        .from(box.position, { y: -5})
+        .to(box.position, { y: 5 })
 
-        // Creamos la segunda caja
         const tl2 = gsap.timeline({
             scrollTrigger: {
-                trigger: ".section-two",
+                trigger: ".section-three",
                 start: 'top top',
-                endTrigger: ".section-three",
-                end: 'bottom bottom',
+                endTrigger: ".section-five",
+                end: 'top top',
                 scrub: 1,
                 // markers:{color: 'white' }
             }
         });
-        const boxGreen = new THREE.Mesh(new THREE.BoxBufferGeometry(1,1,1), new THREE.MeshBasicMaterial({color:'red'}));
-        boxGreen.material.opacity = 0.0;
-        scene.add(boxGreen);
-        tl2.to( boxGreen.material, { opacity: 1.0 } )
-        tl2.to(boxGreen.rotation, { y: 5.0 });
-
-
-        // modificamos el css
-        const h1Title = document.getElementById('h1-title');
-        const barTitle = document.getElementById('bar-title')
-        tl2.to( h1Title.style , {duration:0.5, opacity: 1.0 }, "simultaneously");
-        tl2.to( barTitle.style , { width: 20 + '%' }, "simultaneously");
-
+        tl2
+        .from(box.position, { y: -5})
+        .to(box.position, { y: 5 })
 
     },[boxRef.current]);
+
+    const [audioSrc, setAudioSrc] = useState('assets/musica/masnaisraelb.mp3');
     return(
         <>
         <ambientLight />
         {/* <Ocean geometry={new THREE.PlaneBufferGeometry( 500, 500, 1, 1 )} position={[0,1,0]} rotation={[Math.PI/2,0,0]} /> */}
-        <Box ref={boxRef} position={[-1.2, 0, 0]} />
-        {/* <Physics>
-        <Suspense fallback={<Loading />}>
-            <Player mass={200.0}/>
-            <GroundPhysic />
-        </Suspense>
-        </Physics> */}
+        <group ref={boxRef}>
+            {/* <Box position={[0, 0, 0]} /> */}
+            <Suspense fallback={<Box position={[0, 0, 0]} />}>
+                <AudioComponents audioSrc={audioSrc} type='MusicShader' position={[0,0,0]}/>
+            </Suspense>
+            <Text
+                // ref={ref}
+                position={[0.0,1.0,0]}
+                color={'#EC2D2D'}
+                fontSize={0.4}
+                maxWidth={10}
+                lineHeight={1}
+                letterSpacing={0.02}
+                textAlign={'left'}
+                >
+                hello world!
+            </Text>
+        </group>
         </>
     );
 }
@@ -130,6 +137,8 @@ export default function App44(props) {
         <h1 id="h1-title" style={{margin:0,padding:0, opacity:0.0}}>Bienvenido</h1>
         <div id="bar-title" style={{width:'0px', height:'5px', backgroundColor:'white'}}></div>
     </section>
+    <section id="section-four" className="section-four" style={{ ...section, ...sectionOne }}></section>
+    <section id="section-five" className="section-five" style={{ ...section, ...sectionTwo }}></section>
     {/* <Joystick /> */}
     </div>
     </>
