@@ -17,6 +17,8 @@ import { AudioComponents } from '../App35/MediaPointsShader';
 
 import { VRCanvas, Hands, DefaultXRControllers } from '@react-three/xr';
 
+import Scene02 from '../App38/scenes/Scene02';
+
 const Box = React.forwardRef( (props, ref) => {
     // This reference will give us direct access to the mesh
     const mesh = ref;
@@ -80,17 +82,37 @@ export function Scene() {
     );
 }
 
-export default function App46(props) {
+export function RunApp46(props) {
 
     return (
     <>
     <VRCanvas>
       {/* <ambientLight /> */}
       {/* <pointLight position={[10, 10, 10]} /> */}
-      <Scene />
+      {/* <Scene /> */}
+      <Suspense fallback={<Loading />}>
+        <Scene02 />
+      </Suspense>
       <DefaultXRControllers />
       <Hands />
     </VRCanvas>
     </>
+    );
+}
+
+export default function App46(props) {
+    const [click, setClick] = useState(false);
+    const handleClick = useCallback((e)=>{
+        e.preventDefault();
+        setClick(true);
+    });
+    return(
+        click ? <RunApp46 /> :
+                <div onPointerDown={handleClick} 
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}>
+                        <h1>Click on Screen To Start</h1>
+                        <br></br>
+                        <h1>NAUGHTY SWAIN - U DON´T KNOW (PROD. JAY CAS)</h1>
+                </div>
     );
 }
