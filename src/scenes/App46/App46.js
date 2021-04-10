@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
-import { OrbitControls, PointerLockControls, Stats } from 'drei';
+import { OrbitControls, PointerLockControls, Stats, PositionalAudio } from 'drei';
 import * as THREE from 'three';
 import Loading from '../../components/Loading';
 import Background from '../../drei-espinaco/Background';
@@ -15,9 +15,13 @@ import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 
 import { AudioComponents } from '../App35/MediaPointsShader';
 
-import { VRCanvas, Hands, DefaultXRControllers } from '@react-three/xr';
+import { VRCanvas, Hands, DefaultXRControllers, useXR, useController } from '@react-three/xr';
 
 import Scene02 from '../App38/scenes/Scene02';
+
+import { EffectComposer, DepthOfField, Bloom, Noise, Vignette, SMAA } from '@react-three/postprocessing';
+
+import Effects from './Effects';
 
 const Box = React.forwardRef( (props, ref) => {
     // This reference will give us direct access to the mesh
@@ -51,14 +55,34 @@ export function Scene() {
     const boxRef = useRef();
     const { scene } = useThree();
 
-    const [audioSrc, setAudioSrc] = useState('assets/musica/masnaisraelb.mp3');
+    const { controllers, player, isPresenting } = useXR();
+    const rightController = useController('right');
+    const gamepad = rightController?.inputSource?.gamepad;
+    console.log(gamepad);
+    useFrame(()=>{
+        
+        if(gamepad?.axes){
+            // console.log(gamepad?.axes);
+            // axes = [ 0, 0, 0, 0]
+            // left:[ 0, 0, -1.0 , 0 ] right:[0, 0, 1.0 , 0 ] up:[ 0, 0, 0, -1.0 ] down:[ 0, 0, 0 , 1.0]
+            const posX = gamepad?.axes[2]; // invertimos los ejes
+            const posY = gamepad?.axes[3]; 
+            player.position.set(posX * 10.0, posY * 10.0 );
+        }
+        
+    })
     return(
         <>
         <ambientLight />
         {/* <Ocean geometry={new THREE.PlaneBufferGeometry( 500, 500, 1, 1 )} position={[0,-1,0]} rotation={[Math.PI/2,0,0]} /> */}
-        <Background/>
+        <Background url='assets/musica/mc-pi-paranoia-prod-lasio.mp4' />
+        <PositionalAudio
+            url="assets/musica/mc-pi-paranoia-prod-lasio.mp3" // Url of the sound file
+            distance={10} // Camera distance (default=1)
+            loop
+        />
         <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,70]} />
-
+        {/* <AudioComponents audioSrc='assets/musica/coronil.mp4' type='MusicShader' position={[0,0,-20]}/> */}
         {/* <Suspense fallback={<Loading />}>
             <AssetGltf url="assets/obj/Horse.glb" />
         </Suspense> */}
@@ -82,17 +106,29 @@ export function Scene() {
     );
 }
 
-export function RunApp46(props) {
+function ResizeCanvas(){
+    const { gl } = useThree();
+    gl.xr.setFramebufferScaleFactor(2.0);
+    return null;
+}
 
+export function RunApp46(props) {
     return (
     <>
-    <VRCanvas>
-      {/* <ambientLight /> */}
-      {/* <pointLight position={[10, 10, 10]} /> */}
-      {/* <Scene /> */}
+    <VRCanvas gl={{ antialias: true }}>
+      <ambientLight />
+      <ResizeCanvas />
       <Suspense fallback={<Loading />}>
-        <Scene02 />
+        {/* <Scene02 /> */}
+        <Scene />
+
+      {/* <EffectComposer> */}
+        {/* <SMAA /> */}
+      {/* </EffectComposer> */}
+      {/* <Effects /> */}
+
       </Suspense>
+
       <DefaultXRControllers />
       <Hands />
     </VRCanvas>
@@ -112,7 +148,7 @@ export default function App46(props) {
                     style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}>
                         <h1>Click on Screen To Start</h1>
                         <br></br>
-                        <h1>NAUGHTY SWAIN - U DON´T KNOW (PROD. JAY CAS)</h1>
+                        <h1>MC Pi - PARANOIA // PROD. LASIO</h1>
                 </div>
     );
 }
