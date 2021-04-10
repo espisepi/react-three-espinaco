@@ -144,6 +144,10 @@ function Page({ onChangePages }) {
     {
       name: 'app39',
       img: '/assets/img/home/naughty.png'
+    },
+    {
+      name: 'app46',
+      img: '/assets/img/home/mcpi.png'
     }
   ]),[]);
   const projectsTextures = useLoader(THREE.TextureLoader, projects.map(p=>p.img));
