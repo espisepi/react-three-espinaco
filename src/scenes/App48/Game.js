@@ -15,7 +15,6 @@ export default class Game{
         this.index = 0;
 
         this.nextWord();
-        // intercambiamos de posicion a los checkers checkers.forEach( (checker, i) => {   })
     }
 
     nextWord() {
@@ -39,12 +38,19 @@ export default class Game{
             })
             this.checkers = [];
 
-            this.scene.remove(stateEl.model.scene);
+            const stateElPrev = this.state[this.index - 1];
+            this.scene.remove(stateElPrev.model.scene);
 
         }
 
-        // Draw model
+        // add model to scene and animate -- still not workin
         this.scene.add(stateEl.model.scene);
+        console.log(stateEl.model)
+        const mixer = new THREE.AnimationMixer( stateEl.model.scene );
+        const clip = stateEl.model.animations[0];
+        const action = mixer.clipAction( clip );
+        action.play();
+        this.mixer = mixer;
 
         // Draw squares and checkers
         const wordLetters = stateEl.word.split(''); // 'lion' => [ 'l', 'i', 'o', 'n' ]
@@ -129,6 +135,12 @@ export default class Game{
             return false;
         }
         
+    }
+
+    update(delta) {
+        if(this.mixer){
+            this.mixer.update(delta);
+        }
     }
 
 }

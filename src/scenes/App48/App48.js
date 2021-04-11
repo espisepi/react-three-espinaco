@@ -12,8 +12,7 @@ export function Scene() {
         {
             word:'horse',
             modelSrc:'assets/obj/animals/horse/scene.gltf',
-            model: undefined
-
+            model: undefined,
         },
         {
             word:'fish',
@@ -29,6 +28,8 @@ export function Scene() {
 
     const { scene, camera, gl } = useThree();
     const game = new Game(state, scene, camera, gl);
+
+    useFrame(({clock})=> game.update(clock.getDelta()));
 
     return(
         <>
