@@ -8,6 +8,8 @@ import Game from './Game';
 export function Scene() {
     const { scene, camera, gl } = useThree();
     const game = new Game(scene, camera, gl);
+
+    // cargamos los animales con useloader, los pasamos por parametros a Game y los añadimos a un group y ese group lo movemos al acertar la palabra
     return(
         <>
         <ambientLight />
