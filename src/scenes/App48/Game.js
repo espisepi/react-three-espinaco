@@ -1,6 +1,7 @@
 import { ChromaticAberration } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
+import { Text } from 'troika-three-text'
 
 export default class Game{
 
@@ -62,6 +63,7 @@ export default class Game{
             checkerMesh.userData.letter = letter;
             this.scene.add(checkerMesh);
             this.checkers.push(checkerMesh);
+            this.createText(letter, checkerMesh);
             
         });
 
@@ -69,6 +71,18 @@ export default class Game{
             this.disposeControls();
         }
         this.updateControls();
+    }
+
+    createText(text, parent) {
+        const textMesh = new Text();
+        textMesh.position.set(0,0.4,0)
+        console.log(textMesh)
+        textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
+        textMesh.text = text
+        textMesh.fontSize = 0.6;
+        textMesh.color = 0x9966FF;
+        textMesh.sync();
+        parent.add(textMesh);
     }
     
     updateControls() {
