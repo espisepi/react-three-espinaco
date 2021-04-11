@@ -39,7 +39,7 @@ export default class Game{
             this.checkers = [];
 
             const stateElPrev = this.state[this.index - 1];
-            this.scene.remove(stateElPrev.model.scene);
+            // this.scene.remove(stateElPrev.model.scene);
 
         }
 
@@ -47,7 +47,7 @@ export default class Game{
         // stateEl.model.scene.position.set(stateEl.modelAtt.position.x,stateEl.modelAtt.position.y,stateEl.modelAtt.position.z)
         // stateEl.model.scene.rotation.set(stateEl.modelAtt.rotation.x,stateEl.modelAtt.rotation.y,stateEl.modelAtt.rotation.z)
         // stateEl.model.scene.scale.set(stateEl.modelAtt.scale.x,stateEl.modelAtt.scale.y,stateEl.modelAtt.scale.z)
-        this.scene.add(stateEl.model.scene);
+        // this.scene.add(stateEl.model.scene);
         // console.log(stateEl.model)
         // const mixer = new THREE.AnimationMixer( stateEl.model.scene );
         // const clip = stateEl.model.animations[0];
