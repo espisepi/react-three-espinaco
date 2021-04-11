@@ -44,13 +44,16 @@ export default class Game{
         }
 
         // add model to scene and animate -- still not workin
+        // stateEl.model.scene.position.set(stateEl.modelAtt.position.x,stateEl.modelAtt.position.y,stateEl.modelAtt.position.z)
+        // stateEl.model.scene.rotation.set(stateEl.modelAtt.rotation.x,stateEl.modelAtt.rotation.y,stateEl.modelAtt.rotation.z)
+        // stateEl.model.scene.scale.set(stateEl.modelAtt.scale.x,stateEl.modelAtt.scale.y,stateEl.modelAtt.scale.z)
         this.scene.add(stateEl.model.scene);
-        console.log(stateEl.model)
-        const mixer = new THREE.AnimationMixer( stateEl.model.scene );
-        const clip = stateEl.model.animations[0];
-        const action = mixer.clipAction( clip );
-        action.play();
-        this.mixer = mixer;
+        // console.log(stateEl.model)
+        // const mixer = new THREE.AnimationMixer( stateEl.model.scene );
+        // const clip = stateEl.model.animations[0];
+        // const action = mixer.clipAction( clip );
+        // action.play();
+        // this.mixer = mixer;
 
         // Draw squares and checkers
         const wordLetters = stateEl.word.split(''); // 'lion' => [ 'l', 'i', 'o', 'n' ]
@@ -62,12 +65,12 @@ export default class Game{
             this.scene.add(squareMesh);
             this.squares.push(squareMesh);
 
-            const checkerMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(1,1), new THREE.MeshBasicMaterial({color:'blue'}));
+            const checkerMesh = this.createText(letter);
             checkerMesh.position.set(i * 1.5 - 2, -2, 0.1);
             checkerMesh.userData.letter = letter;
             this.scene.add(checkerMesh);
             this.checkers.push(checkerMesh);
-            this.createText(letter, checkerMesh);
+            
             
         });
 
@@ -79,15 +82,14 @@ export default class Game{
         this.index++;
     }
 
-    createText(text, parent) {
+    createText(text) {
         const textMesh = new Text();
-        textMesh.position.set(0,0.4,0)
         textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
         textMesh.text = text
         textMesh.fontSize = 0.6;
         textMesh.color = 0x9966FF;
         textMesh.sync();
-        parent.add(textMesh);
+        return textMesh;
     }
     
     updateControls() {
@@ -102,7 +104,7 @@ export default class Game{
             const intersectObjects = raycaster.intersectObjects( self.squares );
             if(intersectObjects.length != 0) {
                 const squareMesh = intersectObjects[0].object;
-                checkerMesh.position.set(squareMesh.position.x,squareMesh.position.y,squareMesh.position.z + 0.1);
+                checkerMesh.position.set(squareMesh.position.x - 0.15,squareMesh.position.y + 0.4,squareMesh.position.z + 0.1);
                 if(self.checkGameSuccess()){
                     self.nextWord();
                 }
@@ -121,7 +123,7 @@ export default class Game{
         let aciertos = 0;
         checkers.forEach( checker => {
             squares.forEach( square => {
-               if(square.position.x == checker.position.x && square.position.y == checker.position.y ) {
+               if(square.position.x - 0.15 == checker.position.x && square.position.y + 0.4 == checker.position.y ) {
                    if(square.userData.letter == checker.userData.letter ){
                         aciertos++;
                    }

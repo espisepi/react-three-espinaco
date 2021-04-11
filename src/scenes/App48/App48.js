@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState, useCallback } from 'react';
+import React, { Suspense, useRef, useState, useCallback, useMemo } from 'react';
 import { useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
@@ -13,11 +13,21 @@ export function Scene() {
             word:'horse',
             modelSrc:'assets/obj/animals/horse/scene.gltf',
             model: undefined,
+            modelAtt:{
+                position:[0,0,0],
+                rotation:[0,0,0],
+                scale:[1,1,1]
+            }
         },
         {
             word:'fish',
             modelSrc:'assets/obj/animals/fish/scene.gltf',
-            model: undefined
+            model: undefined,
+            modelAtt:{
+                position:[0,0,0],
+                rotation:[0,Math.PI/2,Math.PI/2],
+                scale:[1,1,1]
+            }
         }
     ];
 
@@ -27,7 +37,10 @@ export function Scene() {
     state.forEach( (c,i) => c.model = animals[i] );
 
     const { scene, camera, gl } = useThree();
-    const game = new Game(state, scene, camera, gl);
+
+    const game = useMemo(()=>{
+        return new Game(state, scene, camera, gl);
+    },[]);
 
     useFrame(({clock})=> game.update(clock.getDelta()));
 
@@ -50,3 +63,13 @@ export default function App48(props) {
     </Canvas>
     );
 }
+
+// TIPS
+/**
+    boton UI -> sonido de pronunciacion de la palabra
+    sonido del animal al comenzar una nueva palabra
+
+    escenario 3d con r3f
+    sonidos, cambiar animales, mecanicas... con vanilla js
+
+ */
