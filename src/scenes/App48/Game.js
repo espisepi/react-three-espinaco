@@ -5,22 +5,13 @@ import { Text } from 'troika-three-text'
 
 export default class Game{
 
-    constructor(scene, camera, renderer) {
+    constructor(state, scene, camera, renderer) {
         this.scene = scene;
         this.camera = camera;
         this.renderer = renderer;
         this.squares = [];
         this.checkers = [];
-        this.state = [
-            {
-                word:'lion',
-                scale:[1,1,1]
-            },
-            {
-                word:'birds',
-                scale:[1,1,1]
-            }
-        ];
+        this.state = state;
         this.index = 0;
 
         this.nextWord();
@@ -34,6 +25,8 @@ export default class Game{
             return;
         }
 
+        const stateEl = this.state[this.index];
+
         if(this.squares.length != 0 && this.checkers.length != 0){
 
             this.squares.forEach( square => {
@@ -46,10 +39,15 @@ export default class Game{
             })
             this.checkers = [];
 
+            this.scene.remove(stateEl.model.scene);
+
         }
 
-        const wordLetters = this.state[this.index].word.split(''); // 'lion' => [ 'l', 'i', 'o', 'n' ]
-        this.index++;
+        // Draw model
+        this.scene.add(stateEl.model.scene);
+
+        // Draw squares and checkers
+        const wordLetters = stateEl.word.split(''); // 'lion' => [ 'l', 'i', 'o', 'n' ]
         wordLetters.forEach( (letter,i) => {
 
             const squareMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(1,1), new THREE.MeshBasicMaterial({color:'red'}));
@@ -71,12 +69,13 @@ export default class Game{
             this.disposeControls();
         }
         this.updateControls();
+
+        this.index++;
     }
 
     createText(text, parent) {
         const textMesh = new Text();
         textMesh.position.set(0,0.4,0)
-        console.log(textMesh)
         textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
         textMesh.text = text
         textMesh.fontSize = 0.6;
