@@ -27,6 +27,12 @@ export default class Game{
             return;
         }
 
+        const wordTarget = this.state[this.index].word;
+        const wordSound = wordTarget + 'Sound';
+        setTimeout(()=>{
+            playAudio( audio[wordSound] );
+        }, 1000)
+
         const stateEl = this.state[this.index];
 
         if(this.squares.length != 0 && this.checkers.length != 0){
@@ -120,6 +126,7 @@ export default class Game{
                 checkerMesh.position.set(squareMesh.position.x - 0.15,squareMesh.position.y + 0.4,squareMesh.position.z + 0.1);
                 playAudio(audio.selection);
                 if(self.checkGameSuccess()){
+                    playAudio(audio.success);
                     self.nextWord();
                 }
             }

@@ -132,10 +132,14 @@ export default function App48(props) {
 }
 
 export function playAudio(audio, volume = 1, loop = false) {
-    audio.currentTime = 0;
-    audio.volume = volume;
-    audio.loop = loop;
-    audio.play();
+    if(audio){
+        audio.currentTime = 0;
+        audio.volume = volume;
+        audio.loop = loop;
+        audio.play();
+    } else {
+        console.log('there is no audio to play');
+    }
 }
 
 // TIPS
