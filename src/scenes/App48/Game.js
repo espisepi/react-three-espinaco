@@ -89,14 +89,14 @@ export default class Game{
     
     createOrbitControls() {
         this.controls = new OrbitControls( this.camera, this.renderer.domElement );
-
+        this.controls.autoRotate = true;
         const nameModel = this.state[this.index - 1].word;
         const objectTarget = this.scene.getObjectByName(nameModel);
         this.controls.target.set(objectTarget.position.x,objectTarget.position.y + 1,objectTarget.position.z)
     }
     
     createDragControls() {
-
+        
         this.controls = new DragControls( [ ... this.checkers ], this.camera, this.renderer.domElement );
 
         const raycaster = new THREE.Raycaster();
@@ -140,6 +140,12 @@ export default class Game{
             return false;
         }
         
+    }
+
+    update() {
+        if(this.controls?.update){
+            this.controls.update()
+        }
     }
 
 }

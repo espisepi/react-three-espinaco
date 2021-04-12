@@ -96,6 +96,8 @@ export function Scene() {
         return new Game(state, scene, camera, gl);
     },[]);
 
+    useFrame(()=>game.update());
+
     const [orbit, setOrbit] = useState(false)
     const changeControl = useCallback(()=>{
         game.disposeControls();
