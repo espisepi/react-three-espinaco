@@ -3,6 +3,8 @@ import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Text } from 'troika-three-text'
+import { playAudio } from './App48';
+import * as audio from './audio';
 
 export default class Game{
 
@@ -116,6 +118,7 @@ export default class Game{
             if(intersectObjects.length != 0) {
                 const squareMesh = intersectObjects[0].object;
                 checkerMesh.position.set(squareMesh.position.x - 0.15,squareMesh.position.y + 0.4,squareMesh.position.z + 0.1);
+                playAudio(audio.selection);
                 if(self.checkGameSuccess()){
                     self.nextWord();
                 }

@@ -131,7 +131,7 @@ export default function App48(props) {
     );
 }
 
-function playAudio(audio, volume = 1, loop = false) {
+export function playAudio(audio, volume = 1, loop = false) {
     audio.currentTime = 0;
     audio.volume = volume;
     audio.loop = loop;
