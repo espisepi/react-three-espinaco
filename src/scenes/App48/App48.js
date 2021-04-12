@@ -6,6 +6,7 @@ import Loading from '../../components/Loading';
 import Game from './Game';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
+import * as audio from './audio';
 
 function Environmnet() {
     const texture = useLoader(THREE.TextureLoader, 'assets/env/360jpg/lilienstein.jpg');
@@ -52,7 +53,9 @@ function Animals({state}){
     return (
         <>
         <group name='animals' position={[0,0,0]}>
-            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true}/>
+            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true} onClick={()=>{
+                playAudio(audio.spider);
+            }}/>
             <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} visible={false} />
             <Animal name='bat' src='assets/obj/animals/bat/scene.gltf' position={[3,0,2]} rotation={[0,-2.5,0]}  scale={[0.05,0.05,0.05]} visible={false}/>
             <Animal name='butterfly' src='assets/obj/animals/butterfly/scene.gltf' position={[3,0,2]}   scale={[0.03,0.03,0.03]} visible={false}/>
@@ -120,6 +123,13 @@ export default function App48(props) {
         </Suspense>
     </Canvas>
     );
+}
+
+function playAudio(audio, volume = 1, loop = false) {
+    audio.currentTime = 0;
+    audio.volume = volume;
+    audio.loop = loop;
+    audio.play();
 }
 
 // TIPS
