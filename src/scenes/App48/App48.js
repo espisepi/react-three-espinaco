@@ -66,30 +66,11 @@ export function Scene() {
     const state = [
         {
             word:'spider',
-            modelSrc:'assets/obj/animals/horse/scene.gltf',
-            model: undefined,
-            modelAtt:{
-                position:[0,0,0],
-                rotation:[0,0,0],
-                scale:[1,1,1]
-            }
         },
         {
             word:'wolf',
-            modelSrc:'assets/obj/animals/fish/scene.gltf',
-            model: undefined,
-            modelAtt:{
-                position:[0,0,0],
-                rotation:[0,Math.PI/2,Math.PI/2],
-                scale:[1,1,1]
-            }
         }
     ];
-
-    // load models and save into state
-    const srcModels = state.map( c => c.modelSrc );
-    const animals = useLoader(GLTFLoader, srcModels)
-    state.forEach( (c,i) => c.model = animals[i] );
 
     const { scene, camera, gl } = useThree();
     const game = useMemo(()=>{
@@ -98,7 +79,7 @@ export function Scene() {
 
     useFrame(()=>game.update());
 
-    const [orbit, setOrbit] = useState(false)
+    const [orbit, setOrbit] = useState(true)
     const changeControl = useCallback(()=>{
         game.disposeControls();
         if(orbit){
@@ -117,7 +98,7 @@ export function Scene() {
         <Animals />
         <Environmnet />
 
-        <Plane position={[3,0,0]} onClick={changeControl} />
+        <Plane position={[3,0,0]} onClick={changeControl} material-color='white' material-side={THREE.DoubleSide} />
         {/* <Loading /> */}
         {/* <OrbitControls /> */}
         </>
