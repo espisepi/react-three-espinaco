@@ -39,22 +39,16 @@ export default class Game{
             })
             this.checkers = [];
 
-            const stateElPrev = this.state[this.index - 1];
-            // this.scene.remove(stateElPrev.model.scene);
-
+            const nameModel = this.state[this.index - 1].word;
+            const modelInScreen = this.scene.getObjectByName(nameModel);
+            modelInScreen.visible = false;
         }
 
-        // add model to scene and animate -- still not workin
-        // stateEl.model.scene.position.set(stateEl.modelAtt.position.x,stateEl.modelAtt.position.y,stateEl.modelAtt.position.z)
-        // stateEl.model.scene.rotation.set(stateEl.modelAtt.rotation.x,stateEl.modelAtt.rotation.y,stateEl.modelAtt.rotation.z)
-        // stateEl.model.scene.scale.set(stateEl.modelAtt.scale.x,stateEl.modelAtt.scale.y,stateEl.modelAtt.scale.z)
-        // this.scene.add(stateEl.model.scene);
-        // console.log(stateEl.model)
-        // const mixer = new THREE.AnimationMixer( stateEl.model.scene );
-        // const clip = stateEl.model.animations[0];
-        // const action = mixer.clipAction( clip );
-        // action.play();
-        // this.mixer = mixer;
+        const nameModel = this.state[this.index].word;
+        const modelInScreen = this.scene.getObjectByName(nameModel);
+        if(modelInScreen){
+            modelInScreen.visible = true;
+        }
 
         // Draw squares and checkers
         const wordLetters = stateEl.word.split(''); // 'lion' => [ 'l', 'i', 'o', 'n' ]
