@@ -1,7 +1,7 @@
 import React, { Suspense, useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import { useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls, useGLTF, useAnimations, Plane } from 'drei';
+import { OrbitControls, useGLTF, useAnimations, Plane, useFBX } from 'drei';
 import Loading from './Loading';
 import Game from './Game';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -48,6 +48,33 @@ function Animal({src, ...props}){
     );
 }
 
+function WinnerModel({src, ...props}) {
+    const model = useFBX(src);
+    useEffect(()=>{
+        model.traverse( o => {
+            if(o.name === 'polySurface3_0'){
+                o.rotation.set(0,0,0);
+                o.visible = false;
+            }
+        })
+    },[model])
+    const mixer = new THREE.AnimationMixer(model);
+    model.animations.forEach( (clip,i) => {
+        if(i==0){
+            const action = mixer.clipAction(clip);
+            action.play();
+        }
+    });
+    useFrame((state, delta) => {
+        if(mixer){
+            mixer.update(delta);
+        }
+    })
+    return (
+        <primitive object={model} {...props} />
+    );
+}
+
 function Animals({state}){
     
     return (
@@ -88,6 +115,7 @@ function Animals({state}){
                     playAudio(audio.mouse);
                 }
             }}/>
+            <WinnerModel name='winner' src='assets/obj/animals/tigerSamba.fbx' position={[0,-1,2]} rotation={[0,0,0]} scale={[0.002,0.002,0.002]} visible={false} />
         </group>
         </>
     );
