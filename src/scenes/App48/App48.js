@@ -1,7 +1,7 @@
 import React, { Suspense, useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import { useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls, useGLTF, useAnimations } from 'drei';
+import { OrbitControls, useGLTF, useAnimations, Plane } from 'drei';
 import Loading from '../../components/Loading';
 import Game from './Game';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -75,7 +75,7 @@ export function Scene() {
             }
         },
         {
-            word:'butterfly',
+            word:'wolf',
             modelSrc:'assets/obj/animals/fish/scene.gltf',
             model: undefined,
             modelAtt:{
@@ -96,13 +96,26 @@ export function Scene() {
         return new Game(state, scene, camera, gl);
     },[]);
 
-    useFrame(({clock})=> game.update(clock.getDelta()));
+    const [orbit, setOrbit] = useState(false)
+    const changeControl = useCallback(()=>{
+        game.disposeControls();
+        if(orbit){
+            game.createOrbitControls();
+        }else{
+            camera.position.set(0,0,5);
+            camera.rotation.set(0,0,0);
+            game.createDragControls();
+        }
+        setOrbit(!orbit);
+    })
 
     return(
         <>
         <ambientLight />
         <Animals />
         <Environmnet />
+
+        <Plane position={[3,0,0]} onClick={changeControl} />
         {/* <Loading /> */}
         {/* <OrbitControls /> */}
         </>

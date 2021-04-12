@@ -1,6 +1,7 @@
 import { ChromaticAberration } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Text } from 'troika-three-text'
 
 export default class Game{
@@ -77,7 +78,7 @@ export default class Game{
         if(this.controls){
             this.disposeControls();
         }
-        this.updateControls();
+        this.createDragControls();
 
         this.index++;
     }
@@ -92,7 +93,15 @@ export default class Game{
         return textMesh;
     }
     
-    updateControls() {
+    createOrbitControls() {
+        this.controls = new OrbitControls( this.camera, this.renderer.domElement );
+
+        const nameModel = this.state[this.index - 1].word;
+        const objectTarget = this.scene.getObjectByName(nameModel);
+        this.controls.target.set(objectTarget.position.x,objectTarget.position.y + 1,objectTarget.position.z)
+    }
+    
+    createDragControls() {
 
         this.controls = new DragControls( [ ... this.checkers ], this.camera, this.renderer.domElement );
 
@@ -137,12 +146,6 @@ export default class Game{
             return false;
         }
         
-    }
-
-    update(delta) {
-        if(this.mixer){
-            this.mixer.update(delta);
-        }
     }
 
 }
