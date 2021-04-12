@@ -2,7 +2,7 @@ import React, { Suspense, useRef, useState, useCallback, useMemo, useEffect } fr
 import { useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls, useGLTF, useAnimations, Plane } from 'drei';
-import Loading from '../../components/Loading';
+import Loading from './Loading';
 import Game from './Game';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
@@ -70,8 +70,7 @@ function Animals({state}){
     );
 }
 
-export function Scene() {
-
+function GameReact() {
     const state = [
         {
             word:'spider',
@@ -91,7 +90,6 @@ export function Scene() {
     const game = useMemo(()=>{
         return new Game(state, scene, camera, gl);
     },[]);
-
     useFrame(()=>game.update());
 
     const [orbit, setOrbit] = useState(true)
@@ -107,13 +105,41 @@ export function Scene() {
         setOrbit(!orbit);
     })
 
+    return (
+        <Plane position={[3,0,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} />
+    );
+
+}
+
+export function Scene() {
+
+    const [option, setOption] = useState(0);
+    const changeOption = useCallback((numOption)=>{
+        setOption(numOption);
+    });
+
     return(
         <>
         <ambientLight />
         <Animals />
         <Environmnet />
 
-        <Plane position={[3,0,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} />
+        {
+            option === 0 ? 
+                (
+                    <>
+                        <Plane material-color='#2d6a4f' position={[-2,0,0]} onPointerDown={()=>changeOption(1)} />
+                        {/* <Plane material-color='blue' position={[-4,0,0]} onPointerDown={()=>changeOption(0)} /> */}
+                    </>
+                ) : null
+        }
+        {
+            option === 1 ?
+                (
+                    <GameReact />
+                ) : null
+        }
+
         {/* <Loading /> */}
         {/* <OrbitControls /> */}
         </>
@@ -123,7 +149,7 @@ export function Scene() {
 export default function App48(props) {
 
     return (
-    <Canvas className="canvas" style={{backgroundColor:'#000000'}}>
+    <Canvas id="canvas" className="canvas" style={{backgroundColor:'#000000'}}>
         <Suspense fallback={<Loading />}>
             <Scene />
         </Suspense>

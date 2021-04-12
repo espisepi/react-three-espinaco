@@ -103,7 +103,7 @@ export default class Game{
         this.controls.dampingFactor = 0.05;
         this.controls.screenSpacePanning = false;
         this.controls.minDistance = 1;
-        this.controls.maxDistance = 15;
+        this.controls.maxDistance = 10;
         this.controls.maxPolarAngle = Math.PI / 2;
 
         const nameModel = this.state[this.index - 1].word;
