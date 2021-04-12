@@ -30,7 +30,7 @@ export default class Game{
         const wordTarget = this.state[this.index].word;
         const wordSound = wordTarget + 'Sound';
         setTimeout(()=>{
-            playAudio( audio[wordSound] );
+            playAudio( audio[wordSound], 0.6 );
         }, 1000)
 
         const stateEl = this.state[this.index];

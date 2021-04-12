@@ -178,6 +178,10 @@ export function Scene() {
         setOption(numOption);
     });
 
+    useEffect(()=>{
+        playAudio(audio.lofiAmbient,1.0,true);
+    },[]);
+
     return(
         <>
         <ambientLight />
