@@ -92,7 +92,7 @@ export default class Game{
         this.controls.autoRotate = true;
         const nameModel = this.state[this.index - 1].word;
         const objectTarget = this.scene.getObjectByName(nameModel);
-        this.controls.target.set(objectTarget.position.x,objectTarget.position.y + 1,objectTarget.position.z)
+        this.controls.target.set(objectTarget.position.x,objectTarget.position.y + 0.2,objectTarget.position.z)
     }
     
     createDragControls() {
