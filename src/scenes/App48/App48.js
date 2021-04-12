@@ -80,7 +80,7 @@ function Animals({state}){
     return (
         <>
         <group name='animals' position={[0,0,0]}>
-            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true} onPointerDown={(e)=>{
+            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
                     playAudio(audio.spider);
                 }
