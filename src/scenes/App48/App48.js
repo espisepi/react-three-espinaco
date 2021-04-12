@@ -8,15 +8,25 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
 
 function Environmnet() {
-    const texture = useLoader(THREE.TextureLoader, 'assets/env/360jpg/heaven.jpg');
+    const texture = useLoader(THREE.TextureLoader, 'assets/env/360jpg/lilienstein.jpg');
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.encoding = THREE.sRGBEncoding;
 
+    const texturePlane = useLoader(THREE.TextureLoader, 'assets/Textures/Grass/GrassGreenTexture0002.jpg');
+    texturePlane.wrapS = THREE.RepeatWrapping;
+    texturePlane.wrapT = THREE.RepeatWrapping;
+    texturePlane.repeat.set( 300, 300 );
     return(
-        <mesh visible={true}>
-            <sphereBufferGeometry args={[100, 60, 40]} />
-            <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
-        </mesh>
+        <group name="environment">
+            <mesh visible={true} rotation={[0,Math.PI/2,0]}>
+                <sphereBufferGeometry args={[100, 60, 40]} />
+                <meshBasicMaterial map={texture} side={THREE.DoubleSide} />
+            </mesh>
+            <mesh visible={true} rotation={[Math.PI/2,0,0]} position={[0,-1,0]}>
+                <planeBufferGeometry args={[500, 500]} />
+                <meshBasicMaterial map={texturePlane} side={THREE.BackSide} />
+            </mesh>
+        </group>
     );
 }
 
@@ -41,8 +51,12 @@ function Animals({state}){
     
     return (
         <>
-        <Animal name='horse' src='assets/obj/animals/horse/scene.gltf' position={[0,0,-3]} visible={true} />
-        <Animal name='fish' src='assets/obj/animals/fish/scene.gltf' position={[-3,0,-3]} />
+        <group name='animals' position={[-1,-1,3]}>
+            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[0,0,-3]} scale={[0.1,0.1,0.1]} />
+            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,0,-3]} />
+            <Animal name='eagle' src='assets/obj/animals/bat/scene.gltf' position={[6,0,-3]} scale={[0.1,0.1,0.1]}/>
+            <Animal name='eagle' src='assets/obj/animals/butterfly/scene.gltf' position={[6,0,-3]} scale={[0.05,0.05,0.05]}/>
+        </group>
         </>
     );
 }
@@ -78,6 +92,7 @@ export function Scene() {
     state.forEach( (c,i) => c.model = animals[i] );
 
     const { scene, camera, gl } = useThree();
+    console.log(camera)
     console.log(scene)
     const game = useMemo(()=>{
         return new Game(state, scene, camera, gl);
@@ -91,7 +106,7 @@ export function Scene() {
         <Animals />
         <Environmnet />
         {/* <Loading /> */}
-        <OrbitControls />
+        {/* <OrbitControls /> */}
         </>
     );
 }
