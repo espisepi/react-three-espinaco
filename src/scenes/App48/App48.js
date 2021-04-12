@@ -65,6 +65,9 @@ function Animals({state}){
             }}/>
             <Animal name='bat' src='assets/obj/animals/bat/scene.gltf' position={[3,0,2]} rotation={[0,-2.5,0]}  scale={[0.05,0.05,0.05]} visible={false}/>
             <Animal name='butterfly' src='assets/obj/animals/butterfly/scene.gltf' position={[3,0,2]}   scale={[0.03,0.03,0.03]} visible={false}/>
+            <Animal name='cow' src='assets/obj/animals/cow/scene.gltf' position={[3,-1,2]} rotation={[0,0.5,0]} scale={[0.01,0.01,0.01]} visible={false}/>
+            <Animal name='cat' src='assets/obj/animals/cat/scene.gltf' position={[3,-1,2]} rotation={[0,-2.5,0]} scale={[0.05,0.05,0.05]} visible={false}/>
+            <Animal name='mouse' src='assets/obj/animals/mouse/scene.gltf' position={[3,-0.6,2]} rotation={[0,2.6,0]} scale={[0.01,0.01,0.01]} visible={false}/>
         </group>
         </>
     );
@@ -83,6 +86,15 @@ function GameReact() {
         },
         {
             word:'butterfly'
+        },
+        {
+            word:'cow'
+        },
+        {
+            word:'cat'
+        },
+        {
+            word:'mouse'
         }
     ];
 
