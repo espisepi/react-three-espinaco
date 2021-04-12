@@ -51,9 +51,9 @@ function Animals({state}){
     
     return (
         <>
-        <group name='animals' position={[0,1,0]}>
-            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-2,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true}/>
-            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,0,-3]} visible={false} />
+        <group name='animals' position={[0,0,0]}>
+            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true}/>
+            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} visible={false} />
             <Animal name='eagle' src='assets/obj/animals/bat/scene.gltf' position={[6,0,-3]} scale={[0.1,0.1,0.1]} visible={false}/>
             <Animal name='eagle' src='assets/obj/animals/butterfly/scene.gltf' position={[6,0,-3]} scale={[0.05,0.05,0.05]} visible={false}/>
         </group>
