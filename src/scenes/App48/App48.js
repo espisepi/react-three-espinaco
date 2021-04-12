@@ -55,7 +55,7 @@ function Animals({state}){
             <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true}/>
             <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} visible={false} />
             <Animal name='bat' src='assets/obj/animals/bat/scene.gltf' position={[3,0,2]} rotation={[0,-2.5,0]}  scale={[0.05,0.05,0.05]} visible={false}/>
-            <Animal name='eagle' src='assets/obj/animals/butterfly/scene.gltf' position={[6,0,-3]} scale={[0.05,0.05,0.05]} visible={false}/>
+            <Animal name='butterfly' src='assets/obj/animals/butterfly/scene.gltf' position={[3,0,2]}   scale={[0.03,0.03,0.03]} visible={false}/>
         </group>
         </>
     );
@@ -72,6 +72,9 @@ export function Scene() {
         },
         {
             word:'bat'
+        },
+        {
+            word:'butterfly'
         }
     ];
 
