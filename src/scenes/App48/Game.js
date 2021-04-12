@@ -89,7 +89,15 @@ export default class Game{
     
     createOrbitControls() {
         this.controls = new OrbitControls( this.camera, this.renderer.domElement );
+
         this.controls.autoRotate = true;
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.05;
+        this.controls.screenSpacePanning = false;
+        this.controls.minDistance = 1;
+        this.controls.maxDistance = 15;
+        this.controls.maxPolarAngle = Math.PI / 2;
+
         const nameModel = this.state[this.index - 1].word;
         const objectTarget = this.scene.getObjectByName(nameModel);
         this.controls.target.set(objectTarget.position.x,objectTarget.position.y + 0.2,objectTarget.position.z)
