@@ -53,12 +53,12 @@ function Animals({state}){
     return (
         <>
         <group name='animals' position={[0,0,0]}>
-            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true} onClick={(e)=>{
+            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
                     playAudio(audio.spider);
                 }
             }}/>
-            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} visible={false} onClick={(e)=>{
+            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
                     playAudio(audio.wolf);
                 }
@@ -113,7 +113,7 @@ export function Scene() {
         <Animals />
         <Environmnet />
 
-        <Plane position={[3,0,0]} onClick={changeControl} material-color='white' material-side={THREE.DoubleSide} />
+        <Plane position={[3,0,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} />
         {/* <Loading /> */}
         {/* <OrbitControls /> */}
         </>
@@ -140,8 +140,10 @@ function playAudio(audio, volume = 1, loop = false) {
 
 // TIPS
 /**
-    boton UI -> sonido de pronunciacion de la palabra
+    boton UI -> sonido de pronunciacion de la palabra HECHO
     sonido del animal al comenzar una nueva palabra
+    sonido al encajar la letra con el huevo
+
 
     escenario 3d con r3f
     sonidos, cambiar animales, mecanicas... con vanilla js
