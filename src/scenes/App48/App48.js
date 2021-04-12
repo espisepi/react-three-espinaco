@@ -51,11 +51,11 @@ function Animals({state}){
     
     return (
         <>
-        <group name='animals' position={[-1,-1,3]}>
-            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[0,0,-3]} scale={[0.1,0.1,0.1]} />
-            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,0,-3]} />
-            <Animal name='eagle' src='assets/obj/animals/bat/scene.gltf' position={[6,0,-3]} scale={[0.1,0.1,0.1]}/>
-            <Animal name='eagle' src='assets/obj/animals/butterfly/scene.gltf' position={[6,0,-3]} scale={[0.05,0.05,0.05]}/>
+        <group name='animals' position={[0,1,0]}>
+            <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-2,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={true}/>
+            <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,0,-3]} visible={false} />
+            <Animal name='eagle' src='assets/obj/animals/bat/scene.gltf' position={[6,0,-3]} scale={[0.1,0.1,0.1]} visible={false}/>
+            <Animal name='eagle' src='assets/obj/animals/butterfly/scene.gltf' position={[6,0,-3]} scale={[0.05,0.05,0.05]} visible={false}/>
         </group>
         </>
     );
@@ -65,7 +65,7 @@ export function Scene() {
 
     const state = [
         {
-            word:'horse',
+            word:'spider',
             modelSrc:'assets/obj/animals/horse/scene.gltf',
             model: undefined,
             modelAtt:{
@@ -75,7 +75,7 @@ export function Scene() {
             }
         },
         {
-            word:'fish',
+            word:'butterfly',
             modelSrc:'assets/obj/animals/fish/scene.gltf',
             model: undefined,
             modelAtt:{
@@ -92,8 +92,6 @@ export function Scene() {
     state.forEach( (c,i) => c.model = animals[i] );
 
     const { scene, camera, gl } = useThree();
-    console.log(camera)
-    console.log(scene)
     const game = useMemo(()=>{
         return new Game(state, scene, camera, gl);
     },[]);

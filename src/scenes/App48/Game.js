@@ -59,14 +59,14 @@ export default class Game{
         const wordLetters = stateEl.word.split(''); // 'lion' => [ 'l', 'i', 'o', 'n' ]
         wordLetters.forEach( (letter,i) => {
 
-            const squareMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(1,1), new THREE.MeshBasicMaterial({color:'red'}));
-            squareMesh.position.set(i * 1.5 - 2, 2, 0);
+            const squareMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(1,1), new THREE.MeshBasicMaterial({color:'#2d6a4f', opacity:0.8, transparent:true }));
+            squareMesh.position.set(i * 1.5 - 6, 2, 0);
             squareMesh.userData.letter = letter;
             this.scene.add(squareMesh);
             this.squares.push(squareMesh);
 
             const checkerMesh = this.createText(letter);
-            checkerMesh.position.set(i * 1.5 - 2, -2, 0.1);
+            checkerMesh.position.set(i * 1.5 - 6, 0, 0.1);
             checkerMesh.userData.letter = letter;
             this.scene.add(checkerMesh);
             this.checkers.push(checkerMesh);
@@ -86,8 +86,8 @@ export default class Game{
         const textMesh = new Text();
         textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
         textMesh.text = text
-        textMesh.fontSize = 0.6;
-        textMesh.color = 0x9966FF;
+        textMesh.fontSize = 0.7;
+        textMesh.color = 0x000000;
         textMesh.sync();
         return textMesh;
     }
