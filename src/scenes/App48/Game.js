@@ -24,7 +24,7 @@ export default class Game{
 
         if(this.index === this.state.length){
 
-            alert('YOU WIN');
+            playAudio(audio.youwin);
 
             const nameModel = this.state[this.index - 1].word;
             const modelInScreen = this.scene.getObjectByName(nameModel);
