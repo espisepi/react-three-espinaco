@@ -121,7 +121,7 @@ function Animals({state}){
     );
 }
 
-function GameReact() {
+function GameReact({texture}) {
     const state = [
         {
             word:'spider',
@@ -163,10 +163,10 @@ function GameReact() {
             game.createDragControls();
         }
         setOrbit(!orbit);
-    })
+    });
 
     return (
-        <Plane position={[3,0,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} />
+        <Plane position={[3,0,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} material-map={texture} />
     );
 
 }
@@ -181,6 +181,8 @@ export function Scene() {
     useEffect(()=>{
         playAudio(audio.lofiAmbient,1.0,true);
     },[]);
+
+    const texture360 = useLoader( THREE.TextureLoader, 'assets/img/icon/360.jpg');
 
     return(
         <>
@@ -200,7 +202,7 @@ export function Scene() {
         {
             option === 1 ?
                 (
-                    <GameReact />
+                    <GameReact texture={texture360} />
                 ) : null
         }
 
