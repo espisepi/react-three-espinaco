@@ -1,7 +1,7 @@
 import React, { Suspense, useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import { useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Canvas } from 'react-three-fiber';
-import { OrbitControls, useGLTF, useAnimations, Plane, useFBX } from 'drei';
+import { OrbitControls, useGLTF, useAnimations, Plane, useFBX, Text } from 'drei';
 import Loading from './Loading';
 import Game from './Game';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -194,8 +194,12 @@ export function Scene() {
             option === 0 ? 
                 (
                     <>
-                        <Plane material-color='#2d6a4f' position={[-2,0,0]} onPointerDown={()=>changeOption(1)} />
-                        {/* <Plane material-color='blue' position={[-4,0,0]} onPointerDown={()=>changeOption(0)} /> */}
+                        <group onPointerDown={()=>changeOption(1)}>
+                            <Plane material-color='#2d6a4f' position={[-2,0,0]}/>
+                            <Text position={[0,0,1]} fontSize={ 1.0 }>
+                                Start
+                            </Text>
+                        </group>
                     </>
                 ) : null
         }
