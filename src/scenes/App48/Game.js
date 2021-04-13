@@ -23,7 +23,16 @@ export default class Game{
     nextWord() {
 
         if(this.index === this.state.length){
+
             alert('YOU WIN');
+
+            const nameModel = this.state[this.index - 1].word;
+            const modelInScreen = this.scene.getObjectByName(nameModel);
+            modelInScreen.visible = false;
+
+            const winnerModel = this.scene.getObjectByName('winner');
+            winnerModel.visible = true;
+
             return;
         }
 
