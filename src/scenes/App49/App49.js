@@ -55,12 +55,10 @@ export default function App49(props) {
 function SectionsHtml(){
     return (
         <>
-        <section className="section-one" style={{ ...section, ...sectionOne }}></section>
-        <section id="section-two" className="section-two" style={{ ...section, ...sectionTwo }}></section>
-        <section className="section-three" style={{ ...section, ...sectionThree }}>
-            <h1 id="h1-title" style={{margin:0,padding:0, opacity:0.0}}>Bienvenido</h1>
-            <div id="bar-title" style={{width:'0px', height:'5px', backgroundColor:'white'}}></div>
-        </section>
+        <section className="section-one" style={{ ...section, ...tomatoColor }}></section>
+        <section className="section-two" style={{ ...section, ...steelblueColor }}></section>
+        <section className="section-three" style={{ ...section, ...limeColor }}></section>
+        <section className="section-four" style={{ ...section, ...tomatoColor }}></section>
         </>
     );
 }
@@ -71,14 +69,14 @@ const section = {
     position: 'relative'
 }
 
-const sectionOne = {
+const tomatoColor = {
     backgroundColor: 'tomato'
 }
 
-const sectionTwo = {
+const steelblueColor = {
     backgroundColor: 'steelblue'
 }
 
-const sectionThree = {
+const limeColor = {
     backgroundColor: 'lime'
 }

@@ -29,12 +29,12 @@ export default function ScrollAnimations(){
                 scrollTrigger: {
                     trigger: ".section-one",
                     start: 'top top',
-                    endTrigger: ".section-three",
+                    endTrigger: ".section-four",
                     end: 'bottom bottom',
                     scrub: 1,
                 }
             });
-            tl.to(groupPrincipal.position, { y: 5.0 });
+            tl.to(groupPrincipal.position, { y: 10.0 });
         }
 
     }, [scene.children.length]);
