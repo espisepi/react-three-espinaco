@@ -45,7 +45,7 @@ export function Scene() {
                 <TitleText />
                 <GridFloor />
             </group>
-            <group name="groupPlanesApp">
+            <group name="groupPlanesApp" position={[0,0,3]}>
                 <PlanesApp />
             </group>
         </Suspense>

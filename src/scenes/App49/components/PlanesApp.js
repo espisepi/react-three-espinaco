@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useLoader } from 'react-three-fiber';
 import * as THREE from 'three';
 
@@ -45,14 +45,33 @@ const projects = [
       }
 ];
 
-export default function PlanesApp(){
+function Plane({map, nameApp, ...props}){
 
-    const projectsTextures = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
+    const handleClickProject = useCallback((nameApp)=>{
+      const path = window.location.href;
+      const pathNew =  path.includes("app49") ? path.replace("app49", nameApp) : path.concat(nameApp);
+      window.location.href = pathNew;
+    });
+
+    const [hovered, setHover] = useState(false);
 
     return (
-        <mesh position={[0.5, -0.5, 0]}>
-            <planeBufferGeometry args={[1, 1]} />
-            <meshStandardMaterial color='red' />
-        </mesh>
+            <mesh {...props} onPointerDown={ (event) => handleClickProject(nameApp) } onPointerOver={(event) => setHover(true)} onPointerOut={(event) => setHover(false)}>
+                <planeBufferGeometry args={[1, 1]} />
+                <meshBasicMaterial map={map} color={ hovered ? 'red': 'white' }  />
+            </mesh>
+    );
+}
+
+export default function PlanesApp(){
+
+    const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) ); 
+    
+    return (
+        <>
+        {texturesApp.map((texture, i) => (
+            <Plane key={'planeApp' + i} nameApp={projects[i].name} map={texture} position={[0, -i * 1.5, 0]} />
+        ))}
+        </>
     );
 }
