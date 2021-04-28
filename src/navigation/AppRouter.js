@@ -20,7 +20,7 @@ export default function AppRouter () {
                     <PublicRoute
                         exact
                         path="/"
-                        component={App.App44}
+                        component={App.App49}
                     />
 
                     <PublicRoute
@@ -273,6 +273,11 @@ export default function AppRouter () {
                         exact
                         path="/app48"
                         component={App.App48}
+                    />
+                    <PublicRoute
+                        exact
+                        path="/app49"
+                        component={App.App49}
                     />
                     <PublicRoute
                         exact
