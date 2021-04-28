@@ -45,8 +45,14 @@ export function Scene() {
                 <TitleText />
                 <GridFloor />
             </group>
-            <group name="groupPlanesApp" position={[0,-3,3]}>
+            <group name="groupPlanesApp" position={[0,-10,3]}>
                 <PlanesApp />
+            </group>
+            <group name="cubeWireframe" position={[0,0,7]}>
+                <mesh>
+                    <boxBufferGeometry args={[1,1,1]} />
+                    <meshBasicMaterial wireframe={true} />
+                </mesh>
             </group>
         </Suspense>
         <ScrollAnimations />

@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import GroupPrincipalAnimation from './GroupPrincipalAnimation';
 import GroupPlanesAppAnimation from './GroupPlanesAppAnimation';
-
+import CubeWireframe from './CubeWireframe';
 
 gsap.registerPlugin(ScrollTrigger);
 export default function ScrollAnimations(){
@@ -13,6 +13,7 @@ export default function ScrollAnimations(){
         <>
         <GroupPrincipalAnimation gsap={gsap} />
         <GroupPlanesAppAnimation gsap={gsap} />
+        <CubeWireframe gsap={gsap} />
         </>
     );
 }
