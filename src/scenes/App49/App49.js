@@ -45,7 +45,7 @@ export function Scene() {
                 <TitleText />
                 <GridFloor />
             </group>
-            <group name="groupPlanesApp" position={[0,0,3]}>
+            <group name="groupPlanesApp" position={[0,-3,3]}>
                 <PlanesApp />
             </group>
         </Suspense>
@@ -77,6 +77,7 @@ function SectionsHtml(){
         <section className="section-two" style={{ ...section, ...steelblueColor }}></section>
         <section className="section-three" style={{ ...section, ...limeColor }}></section>
         <section className="section-four" style={{ ...section, ...tomatoColor }}></section>
+        <section className="section-five" style={{ ...section, ...limeColor }}></section>
         </>
     );
 }
