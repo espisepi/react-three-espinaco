@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Stars } from 'drei';
@@ -17,20 +17,38 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import GridFloor from './components/GridFloor';
 import TitleText from './components/TitleText';
+import PlanesApp from './components/PlanesApp';
 
 import ScrollAnimations from './animations/ScrollAnimations';
 
 export function Scene() {
+
     const { scene } = useThree();
     console.log(scene)
+
+    useEffect( () => {
+
+        THREE.DefaultLoadingManager.onStart = () => console.log('start loading');
+        THREE.DefaultLoadingManager.onLoad = () => console.log(' Loading complete ');
+        THREE.DefaultLoadingManager.onProgress = ( url, itemsLoaded, itemsTotal ) => {
+            console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+        };
+
+    }, [] );
+
     return(
         <>
         <ambientLight />
         <Stars radius={200} />
-        <group name="groupPrincipal">
-            <TitleText />
-            <GridFloor />
-        </group>
+        <Suspense fallback={<Loading />}>
+            <group name="groupPrincipal">
+                <TitleText />
+                <GridFloor />
+            </group>
+            <group name="groupPlanesApp">
+                <PlanesApp />
+            </group>
+        </Suspense>
         <ScrollAnimations />
         </>
     );
@@ -80,3 +98,4 @@ const steelblueColor = {
 const limeColor = {
     backgroundColor: 'lime'
 }
+
