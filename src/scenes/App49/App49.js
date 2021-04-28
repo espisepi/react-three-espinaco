@@ -16,57 +16,19 @@ import { gsap, Linear } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import GridFloor from './components/GridFloor';
+import TitleText from './components/TitleText';
 
-function ScrollAnimations(){
-
-    /* ------------------ Get Objects3D that we use to animate ---------- */
-
-    const [groupPrincipal, setGroupPrincipal] = useState();
-    const { scene } = useThree();
-    useEffect(()=>{
-        if( !groupPrincipal && scene.getObjectByName('groupPrincipal') ) {
-            setGroupPrincipal( scene.getObjectByName('groupPrincipal') );
-        }
-    },[scene.children.length]);
-
-    /* ----------------- Final Get Objects3D ----------- */
-
-    /* ----------------- Animate Objects3D --------- */
-
-    useEffect(()=>{
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        if(groupPrincipal) {
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".section-one",
-                    start: 'top top',
-                    endTrigger: ".section-three",
-                    end: 'bottom bottom',
-                    scrub: 1,
-                }
-            });
-            tl.to(groupPrincipal.position, { y: 5.0 });
-        }
-
-    }, [scene.children.length]);
-
-    /* ----------------- Final Animate Objects3D ---------- */
-
-    
-    return null;
-}
+import ScrollAnimations from './animations/ScrollAnimations';
 
 export function Scene() {
-    const boxRef = useRef();
     const { scene } = useThree();
-    
+    console.log(scene)
     return(
         <>
         <ambientLight />
-        <Stars />
+        <Stars radius={200} />
         <group name="groupPrincipal">
+            <TitleText />
             <GridFloor />
         </group>
         <ScrollAnimations />
