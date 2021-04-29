@@ -20,6 +20,7 @@ import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 import GridFloor from './components/GridFloor';
 import TitleText from './components/TitleText';
 import PlanesApp from './components/PlanesApp';
+import Contact from './components/Contact';
 
 import ScrollAnimations from './animations/ScrollAnimations';
 
@@ -61,6 +62,9 @@ export function Scene() {
                 <TitleText />
                 <GridFloor />
             </group>
+            <group name="floor" position={[0,0,0.01]}>
+                <GridFloor />
+            </group>
             <group name="groupPlanesApp" position={[0,-10,3]}>
                 <PlanesApp />
             </group>
@@ -69,6 +73,9 @@ export function Scene() {
                     <boxBufferGeometry args={[1,1,1]} />
                     <meshBasicMaterial wireframe={true} />
                 </mesh>
+            </group>
+            <group name="groupContact">
+                <Contact />
             </group>
         </Suspense>
         <ScrollAnimations />
