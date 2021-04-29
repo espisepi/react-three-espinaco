@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useLoader } from 'react-three-fiber';
 import * as THREE from 'three';
 
@@ -65,9 +65,16 @@ function Plane({map, nameApp, ...props}){
 
 export default function PlanesApp(){
 
-    // const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
+    const images = useMemo(() => {
+      const images = [];
+      projects.forEach((p)=>{
+        images.push(p.img);
+      })
+      return images;
+    },[])
+    const texturesApp = useLoader( THREE.TextureLoader, [...images] );
+    // const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) ); NOT WORK IN PRODUCTION -> LOADING INFINITE
 
-    const texturesApp = useLoader( THREE.TextureLoader, ['/assets/img/home/videopoints.png','/assets/img/home/gallery.png','/assets/img/home/mineral.png'] );
     return (
         <>
         {texturesApp.map((texture, i) => (
