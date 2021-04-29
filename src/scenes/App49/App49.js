@@ -65,7 +65,7 @@ export default function App49(props) {
     return (
     <>
     <div style={{overflow:'hidden'}}>
-    <Canvas className="canvas" style={{ backgroundColor:'#000', position:'fixed', width:'100%', height:'100%', zIndex:'999'}} colorManagement>
+    <Canvas className="canvas" style={{ backgroundColor:'#000', position:'fixed', width:'100%', height:'100vh', zIndex:'5'}} colorManagement>
         <Scene />
     </Canvas>
     <SectionsHtml />

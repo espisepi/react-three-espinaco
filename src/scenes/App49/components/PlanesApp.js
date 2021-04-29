@@ -2,6 +2,8 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useLoader } from 'react-three-fiber';
 import * as THREE from 'three';
 
+/* Error de infinite loading en production por el guion de naughty-vr en -> '/assets/img/home/naughty-vr.png' */
+
 const projects = [
     {
         name: 'app36',
@@ -64,16 +66,7 @@ function Plane({map, nameApp, ...props}){
 }
 
 export default function PlanesApp(){
-
-    // const images = useMemo(() => {
-    //   const images = [];
-    //   projects.forEach((p)=>{
-    //     images.push(p.img);
-    //   })
-    //   return images;
-    // },[])
-    // const texturesApp = useLoader( THREE.TextureLoader, [...images] );
-    // const texturesApp = useLoader( THREE.TextureLoader, ['/assets/img/home/videopoints.png','/assets/img/home/mineral.png'] );
+  
     const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
 
     return (
