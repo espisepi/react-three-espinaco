@@ -15,11 +15,26 @@ import Ocean from '../../drei-espinaco/Ocean';
 import { gsap, Linear } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
+
 import GridFloor from './components/GridFloor';
 import TitleText from './components/TitleText';
 import PlanesApp from './components/PlanesApp';
 
 import ScrollAnimations from './animations/ScrollAnimations';
+
+function PostProcessing(){
+    return(
+        <EffectComposer>
+          <Bloom
+            luminanceThreshold={0.3}
+            luminanceSmoothing={0.9}
+            height={1024}
+          />
+          {/* <Glitch active={true} delay={new THREE.Vector2(0,1)} /> */}
+        </EffectComposer>
+    );
+}
 
 export function Scene() {
 
@@ -56,6 +71,7 @@ export function Scene() {
             </group>
         </Suspense>
         <ScrollAnimations />
+        <PostProcessing />
         </>
     );
 }

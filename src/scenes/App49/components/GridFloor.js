@@ -21,7 +21,7 @@ export default function GridFloor() {
         rotation={[Math.PI / 2, 0, 0]}
         args={[80, 80, 128, 128]}
       >
-        <meshStandardMaterial color="#ea5455" wireframe side={THREE.DoubleSide} />
+        <meshStandardMaterial color="#f00000" wireframe side={THREE.DoubleSide} />
       </Plane>
     );
   }

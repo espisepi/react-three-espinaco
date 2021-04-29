@@ -149,10 +149,10 @@ function Page({ onChangePages }) {
       name: 'app46',
       img: '/assets/img/home/mcpi.png'
     },
-    {
-      name: 'app47',
-      img: '/assets/img/home/naughty-vr.png'
-    }
+    // {
+    //   name: 'app47',
+    //   img: '/assets/img/home/naughty-vr.png'
+    // }
   ]),[]);
   const projectsTextures = useLoader(THREE.TextureLoader, projects.map(p=>p.img));
 
