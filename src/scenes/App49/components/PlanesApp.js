@@ -47,7 +47,7 @@ const projects = [
       // }
 ];
 
-function Plane({map, nameApp, ...props}){
+function Plane({map, textureArrow, nameApp, ...props}){
 
     const handleClickProject = useCallback((nameApp)=>{
       const path = window.location.href;
@@ -64,8 +64,8 @@ function Plane({map, nameApp, ...props}){
             <meshPhongMaterial map={map} color={ hovered ? 'red': 'white' }  />
         </mesh>
         <mesh position={[0,0,0.1]} onPointerDown={ (event) => handleClickProject(nameApp) } onPointerOver={(event) => setHover(true)} onPointerOut={(event) => setHover(false)}>
-            <planeBufferGeometry args={[0.5, 0.5]} />
-            <meshPhongMaterial map={map} color={ hovered ? 'red': 'white' } visible={false}  />
+            <planeBufferGeometry args={[0.4, 0.4]} />
+            <meshPhongMaterial map={textureArrow} color={ hovered ? 'red': 'white' } side={THREE.DoubleSide} transparent={true} />
         </mesh>
       </group>
     );
@@ -74,11 +74,14 @@ function Plane({map, nameApp, ...props}){
 export default function PlanesApp(){
   
     const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
+    
+    const textureArrow = useLoader( THREE.TextureLoader, '/assets/img/icon/directional_arrow.png' );
+    // '/assets/img/icon/directional_arrow.png'
 
     return (
         <>
         {texturesApp.map((texture, i) => (
-            <Plane key={'planeApp' + i} nameApp={projects[i].name} map={texture} position={[0, -i * 1.5, 0]} rotation={[-0.2,0,0]} />
+            <Plane key={'planeApp' + i} nameApp={projects[i].name} map={texture} textureArrow={textureArrow} position={[0, -i * 1.5, 0]} rotation={[-0.2,0,0]} />
         ))}
         </>
     );

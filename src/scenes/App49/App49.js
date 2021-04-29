@@ -38,10 +38,7 @@ function PostProcessing(){
 }
 
 export function Scene() {
-
-    const { scene } = useThree();
-    console.log(scene)
-
+    
     useEffect( () => {
 
         THREE.DefaultLoadingManager.onStart = () => console.log('start loading');
