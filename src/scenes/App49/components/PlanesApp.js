@@ -58,10 +58,16 @@ function Plane({map, nameApp, ...props}){
     const [hovered, setHover] = useState(false);
 
     return (
-            <mesh {...props} onPointerDown={ (event) => handleClickProject(nameApp) } onPointerOver={(event) => setHover(true)} onPointerOut={(event) => setHover(false)}>
-                <planeBufferGeometry args={[1, 1]} />
-                <meshBasicMaterial map={map} color={ hovered ? 'red': 'white' }  />
-            </mesh>
+      <group {...props}>
+        <mesh>
+            <planeBufferGeometry args={[1, 1]} />
+            <meshBasicMaterial map={map} color={ hovered ? 'red': 'white' }  />
+        </mesh>
+        <mesh position={[0,0,0.1]} onPointerDown={ (event) => handleClickProject(nameApp) } onPointerOver={(event) => setHover(true)} onPointerOut={(event) => setHover(false)}>
+            <planeBufferGeometry args={[0.5, 0.5]} />
+            <meshBasicMaterial map={map} color={ hovered ? 'red': 'white' } visible={false}  />
+        </mesh>
+      </group>
     );
 }
 
@@ -72,7 +78,7 @@ export default function PlanesApp(){
     return (
         <>
         {texturesApp.map((texture, i) => (
-            <Plane key={'planeApp' + i} nameApp={projects[i].name} map={texture} position={[0, -i * 1.5, 0]} />
+            <Plane key={'planeApp' + i} nameApp={projects[i].name} map={texture} position={[0, -i * 1.5, 0]} rotation={[-0.2,0,0]} />
         ))}
         </>
     );

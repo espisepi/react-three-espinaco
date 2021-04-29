@@ -100,6 +100,9 @@ function SectionsHtml(){
         <section className="section-three" style={{ ...section, ...limeColor }}></section>
         <section className="section-four" style={{ ...section, ...tomatoColor }}></section>
         <section className="section-five" style={{ ...section, ...limeColor }}></section>
+        <section className="section-six" style={{ ...section, ...tomatoColor }}></section>
+        <section className="section-sevent" style={{ ...section, ...limeColor }}></section>
+        <section className="section-eight" style={{ ...section, ...tomatoColor }}></section>
         </>
     );
 }

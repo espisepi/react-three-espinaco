@@ -20,7 +20,7 @@ export default function GroupPlanesAppAnimation({gsap}){
                 scrollTrigger: {
                     trigger: ".section-two",
                     start: 'top top',
-                    endTrigger: ".section-five",
+                    endTrigger: ".section-eight",
                     end: 'bottom bottom',
                     scrub: 1,
                 }
