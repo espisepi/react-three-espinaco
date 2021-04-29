@@ -11,34 +11,34 @@ const projects = [
         name: 'app35',
         img: '/assets/img/home/gallery.png'
       },
-      // {
-      //   name: 'app32',
-      //   img: '/assets/img/home/mineral.png'
-      // },
-      // {
-      //   name: 'app31',
-      //   img: '/assets/img/home/botines.png'
-      // },
-      // {
-      //   name: 'app34',
-      //   img: '/assets/img/home/viewer.png'
-      // },
-      // {
-      //   name: 'app6',
-      //   img: '/assets/img/home/gatacattana.png'
-      // },
-      // {
-      //   name: 'app14',
-      //   img: '/assets/img/home/elane.png'
-      // },
-      // {
-      //   name: 'app39',
-      //   img: '/assets/img/home/naughty.png'
-      // },
-      // {
-      //   name: 'app46',
-      //   img: '/assets/img/home/mcpi.png'
-      // },
+      {
+        name: 'app32',
+        img: '/assets/img/home/mineral.png'
+      },
+      {
+        name: 'app31',
+        img: '/assets/img/home/botines.png'
+      },
+      {
+        name: 'app34',
+        img: '/assets/img/home/viewer.png'
+      },
+      {
+        name: 'app6',
+        img: '/assets/img/home/gatacattana.png'
+      },
+      {
+        name: 'app14',
+        img: '/assets/img/home/elane.png'
+      },
+      {
+        name: 'app39',
+        img: '/assets/img/home/naughty.png'
+      },
+      {
+        name: 'app46',
+        img: '/assets/img/home/mcpi.png'
+      },
       // {
       //   name: 'app47',
       //   img: '/assets/img/home/naughty-vr.png'
