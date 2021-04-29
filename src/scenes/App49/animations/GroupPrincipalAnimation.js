@@ -13,9 +13,11 @@ export default function GroupPrincipalAnimation({gsap}){
     },[scene.children.length]);
 
     /* ----------------- Animate Objects3D --------- */
+    const[firstTime,setFirsTime] = useState(true);
     useEffect(()=>{
 
-        if(groupPrincipal) {
+        if(groupPrincipal && firstTime) {
+            setFirsTime(false);
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".section-one",

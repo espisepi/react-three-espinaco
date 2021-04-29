@@ -76,7 +76,6 @@ export default function PlanesApp(){
     const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
     
     const textureArrow = useLoader( THREE.TextureLoader, '/assets/img/icon/directional_arrow.png' );
-    // '/assets/img/icon/directional_arrow.png'
 
     return (
         <>

@@ -13,9 +13,11 @@ export default function CubeWireframe({gsap}){
     },[scene.children.length]);
 
     /* ----------------- Animate Objects3D --------- */
+    const[firstTime,setFirsTime] = useState(true);
     useEffect(()=>{
 
-        if(cubeWireframe) {
+        if(cubeWireframe && firstTime) {
+            setFirsTime(false);
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".section-one",

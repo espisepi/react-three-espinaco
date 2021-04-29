@@ -6,9 +6,11 @@ export default function CameraAnimation({gsap}){
     /* ------------------ Get Object3D that we use to animate ---------- */
     const { camera } = useThree();
     /* ----------------- Animate Objects3D --------- */
+    const[firstTime,setFirsTime] = useState(true);
     useEffect(()=>{
 
-        if(camera) {
+        if(camera && firstTime) {
+            setFirsTime(false);
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: ".section-five",
