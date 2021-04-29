@@ -65,16 +65,16 @@ function Plane({map, nameApp, ...props}){
 
 export default function PlanesApp(){
 
-    const images = useMemo(() => {
-      const images = [];
-      projects.forEach((p)=>{
-        images.push(p.img);
-      })
-      return images;
-    },[])
-    const texturesApp = useLoader( THREE.TextureLoader, [...images] );
-    // const texturesApp = useLoader( THREE.TextureLoader, ['/assets/img/home/videopoints.png','/assets/img/home/mineral.png'] ); WORKS FINE IN PRODUCTION
-    // const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) ); NOT WORK IN PRODUCTION -> LOADING INFINITE
+    // const images = useMemo(() => {
+    //   const images = [];
+    //   projects.forEach((p)=>{
+    //     images.push(p.img);
+    //   })
+    //   return images;
+    // },[])
+    // const texturesApp = useLoader( THREE.TextureLoader, [...images] );
+    // const texturesApp = useLoader( THREE.TextureLoader, ['/assets/img/home/videopoints.png','/assets/img/home/mineral.png'] );
+    const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
 
     return (
         <>
