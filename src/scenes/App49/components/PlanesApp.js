@@ -66,7 +66,8 @@ function Plane({map, nameApp, ...props}){
 export default function PlanesApp(){
 
     // const texturesApp = useLoader( THREE.TextureLoader, projects.map(p=>p.img) );
-    const texturesApp = useLoader( THREE.TextureLoader, ['/assets/img/home/videopoints.png'] );
+
+    const texturesApp = useLoader( THREE.TextureLoader, ['/assets/img/home/videopoints.png','/assets/img/home/gallery.png','/assets/img/home/mineral.png'] );
     return (
         <>
         {texturesApp.map((texture, i) => (
