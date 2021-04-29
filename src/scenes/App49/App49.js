@@ -54,6 +54,7 @@ export function Scene() {
     return(
         <>
         <ambientLight />
+        <pointLight position={[0,-3,5]}  />
         <Stars radius={200} />
         <Suspense fallback={<Loading />}>
             <group name="groupPrincipal">

@@ -61,11 +61,11 @@ function Plane({map, nameApp, ...props}){
       <group {...props}>
         <mesh>
             <planeBufferGeometry args={[1, 1]} />
-            <meshBasicMaterial map={map} color={ hovered ? 'red': 'white' }  />
+            <meshPhongMaterial map={map} color={ hovered ? 'red': 'white' }  />
         </mesh>
         <mesh position={[0,0,0.1]} onPointerDown={ (event) => handleClickProject(nameApp) } onPointerOver={(event) => setHover(true)} onPointerOut={(event) => setHover(false)}>
             <planeBufferGeometry args={[0.5, 0.5]} />
-            <meshBasicMaterial map={map} color={ hovered ? 'red': 'white' } visible={false}  />
+            <meshPhongMaterial map={map} color={ hovered ? 'red': 'white' } visible={false}  />
         </mesh>
       </group>
     );
