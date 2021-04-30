@@ -13,7 +13,7 @@ export default function Contact() {
       <Plane
         scale={[6,3,1]}
         args={[1, 1, 1, 1]} >
-        <meshBasicMaterial color="#f00000" side={THREE.FrontSide} transparent={true} opacity={0.8} />
+        <meshBasicMaterial color="#840404" side={THREE.FrontSide} transparent={true} opacity={0.8} />
       </Plane>
       <Text
         color={'#FFF'} // default
