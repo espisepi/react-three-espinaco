@@ -24,6 +24,9 @@ import Contact from './components/Contact';
 
 import ScrollAnimations from './animations/ScrollAnimations';
 
+import BlackPlane from './components/BlackPlane';
+import FullScreen from './components/FullScreen';
+
 function PostProcessing(){
     return(
         <EffectComposer>
@@ -55,6 +58,8 @@ export function Scene() {
         <pointLight position={[0,-3,5]}  />
         <Stars radius={200} />
         <Suspense fallback={<Loading />}>
+            <BlackPlane position={[0,0,-5]} scale={[1,1,1]} />
+            <FullScreen position={[0,2.5,0]} scale={[10,2,1]}/>
             <group name="groupPrincipal">
                 <TitleText />
                 <GridFloor />
