@@ -7,7 +7,7 @@ const defaultFont = `https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iE
 export default function TitleText() {
     return (
         <>
-        <group name="groupTitleText" position={[0,-0.5,0]}>
+        <group name="groupTitleText" position={[0,-0.5,-1]}>
             <Text
                 color={'#FFF'} // default
                 textAlign={'center'}
