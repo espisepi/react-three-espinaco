@@ -5,13 +5,18 @@ import { TextureLoader, DoubleSide } from 'three';
 export default function FullScreen(props) {
 
     const handleFullscreen = useCallback(()=>{
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-        } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen(); 
-          }
+        try{
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen(); 
+              }
+            }
+        } catch(e) {
+            console.log('This navigator doesnt allow Fullscreen API');
         }
+        
     },[]);
 
     return(
