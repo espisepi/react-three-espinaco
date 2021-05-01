@@ -1,8 +1,10 @@
 import enterSoundmp3 from './enterSound.mp3';
 import wellcomeSoundmp3 from './wellcomeSound.mp3';
+import selectionwav from './selection.wav';
 
 const enterSound = new Audio(enterSoundmp3);
 const wellcomeSound = new Audio(wellcomeSoundmp3);
+const selectionSound = new Audio(selectionwav);
 
 const playAudio = (audio, volume = 1, loop = false) => {
     if(audio){
@@ -23,4 +25,4 @@ const stopAudio = (audio) => {
     }
 }
 
-export { enterSound, wellcomeSound, playAudio, stopAudio };
+export {playAudio, stopAudio, enterSound, wellcomeSound, selectionSound };

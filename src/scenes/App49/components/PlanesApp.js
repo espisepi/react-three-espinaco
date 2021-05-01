@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useLoader, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
-import { enterSound, playAudio } from '../audios/index';
+import { enterSound, selectionSound, playAudio } from '../audios/index';
 
 /* Error de infinite loading en production por el guion de naughty-vr en -> '/assets/img/home/naughty-vr.png' */
 
@@ -101,6 +101,11 @@ function Plane({map, textureArrow, nameApp, ...props}){
     });
 
     const [hovered, setHover] = useState(false);
+    useEffect(()=>{
+      if(hovered){
+        playAudio(selectionSound);
+      }
+    }, [hovered]);
     return (
       <group ref={groupRef} {...props}>
         <mesh>
