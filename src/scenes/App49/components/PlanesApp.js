@@ -75,6 +75,18 @@ function Plane({map, textureArrow, nameApp, ...props}){
           y: 0,
           z: 2,
           duration: 2,
+          onComplete: () => {
+            tween3.play();
+          }
+        },
+      )
+      const initialPosition = camera.position;
+      const tween3 = gsap.to(
+        camera.position,
+        {
+          x: initialPosition.x,
+          y: initialPosition.y,
+          z: initialPosition.z,
         }
       )
       tween.play();
