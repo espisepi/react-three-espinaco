@@ -54,6 +54,7 @@ function Plane({map, textureArrow, nameApp, ...props}){
     const groupRef = useRef();
     const { camera } = useThree();
     const handleClickProject = useCallback((nameApp)=>{
+
       const tween = gsap.fromTo(
         groupRef.current.rotation,
         {
@@ -63,11 +64,11 @@ function Plane({map, textureArrow, nameApp, ...props}){
           y:6.28,
           duration: 2,
           onComplete: () => {
-            const path = window.location.href;
-            const pathNew =  path.includes("app49") ? path.replace("app49", nameApp) : path.concat(nameApp);
-            window.location.href = pathNew;
+            
           }
         });
+
+      const initialPosition = camera.position.clone();
       const tween2 = gsap.to(
         camera.position,
         {
@@ -76,19 +77,24 @@ function Plane({map, textureArrow, nameApp, ...props}){
           z: 2,
           duration: 2,
           onComplete: () => {
-            tween3.play();
+            camera.position.set(initialPosition.x,initialPosition.y,initialPosition.z);
+
+            const path = window.location.href;
+            const pathNew =  path.includes("app49") ? path.replace("app49", nameApp) : path.concat(nameApp);
+            window.location.href = pathNew;
+            
           }
         },
       )
-      const initialPosition = camera.position;
-      const tween3 = gsap.to(
-        camera.position,
-        {
-          x: initialPosition.x,
-          y: initialPosition.y,
-          z: initialPosition.z,
-        }
-      )
+      // const initialPosition = camera.position;
+      // const tween3 = gsap.to(
+      //   camera.position,
+      //   {
+      //     x: initialPosition.x,
+      //     y: initialPosition.y,
+      //     z: initialPosition.z,
+      //   }
+      // )
       tween.play();
       tween2.play();
       playAudio(enterSound);

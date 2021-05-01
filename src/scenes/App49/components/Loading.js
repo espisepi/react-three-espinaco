@@ -13,12 +13,13 @@ export default function Loading() {
         }
     })
 
-    useEffect(()=>{
-        playAudio(wellcomeSound, 1, true);
-        return () => {
-            stopAudio(wellcomeSound);
-        }
-    },[])
+    // Audio not work if user not interactue (iphone error)
+    // useEffect(()=>{
+    //     playAudio(wellcomeSound, 1, true);
+    //     return () => {
+    //         stopAudio(wellcomeSound);
+    //     }
+    // },[])
 
     return (
         <group >
