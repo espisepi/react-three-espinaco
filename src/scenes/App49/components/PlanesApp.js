@@ -85,16 +85,7 @@ function Plane({map, textureArrow, nameApp, ...props}){
             
           }
         },
-      )
-      // const initialPosition = camera.position;
-      // const tween3 = gsap.to(
-      //   camera.position,
-      //   {
-      //     x: initialPosition.x,
-      //     y: initialPosition.y,
-      //     z: initialPosition.z,
-      //   }
-      // )
+      );
       tween.play();
       tween2.play();
       playAudio(enterSound);
