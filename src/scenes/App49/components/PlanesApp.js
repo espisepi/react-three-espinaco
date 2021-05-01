@@ -1,6 +1,8 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { useLoader } from 'react-three-fiber';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
+import { useLoader, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
+import { gsap } from 'gsap';
+import { enterSound, playAudio } from '../audios/index';
 
 /* Error de infinite loading en production por el guion de naughty-vr en -> '/assets/img/home/naughty-vr.png' */
 
@@ -49,23 +51,47 @@ const projects = [
 
 function Plane({map, textureArrow, nameApp, ...props}){
 
+    const groupRef = useRef();
+    const { camera } = useThree();
     const handleClickProject = useCallback((nameApp)=>{
-      const path = window.location.href;
-      const pathNew =  path.includes("app49") ? path.replace("app49", nameApp) : path.concat(nameApp);
-      window.location.href = pathNew;
+      const tween = gsap.fromTo(
+        groupRef.current.rotation,
+        {
+          y:0
+        },
+        { 
+          y:6.28,
+          duration: 2,
+          onComplete: () => {
+            const path = window.location.href;
+            const pathNew =  path.includes("app49") ? path.replace("app49", nameApp) : path.concat(nameApp);
+            window.location.href = pathNew;
+          }
+        });
+      const tween2 = gsap.to(
+        camera.position,
+        {
+          x: 0,
+          y: 0,
+          z: 2,
+          duration: 2,
+        }
+      )
+      tween.play();
+      tween2.play();
+      playAudio(enterSound);
     });
 
     const [hovered, setHover] = useState(false);
-
     return (
-      <group {...props}>
+      <group ref={groupRef} {...props}>
         <mesh>
             <planeBufferGeometry args={[1, 1]} />
-            <meshPhongMaterial map={map} color={ hovered ? 'red': 'white' }  />
+            <meshPhongMaterial map={map} color={ hovered ? 'red': 'white' } side={THREE.DoubleSide}  />
         </mesh>
         <mesh position={[0,0,0.1]} onPointerDown={ (event) => handleClickProject(nameApp) } onPointerOver={(event) => setHover(true)} onPointerOut={(event) => setHover(false)}>
             <planeBufferGeometry args={[0.4, 0.4]} />
-            <meshPhongMaterial map={textureArrow} color={ hovered ? 'red': 'white' } side={THREE.DoubleSide} transparent={true} />
+            <meshPhongMaterial map={textureArrow} color={ hovered ? 'red': 'white' } side={THREE.FrontSide} transparent={true} />
         </mesh>
       </group>
     );

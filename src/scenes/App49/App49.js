@@ -59,10 +59,10 @@ export function Scene() {
         <Stars radius={200} />
         <Suspense fallback={<Loading />}>
             <BlackPlane position={[0,0,-5]} scale={[1,1,1]} />
-            <FullScreen position={[0,2.5,0]} scale={[10,2,1]}/>
             <group name="groupPrincipal">
                 <TitleText />
                 <GridFloor />
+                <FullScreen position={[0,2.5,0]} scale={[10,2,1]}/>
             </group>
             <group name="floor" position={[0,0,0.01]}>
                 <GridFloor />
