@@ -27,6 +27,7 @@
     "react-three-gui": "^0.4.1",
     "react-use-gesture": "5.2.4",
     "recoil": "^0.1.2",
+    "screenfull": "^5.1.0",
     "styled-components": "^5.2.1",
     "three": "^0.122.0",
     "use-cannon": "file:./use-cannon",

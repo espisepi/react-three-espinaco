@@ -2,7 +2,6 @@ import React, { Suspense, useEffect, useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import { OrbitControls, Stars } from 'drei';
-import Loading from '../../components/Loading';
 
 
 import Joystick from '../../drei-espinaco/Joystick';
@@ -17,6 +16,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
 
+import Loading from './components/Loading';
 import GridFloor from './components/GridFloor';
 import TitleText from './components/TitleText';
 import PlanesApp from './components/PlanesApp';
@@ -42,15 +42,15 @@ function PostProcessing(){
 
 export function Scene() {
     
-    useEffect( () => {
+    // useEffect( () => {
 
-        THREE.DefaultLoadingManager.onStart = () => console.log('start loading');
-        THREE.DefaultLoadingManager.onLoad = () => console.log(' Loading complete ');
-        THREE.DefaultLoadingManager.onProgress = ( url, itemsLoaded, itemsTotal ) => {
-            console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-        };
+    //     THREE.DefaultLoadingManager.onStart = () => console.log('start loading');
+    //     THREE.DefaultLoadingManager.onLoad = () => console.log(' Loading complete ');
+    //     THREE.DefaultLoadingManager.onProgress = ( url, itemsLoaded, itemsTotal ) => {
+    //         console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+    //     };
 
-    }, [] );
+    // }, [] );
 
     return(
         <>
