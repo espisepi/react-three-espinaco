@@ -1,0 +1,29 @@
+COSAS QUE DEBERÍAS HACER PARA EL JUEGO Y NO HACES POR QUE PREFIERES FUMARTE UN PORRO:
+- Ensanchar las letras a ordenar (para que se cojan más facil)
+- Poner el botón de 360º un poco más arriba si se puede para que no pise las letras de butterfly.
+- Añadir más animales (añadí nuevos modelos ayer en la colección de animalitos) 
+- Si se pueden ordenar los animales por los más cortitos antes y los más largos después sería lo suyo por el nivel de dificultad.
+- Añadir esta música para el juego: https://www.youtube.com/watch?v=V3ynbsalEUM&list=PLadO9a5cXpH4W01ebL58PH3JR6Ofl0XFU&index=15&ab_channel=Charle%CC%81S y esta para el final: https://www.youtube.com/watch?v=m9OuOpVQFi0&ab_channel=WaqasKhan
+
+*Secuencia de juego: Me gustaría lo siguiente: Abres juego y sale INSTRUCTIONS (me encargo yo de pasarte una imagen con todo) y START. Le das a START y aparece la araña con los cuadrados y las letras desordenadas y suena directamente la pronunciación en inglés (en vez del sonido del bicho porque veo que así sirve tambien de pista para el niño escuchar la pronunciación a la hora de escribir la palabra, y que la sigan pudiendo escuchar las veces que quieran clicando en el animal), una vez acierte la palabra sonará un correct! y automáticamente le aparecen los dos botones el de 360º y el de NEXT ANIMAL. Así, una vez haya acertado tiene libertad pa ver el animal tranquilamente sin que cambie al siguiente automáticamente. El sonido del bicho sonaría al activarse el 360º pa darle mas realismo xd. Una vez que complete todos los animales sonará un Congratulations! y aplausos (voy a buscar un sonido que venga con todo) y después le aparecerá un cartel que puedo hacer yo con paint y pone lo siguiente: ¿eres capaz de decir todos los animales que se nombran en la siguiente canción? Anótalos y compartelo con tus compañeros en el blog de la Web (en inglés y en español) y sale la musica con los créditos a la izquierda y el tigre bailando a la derecha y el botón 360º. Se podría poner la letra de la canción al principio de los créditos para que les sea más facil localizar los animales (?) o eso sería plagio a tope? y después de la letra los créditos de verdad y THE END.
+
+**Y una cuestión que yo tengo el juego se queda en bucle o se le puede poner al final de los créditos un THE END o un TO BE CONTINUED (pa la siguiente versión xd) y ya pues se queda en negro o se inicia de nuevo?
+
+
+El menú principal si puede salir un cuadro de diálogo grande en medio de la pantalla que diga:
+
+- INSTRUCTIONS (Ponerles todo lo que pueden hacer con el juego, si yo hago las instrucciones en una imagen en paint con los dibujos de la posición de los dedos o del ratón normal y tal tu puedes añadirlo directamente al juego para que eso sean las instrucciones?)
+
+- START/PLAY (y pinchando en el PLAY se empieza, se puede quitar el cuadrado verde?)
+
+La siguiente pantalla sería ya directamente el juego:
+
+- El grosor de las letras lo ensancharía un poco para que fuese más facil cogerlas.
+- El orden de los animales se puede cambiar de forma que los de nombre más corto aparezcan primero? Porque el niño tiene 6 años y puede serle complicado sobre todo el de butterfly pa que no se desmotive y se quede atascao ya en el primero si le cuesta más. (si no te cuesta cambiarlo ese sería un cambio que yo como pedagoga haría xd)
+- Otro asunto es la dificultad, el tema ordenar las letras podemos ponerle una letra fijada ya en los cuadrados de arriba de cada animal, y si tiene mas letras como butterfly pues se fijan 2. 
+- Que suene el correct! o un sonido de verificación cuando pasen al siguiente animal para hacerlo más estimulante y que les llame más la atención.
+- También lo que te comenté de la secuenciación de acciones. Que estaría más pedagógico si fuese primero en plan acierta la palabra - suena el correct! - aparecen dos botones: 1. 360º: rotación bicho; 2. NEXT ANIMAL: pasar al siguiente bicho. 
+- La música que has puesto a mi me gusta pa fumarme un porro viendo los gráficos del juego, pero al niño de 6 años creo que no. podemos hacer una encuesta pero yo estuve probando el juego con alguna cancion de las que te dije y lo veo más divertido con ese tipo de música que te motiva pa la alegría, la otra te motiva a fumarte un porrillo de agusto xd Además cuando baila el tigre (que por cierto se le han borrao las orejas con el gorro, no? jajajajaja pero bueno eso se queda así)  la musica podría cambiar y ser otra más movidita y en vez el you win ese soso ponerle un congratulations con aplausos o algo asi que puedo buscar yo para quitarte cosas (todo lo que veas que puedo hacer yo dimeloo)
+- Si se puede subir algún animalillo más estaria flama para que sean al menos 10 animales. Por cierto, el ratón a veces no se escucha la pronunciación no se si le pasa algo o es que al ser más chico hay que acertar más a darle justo en el punto xd
+
+Por último yo pal final pondría que acierte el último animal, suena el congratulations! con los aplausos y directamente aparece el tigre en el laito, una música más movidita y los créditos pasando por donde estaban las letras pa ordenar. Si quieres ahi puedo inventarme algun texto que hable sobre el juego de la idea del juego en sí para la educación o algo así y ya al final pues nombres e incluso si le quieres meter el logo que crearon esta gente xd no se.
