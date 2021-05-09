@@ -1,8 +1,10 @@
 import React, { Suspense, useRef, useState, useEffect } from "react"
-import { Canvas, useFrame } from "react-three-fiber"
+import { Canvas, useFrame, useThree } from "react-three-fiber"
+import * as THREE from 'three';
 import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useProxy } from "valtio"
+import Loading from '../../components/Loading';
 
 import "react-colorful/dist/index.css"
 import './style.css';
@@ -20,15 +22,58 @@ const state = proxy({
     stripes: "#ffffff",
     band: "#ffffff",
     patch: "#ffffff",
+    paint: "#ffffff"
   },
 })
+
+function Car() {
+  const { nodes, materials } = useGLTF("assets/obj/gltf/scene.gltf");
+  const [hovered, set] = useState(null)
+  const snap = useProxy(state)
+
+  const { scene } = useThree();
+  const group = useRef(null);
+  const [isFirst, setIsFirst] = useState(true);
+  useEffect(()=>{
+
+    if( isFirst && group.current ) {
+
+      setIsFirst(false);
+    
+      const sceneCopy = nodes.root.clone(true);
+      sceneCopy.rotation.set(-Math.PI/2,0,0);
+    
+      const filterNames = ["Circle001_49"];
+      filterNames.forEach( name => {
+        const object = sceneCopy.children[0].getObjectByName(name);
+        if(object){
+          sceneCopy.children[0].remove(object);
+        }
+      });
+      
+      scene.add(sceneCopy);
+
+    }
+
+  },[group.current]);
+  
+  return (
+    <group
+      ref={group}
+      dispose={null}
+      onPointerOver={(e) => (e.stopPropagation(), set(e.object.material.name))}
+      onPointerOut={(e) => e.intersections.length === 0 && set(null)}
+      onPointerMissed={() => (state.current = null)}
+      onPointerDown={(e) => (e.stopPropagation(), (state.current = e.object.material.name))}>
+      <mesh geometry={nodes.Circle001_49.children[0].geometry} material={materials.paint} material-color={snap.items.paint} />
+    </group>
+  );
+}
 
 function Shoe() {
   const ref = useRef()
   const snap = useProxy(state)
-  // Drei's useGLTF hook sets up draco automatically, that's how it differs from useLoader(GLTFLoader, url)
-  // { nodes, materials } are extras that come from useLoader, these do not exist in threejs/GLTFLoader
-  // nodes is a named collection of meshes, materials a named collection of materials
+
   const { nodes, materials } = useGLTF("assets/obj/shoe-draco.glb")
 
   // Animate model
@@ -85,12 +130,13 @@ export default function App() {
       <Canvas concurrent style={{backgroundColor:'white'}} pixelRatio={[1, 2]} camera={{ position: [0, 0, 2.75] }}>
         <ambientLight intensity={0.3} />
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loading />}>
           <Shoe />
+          <Car />
           <Environment files="assets/env/royal_esplanade_1k.hdr" background={false} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
-        <OrbitControls minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2} enableZoom={false} enablePan={false} />
+        <OrbitControls /*minPolarAngle={Math.PI / 2} maxPolarAngle={Math.PI / 2}*/ enableZoom={true} enablePan={true} />
       </Canvas>
       <Picker />
     </>
