@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from 'react-three-fiber';
 import { Text, Html } from 'drei';
 
@@ -15,6 +15,19 @@ export default function Loading() {
         }
         if( mesh ) {
             mesh.current.rotation.y += 0.05;
+        }
+    })
+
+    useEffect(()=>{
+        const element = document.getElementsByClassName('ReactNipple')[0]
+        if(element) {
+            element.style.pointerEvents = 'none';
+        }
+        return () => {
+            // desbloquear el joystick
+            if(element) {
+                element.style.pointerEvents = 'auto';
+            }
         }
     })
 

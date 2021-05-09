@@ -12,7 +12,7 @@ function GalleryModel(){
     const { scene } = useGLTF(modelUrl);
     scene.traverse( function ( child ) {
         if ( child.isMesh ) {
-            console.log(child)
+            // console.log(child)
 
 
             if(child.name === 'mesh_4'){ // Vertical 01
