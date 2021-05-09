@@ -6,7 +6,7 @@ import Loading from './Loading';
 
 import Joystick from '../../drei-espinaco/Joystick';
 import { Physics, useBox } from 'use-cannon';
-import Player from '../../the-gallery/components/Player/Player';
+import Player from './player/Player';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
 
 import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
@@ -145,7 +145,7 @@ export default function AppDirty(props) {
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
-        <Stats />
+        {/* <Stats /> */}
         <ScenePrincipal />
     </Canvas>
     <Joystick />
