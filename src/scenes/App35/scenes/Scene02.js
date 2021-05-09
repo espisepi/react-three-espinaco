@@ -10,24 +10,24 @@ import {ActionState} from '../State';
 export default function Scene02() {
 
     // Go youtube music link as Action
-    useEffect(()=>{
-        ActionState.name = 'Youtube';
-        ActionState.current = () => {
-            window.open('https://www.youtube.com/watch?v=mdfM2Lr_uYY&ab_channel=ISRAELB','_blank');
-            // const win = window.open('https://www.youtube.com/watch?v=mdfM2Lr_uYY&ab_channel=ISRAELB','_blank');
-            // if (win) {
-            //     //Browser has allowed it to be opened
-            //     win.focus();
-            // } else {
-            //     //Browser has blocked it
-            //     alert('Please allow popups for this website');
-            // }
-        }
-        return () => {
-            ActionState.name = null;
-            ActionState.current = null;
-        }
-    },[]);
+    // useEffect(()=>{
+    //     ActionState.name = 'Youtube';
+    //     ActionState.current = () => {
+    //         window.open('https://www.youtube.com/watch?v=mdfM2Lr_uYY&ab_channel=ISRAELB','_blank');
+    //         // const win = window.open('https://www.youtube.com/watch?v=mdfM2Lr_uYY&ab_channel=ISRAELB','_blank');
+    //         // if (win) {
+    //         //     //Browser has allowed it to be opened
+    //         //     win.focus();
+    //         // } else {
+    //         //     //Browser has blocked it
+    //         //     alert('Please allow popups for this website');
+    //         // }
+    //     }
+    //     return () => {
+    //         ActionState.name = null;
+    //         ActionState.current = null;
+    //     }
+    // },[]);
 
     const {scene} = useThree();
     useEffect(()=>{
