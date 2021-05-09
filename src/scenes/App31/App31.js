@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState, useEffect } from "react"
+import React, { Suspense, useRef, useState, useEffect, useCallback } from "react"
 import { Canvas, useFrame, useThree } from "react-three-fiber"
 import * as THREE from 'three';
 import { ContactShadows, Environment, useGLTF, OrbitControls } from "drei"
@@ -33,14 +33,10 @@ function Car() {
 
   const { scene } = useThree();
   const group = useRef(null);
-  const [isFirst, setIsFirst] = useState(true);
   useEffect(()=>{
-
-    if( isFirst && group.current ) {
-
-      setIsFirst(false);
+    const sceneCopy = nodes.root.clone(true);
+    if(  group.current ) {
     
-      const sceneCopy = nodes.root.clone(true);
       sceneCopy.rotation.set(-Math.PI/2,0,0);
     
       const filterNames = ["Circle001_49"];
@@ -53,6 +49,10 @@ function Car() {
       
       scene.add(sceneCopy);
 
+    }
+
+    return () => {
+      scene.remove(sceneCopy);
     }
 
   },[group.current]);
@@ -124,6 +124,50 @@ function Picker() {
   )
 }
 
+function HUD() {
+
+  const group = useRef();
+  const { camera, scene } = useThree();
+  useEffect(()=>{
+    if(group.current){
+      camera.add(group.current);
+      scene.add(camera);
+    }
+  },[group.current]);
+
+  const [currentModel, setCurrentModel] = useState(<Shoe/>);
+  const changeModel = useCallback((e)=>{
+    if(e.object.name === 'HUDCar') {
+      setCurrentModel( <Car/> )
+    }
+    if(e.object.name === 'HUDShoe') {
+      setCurrentModel( <Shoe/> )
+    }
+  });
+
+  return (
+    <>
+    
+    { currentModel }
+
+    <group name="groupHUD" ref={group} onPointerDown={(e) => changeModel(e)} >
+
+      <mesh name="HUDShoe" position={[-0.3,-0.6,-1]} scale={[0.2,0.2]} >
+        <planeBufferGeometry args={[1,1]} />
+        <meshBasicMaterial color='red' side={THREE.FrontSide} />
+      </mesh>
+
+      <mesh name="HUDCar" position={[0.3,-0.6,-1]} scale={[0.2,0.2]} >
+        <planeBufferGeometry args={[1,1]} />
+        <meshBasicMaterial color='blue' side={THREE.FrontSide} />
+      </mesh>
+
+    </group>
+
+    </>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -131,8 +175,9 @@ export default function App() {
         <ambientLight intensity={0.3} />
         <spotLight intensity={0.3} angle={0.1} penumbra={1} position={[5, 25, 20]} />
         <Suspense fallback={<Loading />}>
-          <Shoe />
-          <Car />
+          {/* <Shoe /> */}
+          {/* <Car /> */}
+          <HUD />
           <Environment files="assets/env/royal_esplanade_1k.hdr" background={false} />
           <ContactShadows rotation-x={Math.PI / 2} position={[0, -0.8, 0]} opacity={0.25} width={10} height={10} blur={2} far={1} />
         </Suspense>
