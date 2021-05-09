@@ -143,10 +143,10 @@ export default function Scene04() {
         <>
         <Ocean geometry={new THREE.PlaneBufferGeometry( 3000, 3000, 1, 1 )} position={[0,-10,0]} rotation={[Math.PI/2,0,0]} />
         <GalleryModel />
-        <mesh name="meshPositionalAudio" position={[93,5,0]} visible={false}>
+        <mesh name="meshPositionalAudio" position={[113,7,0]} visible={true}>
             <boxBufferGeometry args={[1,1,1]} />
             <meshBasicMaterial color='green' wireframe={true} />
-            <PositionalAudio url='assets/sounds/waterbird.mp3' />
+            <PositionalAudio url='assets/sounds/waterbird.mp3' distance={15} />
         </mesh>
         </>
     );
