@@ -17,6 +17,7 @@ import Scene01 from './scenes/Scene01';
 import Scene02 from './scenes/Scene02';
 import Scene03 from './scenes/Scene03';
 import Scene04 from './scenes/Scene04';
+import Scene06 from './scenes/Scene06';
 
 import Ocean from '../../drei-espinaco/Ocean';
 import Plane from '../../drei-espinaco/Plane';
@@ -80,7 +81,7 @@ export function ScenePrincipal() {
     });
     useEffect(()=>{
         if(snapState.triggers.trigger0){
-            setCurrent(<Scene02 />);
+            setCurrent(<Scene06 />);
         }else{
             setCurrent(<Scene04 />);
         }
@@ -144,7 +145,7 @@ export default function AppDirty(props) {
 
     return (
     <>
-    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh' }}>
         {/* <Stats /> */}
         <ScenePrincipal />
     </Canvas>
