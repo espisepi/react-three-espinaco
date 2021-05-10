@@ -7,17 +7,21 @@ import * as THREE from 'three';
 import Ocean from '../../../drei-espinaco/Ocean';
 
 function CharlesScene() {
+
     const gltf = useGLTF('assets/obj/charlesScene.glb');
+
     const sphere = useMemo(()=>{
         return gltf.scene.children[1];
     },[]);
-    console.log(sphere);
+
     useFrame((state, dt)=>{
          sphere.rotation.y -= dt * 0.05;
          const t = state.clock.getElapsedTime();
          sphere.position.y = (1 + Math.sin(t / 1.5)) / 10
     })
+
     return <primitive object={gltf.scene} />;
+    
 }
 
 export default function Scene06() {
