@@ -46,23 +46,17 @@ function Triggers({changeEnvironment, visible=true}){
                         );
             const intersects = raycaster.intersectObjects( ref.current.children );
             if(intersects.length !== 0){
-                // console.log('oli')
                 changeEnvironment(intersects[0].object)
             }else{
-                // console.log('nanai')
                 changeEnvironment();
             }
-            // for ( let i = 0; i < intersects.length; i ++ ) {
-            //     const triggerMesh = intersects[i].object;
-            //     triggerMesh.userData.active = true;
-            //     triggerMesh.material.color.set( 0xff0000 );
-            // }
         }
     });
 
     return(
         <group ref={ref}>
         <mesh name='trigger0' position={[0,0,-160]} visible={visible} geometry={new THREE.BoxBufferGeometry(24.72,5.0,170.0)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
+        <mesh name='trigger0' position={[0,0,-449.19]} visible={visible} geometry={new THREE.BoxBufferGeometry(962,5.0,626.0)} material={new THREE.MeshBasicMaterial({color:'green', wireframe:true})} />
         </group>
     );
 }
@@ -86,20 +80,7 @@ export function ScenePrincipal() {
             setCurrent(<Scene04 />);
         }
     },[snapState.triggers.trigger0]);
-    
-    // useEffect(()=>{
-    //     const lengthScenarios = 4;
-    //     const indexFix = snapState.index % lengthScenarios;
-    //     if(indexFix === 0){
-    //         setCurrent(<Scene04 />);
-    //     }else if(indexFix === 1) {
-    //         setCurrent(<Scene02 />);
-    //     }else if(indexFix === 2) {
-    //         setCurrent(<Scene03 />);
-    //     }else if(indexFix === 3) {
-    //         setCurrent(<Scene01 />);
-    //     }
-    // },[snapState]);
+
     return(
         <>
         <Physics gravity={[0, -100, 0]} >
