@@ -107,6 +107,7 @@ export default class Game{
     createOrbitControls() {
         this.controls = new OrbitControls( this.camera, this.renderer.domElement );
 
+        this.controls.enablePan = false;
         this.controls.autoRotate = true;
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.05;

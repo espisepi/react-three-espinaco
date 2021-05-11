@@ -131,23 +131,23 @@ function GameReact({texture}) {
             word:'spider',
         },
         {
-            word:'wolf',
-        },
-        {
             word:'bat'
         },
         {
-            word:'butterfly'
+            word:'cow'
         },
         {
-            word:'cow'
+            word:'wolf',
         },
         {
             word:'cat'
         },
         {
             word:'mouse'
-        }
+        },
+        {
+            word:'butterfly'
+        },
     ];
 
     const { scene, camera, gl } = useThree();
@@ -170,7 +170,7 @@ function GameReact({texture}) {
     });
 
     return (
-        <Plane position={[3,0,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} material-map={texture} />
+        <Plane position={[3,0.5,0]} onPointerDown={changeControl} material-color='white' material-side={THREE.DoubleSide} material-map={texture} />
     );
 
 }
@@ -199,7 +199,7 @@ export function Scene() {
                 (
                     <>
                         <group onPointerDown={()=>changeOption(1)}>
-                            <Plane material-color='#2d6a4f' position={[-2,0,0]}/>
+                            {/* <Plane material-color='#2d6a4f' position={[-2,0,0]}/> */}
                             <Text position={[0,0,1]} fontSize={ 1.0 }>
                                 Start
                             </Text>
