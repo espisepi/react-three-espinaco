@@ -1,3 +1,4 @@
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 import { ChromaticAberration } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
@@ -55,6 +56,7 @@ export default class Game{
                 this.scene.remove(checker);
             })
             this.checkers = [];
+            this.checkerPositions = [];
 
             const nameModel = this.state[this.index - 1].word;
             const modelInScreen = this.scene.getObjectByName(nameModel);
@@ -83,8 +85,10 @@ export default class Game{
             this.scene.add(checkerMesh);
             this.checkers.push(checkerMesh);
             
-            
         });
+
+        // Desordenamos los checkers
+        this.shuffle()
 
         if(this.controls){
             this.disposeControls();
@@ -93,6 +97,37 @@ export default class Game{
 
         this.index++;
     }
+
+    shuffle() {
+
+        const array = this.checkers.map( c => c.position.clone() ); // importante el clone() si no no funciona el algoritmo
+        let currentIndex = array.length, temporaryValue, randomIndex;
+      
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+      
+          // Pick a remaining element...
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+      
+          // And swap it with the current element.
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+      
+        // array.forEach( (p,i) => {
+        //     console.log(p)
+        //     console.log(this.checkers[i])
+        //     this.checkers[i].position.set(p.x,p.y,p.z);
+        // });
+        
+        this.checkers.forEach( (c,i) => {
+            const position = array[i];
+            c.position.set(position.x,position.y,position.z);
+        });
+
+      }
 
     createText(text) {
         const textMesh = new Text();
