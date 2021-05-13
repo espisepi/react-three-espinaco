@@ -257,7 +257,7 @@ export default function App48(props) {
 
     return (
     <>
-    <Canvas id="canvas" className="canvas" style={{backgroundColor:'#000000'}}>
+    <Canvas id="canvas" className="canvas" style={{backgroundImage:'url("assets/img/englishGame.png")', backgroundSize:'cover'}}>
         <Suspense fallback={<Loading />}>
             <Scene />
         </Suspense>

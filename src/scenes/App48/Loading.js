@@ -29,11 +29,6 @@ export default function Loading() {
             <Text position={[0,-2,0]} fontSize={ 1.0 }>
                 Loading...
             </Text>
-
-            <mesh position={[0,0,0]}>
-                <planeBufferGeometry attach='geometry' args={[100,100]} />
-                <meshBasicMaterial attach='material' color='#80b918' />
-            </mesh>
         </group>
     );
 }
