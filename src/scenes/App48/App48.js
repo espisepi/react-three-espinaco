@@ -219,11 +219,14 @@ export function Scene() {
 export default function App48(props) {
 
     const [play,setPlay] = useState(true);
+    const [audioIcon, setAudioIcon] = useState('url("assets/img/icon/volume.png")');
     useEffect(()=>{
         if(play){
             playAudio(Audio.lofiAmbient,1.0,true);
+            setAudioIcon('url("assets/img/icon/volume.png")');
         } else {
             stopAudio(Audio.lofiAmbient);
+            setAudioIcon('url("assets/img/icon/mute.png")');
         }
     },[play]);
 
@@ -238,7 +241,7 @@ export default function App48(props) {
             <Scene />
         </Suspense>
     </Canvas>
-    <div onClick={startStopAudio} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={startStopAudio} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', width:'40px', height:'40px', bottom: 40, zIndex: 20 }}></div>
     </>
     );
 }
@@ -251,6 +254,7 @@ export function stopAudio(audio) {
     Audio.stopAudio(audio);
 }
 
+
 // TIPS
 /**
     boton UI -> sonido de pronunciacion de la palabra HECHO
@@ -261,4 +265,9 @@ export function stopAudio(audio) {
     escenario 3d con r3f
     sonidos, cambiar animales, mecanicas... con vanilla js
 
+    <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
  */
+
+    
