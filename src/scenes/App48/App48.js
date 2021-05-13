@@ -182,10 +182,6 @@ export function Scene() {
         setOption(numOption);
     });
 
-    useEffect(()=>{
-        playAudio(Audio.lofiAmbient,1.0,true);
-    },[]);
-
     const texture360 = useLoader( THREE.TextureLoader, 'assets/img/icon/360.jpg');
 
     return(
@@ -222,12 +218,28 @@ export function Scene() {
 
 export default function App48(props) {
 
+    const [play,setPlay] = useState(true);
+    useEffect(()=>{
+        if(play){
+            playAudio(Audio.lofiAmbient,1.0,true);
+        } else {
+            stopAudio(Audio.lofiAmbient);
+        }
+    },[play]);
+
+    const startStopAudio = useCallback(()=>{
+        setPlay( (p) => !p );
+    },[]);
+
     return (
+    <>
     <Canvas id="canvas" className="canvas" style={{backgroundColor:'#000000'}}>
         <Suspense fallback={<Loading />}>
             <Scene />
         </Suspense>
     </Canvas>
+    <div onClick={startStopAudio} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    </>
     );
 }
 
