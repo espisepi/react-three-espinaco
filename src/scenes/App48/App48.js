@@ -266,7 +266,7 @@ export default function App48(props) {
             <Scene />
         </Suspense>
     </Canvas>
-    <div onClick={startStopAudio} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', width:'40px', height:'40px', bottom: 40, zIndex: 20 }}></div>
+    <div onClick={startStopAudio} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', width:'40px', height:'40px', bottom: 40, zIndex: 20, cursor:'pointer' }}></div>
     </>
     );
 }

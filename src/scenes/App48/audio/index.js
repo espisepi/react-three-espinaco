@@ -21,6 +21,7 @@ import lofiAmbientmp3 from './lofiambient.mp3';
 import selectionwav from './selection.wav';
 import successwav from './success.wav';
 import youwinmp3 from './youwin.mp3';
+import applausemp3 from './applause.mp3';
 
 import whatfoxsaymp3 from './whatfoxsay.mp3';
 
@@ -46,6 +47,7 @@ const lofiAmbient = new Audio(lofiAmbientmp3);
 const selection = new Audio(selectionwav);
 const success = new Audio(successwav);
 const youwin = new Audio(youwinmp3);
+const applause = new Audio(applausemp3);
 
 const whatfoxsay = new Audio(whatfoxsaymp3);
 
@@ -69,4 +71,4 @@ const stopAudio = (audio) => {
 }
 
 
-export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin, whatfoxsay };
+export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin, applause, whatfoxsay };

@@ -26,6 +26,7 @@ export default class Game{
         if(this.index === this.state.length){
 
             playAudio(Audio.youwin);
+            playAudio(Audio.applause);
             Audio.stopAudio(Audio.lofiAmbient);
             playAudio(Audio.whatfoxsay);
 
