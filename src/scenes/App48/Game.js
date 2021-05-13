@@ -131,10 +131,10 @@ export default class Game{
 
     createText(text) {
         const textMesh = new Text();
-        textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
+        // textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
         textMesh.text = text
         textMesh.fontSize = 0.7;
-        textMesh.color = 0x000000;
+        textMesh.color = 0x325288;
         textMesh.sync();
         return textMesh;
     }
