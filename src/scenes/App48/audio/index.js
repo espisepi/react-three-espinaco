@@ -45,5 +45,24 @@ const selection = new Audio(selectionwav);
 const success = new Audio(successwav);
 const youwin = new Audio(youwinmp3);
 
+const playAudio = (audio, volume = 1, loop = false) => {
+    if(audio){
+        audio.currentTime = 0;
+        audio.volume = volume;
+        audio.loop = loop;
+        audio.play();
+    } else {
+        console.log('there is no audio to play');
+    }
+}
 
-export { spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin };
+const stopAudio = (audio) => {
+    if(audio){
+        audio.pause();
+    } else {
+        console.log('there is no audio to play');
+    }
+}
+
+
+export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin };

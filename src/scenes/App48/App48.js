@@ -6,7 +6,7 @@ import Loading from './Loading';
 import Game from './Game';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
-import * as audio from './audio';
+import * as Audio from './audio';
 
 function Environmnet() {
     const texture = useLoader(THREE.TextureLoader, 'assets/env/360jpg/lilienstein.jpg');
@@ -82,42 +82,42 @@ function Animals({state}){
         <group name='animals' position={[0,0,0]}>
             <Animal name='spider' src='assets/obj/animals/spider/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} scale={[0.05,0.05,0.05]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.spider);
+                    playAudio(Audio.spider);
                 }
             }}/>
             <Animal name='wolf' src='assets/obj/animals/wolf/scene.gltf' position={[3,-1,2]} rotation={[0,-1.0,0]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.wolf);
+                    playAudio(Audio.wolf);
                 }
             }}/>
             <Animal name='bat' src='assets/obj/animals/bat/scene.gltf' position={[3,0,2]} rotation={[0,-2.5,0]}  scale={[0.05,0.05,0.05]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.bat);
+                    playAudio(Audio.bat);
                 }
             }}/>
             <Animal name='butterfly' src='assets/obj/animals/butterfly/scene.gltf' position={[3,0,2]}   scale={[0.03,0.03,0.03]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.butterfly);
+                    playAudio(Audio.butterfly);
                 }
             }}/>
             <Animal name='cow' src='assets/obj/animals/cow/scene.gltf' position={[3,-1,2]} rotation={[0,0.5,0]} scale={[0.01,0.01,0.01]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.cow);
+                    playAudio(Audio.cow);
                 }
             }}/>
             <Animal name='cat' src='assets/obj/animals/cat/scene.gltf' position={[3,-1,2]} rotation={[0,-2.5,0]} scale={[0.05,0.05,0.05]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.cat);
+                    playAudio(Audio.cat);
                 }
             }}/>
             <Animal name='mouse' src='assets/obj/animals/mouse/scene.gltf' position={[3,-0.6,2]} rotation={[0,2.6,0]} scale={[0.01,0.01,0.01]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.mouse);
+                    playAudio(Audio.mouse);
                 }
             }}/>
             <WinnerModel name='winner' src='assets/obj/animals/tigerSamba.fbx' position={[3,-1,2]} rotation={[0,0,0]} scale={[0.0022,0.0022,0.0022]} visible={false} onPointerDown={(e)=>{
                 if(e.eventObject.visible){
-                    playAudio(audio.youwin);
+                    playAudio(Audio.youwin);
                 }
             }}/>
         </group>
@@ -183,7 +183,7 @@ export function Scene() {
     });
 
     useEffect(()=>{
-        playAudio(audio.lofiAmbient,1.0,true);
+        playAudio(Audio.lofiAmbient,1.0,true);
     },[]);
 
     const texture360 = useLoader( THREE.TextureLoader, 'assets/img/icon/360.jpg');
@@ -232,14 +232,11 @@ export default function App48(props) {
 }
 
 export function playAudio(audio, volume = 1, loop = false) {
-    if(audio){
-        audio.currentTime = 0;
-        audio.volume = volume;
-        audio.loop = loop;
-        audio.play();
-    } else {
-        console.log('there is no audio to play');
-    }
+    Audio.playAudio(audio,volume,loop);
+}
+
+export function stopAudio(audio) {
+    Audio.stopAudio(audio);
 }
 
 // TIPS
