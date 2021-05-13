@@ -185,6 +185,10 @@ export function Scene() {
     const texture360 = useLoader( THREE.TextureLoader, 'assets/img/icon/360.jpg');
     const textureInstruction = useLoader( THREE.TextureLoader, 'assets/img/englishGame.jpeg');
 
+    const [hover,setHover] = useState();
+    const [hover2,setHover2] = useState();
+    const [hover3,setHover3] = useState();
+
     return(
         <>
         <ambientLight />
@@ -195,13 +199,13 @@ export function Scene() {
             option === 0 ? 
                 (
                     <>
-                        <group onPointerDown={()=>changeOption(1)}>
-                            <Text position={[0,1,1]} fontSize={ 1.0 }>
+                        <group onPointerDown={()=>changeOption(1)} onPointerOver={(e) => setHover(true)} onPointerOut={(e) => setHover(false)}>
+                            <Text position={[0,1,1]} fontSize={ 1.0 } material-color={hover ? 'red' : 'white'}>
                                 Start
                             </Text>
                         </group>
-                        <group onPointerDown={()=>changeOption(2)}>
-                            <Text position={[0,0,1]} fontSize={ 1.0 }>
+                        <group onPointerDown={()=>changeOption(2)} onPointerOver={(e) => setHover2(true)} onPointerOut={(e) => setHover2(false)}>
+                            <Text position={[0,0,1]} fontSize={ 1.0 } material-color={hover2 ? 'red' : 'white'}>
                                 Instructions
                             </Text>
                         </group>
@@ -222,8 +226,8 @@ export function Scene() {
                         <planeBufferGeometry args={[1,1]} />
                         <meshBasicMaterial map={textureInstruction} />
                     </mesh>
-                    <group onPointerDown={()=>changeOption(0)}>
-                        <Text position={[0.9,0.53,4.2]} fontSize={ 0.2 }>
+                    <group onPointerDown={()=>changeOption(0)} onPointerOver={(e) => setHover3(true)} onPointerOut={(e) => setHover3(false)}>
+                        <Text position={[0.9,0.53,4.2]} fontSize={ 0.2 } material-color={hover3 ? 'red' : 'white'}>
                             return
                         </Text>
                     </group>
