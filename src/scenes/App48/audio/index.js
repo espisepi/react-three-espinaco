@@ -22,6 +22,8 @@ import selectionwav from './selection.wav';
 import successwav from './success.wav';
 import youwinmp3 from './youwin.mp3';
 
+import whatfoxsaymp3 from './whatfoxsay.mp3';
+
 const spider = new Audio(spidermp3);
 const spiderSound = new Audio(spiderSoundwav);
 
@@ -45,6 +47,8 @@ const selection = new Audio(selectionwav);
 const success = new Audio(successwav);
 const youwin = new Audio(youwinmp3);
 
+const whatfoxsay = new Audio(whatfoxsaymp3);
+
 const playAudio = (audio, volume = 1, loop = false) => {
     if(audio){
         audio.currentTime = 0;
@@ -65,4 +69,4 @@ const stopAudio = (audio) => {
 }
 
 
-export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin };
+export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin, whatfoxsay };

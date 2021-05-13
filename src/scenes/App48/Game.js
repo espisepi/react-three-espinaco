@@ -5,7 +5,7 @@ import { DragControls } from 'three/examples/jsm/controls/DragControls.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Text } from 'troika-three-text'
 import { playAudio } from './App48';
-import * as audio from './audio';
+import * as Audio from './audio';
 
 export default class Game{
 
@@ -25,7 +25,9 @@ export default class Game{
 
         if(this.index === this.state.length){
 
-            playAudio(audio.youwin);
+            playAudio(Audio.youwin);
+            Audio.stopAudio(Audio.lofiAmbient);
+            playAudio(Audio.whatfoxsay);
 
             const nameModel = this.state[this.index - 1].word;
             const modelInScreen = this.scene.getObjectByName(nameModel);
@@ -40,7 +42,7 @@ export default class Game{
         const wordTarget = this.state[this.index].word;
         const wordSound = wordTarget + 'Sound';
         setTimeout(()=>{
-            playAudio( audio[wordSound], 0.6 );
+            playAudio( Audio[wordSound], 0.6 );
         }, 1000)
 
         const stateEl = this.state[this.index];
@@ -134,7 +136,7 @@ export default class Game{
         // textMesh.font = 'https://fonts.gstatic.com/s/raleway/v17/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvao7CIPrcVIT9d0c8.woff';
         textMesh.text = text
         textMesh.fontSize = 0.7;
-        textMesh.color = 0x325288;
+        textMesh.color = 0xffffff;
         textMesh.sync();
         return textMesh;
     }
@@ -169,9 +171,9 @@ export default class Game{
             if(intersectObjects.length != 0) {
                 const squareMesh = intersectObjects[0].object;
                 checkerMesh.position.set(squareMesh.position.x - 0.15,squareMesh.position.y + 0.4,squareMesh.position.z + 0.1);
-                playAudio(audio.selection);
+                playAudio(Audio.selection);
                 if(self.checkGameSuccess()){
-                    playAudio(audio.success);
+                    playAudio(Audio.success);
                     self.nextWord();
                 }
             }
