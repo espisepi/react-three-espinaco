@@ -183,6 +183,7 @@ export function Scene() {
     });
 
     const texture360 = useLoader( THREE.TextureLoader, 'assets/img/icon/360.jpg');
+    const textureInstruction = useLoader( THREE.TextureLoader, 'assets/img/englishGame.jpeg');
 
     return(
         <>
@@ -195,9 +196,13 @@ export function Scene() {
                 (
                     <>
                         <group onPointerDown={()=>changeOption(1)}>
-                            {/* <Plane material-color='#2d6a4f' position={[-2,0,0]}/> */}
-                            <Text position={[0,0,1]} fontSize={ 1.0 }>
+                            <Text position={[0,1,1]} fontSize={ 1.0 }>
                                 Start
+                            </Text>
+                        </group>
+                        <group onPointerDown={()=>changeOption(2)}>
+                            <Text position={[0,0,1]} fontSize={ 1.0 }>
+                                Instructions
                             </Text>
                         </group>
                     </>
@@ -207,6 +212,22 @@ export function Scene() {
             option === 1 ?
                 (
                     <GameReact texture={texture360} />
+                ) : null
+        }
+        {
+            option === 2 ?
+                (
+                    <>
+                    <mesh position={[0,0,4]} scale={[3,1.5]}>
+                        <planeBufferGeometry args={[1,1]} />
+                        <meshBasicMaterial map={textureInstruction} />
+                    </mesh>
+                    <group onPointerDown={()=>changeOption(0)}>
+                        <Text position={[0.9,0.53,4.2]} fontSize={ 0.2 }>
+                            return
+                        </Text>
+                    </group>
+                    </>
                 ) : null
         }
 
