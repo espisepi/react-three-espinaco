@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState, useCallback} from 'react';
+import React, {Suspense, useEffect, useState, useCallback, useRef} from 'react';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls, useGLTF } from 'drei';
@@ -65,7 +65,7 @@ function Model(){
 
 }
 
-export function Scene({link, webcam, muted}) {
+export function Scene({link, webcam, muted, autoRotate}) {
 
     const { camera } = useThree();
     useEffect(()=>{
@@ -82,6 +82,13 @@ export function Scene({link, webcam, muted}) {
             console.log('this message only must show once time to enable orbitControls');
         }
     })
+
+    const orbitRef = useRef();
+    useFrame(()=>{
+        if( orbitEnabled && orbitRef.current){
+            orbitRef.current.autoRotate = autoRotate;
+        }
+    })
     
     return(
         <>
@@ -91,7 +98,7 @@ export function Scene({link, webcam, muted}) {
             <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
-        <OrbitControls enabled={orbitEnabled} enablePan={false} />
+        <OrbitControls ref={orbitRef} enabled={orbitEnabled} enablePan={false} autoRotateSpeed={3.0} />
         </>
     );
 }
@@ -166,11 +173,15 @@ export function RunApp36(props) {
         setShowPanel(s => !s);
     });
 
+    const [autoRotate, setAutoRotate] = useState(false);
+    const changeAutoRotate = useCallback(()=>{
+        setAutoRotate(a => !a);
+    })
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh'}}>
         <Suspense fallback={<Loading />}>
-            {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} /> : null}
+            {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
             {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} /> : null}
         </Suspense>
     </Canvas>
@@ -179,9 +190,10 @@ export function RunApp36(props) {
         <Hamburger toggled={showPanel} toggle={changeShowPanel} color='#FFFFFF' />
     </div>
     <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
-    {/* <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div> */}
+    <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
     <div onClick={changeMuted} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 50, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
-    {/* <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
+    {/* <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
+    <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div> */}
     <input onChange={handleInput}
             placeholder={placeholder}
