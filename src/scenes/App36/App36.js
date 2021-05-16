@@ -107,9 +107,10 @@ export function RunApp36(props) {
         if(youtubeLink){
             setLink(youtubeLink);
         } else {
-            setLink('https://www.youtube.com/watch?v=SYM-RJwSGQ8&ab_channel=ToveLoVEVO')
+            // https://www.youtube.com/watch?v=SYM-RJwSGQ8&ab_channel=ToveLoVEVO
+            setLink('assets/musica/stayHigh.mp4');
         }
-        setPlaceholder(link);
+        setPlaceholder('https://www.youtube.com/watch?v=SYM-RJwSGQ8&ab_channel=ToveLoVEVO');
 
         // Webcam option
         const webcam = urlParams.get('webcam');
