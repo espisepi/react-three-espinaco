@@ -1,8 +1,8 @@
 import React, {Suspense, useEffect, useState, useCallback} from 'react';
-import { Canvas, useLoader, useThree } from 'react-three-fiber';
+import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls, useGLTF } from 'drei';
-import Loading from '../../components/Loading';
+import Loading from './Loading';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 
 import { AudioComponents } from '../App35/MediaPointsShader';
@@ -67,20 +67,29 @@ export function Scene({link, webcam, muted}) {
 
     const { camera } = useThree();
     useEffect(()=>{
-        camera.position.z = 20;
+        camera.position.z = -200;
     });
-
+    const [orbitEnabled,setOrbitEnabled] = useState(false);
+    const  [firstTime, setFirstTime] = useState(true);
+    const loadingRef = React.createRef();
+ 
+    useFrame(()=>{
+        if(firstTime && loadingRef.current === null){
+            setFirstTime(false);
+            setOrbitEnabled(true);
+            console.log('this message only must show once time to enable orbitControls');
+        }
+    })
+    
     return(
         <>
         <ambientLight args={[0x443333, 0.5]} />
-        <directionalLight args={[0xffddcc, 0.2]} position={[1, 0.75, 0.5]} />
-        <directionalLight args={[0xccccff, 0.2]} position={[-1, 0.75, 0.5]} />
-        <Suspense fallback={<Loading />} >
+        <Suspense fallback={ <Loading position={[0,0,-195]} rotation={[0,Math.PI,0]} ref={loadingRef} /> } >
             {/* <Model /> */}
             <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
-        <OrbitControls />
+        <OrbitControls enabled={orbitEnabled}/>
         </>
     );
 }
