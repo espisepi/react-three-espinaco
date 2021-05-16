@@ -9,6 +9,8 @@ import { AudioComponents } from '../App35/MediaPointsShader';
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
 import Scene1 from './scene1';
+import PanelItems from './PanelItem';
+import Hamburger from 'hamburger-react';
 
 // https://threejs.live/#/webgl_decals
 function Model(){
@@ -124,8 +126,8 @@ export function RunApp36(props) {
     const handleInput = useCallback((e)=>{
         setInput(e.target.value);
     })
-    const handleSubmit = useCallback((e)=>{
-        const youtubeLink = input;
+    const handleSubmit = useCallback((link)=>{
+        const youtubeLink = input || link;
         const redirectUrl = window.location.pathname + '?url=' + youtubeLink;
         window.location.replace(redirectUrl);
     })
@@ -159,14 +161,23 @@ export function RunApp36(props) {
         setSceneIndex( (sceneIndex + 1) % 2 );
     });
 
+    const [showPanel, setShowPanel] = useState(false);
+    const changeShowPanel = useCallback(()=> {
+        setShowPanel(s => !s);
+    });
+
     return (
     <>
-    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh'}}>
         <Suspense fallback={<Loading />}>
             {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} /> : null}
             {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} /> : null}
         </Suspense>
     </Canvas>
+    { showPanel && <PanelItems setInput={setInput} handleSubmit={handleSubmit} /> }
+    <div style={{zIndex:20, position:'absolute', right:'10px'}}>
+        <Hamburger toggled={showPanel} toggle={changeShowPanel} color='#FFFFFF' />
+    </div>
     <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
     {/* <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div> */}
     <div onClick={changeMuted} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 50, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
