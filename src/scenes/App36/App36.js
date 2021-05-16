@@ -159,10 +159,10 @@ export function RunApp36(props) {
         </Suspense>
     </Canvas>
     <FullScreen width='50px' height='50px' />
-    <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
+    {/* <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div> */}
     <div onClick={changeMuted} style={{ position:'absolute', width:'30px', height:'30px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
-    <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
-    <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
+    {/* <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
+    <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div> */}
     <input onChange={handleInput}
             placeholder={placeholder}
             style={{position:'absolute', top:'0px', width:'98vw', height:'20px', color:'#ffffff', border:'none', backgroundColor:'transparent', zIndex:10000}}
