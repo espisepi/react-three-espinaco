@@ -98,7 +98,7 @@ export function Scene({link, webcam, muted, autoRotate}) {
             <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader'/>
         </Suspense>
         {/* <Picture /> */}
-        <OrbitControls ref={orbitRef} enabled={orbitEnabled} enablePan={false} autoRotateSpeed={3.0} />
+        <OrbitControls ref={orbitRef} enabled={orbitEnabled} enablePan={false} autoRotateSpeed={2.2} />
         </>
     );
 }
