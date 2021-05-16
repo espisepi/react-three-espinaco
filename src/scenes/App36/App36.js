@@ -145,6 +145,14 @@ export function RunApp36(props) {
     const changeMuted = useCallback(() => {
         setMuted(m => !m)
     });
+    const [audioIcon, setAudioIcon] = useState('url("assets/img/icon/volume64.png")');
+    useEffect(()=>{
+        if(muted){
+            setAudioIcon('url("assets/img/icon/mute64.png")');
+        } else {
+            setAudioIcon('url("assets/img/icon/volume64.png")');
+        }
+    },[muted])
 
     const [sceneIndex, setSceneIndex] = useState(0);
     const changeSceneIndex = useCallback(()=>{
@@ -159,9 +167,9 @@ export function RunApp36(props) {
             {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} /> : null}
         </Suspense>
     </Canvas>
-    <FullScreen width='50px' height='50px' />
+    <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
     {/* <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div> */}
-    <div onClick={changeMuted} style={{ position:'absolute', width:'30px', height:'30px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
+    <div onClick={changeMuted} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 50, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
     {/* <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div> */}
     <input onChange={handleInput}
