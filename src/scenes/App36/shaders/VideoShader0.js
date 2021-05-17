@@ -10,6 +10,8 @@ export default function VideoShader0(texture){
         mid: { value: 0.0 },
         treble: { value: 0.0 },
 
+        colorInput: { value: new THREE.Vector3(0,0,0) },
+
         iChannel0: { value: texture }
     },
     vertexShader: `
@@ -83,6 +85,8 @@ export default function VideoShader0(texture){
     uniform float treble;
     uniform sampler2D iChannel0;
 
+    uniform vec3 colorInput;
+
     vec3 colorA = vec3(0.3,0.0,0.0);
     vec3 colorB = vec3(1.0,0.0,0.0);
 
@@ -99,9 +103,10 @@ export default function VideoShader0(texture){
         vec3 color_red = vec3(bass+gray,0.0,0.0);
         vec3 color = textureVideo.rgb;                        
         color = ( textureVideo.rgb  ) * vec3(bass + 0.5 , bass + 0.5 , bass + 0.5 ) * 1.0;
-        
-
-        
+        float isColor = colorInput.r + colorInput.g + colorInput.b;
+        if ( isColor  != 0.0 ) {
+            color = vec3( colorInput.r * (bass + gray), colorInput.g * (bass + gray), colorInput.b * (bass + gray)  );
+        }
         fragColor = vec4(color, 1.0 );
 
 

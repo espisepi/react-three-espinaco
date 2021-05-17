@@ -10,7 +10,7 @@ import VideoShader1 from './shaders/VideoShader1';
 const filterYoutubeLink = 'youtu';
 const herokuapp = 'https://video-dl-esp.herokuapp.com/video/video?url=';
 
-export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', webcam, position, rotation, scale, muted=false, type='MusicShader', shaderType }) => {
+export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc='assets/musica/070shake.mp4', webcam, position, rotation, scale, muted=false, type='MusicShader', shaderType, colorInput }) => {
     const configuration = `
           r = bass + 0.5;
           g = bass;
@@ -55,7 +55,7 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
     if(type === 'MusicShader'){
         return (<MusicShader audio={audio} position={[0,0,-200]} scale={[20,20,20]} />);
     }else if(type === 'VideoPointsShader'){
-        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} webcam={webcam} configuration={configuration} position={position} rotation={rotation} scale={scale} shaderType={shaderType} />);
+        return (<VideoPointsShader audio={audio} videoSrc={videoSrc} webcam={webcam} configuration={configuration} position={position} rotation={rotation} scale={scale} shaderType={shaderType} colorInput={colorInput} />);
     }else{
         return null;
     }    
@@ -237,7 +237,7 @@ export const MusicShader = ({ audio,
                                     distance = 2;
                                 `; 
  */
-export const VideoPointsShader = ({ audio, videoSrc, webcam=false, shaderType, configuration, position=[0,0,0], rotation=[Math.PI, Math.PI, 0], scale=[1,1,1] }) => {
+export const VideoPointsShader = ({ audio, videoSrc, webcam=false, shaderType, configuration, position=[0,0,0], rotation=[Math.PI, Math.PI, 0], scale=[1,1,1], colorInput = new THREE.Vector3(0,0,0) }) => {
     videoSrc = videoSrc || '';
     configuration = configuration || `
                                                 r = bass + 0.5;
@@ -316,6 +316,7 @@ export const VideoPointsShader = ({ audio, videoSrc, webcam=false, shaderType, c
             particles.material.uniforms.bass.value = bass;
             particles.material.uniforms.mid.value = mid;
             particles.material.uniforms.treble.value = treble;
+            particles.material.uniforms.colorInput.value = colorInput;
         }
         
     });

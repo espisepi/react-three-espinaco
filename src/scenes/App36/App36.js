@@ -12,6 +12,8 @@ import Scene1 from './scene1';
 import PanelItems from './PanelItem';
 import Hamburger from 'hamburger-react';
 
+import { HexColorPicker } from "react-colorful";
+
 // https://threejs.live/#/webgl_decals
 function Model(){
 
@@ -65,7 +67,7 @@ function Model(){
 
 }
 
-export function Scene({link, webcam, muted, autoRotate}) {
+export function Scene({link, webcam, muted, autoRotate, colorInput}) {
 
     const { camera } = useThree();
     useEffect(()=>{
@@ -95,7 +97,7 @@ export function Scene({link, webcam, muted, autoRotate}) {
         <ambientLight args={[0x443333, 0.5]} />
         <Suspense fallback={ <Loading position={[0,0,-195]} rotation={[0,Math.PI,0]} ref={loadingRef} /> } >
             {/* <Model /> */}
-            <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader'/>
+            <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader' colorInput={colorInput} />
         </Suspense>
         {/* <Picture /> */}
         <OrbitControls ref={orbitRef} enabled={orbitEnabled} enablePan={false} autoRotateSpeed={1.6} />
@@ -176,23 +178,50 @@ export function RunApp36(props) {
     const [autoRotate, setAutoRotate] = useState(false);
     const changeAutoRotate = useCallback(()=>{
         setAutoRotate(a => !a);
-    })
+    });
+
+    const [firstTime, setFirsTime] = useState(true);
+    const [color, setColor] = useState('#ff0000');
+    const [colorInput, setColorInput] = useState(new THREE.Vector3(0,0,0));
+    useEffect(()=>{
+        if(firstTime) {
+            setFirsTime(false);
+            setColorInput( new THREE.Vector3(0,0,0) );
+        } else {
+            const colorVector = new THREE.Color(color);
+            setColorInput( new THREE.Vector3(colorVector.r, colorVector.g, colorVector.b ) );
+        }
+    },[color]);
+    const restoreColor = useCallback(()=>{
+        setColorInput( new THREE.Vector3(0,0,0) );
+    });
+    
+    const [showColorPicker, setShowColorPicker] = useState(false);
+    const changeShowColorPicker = useCallback(()=>{
+        setShowColorPicker( s => !s );
+    });
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh'}}>
         <Suspense fallback={<Loading />}>
-            {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
+            {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} colorInput={colorInput} /> : null}
             {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
         </Suspense>
     </Canvas>
+
     { showPanel && <PanelItems setInput={setInput} handleSubmit={handleSubmit} /> }
+
     <div style={{zIndex:20, position:'absolute', right:'10px', top:'10px'}}>
         <Hamburger toggled={showPanel} toggle={changeShowPanel} color='#FFFFFF' />
     </div>
-    <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
+
+    { sceneIndex === 0 && showColorPicker && <div style={{zIndex:20, position:'absolute', top:100}}> <HexColorPicker color={color} onChange={setColor} /> <div style={{width:'100px', height:'100px', size:'50px', color:'red', cursor: 'pointer'}} onPointerDown={restoreColor}>Reset Color</div> </div> }
+    { sceneIndex === 0 && <div onClick={changeShowColorPicker} style={{ position:'absolute', width:'30px', height:'30px', bottom: 175, backgroundImage:'url("assets/img/icon/color64.png")', WebkitFilter:'invert(100%)', backgroundSize:'cover', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity: 0.6 }}></div> }
+    <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , WebkitFilter:'invert(100%)', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
     <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
     <div onClick={changeMuted} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 50, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
-    <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
+    <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
     {/* <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div> */}
     <input onChange={handleInput}
