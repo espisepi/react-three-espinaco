@@ -32,6 +32,26 @@ const links = [
         img:'assets/obj/minerales/3.jpg'
     },
     {
+        name:'La Ocasión - De La Ghetto, Arcangel, Ozuna...',
+        link:'https://www.youtube.com/watch?v=XngTiXBPmEE',
+        img:'assets/obj/minerales/3.jpg'  
+    },
+    {
+        name:'Bad Bunny - Soy Peor',
+        link:'https://www.youtube.com/watch?v=ws00k_lIQ9U',
+        img:'assets/obj/minerales/3.jpg'  
+    },
+    {
+        name:'KAROL G, Mariah Angeliq - EL MAKINON',
+        link:'https://www.youtube.com/watch?v=2jYEz66J_J4',
+        img:'assets/obj/minerales/3.jpg'  
+    },
+    {
+        name:'Tokischa - Twerk ft. Eladio Carrion',
+        link:'https://www.youtube.com/watch?v=VAQZ3ZHr22E',
+        img:'assets/obj/minerales/3.jpg'  
+    },
+    {
         name:'HIGHKILI - IMTHEMAN RMX',
         link:'https://www.youtube.com/watch?v=1EUwuhI2BZs',
         img:'assets/obj/minerales/3.jpg'
