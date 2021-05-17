@@ -44,7 +44,7 @@ export default function Scene1({link, webcam, muted, autoRotate}) {
         <ambientLight args={[0x443333, 0.5]} />
         <Suspense fallback={<Loading />} >
             <Background url={link} muted={muted}  />
-            <Ocean geometry={new THREE.BoxBufferGeometry( 1000, 1000, 1000 )} position={[0, 500, 0 ]} />
+            <Ocean geometry={new THREE.BoxBufferGeometry( 1000, 1000, 1000 )} position={[0, 498, 0 ]} />
             {/* <AudioComponents videoSrc={link} audioSrc={link} webcam={webcam} muted={muted} type='VideoPointsShader'/> */}
         </Suspense>
         {/* <Picture /> */}
