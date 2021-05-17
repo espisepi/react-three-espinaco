@@ -5,7 +5,7 @@ import { OrbitControls, useGLTF } from 'drei';
 import Loading from './Loading';
 import { DecalGeometry } from 'three/examples/jsm/geometries/DecalGeometry.js';
 
-import { AudioComponents } from '../App35/MediaPointsShader';
+import { AudioComponents } from './MediaPointsShader';
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
 import Scene1 from './scene1';
@@ -182,7 +182,7 @@ export function RunApp36(props) {
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh'}}>
         <Suspense fallback={<Loading />}>
             {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
-            {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} /> : null}
+            {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
         </Suspense>
     </Canvas>
     { showPanel && <PanelItems setInput={setInput} handleSubmit={handleSubmit} /> }
@@ -192,8 +192,8 @@ export function RunApp36(props) {
     <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
     <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
     <div onClick={changeMuted} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 50, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
-    {/* <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
-    <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
+    <div onClick={changeSceneIndex} style={{ position:'absolute', width:'30px', height:'30px', top: '70px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer' }}></div>
+    {/* <div onClick={activateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div>
     <div onClick={desactivateWebcam} style={{ position:'absolute', width:'50px', height:'50px', bottom: '50px', left:'50px', borderStyle: 'dashed', color: '#e60005', zIndex: 20, cursor: 'pointer'}}></div> */}
     <input onChange={handleInput}
             placeholder={placeholder}

@@ -51,6 +51,9 @@ export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', mu
 	const { scene } = useThree();
 	useEffect(()=>{
 		scene.background = textureVideo;
+		return () => {
+			scene.background = null;
+		}
 	}, [scene, textureVideo])
 
 	return null;
