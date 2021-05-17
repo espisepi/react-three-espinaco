@@ -186,7 +186,7 @@ export function RunApp36(props) {
         </Suspense>
     </Canvas>
     { showPanel && <PanelItems setInput={setInput} handleSubmit={handleSubmit} /> }
-    <div style={{zIndex:20, position:'absolute', right:'10px'}}>
+    <div style={{zIndex:20, position:'absolute', right:'10px', top:'10px'}}>
         <Hamburger toggled={showPanel} toggle={changeShowPanel} color='#FFFFFF' />
     </div>
     <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />

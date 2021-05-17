@@ -1,15 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 const links = [
     {
+        name:'Tove Lo - Habits (Stay High)',
         link:'assets/musica/stayHigh.mp4',
         img:'assets/obj/minerales/3.jpg'
     },
     {
+        name: 'Gata Cattana - Gotham',
         link:'assets/musica/gotham.mp4',
         img:'assets/obj/minerales/3.jpg'
     },
     {
+        name:'Elane - Niente',
         link:'assets/musica/elane-low.mp4',
         img:'assets/obj/minerales/3.jpg'
     },
@@ -43,14 +46,23 @@ export default function PanelItems({handleSubmit}) {
         }
     },[])
 
+    const enterHover = useCallback((e)=>{
+        const el = e.currentTarget;
+        el.style.backgroundColor = '#900000';
+    })
+
+    const leaveHover = useCallback((e) => {
+        const el = e.currentTarget;
+        el.style.backgroundColor = 'transparent';
+    })
+
     return (
       <>
       <div style={{position:'absolute', width:'100%', height:'100vh', backgroundColor:'#333333', opacity:'0.5', zIndex:20 }}></div>
-      <div style={{top:'30px', position:'absolute', display:'flex', flexDirection:'row', flexWrap:'wrap', zIndex: 25}}>
+      <div style={{top:'50px', position:'absolute', display:'flex', flexDirection:'row', flexWrap:'wrap', zIndex: 25}}>
           { links.map((l,i) => (
-              <div key={i} style={{width:'100px', height:'100px', margin:'10px', backgroundImage:`url("/${l.img}")`, backgroundRepeat:'no-repeat', backgroundSize:'cover', backgroundPosition:'center', borderRadius:'20px', cursor:'pointer' }}
-                           className='panel-items-children'
-                           onClick={(e)=>onClick(l.link)}></div>
+              <div key={i} onMouseEnter={(e)=>enterHover(e)} onMouseLeave={(e)=>leaveHover(e)} style={{width:'100px', height:'100px', margin:'10px', color:'white', borderRadius:'20px', cursor:'pointer' }}
+                           onPointerDown={(e)=>onClick(l.link)}>{l.name}</div>
           ))}
       </div>
       </>
