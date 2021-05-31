@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Apps from './components/Apps';
 
-const numberTotalApps = 6;
+const numberTotalApps = 50;
 
 export default function App50() {
 
@@ -27,8 +27,7 @@ export default function App50() {
     return (
         <>
         <Apps index={index} />
-        <div style={{position:'fixed', top:0, zIndex:10000, backgroundColor: 'red', opacity:0.5}}>
-        <h1>Holi</h1>
+        <div style={{position:'fixed', top:0, zIndex:10000}}>
         <button onClick={backIndex}>Atras</button>
         <button onClick={nextIndex}>Siguiente</button>
         {/* div con icono de flecha para cambiar de escena */}
