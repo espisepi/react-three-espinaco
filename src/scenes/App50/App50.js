@@ -27,12 +27,8 @@ export default function App50() {
     return (
         <>
         <Apps index={index} />
-        <div style={{position:'fixed', top:0, zIndex:10000}}>
-        <button onClick={backIndex}>Atras</button>
-        <button onClick={nextIndex}>Siguiente</button>
-        {/* div con icono de flecha para cambiar de escena */}
-        {/* No ocupar toda la pantalla, solo el tamaño que tenga el boton */}
-        </div>
+        <div onClick={backIndex} style={{ transform:'scaleX(-1)', backgroundImage:'url("assets/img/icon/directional_arrow.png")', backgroundSize:'cover', position:'fixed', WebkitFilter:'invert(100%)', width:'50px', height:'50px', bottom: '50%', left: 0, color: '#e60005', zIndex: 2000, cursor: 'pointer', opacity:0.6 }}></div>
+        <div onClick={nextIndex} style={{ backgroundImage:'url("assets/img/icon/directional_arrow.png")', backgroundSize:'cover', position:'fixed', WebkitFilter:'invert(100%)', width:'50px', height:'50px', bottom: '50%', right: 0, color: '#e60005', zIndex: 2000, cursor: 'pointer', opacity:0.6 }}></div>
         </>
     )
 }
