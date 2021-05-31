@@ -20,8 +20,8 @@ const projects = [
         img: '/assets/img/home/mineral.png'
       },
       {
-        name: 'app31',
-        img: '/assets/img/home/botines.png'
+        name: 'app48',
+        img: '/assets/img/home/englishgame.png'
       },
       {
         name: 'app34',
