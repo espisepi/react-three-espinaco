@@ -20,7 +20,7 @@ export default function Apps({ index = 0 }){
     } else if ( index === 7 ) {
         return <App.App7 />
     } else if ( index === 8 ) {
-        return <App.App8 />
+        return <h1>This App was removed</h1>
     } else if ( index === 9 ) {
         return <App.App9 />
     } else if ( index === 10 ) {
