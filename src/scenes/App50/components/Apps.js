@@ -64,7 +64,7 @@ export default function Apps({ index = 0 }){
     } else if ( index === 29 ) {
         return <App.App29 />
     } else if ( index === 30 ) {
-        return <App.App30 />
+        return <h1>This App was removed</h1>
     } else if ( index === 31 ) {
         return <App.App31 />
     } else if ( index === 32 ) {

@@ -170,7 +170,7 @@ function Model3D({}) {
                 }
             });
             scene.remove(gltf.scene);
-            gl.renderLists.dispose();
+            // gl.renderLists.dispose();
         }
     },[gltf]);
     return null;
