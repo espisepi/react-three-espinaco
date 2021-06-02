@@ -100,7 +100,21 @@ export default class Game{
         });
 
         // Desordenamos los checkers
-        this.shuffle()
+        let continuaBucle = true;
+        while (continuaBucle) {
+
+            const checkersPrev = this.checkers.map( c => ({...c.userData.letter, ...c.position}))
+            this.shuffle();
+            const checkersPost = this.checkers.map( c => ({...c.userData.letter, ...c.position}))
+
+            if( JSON.stringify(checkersPrev) === JSON.stringify(checkersPost) ) {
+                console.log('Words is not disorder')
+                continuaBucle = true;
+            } else {
+                continuaBucle = false;
+            }
+
+        }
 
         if(this.controls){
             this.disposeControls();
@@ -139,6 +153,7 @@ export default class Game{
             c.position.set(position.x,position.y,position.z);
         });
 
+        return this.checkers;
       }
 
     createText(text) {
