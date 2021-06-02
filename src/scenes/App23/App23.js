@@ -8,14 +8,12 @@ import { OrbitControls, Reflector, Stats } from 'drei';
 import Loading from '../../components/Loading';
 
 import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../drei-espinaco/instancedMesh/';
-import { createMapsPoints, createMapPoints, transformPointsToObjects } from '../../drei-espinaco/points-creator/';
+import { createMapsPoints, createMapPoints, transformPointsToObjects, createTileMap } from '../../drei-espinaco/points-creator/';
 
 import Joystick from '../../drei-espinaco/Joystick';
 import { Physics } from 'use-cannon';
 import Player from '../../the-gallery/components/Player/Player';
 import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
-
-import {useBox} from 'use-cannon';
 
 function Cesped() {
     const objects = useMemo(()=>{
@@ -67,6 +65,33 @@ function Horse() {
     }
     // return null;
     return <InstancedGLTFPhysics src='assets/obj/Horse.glb' objects={objects} createObjectsModBoolean={true} visible={true} />
+}
+
+function Horse2() {
+    const objects = useMemo(()=>{
+        const pointsList = createTileMap([[0,0,200]],[20,30],5,5);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
+        return objects;
+    });
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+}
+
+function Horse3() {
+    const objects = useMemo(()=>{
+        const pointsList = createMapPoints(5, [200,0,200], [20,0,0], 5, [0,20,0]);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
+        return objects;
+    });
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
+}
+
+function Horse4() {
+    const objects = useMemo(()=>{
+        const pointsList = createMapPoints(5, [200,0,300], [20,0,0], 5, [0,20,20]);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [0.1, 0.1, 0.1]);
+        return objects;
+    });
+    return <InstancedGLTF src='assets/obj/Horse.glb' objects={objects} />
 }
 
 
@@ -211,13 +236,16 @@ export function Scene() {
         <>
         <Cesped />
         <Physics>
-        <Suspense fallback={<Loading />}>
-            <Horse />
-            <Player />
-            <GroundPhysic />
-            <BreakWall />
-            <Gallery />
-            {/* <CustomMesh /> */}
+            <Suspense fallback={<Loading />}>
+                <Horse />
+                <Horse2 />
+                <Horse3 />
+                <Horse4 />
+                <Player />
+                <GroundPhysic />
+                <BreakWall />
+                <Gallery />
+                {/* <CustomMesh /> */}
             </Suspense>
         </Physics>
         </>
