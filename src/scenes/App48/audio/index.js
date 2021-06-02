@@ -18,6 +18,7 @@ import catmp3 from './cat.mp3';
 import mousemp3 from './mouse.mp3';
 
 import lofiAmbientmp3 from './lofiambient.mp3';
+import fantasyAmbientmp3 from './fantasyAmbient.mp3';
 import selectionwav from './selection.wav';
 import successwav from './success.wav';
 import youwinmp3 from './youwin.mp3';
@@ -44,6 +45,7 @@ const cat = new Audio(catmp3);
 const mouse = new Audio(mousemp3);
 
 const lofiAmbient = new Audio(lofiAmbientmp3);
+const fantasyAmbient = new Audio(fantasyAmbientmp3);
 const selection = new Audio(selectionwav);
 const success = new Audio(successwav);
 const youwin = new Audio(youwinmp3);
@@ -71,4 +73,4 @@ const stopAudio = (audio) => {
 }
 
 
-export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, selection, success, youwin, applause, whatfoxsay };
+export { playAudio, stopAudio, spider, spiderSound, wolf, wolfSound, bat, batSound, butterfly, butterflySound, cow, cat, mouse, lofiAmbient, fantasyAmbient, selection, success, youwin, applause, whatfoxsay };

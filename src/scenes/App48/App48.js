@@ -247,10 +247,10 @@ export default function App48(props) {
     const [audioIcon, setAudioIcon] = useState('url("assets/img/icon/volume.png")');
     useEffect(()=>{
         if(play){
-            playAudio(Audio.lofiAmbient,1.0,true);
+            playAudio(Audio.fantasyAmbient,0.3,true);
             setAudioIcon('url("assets/img/icon/volume.png")');
         } else {
-            stopAudio(Audio.lofiAmbient);
+            stopAudio(Audio.fantasyAmbient);
             setAudioIcon('url("assets/img/icon/mute.png")');
         }
     },[play]);
