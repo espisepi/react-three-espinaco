@@ -43,6 +43,10 @@ const projects = [
         name: 'app46',
         img: '/assets/img/home/mcpi.png'
       },
+      {
+        name: 'app50',
+        img: '/assets/img/home/physics.png'
+      },
       // {
       //   name: 'app47',
       //   img: '/assets/img/home/naughty-vr.png'
