@@ -27,8 +27,17 @@ export default class Game{
 
             playAudio(Audio.youwin);
             playAudio(Audio.applause);
-            Audio.stopAudio(Audio.lofiAmbient);
-            playAudio(Audio.whatfoxsay);
+            Audio.stopAudio(Audio.fantasyAmbient);
+
+            /** Play audio with css Interface */
+            Audio.whatfoxsay.controls = true;
+            Audio.whatfoxsay.volume = 0.3;
+            Audio.whatfoxsay.play();
+            Audio.whatfoxsay.style.position = 'absolute'
+            Audio.whatfoxsay.style.top = 0;
+            Audio.whatfoxsay.style.zIndex = 200;
+            const el = document.getElementById('root')
+            el.appendChild(Audio.whatfoxsay)
 
             const nameModel = this.state[this.index - 1].word;
             const modelInScreen = this.scene.getObjectByName(nameModel);
