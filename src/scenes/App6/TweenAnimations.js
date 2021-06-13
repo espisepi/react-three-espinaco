@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useThree, useFrame } from 'react-three-fiber'
 import TWEEN from '@tweenjs/tween.js'
 
-export default function TweenAnimations() {
+export default function TweenAnimations({ setEnabled }) {
 
     const { camera } = useThree()
 
-    const animations = useMemo( () => ( [ tween1(camera), tween2(camera) ].reverse() ) )
+    const animations = useMemo( () => ( [ tween1(camera, setEnabled), tween2(camera, setEnabled) ].reverse() ), [] )
     const numAnimaciones = useMemo( () => ( 2 ) )
     
     let video;
@@ -40,8 +40,11 @@ export default function TweenAnimations() {
 /* ------------------- TWEEN ------------------- */
 /* http://tweenjs.github.io/tween.js/examples/03_graphs.html */
 
-function tween1(camera) {
+function tween1(camera, setEnabled) {
     return () => {
+
+        setEnabled(false)
+
         let from = {
             x: camera.position.x,
             y: camera.position.y,
@@ -80,6 +83,7 @@ function tween1(camera) {
             .onUpdate(update)
             .onComplete(function () {
                 //controls.target.copy(scene.position);
+                setEnabled(true)
             });
 
         tween1.chain(tween2);
@@ -87,9 +91,11 @@ function tween1(camera) {
     }
 }
 
-function tween2(camera) {
+function tween2(camera, setEnabled) {
     return () => {
         // 48 segundos tenemos para lucirnos
+
+        setEnabled(false)
 
         let posicionGatacattana = {
             x: 442.94,
@@ -159,6 +165,7 @@ function tween2(camera) {
             .onUpdate(updatePosition)
             .onComplete(function () {
                 //controls.target.copy(scene.position);
+                setEnabled(true)
             });
 
         tweenPosition.chain(tweenPosition2);

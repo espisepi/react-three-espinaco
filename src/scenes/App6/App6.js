@@ -97,6 +97,9 @@ export default function App6(props) {
         setMuted(m => !m)
     });
 
+    const [enabled, setEnabled] = useState(false)
+    const [autoRotate, setAutoRotate] = useState(false)
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera={{position:[52.74, 52.74, 175.80], fov:55, far:20000}}>
@@ -105,13 +108,18 @@ export default function App6(props) {
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
         <Background url='assets/musica/gotham.mp4' muted={muted} />
-        <Ocean geometry={new THREE.BoxBufferGeometry( 10000, 10000, 10000 )} position={[0,5000,0]} />
+
+        <group rotation={[0,-Math.PI/2,0]}>
+            <Ocean geometry={new THREE.BoxBufferGeometry( 10000, 10000, 10000 )} position={[0,5000,0]} rotation={[0,Math.PI/2,0]} />
+        </group>
 
         <Suspense fallback={<Loading />}>
             <AssetGltf url="assets/obj/Horse.glb" />
         </Suspense>
 
-        <TweenAnimations />
+        <TweenAnimations setEnabled={setEnabled} />
+
+        <OrbitControls enabled={enabled} autoRotate={ enabled ? autoRotate : false} autoRotateSpeed={1} maxPolarAngle={Math.PI / 2 - 0.005} maxDistance={2500} />
 
         {/* <Physics gravity={[0, -30, 0]}>
 			<Ground position={[0,-1,0]} visible={false} />
@@ -120,13 +128,11 @@ export default function App6(props) {
         <PointerLockControls /> */}
 
         {/* <SimondevPersonController visible={visible} zoomType={zoomType} /> */}
-
-        <OrbitControls enabled={false} />
         
     </Canvas>
     {/* <Joystick /> */}
     <Fullscreen />
-    <div onClick={changeZoom} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={() => setAutoRotate(!autoRotate) } style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 80, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     <div onClick={changeMuted} style={{ position:'absolute', width:'20px', height:'20px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     </>
