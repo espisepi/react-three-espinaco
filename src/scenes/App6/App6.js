@@ -5,7 +5,7 @@ import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import { OrbitControls, PointerLockControls, Stats } from 'drei';
 import * as THREE from 'three';
 import Loading from '../../components/Loading';
-import Background from '../../drei-espinaco/Background';
+import Background from './Background';
 import Ocean from '../../drei-espinaco/Ocean';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -18,6 +18,8 @@ import Joystick from '../../drei-espinaco/Joystick';
 import Fullscreen from '../../drei-espinaco/Fullscreen';
 
 import ShaderHorse from './shaders/shaderHorse';
+
+import TweenAnimations from './TweenAnimations';
 
 function AssetGltf({ url, speed = 1 }) {
 
@@ -70,7 +72,7 @@ function AssetGltf({ url, speed = 1 }) {
     });
 
     return (
-        <group ref={group} dispose={null} scale={[0.2,0.2,0.2]} position={[0,-7,100]} rotation={[0,Math.PI / 2, 0]}>
+        <group ref={group} dispose={null} scale={[1,1,1]} position={[0,0,0]}>
             <primitive object={nodes.mesh_0} />
         </group>
     );
@@ -97,17 +99,19 @@ export default function App6(props) {
 
     return (
     <>
-    <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera-rotation={[0,Math.PI/2,0]}>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position: 'absolute'}} camera={{position:[52.74, 52.74, 175.80], fov:55, far:20000}}>
         {/* <Stats /> */}
         <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
         <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
 
         <Background url='assets/musica/gotham.mp4' muted={muted} />
-        <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,70]} />
+        <Ocean geometry={new THREE.BoxBufferGeometry( 10000, 10000, 10000 )} position={[0,5000,0]} />
 
         <Suspense fallback={<Loading />}>
             <AssetGltf url="assets/obj/Horse.glb" />
         </Suspense>
+
+        <TweenAnimations />
 
         {/* <Physics gravity={[0, -30, 0]}>
 			<Ground position={[0,-1,0]} visible={false} />
@@ -115,12 +119,12 @@ export default function App6(props) {
 		</Physics>
         <PointerLockControls /> */}
 
-        <SimondevPersonController visible={visible} zoomType={zoomType} />
+        {/* <SimondevPersonController visible={visible} zoomType={zoomType} /> */}
 
-        {/* <OrbitControls /> */}
+        <OrbitControls enabled={false} />
         
     </Canvas>
-    <Joystick />
+    {/* <Joystick /> */}
     <Fullscreen />
     <div onClick={changeZoom} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
     <div onClick={changeVisible} style={{ position:'absolute', width:'20px', height:'20px', bottom: 80, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
