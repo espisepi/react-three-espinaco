@@ -139,8 +139,14 @@ export function RunApp36() {
         setInput(e.target.value);
     })
     const handleSubmit = useCallback((link)=>{
+
+        const params = new URLSearchParams(window.location.search)
+        const sceneParam = params.get('scene') ? `&scene=${ parseInt( params.get('scene') ) }` : ''
+
         const youtubeLink = input || link;
-        const redirectUrl = window.location.pathname + '?url=' + youtubeLink;
+
+        const redirectUrl = window.location.pathname + '?url=' + youtubeLink + sceneParam;
+
         window.location.replace(redirectUrl);
     })
 
