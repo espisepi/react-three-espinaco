@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo} from 'react';
 import { useFrame, useThree } from 'react-three-fiber';
 
-import { useGLTF } from 'drei';
+import { useGLTF, PositionalAudio } from 'drei';
 
 import * as THREE from 'three';
 import Ocean from '../../../drei-espinaco/Ocean';
@@ -40,6 +40,11 @@ export default function Scene06() {
             <CharlesScene />
         </group>
         <Ocean geometry={new THREE.PlaneBufferGeometry( 3000, 3000, 1, 1 )} position={[0,-10,0]} rotation={[Math.PI/2,0,0]} />
+        <mesh name="meshPositionalAudio2" position={[0,5,-280]} visible={true}>
+            <boxBufferGeometry args={[1,1,1]} />
+            <meshBasicMaterial color='green' wireframe={true} />
+            <PositionalAudio url='assets/sounds/waterbird.mp3' distance={15} />
+        </mesh>
         </>
     );
 }
