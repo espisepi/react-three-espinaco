@@ -267,6 +267,6 @@ export default function App36(props) {
     return(
         click ? <RunApp36 /> :
                 <div onPointerDown={handleClick} 
-                    style={{position:'absolute', width:'100vw', height:'100vh', color:'#101010', backgroundColor:'#343a40', textAlign:'center'}}> <h1>Click on Screen To Start</h1> </div>
+                    style={{position:'absolute', width:'100vw', height:'100vh', color:'white', backgroundImage:'url("assets/img/readme/app36.png")', backgroundSize:'cover', textAlign:'center', display:'flex', alignItems:'center', justifyContent:'center'}}> <h1 style={{fontSize:'4rem'}}>Click on Screen To Start</h1> </div>
     );
 }
