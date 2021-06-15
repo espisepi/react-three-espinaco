@@ -14,6 +14,8 @@ import Fullscreen from '../../drei-espinaco/Fullscreen';
 
 import { AudioComponents } from '../../drei-espinaco/VideoPointsShader';
 
+import FullScreen from '../../drei-espinaco/Fullscreen';
+
 function FixImage() {
     const {camera} = useThree();
     camera.position.x = 0.01;
@@ -50,6 +52,15 @@ export default function AppDirty(props) {
         setMuted(m => !m)
     });
 
+    const [audioIcon, setAudioIcon] = useState('url("assets/img/icon/volume64.png")');
+    useEffect(()=>{
+        if(muted){
+            setAudioIcon('url("assets/img/icon/mute64.png")');
+        } else {
+            setAudioIcon('url("assets/img/icon/volume64.png")');
+        }
+    },[muted])
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
@@ -66,8 +77,8 @@ export default function AppDirty(props) {
         <OrbitControls ref={controls} rotateSpeed={0.5}/>
     </Canvas>
     {/* <Joystick /> */}
-    <Fullscreen />
-    <div onClick={changeMuted} style={{ position:'absolute', width:'20px', height:'20px', bottom: 120, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div>
+    <div onClick={changeMuted} style={{ backgroundImage:audioIcon, backgroundSize:'cover', position:'absolute', WebkitFilter:'invert(100%)', width:'30px', height:'30px', bottom: 50, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
+    <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
     </>
     );
 }
