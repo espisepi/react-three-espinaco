@@ -168,7 +168,9 @@ export function RunApp36() {
         }
     },[muted])
 
-    const [sceneIndex, setSceneIndex] = useState(0);
+    const urlParams = new URLSearchParams(window.location.search)
+    const sceneIndexParam = urlParams.get('scene') ? parseInt(urlParams.get('scene')) : 0;
+    const [sceneIndex, setSceneIndex] = useState(sceneIndexParam);
     const changeSceneIndex = useCallback(()=>{
         setSceneIndex( (sceneIndex + 1) % 2 );
     });

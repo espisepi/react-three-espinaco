@@ -7,9 +7,13 @@ import { enterSound, selectionSound, playAudio } from '../audios/index';
 /* Error de infinite loading en production por el guion de naughty-vr en -> '/assets/img/home/naughty-vr.png' */
 
 const projects = [
-    {
+      {
         name: 'app36',
         img: '/assets/img/home/videopoints.png'
+      },
+      {
+        name: 'app36?url=assets/musica/gotham.mp4&scene=1',
+        img: '/assets/img/home/gatacattana.png'
       },
       {
         name: 'app35',
@@ -26,10 +30,6 @@ const projects = [
       {
         name: 'app34',
         img: '/assets/img/home/viewer.png'
-      },
-      {
-        name: 'app6',
-        img: '/assets/img/home/gatacattana.png'
       },
       {
         name: 'app14',
