@@ -6,7 +6,8 @@ import Ocean from '../../../drei-espinaco/Ocean';
 
 import {InstancedPhysics} from '../../../drei-espinaco/instancedMesh/';
 
-function GalleryModel(){
+function GalleryModel({visible = false}){
+    
     const [doggy, doggy2, doggy3] = useLoader(THREE.TextureLoader, ['assets/img/jipis/charls/doggy.jpeg','assets/img/jipis/charls/doggy2.jpeg','assets/img/jipis/charls/doggy3.jpeg']);
     const modelUrl = 'assets/obj/gallery_house/scene.gltf';
     const { scene } = useGLTF(modelUrl);
@@ -120,7 +121,7 @@ function GalleryModel(){
 
     return (
         <>
-        <InstancedPhysics objects={objects} visible={false} />
+        <InstancedPhysics objects={objects} visible={visible} />
         <primitive 
                     position={[0,-3,0]}
                     scale={[10,10,10]}                  
@@ -131,7 +132,7 @@ function GalleryModel(){
     );
 }
 
-export default function Scene04() {
+export default function Scene04({visible}) {
     const texture = useLoader(THREE.TextureLoader, 'assets/env/360jpg/umhlanga_sunrise.jpg');
     texture.mapping = THREE.EquirectangularReflectionMapping;
     texture.encoding = THREE.sRGBEncoding;
@@ -142,7 +143,7 @@ export default function Scene04() {
     return(
         <>
         <Ocean geometry={new THREE.PlaneBufferGeometry( 3000, 3000, 1, 1 )} position={[0,-10,0]} rotation={[Math.PI/2,0,0]} />
-        <GalleryModel />
+        <GalleryModel visible={visible} />
         <mesh name="meshPositionalAudio" position={[113,7,0]} visible={false}>
             <boxBufferGeometry args={[1,1,1]} />
             <meshBasicMaterial color='green' wireframe={true} />

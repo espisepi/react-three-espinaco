@@ -63,7 +63,7 @@ function Triggers({changeEnvironment, visible=true}){
     );
 }
 
-export function ScenePrincipal() {
+export function ScenePrincipal({visible}) {
 
     const snapState = useProxy(state);
     const [current, setCurrent] = useState();
@@ -75,13 +75,14 @@ export function ScenePrincipal() {
             state.triggers.trigger0 = false;
         }
     });
+
     useEffect(()=>{
         if(snapState.triggers.trigger0){
             setCurrent(<Scene06 />);
         }else{
-            setCurrent(<Scene04 />);
+            setCurrent(<Scene04 visible={visible} />);
         }
-    },[snapState.triggers.trigger0]);
+    },[snapState.triggers.trigger0, visible]);
 
     return(
         <>
@@ -100,41 +101,24 @@ export function ScenePrincipal() {
     );
 }
 
-export default function AppDirty(props) {
-
-    const snapAction = useProxy(ActionState);
-
-    const divAction = useRef();
-    useEffect(()=>{
-        if(snapAction.current && divAction.current){
-            // enable div
-            divAction.current.style.display = 'block';
-            // attach snapAction.current to pointerdown event in the div
-            const action = snapAction.current;
-            divAction.current.addEventListener('pointerdown', (e) => action());
-            // add name to div
-            divAction.current.innerHTML = `${snapAction.name}`;
-        }else{
-            // disable div
-            if(divAction.current){
-                divAction.current.style.display = 'none';
-            }
-        }
-    },[snapAction.current]);
+export default function AppDirty() {
 
     // const changeScene = useCallback(()=>{
     //     state.index++;        
     // },[]);
 
+    const [visiblePhysics, setVisiblePhysics] = useState(false)
+
     return (
     <>
     <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh' }}>
         {/* <Stats /> */}
-        <ScenePrincipal />
+        <ScenePrincipal visible={visiblePhysics} />
     </Canvas>
     <Joystick />
     <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
-    <div name='divAction' ref={divAction} style={{position:'absolute', top: '50px', width:'50px', height:'50px', backgroundColor:'red', zIndex:10000, cursor:'pointer'}} />
+    <div onClick={ () => setVisiblePhysics(!visiblePhysics) } style={{ position:'absolute', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , WebkitFilter:'invert(100%)', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:0.6 }}></div>
+    
     {/* <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
     );
