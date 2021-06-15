@@ -6,15 +6,33 @@ export default function TweenAnimations({ setEnabled }) {
 
     const { camera } = useThree()
 
-    const animations = useMemo( () => ( [ tween1(camera, setEnabled), tween2(camera, setEnabled) ].reverse() ), [] )
-    const numAnimaciones = useMemo( () => ( 2 ) )
+    const [ animations ] = useState( [ tween1(camera, setEnabled), tween2(camera, setEnabled) ].reverse() )
     
+    const [ numAnimaciones ] = useState(2)
+
     let video;
+    useEffect( ()=>{
+        return () => {
+            // stop all animations when unmount component
+            TWEEN.removeAll()
+        }
+    }, [video])
+
     const checkTweenAnimation = useCallback(()=>{
         if (!video) {
             video = document.getElementsByTagName('video')[0]
         }
         if (animations.length != 0 && video) {
+
+            // show message each second (each 60 frames)
+            // if(cont < 60) {
+            //     cont++
+            // } else {
+            //     cont = 0
+            //     console.log(video.currentTime);
+            //     console.log(animations.length);
+            // }
+
             if(video.currentTime > 3.0 && animations.length === numAnimaciones) {
                 (animations.pop())();
             }
@@ -22,7 +40,7 @@ export default function TweenAnimations({ setEnabled }) {
                 (animations.pop())();
             }
         }
-    })
+    },[ animations ])
 
     useFrame(()=>{
         TWEEN.update()
@@ -88,6 +106,7 @@ function tween1(camera, setEnabled) {
 
         tween1.chain(tween2);
         tween1.start();
+
     }
 }
 

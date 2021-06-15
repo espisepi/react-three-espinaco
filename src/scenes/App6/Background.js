@@ -38,6 +38,7 @@ export default function BackgroundVideo({ url = 'assets/musica/070Shake.mp4', mu
 
 		// Remove sound when user out of scene page
 		return () => {
+			document.body.removeChild(videoDom)
 			videoDom.removeAttribute('src'); // empty source
 			videoDom.load();
 		} 
