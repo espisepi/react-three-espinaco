@@ -9,7 +9,7 @@ import { enterSound, selectionSound, playAudio } from '../audios/index';
 const projects = [
       {
         name: 'app36',
-        img: '/assets/img/home/videopoints.png'
+        img: '/assets/img/home/videopoints2.png'
       },
       {
         name: 'app36?url=assets/musica/gotham.mp4&scene=1',
@@ -35,10 +35,10 @@ const projects = [
         name: 'app14',
         img: '/assets/img/home/elane.png'
       },
-      {
-        name: 'app39',
-        img: '/assets/img/home/naughty.png'
-      },
+      // {
+      //   name: 'app39',
+      //   img: '/assets/img/home/naughty.png'
+      // },
       {
         name: 'app46',
         img: '/assets/img/home/mcpi.png'
