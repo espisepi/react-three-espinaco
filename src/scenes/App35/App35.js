@@ -30,6 +30,8 @@ import { ActionState } from './State';
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import { AudioComponents } from './MediaPointsShader';
 
+import FullScreen from '../../drei-espinaco/Fullscreen';
+
 
 const state = proxy({index: 0, triggers:{trigger0:false}});
 
@@ -131,7 +133,7 @@ export default function AppDirty(props) {
         <ScenePrincipal />
     </Canvas>
     <Joystick />
-    <Fullscreen />
+    <FullScreen width='30px' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />
     <div name='divAction' ref={divAction} style={{position:'absolute', top: '50px', width:'50px', height:'50px', backgroundColor:'red', zIndex:10000, cursor:'pointer'}} />
     {/* <div onClick={changeScene} style={{ position:'absolute', width:'20px', height:'20px', bottom: 40, borderStyle: 'dashed', color: '#e60005', zIndex: 20 }}></div> */}
     </>
