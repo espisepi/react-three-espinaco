@@ -14,6 +14,9 @@ export default function Loading() {
     const { camera } = useThree()
     useEffect(()=>{
         camera.position.y += 2
+        return () => {
+            camera.position.y -= 2
+        }
     },[])
 
     return (
