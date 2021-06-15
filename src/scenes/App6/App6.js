@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback } fr
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import { OrbitControls, PointerLockControls, Stats } from 'drei';
 import * as THREE from 'three';
-import Loading from '../../components/Loading';
+import Loading from './Loading';
 import Background from './Background';
 import Ocean from '../../drei-espinaco/Ocean';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
