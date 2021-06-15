@@ -99,7 +99,7 @@ export function Scene({ url = 'assets/musica/gotham.mp4', enabled = false, muted
 
         <TweenAnimations setEnabled={setEnabledCopy} />
 
-        <OrbitControls enabled={enabledCopy} autoRotate={ enabledCopy ? autoRotate : false} autoRotateSpeed={1} maxPolarAngle={Math.PI / 2 - 0.005} maxDistance={2500} />
+        <OrbitControls enabled={enabledCopy} autoRotate={ enabledCopy ? autoRotate : false} rotateSpeed={0.5} enablePan={false} autoRotateSpeed={1} maxPolarAngle={Math.PI / 2 - 0.005} maxDistance={2500} />
         </>
     )
 }
