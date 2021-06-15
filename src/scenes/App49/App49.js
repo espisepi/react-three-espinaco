@@ -25,7 +25,7 @@ import Contact from './components/Contact';
 import ScrollAnimations from './animations/ScrollAnimations';
 
 import BlackPlane from './components/BlackPlane';
-import FullScreen from './components/FullScreen';
+import FullScreen from '../../drei-espinaco/Fullscreen';
 
 function PostProcessing(){
     return(
@@ -62,7 +62,7 @@ export function Scene() {
             <group name="groupPrincipal">
                 <TitleText />
                 <GridFloor />
-                <FullScreen position={[0,2.5,0]} scale={[10,2,1]}/>
+                {/* <FullScreen position={[0,2.5,0]} scale={[10,2,1]}/> Easter Egg FullScreen */}
             </group>
             <group name="floor" position={[0,0,0.01]}>
                 <GridFloor />
@@ -95,7 +95,7 @@ export default function App49(props) {
         <Scene />
     </Canvas>
     <SectionsHtml />
-    {/* <Joystick /> */}
+    <FullScreen width='30px' position='fixed' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />  
     </div>
     </>
     );
