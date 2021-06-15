@@ -14,58 +14,61 @@ import Hamburger from 'hamburger-react';
 
 import { HexColorPicker } from "react-colorful";
 
+// Scenes
+import * as App6 from '../App6/App6';
+
 // https://threejs.live/#/webgl_decals
-function Model(){
+// function Model(){
 
-    const { scene, camera } = useThree();
-    useEffect(()=>{
-        camera.position.z = 10;
-    });
-    const gltf = useGLTF('assets/obj/LeePerrySmith/LeePerrySmith.glb');
-    const [map,specularMap,normalMap, displacementMap] = useLoader(THREE.TextureLoader, ['assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'])
+//     const { scene, camera } = useThree();
+//     useEffect(()=>{
+//         camera.position.z = 10;
+//     });
+//     const gltf = useGLTF('assets/obj/LeePerrySmith/LeePerrySmith.glb');
+//     const [map,specularMap,normalMap, displacementMap] = useLoader(THREE.TextureLoader, ['assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Map-COL.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg','assets/obj/LeePerrySmith/Infinite-Level_02_Disp_NoSmoothUV-4096.jpg'])
 
-    const decalMap = useLoader(THREE.TextureLoader, 'assets/img/highkili.png');
+//     const decalMap = useLoader(THREE.TextureLoader, 'assets/img/highkili.png');
 
-    // TODO: Hacer el dispose de los elementos
-    useEffect(()=>{
-        const mesh = gltf.scene.children[0];
-        // mesh.scale.set(10,10,10);
-        mesh.material = new THREE.MeshPhongMaterial( {
-            specular: 0x111111,
-            map: map,
-            specularMap: specularMap,
-            normalMap: normalMap,
-            shininess: 25,
-            bumpMap: displacementMap,
-            bumpScale: 12
-        } );
-        scene.add(mesh);
+//     // TODO: Hacer el dispose de los elementos
+//     useEffect(()=>{
+//         const mesh = gltf.scene.children[0];
+//         // mesh.scale.set(10,10,10);
+//         mesh.material = new THREE.MeshPhongMaterial( {
+//             specular: 0x111111,
+//             map: map,
+//             specularMap: specularMap,
+//             normalMap: normalMap,
+//             shininess: 25,
+//             bumpMap: displacementMap,
+//             bumpScale: 12
+//         } );
+//         scene.add(mesh);
 
-        const decalMaterial = new THREE.MeshPhongMaterial({
-            specular: 0x444444,
-            map: decalMap,
-            shininess: 30,
-            transparent: true,
-            depthTest: true,
-            depthWrite: false,
-            polygonOffset: true,
-            polygonOffsetFactor: - 4,
-            wireframe: false
-        });
-        const position = new THREE.Vector3(0,0,-1);
-        const rotation = new THREE.Euler(0,0,0);
-        const scale = new THREE.Vector3(5,5,5);
-        const decal = new THREE.Mesh( new DecalGeometry( mesh, position, rotation, scale ), decalMaterial );
-        scene.add(decal);
-    },[]);
+//         const decalMaterial = new THREE.MeshPhongMaterial({
+//             specular: 0x444444,
+//             map: decalMap,
+//             shininess: 30,
+//             transparent: true,
+//             depthTest: true,
+//             depthWrite: false,
+//             polygonOffset: true,
+//             polygonOffsetFactor: - 4,
+//             wireframe: false
+//         });
+//         const position = new THREE.Vector3(0,0,-1);
+//         const rotation = new THREE.Euler(0,0,0);
+//         const scale = new THREE.Vector3(5,5,5);
+//         const decal = new THREE.Mesh( new DecalGeometry( mesh, position, rotation, scale ), decalMaterial );
+//         scene.add(decal);
+//     },[]);
 
-    useEffect(()=>{
+//     useEffect(()=>{
        
-    });
+//     });
 
-    return null;
+//     return null;
 
-}
+// }
 
 export function Scene({link, webcam, muted, autoRotate, colorInput}) {
 
@@ -203,10 +206,10 @@ export function RunApp36(props) {
 
     return (
     <>
-    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh'}}>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute', width:'100%', height:'100vh'}} camera={{far:20000}}>
         <Suspense fallback={<Loading />}>
             {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} colorInput={colorInput} /> : null}
-            {sceneIndex === 1 ? <Scene1 link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
+            {sceneIndex === 1 ? <App6.Scene url={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
         </Suspense>
     </Canvas>
 

@@ -78,8 +78,34 @@ function AssetGltf({ url, speed = 1 }) {
     );
 }
 
+export function Scene({ url = 'assets/musica/gotham.mp4', enabled = false, muted = true, autoRotate = true }) {
 
-export default function App6(props) {
+    const [enabledCopy, setEnabledCopy] = useState(enabled)
+
+    return (
+        <>
+        <directionalLight args={[ 0xffffff, 0.54 ]} castShadow={true} shadow-mapSize={new THREE.Vector2( 1024, 1024 )} />
+        <hemisphereLight args={[0xffffff, 0xffffff, 0.61]} />
+
+        <Background url={url} muted={muted} />
+
+        <group rotation={[0,-Math.PI/2,0]}>
+            <Ocean geometry={new THREE.BoxBufferGeometry( 10000, 10000, 10000 )} position={[0,5000,0]} rotation={[0,Math.PI/2,0]} />
+        </group>
+
+        <Suspense fallback={<Loading />}>
+            <AssetGltf url="assets/obj/Horse.glb" />
+        </Suspense>
+
+        <TweenAnimations setEnabled={setEnabledCopy} />
+
+        <OrbitControls enabled={enabledCopy} autoRotate={ enabledCopy ? autoRotate : false} autoRotateSpeed={1} maxPolarAngle={Math.PI / 2 - 0.005} maxDistance={2500} />
+        </>
+    )
+}
+
+
+export default function App6() {
 
     const [visible, setVisible] = useState(false);
     const changeVisible = useCallback(()=>{

@@ -46,9 +46,9 @@ function tween1(camera, setEnabled) {
         setEnabled(false)
 
         let from = {
-            x: camera.position.x,
-            y: camera.position.y,
-            z: camera.position.z
+            x: 52.74,
+            y: 52.74,
+            z: 175.80
         };
 
         let to = {
