@@ -108,7 +108,7 @@ export function Scene({link, webcam, muted, autoRotate, colorInput}) {
     );
 }
 
-export function RunApp36(props) {
+export function RunApp36() {
 
     const [placeholder, setPlaceholder] = useState('https://www.youtube.com/watch?v=SYM-RJwSGQ8%26ab_channel=ToveLoVEVO');
 
