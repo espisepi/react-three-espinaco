@@ -12,8 +12,8 @@ const links = [
         img:'assets/obj/minerales/3.jpg'
     },
     {
-        name:'Elane - Niente',
-        link:'assets/musica/elane-low.mp4',
+        name:'Lady XO - Deja Vu',
+        link:'https://www.youtube.com/watch?v=1XJ4mA0giZM&ab_channel=LadyXOLadyXO',
         img:'assets/obj/minerales/3.jpg'
     },
     {
@@ -50,6 +50,11 @@ const links = [
         name:'Tokischa - Twerk ft. Eladio Carrion',
         link:'https://www.youtube.com/watch?v=VAQZ3ZHr22E',
         img:'assets/obj/minerales/3.jpg'  
+    },
+    {
+        name:'Elane - Niente',
+        link:'assets/musica/elane-low.mp4',
+        img:'assets/obj/minerales/3.jpg'
     },
     {
         name:'HIGHKILI - IMTHEMAN RMX',
