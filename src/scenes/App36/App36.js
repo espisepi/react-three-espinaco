@@ -16,6 +16,7 @@ import { HexColorPicker } from "react-colorful";
 
 // Scenes
 import * as App6 from '../App6/App6';
+import * as App14 from '../App14/App14';
 
 // https://threejs.live/#/webgl_decals
 // function Model(){
@@ -178,7 +179,7 @@ export function RunApp36() {
     const sceneIndexParam = urlParams.get('scene') ? parseInt(urlParams.get('scene')) : 0;
     const [sceneIndex, setSceneIndex] = useState(sceneIndexParam);
     const changeSceneIndex = useCallback(()=>{
-        setSceneIndex( (sceneIndex + 1) % 2 );
+        setSceneIndex( (sceneIndex + 1) % 3 );
     });
 
     const [showPanel, setShowPanel] = useState(false);
@@ -218,6 +219,7 @@ export function RunApp36() {
         <Suspense fallback={<Loading />}>
             {sceneIndex === 0 ? <Scene link={link} webcam={webcam} muted={muted} autoRotate={autoRotate} colorInput={colorInput} /> : null}
             {sceneIndex === 1 ? <App6.Scene url={link} webcam={webcam} muted={muted} autoRotate={autoRotate} /> : null}
+            {sceneIndex === 2 ? <App14.Scene url={link} muted={muted} autoRotate={autoRotate} /> : null}
         </Suspense>
     </Canvas>
 
