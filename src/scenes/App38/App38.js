@@ -44,7 +44,7 @@ export function RunApp38(props) {
 
     return (
     <>
-    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}}>
+    <Canvas className="canvas" style={{backgroundColor:'#000000', position:'absolute'}} camera={{far:999999}}>
         <Stats />
         <ScenePrincipal />
         {/* <OrbitControls /> */}

@@ -13,8 +13,8 @@ export default function Scene01(){
         <group position={[0,-20,0]} scale={[20,20,20]}>
         {/* <group> */}
         {/* <Pla /> */}
-        <CAAC />
-        {/* <Catedral position={[47.97,-34.65,-313.1]} /> */}
+        {/* <CAAC /> */}
+        <Catedral position={[47.97,-34.65,-313.1]} />
         {/* <MeshTransformControlsChildren>
             <Catedral position={[47.97,-32.65,-313.1]} />
         </MeshTransformControlsChildren> */}
