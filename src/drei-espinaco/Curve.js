@@ -32,13 +32,14 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
     const group = useRef(null);
     const curvePosition = new THREE.Vector3();
     const curveTarget = new THREE.Vector3();
+
     useFrame(({clock, camera})=>{
 
        if(group){
         const time = getTimeWithElapsedTime(clock.elapsedTime); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
 
         /* curvePosition and curveTarget were modified by the curve object*/
-        if(top != undefined){
+        if(top !== undefined){
             curve.getPoint(top, curvePosition);
             curve.getPointAt(top, curveTarget);
         } else {
