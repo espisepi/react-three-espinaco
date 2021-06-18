@@ -81,7 +81,7 @@ export function Scene() {
             </group>
         </Suspense>
         <ScrollAnimations />
-        <PostProcessing />
+        {/* <PostProcessing /> */}
         </>
     );
 }
