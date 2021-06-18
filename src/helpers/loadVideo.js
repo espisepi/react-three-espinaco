@@ -7,6 +7,7 @@ export default function loadVideo(url) {
         const video = document.createElement("video");
         video.autoplay = true;
         video.muted = true;
+        video.playsInline = true;
         // video.load();
         if(url && url.includes(filterYoutubeLink)){
             const src = herokuapp + url;

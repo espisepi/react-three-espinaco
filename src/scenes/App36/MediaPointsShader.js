@@ -26,24 +26,70 @@ export const AudioComponents = ({audioSrc='assets/musica/070shake.mp4',videoSrc=
     }
 
     const [audio, setAudio] = useState(null);
-    const audioBuffer = useLoader(THREE.AudioLoader, audioSrc);
     useEffect(()=>{
+    
+        const audioElement = new Audio(audioSrc);
+        audioElement.crossOrigin = 'Anonymous';
+        audioElement.loop = true;
+        audioElement.preload = 'auto';
+        audioElement.style.display = 'none';
+
+        const divPanel = document.createElement('div');
+        divPanel.style.position = 'absolute';
+        divPanel.style.zIndex = '99999';
+        divPanel.style.width = '100%';
+        divPanel.style.height = '100vh';
+        divPanel.style.backgroundColor = '#101010';
+        divPanel.addEventListener('click', (e) => {
+            audioElement.play()
+            divPanel.style.zIndex = '-9999';
+            divPanel.style.display = 'none'
+        })
+        document.getElementById('root').appendChild(divPanel);
+
+        divPanel.style.display = 'flex';
+        divPanel.style.alignItems = 'center';
+        divPanel.style.justifyContent = 'center';
+        divPanel.style.color = 'white';
+        const textPanel = document.createElement('h1');
+        textPanel.innerHTML = 'Click On Screen to Start'
+        divPanel.appendChild(textPanel)
+
         let audioTemp;
-        if(audioBuffer){
-            const audioListener = new THREE.AudioListener();
-            audioTemp = new THREE.Audio(audioListener);
-            audioTemp.setBuffer(audioBuffer);
-            audioTemp.setLoop(true);
-            audioTemp.setVolume(0.5);
-            audioTemp.play();
-            setAudio(audioTemp);
-        }
-        return ()=> {
+        const audioListener = new THREE.AudioListener();
+        audioTemp = new THREE.Audio(audioListener)
+        audioTemp.setMediaElementSource( audioElement );
+        audioTemp.setLoop(true);
+        audioTemp.setVolume(0.5);
+        audioTemp.play();
+        setAudio(audioTemp);
+
+        return () => {
+            audioElement.pause();
+
             audioTemp.stop();
             audioTemp.setBuffer(null);
             setAudio(audioTemp);
         }
-    },[audioBuffer]);
+    }, [audioSrc])
+    // const audioBuffer = useLoader(THREE.AudioLoader, audioSrc);
+    // useEffect(()=>{
+    //     let audioTemp;
+    //     if(audioBuffer){
+    //         const audioListener = new THREE.AudioListener();
+    //         audioTemp = new THREE.Audio(audioListener);
+    //         audioTemp.setBuffer(audioBuffer);
+    //         audioTemp.setLoop(true);
+    //         audioTemp.setVolume(0.5);
+    //         audioTemp.play();
+    //         setAudio(audioTemp);
+    //     }
+    //     return ()=> {
+    //         audioTemp.stop();
+    //         audioTemp.setBuffer(null);
+    //         setAudio(audioTemp);
+    //     }
+    // },[audioBuffer]);
 
     useEffect(()=>{
         if(audio){
@@ -368,6 +414,7 @@ function initVideo(url) {
             const video = document.createElement("video");
             video.autoplay = true;
             video.muted = true;
+            video.playsInline = true;
     
             if(url && url.includes(filterYoutubeLink)){
                 const src = herokuapp + url;
