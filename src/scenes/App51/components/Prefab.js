@@ -24,7 +24,7 @@ export function Helicopter(props) {
     return (
     <group {...props} >
         <primitive ref={ref} object={nodes.RootNode} rotation={[0,Math.PI/2,0]} >
-            {/* <PositionalAudio url='assets/obj/helicopter/sound/helicopter.mp3' /> */}
+            <PositionalAudio url='assets/obj/helicopter/sound/helicopter.mp3' />
         </primitive>
     </group>
     );
