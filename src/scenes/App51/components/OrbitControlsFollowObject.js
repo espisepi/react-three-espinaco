@@ -59,16 +59,22 @@ export default function OrbitControlsFollowObject({nameFollowObject, nameLookAtO
             orbitControl.current.target = newPosition;
 
             if (newPosition.x !== prevPosition.x || newPosition.y !== prevPosition.y || newPosition.z !== prevPosition.z) {
-                // Se ha movido el objeto target al que se esta mirando
+                // follow object is moving so we move camera according the follow object yatusabe
 
                 const deltaX = newPosition.x - prevPosition.x;
                 const deltaY = newPosition.y - prevPosition.y;
                 const deltaZ = newPosition.z - prevPosition.z;
-                
-                const camera = orbitControl.current.object;
-                camera.position.x += deltaX;
-                camera.position.y += deltaY;
-                camera.position.z += deltaZ;
+
+                // Fix bug when resize window
+                const deltaMax = 10.0;
+                if ( deltaX > deltaMax || deltaY > deltaMax || deltaZ > deltaMax ) {
+                    console.log('resize happened, this value not make sense')
+                } else {
+                    const camera = orbitControl.current.object;
+                    camera.position.x += deltaX;
+                    camera.position.y += deltaY;
+                    camera.position.z += deltaZ;
+                }
 
                 prevPosition = newPosition.clone() // Important
 
