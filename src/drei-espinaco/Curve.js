@@ -1,3 +1,4 @@
+// https://baronwatts.com/exporting-a-curve-from-blender-to-three-js/
 import React, {useRef, useMemo} from 'react';
 import * as THREE from 'three';
 import { useFrame } from 'react-three-fiber';
@@ -15,6 +16,7 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
     /* Create a curve */
     const line = useRef(null);
     const { curve, geometry, material } = useMemo(()=>{
+
         const pointsProcessed = points.map( p => new THREE.Vector3( p[0], p[1], p[2] ) );
         const curve = new THREE.CatmullRomCurve3( [
             ...pointsProcessed
@@ -23,8 +25,9 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
         const pointsCurve = curve.getPoints( 200 );
         const geometry = new THREE.BufferGeometry().setFromPoints( pointsCurve );
         const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+
         return { curve, geometry, material };
-    }, []);
+    }, [points]);
 
     // console.log(top)
 
@@ -33,7 +36,7 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
     const curvePosition = new THREE.Vector3();
     const curveTarget = new THREE.Vector3();
 
-    useFrame(({clock, camera})=>{
+    useFrame( ({clock}) => {
 
        if(group){
         const time = getTimeWithElapsedTime(clock.elapsedTime); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
@@ -60,11 +63,9 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
         return Math.abs( Math.sin( elapsedTime * 0.2 ) );
     }
 
-
-
     return (
         <>
-        <group ref={group}>
+        <group name={`groupCurve_${children.props.name ? children.props.name : 'undefinedName'}`} ref={group}>
             {children}
         </group>
 
