@@ -4,7 +4,7 @@ import { OrbitControls } from 'drei'
 import * as THREE from 'three'
 
 // nameTarget : String
-export default function OrbitControlsFollowObject({nameFollowObject, nameLookAtObject}) {
+export default function OrbitControlsFollowObject({nameFollowObject, nameLookAtObject, ...props}) {
 
     const { scene } = useThree();
 
@@ -87,5 +87,5 @@ export default function OrbitControlsFollowObject({nameFollowObject, nameLookAtO
         }
     })
 
-    return <OrbitControls ref={orbitControl} />
+    return <OrbitControls ref={orbitControl} {...props} />
 }
