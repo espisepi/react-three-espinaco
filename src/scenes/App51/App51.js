@@ -5,7 +5,7 @@ import ScrollAnimations from './animations/ScrollAnimations';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
-import Catedral from './components/Catedral'
+import { Catedral } from './components/Prefab'
 
 import OrbitControlsFollowObject from './components/OrbitControlsFollowObject';
 
@@ -28,23 +28,16 @@ export function Scene() {
         <ambientLight />
         <pointLight position={[0,-3,5]}  />
         <Stars radius={200} />
+
         <Suspense fallback={null}>
-            <group name="cubeWireframe" position={[0,0,8]}>
-                <mesh>
-                    <boxBufferGeometry args={[1,1,1]} />
-                    <meshBasicMaterial wireframe={true} />
-                </mesh>
-            </group>
-            <group name="cubeWireframe" position={[0,0,-8]}>
-                <mesh>
-                    <boxBufferGeometry args={[1,1,1]} />
-                    <meshBasicMaterial wireframe={true} color='green' />
-                </mesh>
-            </group>
             <Catedral />
         </Suspense>
-        <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' nameLookAtObject={null} />
-        <ScrollAnimations />
+
+        <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' nameLookAtObject={null} enablePan={false} enableZoom={true} />
+        
+        <Suspense fallback={null}>
+            <ScrollAnimations />
+        </Suspense>
         </>
     );
 }
