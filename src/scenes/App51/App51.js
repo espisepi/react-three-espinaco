@@ -1,21 +1,6 @@
-import React, { Suspense, useEffect, useRef, useState, useMemo } from 'react';
-import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from 'react-three-fiber';
-import { OrbitControls, Stars } from 'drei';
-
-
-import Joystick from '../../drei-espinaco/Joystick';
-import { Physics } from 'use-cannon';
-import Player from '../../the-gallery/components/Player/Player';
-import GroundPhysic from '../../the-gallery/components/Ground/GroundPhysic';
-
-import Ocean from '../../drei-espinaco/Ocean';
-
-import { gsap, Linear } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-import { EffectComposer, Bloom, Glitch } from "@react-three/postprocessing";
-
+import React, { Suspense } from 'react';
+import { Canvas } from 'react-three-fiber';
+import { Stars } from 'drei';
 import ScrollAnimations from './animations/ScrollAnimations';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
@@ -58,7 +43,7 @@ export function Scene() {
             </group>
             <Catedral />
         </Suspense>
-        <OrbitControlsFollowTarget targetName='groupCurve_boxCurve' />
+        <OrbitControlsFollowTarget nameTarget='groupCurve_boxCurve' />
         <ScrollAnimations />
         </>
     );

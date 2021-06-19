@@ -7,22 +7,27 @@ import * as THREE from 'three'
 export default function OrbitControlsFollowTarget({nameTarget}) {
 
     const { scene } = useThree();
-    const [boxCurve, setBoxCurve] = useState(null)
+    const [followObject, setFollowObject] = useState(null)
     useEffect(()=>{
-        if(!boxCurve) {
-            const mesh = scene.getObjectByName('groupCurve_boxCurve');
+
+        if(!followObject) {
+            const mesh = scene.getObjectByName(nameTarget);
             if(mesh) {
-                setBoxCurve(mesh);
+                setFollowObject(mesh);
+                console.log('Follow Object Finded correctly!')
+            } else {
+                console.log('Follow Object not finded')
             }
         }
-    },[scene.children.length]);
+        
+    },[followObject, nameTarget, scene]);
 
     const orbitControl = useRef();
     let newPosition = new THREE.Vector3(0,0,0)
     let prevPosition = new THREE.Vector3(newPosition.x,newPosition.y,newPosition.z)
     useFrame(()=>{
-        if (orbitControl.current) {
-            newPosition = boxCurve.position.clone();
+        if (orbitControl.current && followObject) {
+            newPosition = followObject.position.clone();
             orbitControl.current.target = newPosition;
 
             if (newPosition.x !== prevPosition.x || newPosition.y !== prevPosition.y || newPosition.z !== prevPosition.z) {
