@@ -50,6 +50,7 @@ import App48 from './scenes/App48/App48';
 import App49 from './scenes/App49/App49';
 import App50 from './scenes/App50/App50';
 import App51 from './scenes/App51/App51';
+import App52 from './scenes/App52/App52';
 import AppDirty from './scenes/AppDirty/AppDirty';
 
 export {
@@ -105,6 +106,7 @@ export {
     App49,
     App50,
     App51,
+    App52,
     AppDirty
 }
 
