@@ -43,7 +43,7 @@ export function Scene() {
             </group>
             <Catedral />
         </Suspense>
-        <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' />
+        <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' nameLookAtObject={null} />
         <ScrollAnimations />
         </>
     );
