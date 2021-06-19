@@ -41,7 +41,7 @@ export default function BoxCurveAnimation({gsap, visibleLine = false, visible = 
     }, [])
 
    return (
-    <Curve points={pointsDefault} top={top} visibleLine={visibleLine} visible={visible}>
+    <Curve points={pointsDefault} /* top={top} */  visibleLine={visibleLine} visible={visible} velocity={0.1}>
         <Box name='boxCurve' scale={[5,5,5]} material-color='green' />
     </Curve>
    );

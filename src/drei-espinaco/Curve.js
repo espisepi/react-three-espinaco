@@ -11,7 +11,7 @@ import { useFrame } from 'react-three-fiber';
     [  5, -5, 5 ],
     [ 10,  0, 10 ]
 ];
-export default function Curve({points = pointsDefault, visibleLine = false, visible, top, children }) {
+export default function Curve({points = pointsDefault, visibleLine = false, visible, top, velocity, children }) {
 
     /* Create a curve */
     const line = useRef(null);
@@ -39,13 +39,14 @@ export default function Curve({points = pointsDefault, visibleLine = false, visi
     useFrame( ({clock}) => {
 
        if(group){
-        const time = getTimeWithElapsedTime(clock.elapsedTime); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
+        const time = getTimeWithElapsedTime(clock.elapsedTime, velocity); // [-1,1] to |[-1,1]| (Absolute value) -> [0,1]
 
         /* curvePosition and curveTarget were modified by the curve object*/
         if(top !== undefined){
             curve.getPoint(top, curvePosition);
             curve.getPointAt(top, curveTarget);
         } else {
+            // console.log(`time: ${time}`)
             curve.getPoint(time, curvePosition);
             curve.getPointAt(time, curveTarget);
         }
@@ -59,8 +60,8 @@ export default function Curve({points = pointsDefault, visibleLine = false, visi
        } 
     });
 
-    function getTimeWithElapsedTime(elapsedTime) {
-        return Math.abs( Math.sin( elapsedTime * 0.2 ) );
+    function getTimeWithElapsedTime(elapsedTime, velocity = 1) {
+        return Math.abs( Math.sin( elapsedTime * velocity * 0.05 ) );
     }
 
     return (
