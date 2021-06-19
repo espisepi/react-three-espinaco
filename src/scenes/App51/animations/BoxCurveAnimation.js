@@ -6,7 +6,7 @@ import { Linear } from 'gsap';
 import Curve from '../../../drei-espinaco/Curve';
 
 
-export default function CameraAnimation({gsap}){
+export default function BoxCurveAnimation({gsap, visibleLine = false, visible = false}){
 
     /* ------------------ Get Object3D that we use to animate ---------- */
     const { camera } = useThree();
@@ -41,8 +41,8 @@ export default function CameraAnimation({gsap}){
     }, [])
 
    return (
-    <Curve points={pointsDefault} top={top} draw={true}>
-        <Box name='boxCurve' scale={[5,5,5]} material-color='green' visible={false} />
+    <Curve points={pointsDefault} top={top} visibleLine={visibleLine} visible={visible}>
+        <Box name='boxCurve' scale={[5,5,5]} material-color='green' />
     </Curve>
    );
 }

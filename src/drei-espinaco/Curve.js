@@ -11,7 +11,7 @@ import { useFrame } from 'react-three-fiber';
     [  5, -5, 5 ],
     [ 10,  0, 10 ]
 ];
-export default function Curve({points = pointsDefault, draw = false, top, children }) {
+export default function Curve({points = pointsDefault, visibleLine = false, visible, top, children }) {
 
     /* Create a curve */
     const line = useRef(null);
@@ -65,12 +65,12 @@ export default function Curve({points = pointsDefault, draw = false, top, childr
 
     return (
         <>
-        <group name={`groupCurve_${children.props.name ? children.props.name : 'undefinedName'}`} ref={group}>
+        <group name={`groupCurve_${children.props.name ? children.props.name : 'undefinedName'}`} ref={group} visible={visible}>
             {children}
         </group>
 
         {/* Drawing the curve in scene */}
-        { draw ? 
+        { visibleLine ? 
             (
                 <line ref={line}
                     geometry={geometry}
