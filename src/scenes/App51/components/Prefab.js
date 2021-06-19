@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useGLTF, useAnimations } from 'drei'
+import { useGLTF, useAnimations, PositionalAudio } from 'drei'
 
 export function Catedral(props) {
     const {nodes} = useGLTF('assets/obj/googleEarth/catedral/untitled.glb');
@@ -23,7 +23,9 @@ export function Helicopter(props) {
 
     return (
     <group {...props} >
-        <primitive ref={ref} object={nodes.RootNode} rotation={[0,Math.PI/2,0]} />
+        <primitive ref={ref} object={nodes.RootNode} rotation={[0,Math.PI/2,0]} >
+            <PositionalAudio url='assets/obj/helicopter/sound/helicopter.mp3' />
+        </primitive>
     </group>
     );
 }
