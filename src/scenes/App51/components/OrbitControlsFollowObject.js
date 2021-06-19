@@ -4,14 +4,14 @@ import { OrbitControls } from 'drei'
 import * as THREE from 'three'
 
 // nameTarget : String
-export default function OrbitControlsFollowTarget({nameTarget}) {
+export default function OrbitControlsFollowObject({nameFollowObject}) {
 
     const { scene } = useThree();
     const [followObject, setFollowObject] = useState(null)
     useEffect(()=>{
 
         if(!followObject) {
-            const mesh = scene.getObjectByName(nameTarget);
+            const mesh = scene.getObjectByName(nameFollowObject);
             if(mesh) {
                 setFollowObject(mesh);
                 console.log('Follow Object Finded correctly!')
@@ -19,8 +19,8 @@ export default function OrbitControlsFollowTarget({nameTarget}) {
                 console.log('Follow Object not finded')
             }
         }
-        
-    },[followObject, nameTarget, scene]);
+
+    },[followObject, nameFollowObject, scene]);
 
     const orbitControl = useRef();
     let newPosition = new THREE.Vector3(0,0,0)

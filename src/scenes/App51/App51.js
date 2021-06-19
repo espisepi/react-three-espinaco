@@ -7,7 +7,7 @@ import FullScreen from '../../drei-espinaco/Fullscreen';
 
 import Catedral from './components/Catedral'
 
-import OrbitControlsFollowTarget from './components/OrbitControlsFollowTarget';
+import OrbitControlsFollowObject from './components/OrbitControlsFollowObject';
 
 export function Scene() {
     
@@ -43,7 +43,7 @@ export function Scene() {
             </group>
             <Catedral />
         </Suspense>
-        <OrbitControlsFollowTarget nameTarget='groupCurve_boxCurve' />
+        <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' />
         <ScrollAnimations />
         </>
     );
