@@ -7,7 +7,7 @@ import FullScreen from '../../drei-espinaco/Fullscreen';
 
 import { Catedral } from './components/Prefab'
 
-import OrbitControlsFollowObject from './components/OrbitControlsFollowObject';
+import OrbitControlsFollowObject from '../../drei-espinaco/OrbitControlsFollowObject';
 
 export function Scene() {
     
