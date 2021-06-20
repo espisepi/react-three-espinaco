@@ -4,7 +4,7 @@ import { useSphere } from 'use-cannon';
 import { useThree, useFrame } from 'react-three-fiber';
 import usePlayerControls from './usePlayerControls'
 
-const Player = ({position=[-11, 5, 33], rotation=[0,  0, 0], ...props}) => {
+const Player = ({position=[-11, 5, 33], rotation=[0,  0, 0], scale=5, ...props}) => {
   const { camera } = useThree()
   const { 
     forward, 
@@ -19,7 +19,7 @@ const Player = ({position=[-11, 5, 33], rotation=[0,  0, 0], ...props}) => {
     type: "Dynamic", 
     position: position,
     rotation: rotation,
-    args: 5,
+    args: scale,
      ...props
   }))
 
