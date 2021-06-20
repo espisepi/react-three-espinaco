@@ -8,7 +8,7 @@ import OrbitControlsFollowObject from '../../../drei-espinaco/OrbitControlsFollo
 import Player from '../../../drei-espinaco/physics/Player';
 import { GroundPhysic } from '../../../drei-espinaco/physics/PrefabPhysics';
 
-export default function ControlsManager({mode=0}) {
+export default function ControlsManager({ mode = 0, autoRotate = false  }) {
 
     const { camera } = useThree()
     useEffect(()=>{
@@ -21,7 +21,7 @@ export default function ControlsManager({mode=0}) {
     }, [mode])
 
     if( mode === 0 ) {
-        return <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' nameLookAtObject={null} enablePan={false} enableZoom={true} />;
+        return <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' nameLookAtObject={null} autoRotate={autoRotate} enablePan={false} enableZoom={true} />;
     } else if( mode === 1 ) {
         
         return (
@@ -31,7 +31,7 @@ export default function ControlsManager({mode=0}) {
             </Physics>
         );
     } else if( mode === 2 ) {
-        return <OrbitControls target={new Vector3(-60,0,60)}  />
+        return <OrbitControls target={new Vector3(-60,0,60)} autoRotate={autoRotate} autoRotateSpeed={0.5}  />
     } else {
         console.log('Any mode selected from ControlsManager')
         return null;

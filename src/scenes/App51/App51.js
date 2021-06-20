@@ -10,7 +10,7 @@ import { Catedral } from './components/Prefab';
 import ScrollAnimations from './animations/ScrollAnimations';
 import ControlsManager from './components/ControlsManager';
 
-export function Scene({mode}) {
+export function Scene({mode, autoRotate}) {
     
     // useEffect( () => {
 
@@ -43,7 +43,7 @@ export function Scene({mode}) {
             <ScrollAnimations />
         </Suspense>
 
-        <ControlsManager mode={mode} />
+        <ControlsManager mode={mode} autoRotate={autoRotate} />
 
         </>
     );
@@ -57,17 +57,25 @@ export default function App51(props) {
     const changeMode = useCallback(()=>{
         setMode( (mode + 1) % modesMax );
     },[mode]);
+
+    // autoRotate
+    const [autoRotate, setAutoRotate] = useState(false);
+    const changeAutoRotate = useCallback(()=>{
+        setAutoRotate(a => !a);
+    },[]);
+
     return (
     <>
     <div id='root_app' style={{overflow:'hidden'}}>
     <Canvas gl={{antialias: true}} onCreated={ ({gl}) => gl.toneMapping = 0 } className="canvas" style={{ backgroundColor:'#000', position:'fixed', width:'100%', height:'100vh', zIndex:'5'}} colorManagement>
         <ClickToStartPanel parentId='root_app'>
-            <Scene mode={mode}/>
+            <Scene mode={mode} autoRotate={autoRotate} />
         </ClickToStartPanel>
     </Canvas>
     {/* <SectionsHtml /> */}
     <div onClick={changeMode} style={{ position:'absolute', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
     { mode === 1 ? (<Joystick />) : null }
+    <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'absolute', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
     <FullScreen width='30px' position='fixed' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} opacity={1.0} />  
     </div>
     </>
