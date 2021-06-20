@@ -3,20 +3,18 @@ import React from 'react';
 import Curve from '../../../drei-espinaco/Curve';
 
 import { Helicopter } from '../components/Prefab';
-import useScroll from '../../../drei-espinaco/hooks/useScroll';
 
 
-export default function HelicopterCurveAnimation({ visibleLine = false, visible = false, pointsDefault }) {
-
-    const top = useScroll('.section-one', '.section-eight');
-
+export default function HelicopterCurveAnimation({top, visibleLine = false, visible = false, pointsDefault }) {
    return (
+
     <Curve points={pointsDefault} /* top={top} */  visibleLine={visibleLine} visible={true} velocity={0.1}>
         <group name='boxCurve'>
             {/* <Box name='boxCurve' scale={[5,5,5]} material-color='green' /> */}
             <Helicopter scale={[1,1,1]} />
         </group>
     </Curve>
+
    );
 }
 
