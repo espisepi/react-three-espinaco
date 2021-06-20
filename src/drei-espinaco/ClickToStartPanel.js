@@ -30,7 +30,7 @@ export default function ClickToStartPanel({parentId='root', title='Click On Scre
         const textPanel = document.createElement('h1');
         textPanel.innerHTML = title
         divPanel.appendChild(textPanel)
-    },[])
+    },[parentId, title])
     
     return click ? children : null;    
 }
