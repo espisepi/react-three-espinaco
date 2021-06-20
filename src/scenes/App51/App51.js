@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
 import { Canvas } from 'react-three-fiber';
-import { Stars } from 'drei';
+import { Stars, Sky } from 'drei';
 import ScrollAnimations from './animations/ScrollAnimations';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
 
-import { Catedral } from './components/Prefab'
+import { Catedral } from './components/Prefab';
 
 import OrbitControlsFollowObject from '../../drei-espinaco/OrbitControlsFollowObject';
+import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
 
 export function Scene() {
     
@@ -26,7 +27,14 @@ export function Scene() {
     return(
         <>
         <ambientLight />
-        <pointLight position={[0,-3,5]}  />
+        <pointLight position={[-20,-3,5]}  />
+        <Sky
+            distance={450000} // Camera distance (default=450000)
+            
+            inclination={0.65} // Sun elevation angle from 0 to 1 (default=0)
+            azimuth={0.50} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
+        />
+
         <Stars radius={200} />
 
         <Suspense fallback={null}>
@@ -44,13 +52,17 @@ export function Scene() {
 
 export default function App51(props) {
 
+
+
     return (
     <>
-    <div style={{overflow:'hidden'}}>
+    <div id='root_app' style={{overflow:'hidden'}}>
     <Canvas gl={{antialias: true}} onCreated={ ({gl}) => gl.toneMapping = 0 } className="canvas" style={{ backgroundColor:'#000', position:'fixed', width:'100%', height:'100vh', zIndex:'5'}} colorManagement>
-        <Scene />
+        <ClickToStartPanel parentId='root_app'>
+            <Scene />
+        </ClickToStartPanel>
     </Canvas>
-    <SectionsHtml />
+    {/* <SectionsHtml /> */}
     <FullScreen width='30px' position='fixed' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />  
     </div>
     </>
