@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
-import { Stars } from 'drei';
+import { Stars, Sky } from 'drei';
 import * as THREE from 'three';
 import Loading from '../../components/Loading';
 import Background from '../../drei-espinaco/Background';
@@ -57,6 +57,12 @@ export function Scene() {
         <ambientLight />
         <pointLight position={[0,-3,5]}  />
         <Stars radius={200} />
+        <Sky
+            distance={450000} // Camera distance (default=450000)
+            
+            inclination={0.65} // Sun elevation angle from 0 to 1 (default=0)
+            azimuth={0.50} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
+        />
 
         {/* <Background url='assets/musica/mc-pi-paranoia-prod-lasio.mp4' /> */}
 

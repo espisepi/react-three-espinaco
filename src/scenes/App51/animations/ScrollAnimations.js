@@ -3,13 +3,14 @@ import React from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import BoxCurveAnimation from './BoxCurveAnimation'
+import HelicopterCurveAnimation from './HelicopterCurveAnimation'
+import { pathTest } from '../paths'
 
 gsap.registerPlugin(ScrollTrigger);
 export default function ScrollAnimations(){
     return (
         <>
-        <BoxCurveAnimation gsap={gsap} />
+        <HelicopterCurveAnimation gsap={gsap} pointsDefault={pathTest} />
         </>
     );
 }
