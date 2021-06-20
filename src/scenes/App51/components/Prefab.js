@@ -18,7 +18,7 @@ function degToRad(degrees)
   return degrees * (Math.PI/180);
 }
 
-export function CatedralPhysics({visible = true}) {
+export function CatedralPhysics({visible = false}) {
     const objects = useMemo(()=>([
         {
             propsPhysics: [

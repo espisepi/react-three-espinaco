@@ -10,7 +10,7 @@ import { GroundPhysic } from '../../../drei-espinaco/physics/PrefabPhysics';
 
 import { CatedralPhysics } from '../components/Prefab';
 
-export default function ControlsManager({ mode = 0, autoRotate = false  }) {
+export default function ControlsManager({ mode = 0, autoRotate = false, physicsVisible  }) {
 
     const { camera } = useThree()
     useEffect(()=>{
@@ -28,7 +28,7 @@ export default function ControlsManager({ mode = 0, autoRotate = false  }) {
         
         return (
             <Physics gravity={[0, -100, 0]} >
-                <CatedralPhysics />
+                <CatedralPhysics visible={physicsVisible} />
                 <Player mass={200.0} height={4.0} position={[0,5,0]} rotation={[0,Math.PI/2,0]} scale={2} />
                 <GroundPhysic />
             </Physics>
