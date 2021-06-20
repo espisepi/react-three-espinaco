@@ -1,15 +1,16 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useCallback } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Stars, Sky } from 'drei';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
 import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
+import Joystick from '../../drei-espinaco/Joystick';
 
 import { Catedral } from './components/Prefab';
 import ScrollAnimations from './animations/ScrollAnimations';
 import ControlsManager from './components/ControlsManager';
 
-export function Scene() {
+export function Scene({mode}) {
     
     // useEffect( () => {
 
@@ -42,7 +43,7 @@ export function Scene() {
             <ScrollAnimations />
         </Suspense>
 
-        <ControlsManager />
+        <ControlsManager mode={mode} />
 
         </>
     );
@@ -50,18 +51,24 @@ export function Scene() {
 
 export default function App51(props) {
 
-
-
+    // mode of controls
+    const modesMax = 2;
+    const [mode, setMode] = useState(0)
+    const changeMode = useCallback(()=>{
+        setMode( (mode + 1) % modesMax );
+    },[mode]);
     return (
     <>
     <div id='root_app' style={{overflow:'hidden'}}>
     <Canvas gl={{antialias: true}} onCreated={ ({gl}) => gl.toneMapping = 0 } className="canvas" style={{ backgroundColor:'#000', position:'fixed', width:'100%', height:'100vh', zIndex:'5'}} colorManagement>
         <ClickToStartPanel parentId='root_app'>
-            <Scene />
+            <Scene mode={mode}/>
         </ClickToStartPanel>
     </Canvas>
     {/* <SectionsHtml /> */}
-    <FullScreen width='30px' position='fixed' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} WebkitFilter={'invert(100%)'} opacity={0.6} />  
+    <div onClick={changeMode} style={{ position:'absolute', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
+    { mode === 1 ? (<Joystick />) : null }
+    <FullScreen width='30px' position='fixed' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} opacity={1.0} />  
     </div>
     </>
     );
