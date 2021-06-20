@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useGLTF, useAnimations, PositionalAudio } from 'drei'
+
+import {InstancedPhysics} from '../../../drei-espinaco/instancedMesh/';
 
 export function Catedral(props) {
     const {nodes} = useGLTF('assets/obj/googleEarth/catedral/untitled.glb');
@@ -8,6 +10,28 @@ export function Catedral(props) {
         <primitive object={nodes.Scene} />
     </group>
     );
+}
+
+// Conver degrees to radians
+function degToRad(degrees)
+{
+  return degrees * (Math.PI/180);
+}
+
+export function CatedralPhysics({visible = true}) {
+    const objects = useMemo(()=>([
+        {
+            propsPhysics: [
+                {
+                    args:[130.17, 46.5, 109.84],
+                    position:[-59.10, 22.92, 81.93],
+                    rotation: [0,0.11,0]
+                }
+                
+            ]
+        }
+    ]));
+    return <InstancedPhysics objects={objects} visible={visible} />
 }
 
 export function Helicopter(props) {

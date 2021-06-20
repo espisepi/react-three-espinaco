@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { useSphere } from 'use-cannon';
 import { useThree, useFrame } from 'react-three-fiber';
 import usePlayerControls from './usePlayerControls'
 
-const Player = ({...props}) => {
+const Player = ({position=[-11, 5, 33], rotation=[0,  0, 0], ...props}) => {
   const { camera } = useThree()
   const { 
     forward, 
@@ -17,8 +17,8 @@ const Player = ({...props}) => {
   const [ref, api] = useSphere(() => ({ 
     mass: 1, 
     type: "Dynamic", 
-    position: [-11, 5, 33],
-    rotation: [0, 0, Math.PI / 2],
+    position: position,
+    rotation: rotation,
     args: 5,
      ...props
   }))
