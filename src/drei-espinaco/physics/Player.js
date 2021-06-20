@@ -4,14 +4,8 @@ import { useSphere } from 'use-cannon';
 import { useThree, useFrame } from 'react-three-fiber';
 import usePlayerControls from './usePlayerControls'
 
-const Player = ({ restoreCamera =true,  ...props}) => {
+const Player = ({...props}) => {
   const { camera } = useThree()
-  useEffect(()=>{
-      if(restoreCamera) {
-          camera.position.set(0,0,0)
-          camera.rotation.set(0,0,0);
-      }
-  },[])
   const { 
     forward, 
     backward, 

@@ -52,7 +52,7 @@ export function Scene({mode}) {
 export default function App51(props) {
 
     // mode of controls
-    const modesMax = 2;
+    const modesMax = 3;
     const [mode, setMode] = useState(0)
     const changeMode = useCallback(()=>{
         setMode( (mode + 1) % modesMax );
