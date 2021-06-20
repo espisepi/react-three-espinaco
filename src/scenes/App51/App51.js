@@ -1,14 +1,13 @@
 import React, { Suspense } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Stars, Sky } from 'drei';
-import ScrollAnimations from './animations/ScrollAnimations';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
+import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
 
 import { Catedral } from './components/Prefab';
-
-import OrbitControlsFollowObject from '../../drei-espinaco/OrbitControlsFollowObject';
-import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
+import ScrollAnimations from './animations/ScrollAnimations';
+import ControlsManager from './components/ControlsManager';
 
 export function Scene() {
     
@@ -21,8 +20,6 @@ export function Scene() {
     //     };
 
     // }, [] );
-
-    
 
     return(
         <>
@@ -41,11 +38,12 @@ export function Scene() {
             <Catedral />
         </Suspense>
 
-        <OrbitControlsFollowObject nameFollowObject='groupCurve_boxCurve' nameLookAtObject={null} enablePan={false} enableZoom={true} />
-        
         <Suspense fallback={null}>
             <ScrollAnimations />
         </Suspense>
+
+        <ControlsManager />
+
         </>
     );
 }
