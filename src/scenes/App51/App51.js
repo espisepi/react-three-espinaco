@@ -10,7 +10,7 @@ import Joystick from '../../drei-espinaco/Joystick';
 import Loading from './components/Loading';
 
 import { Catedral, HelicopterInstanced } from './components/Prefab';
-import {Animations, AnimationsVR} from './animations/Animations';
+import {Animations, AnimationsVR, AnimationsSimple} from './animations/Animations';
 import ControlsManager from './components/ControlsManager';
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import Ocean from '../../drei-espinaco/Ocean';
@@ -46,7 +46,7 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
             
             <Catedral />
           
-            <AnimationsVR setMode={setMode} />
+            <AnimationsSimple setMode={setMode} />
         </Suspense>
 
         <ControlsManager mode={mode} autoRotate={autoRotate} physicsVisible={physicsVisible} />

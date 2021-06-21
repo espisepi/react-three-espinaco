@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback } fr
 import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
 import { Stars, Sky } from 'drei';
 import * as THREE from 'three';
-import Loading from '../../components/Loading';
+
 import Background from '../../drei-espinaco/Background';
 import Ocean from '../../drei-espinaco/Ocean';
 
@@ -10,6 +10,7 @@ import { VRCanvas, Hands, DefaultXRControllers, useXR, useController } from '@re
 
 import { Catedral } from '../App51/components/Prefab'
 import { AnimationsVR } from '../App51/animations/Animations';
+import Loading from './Loading';
 
 
 export function Scene() {

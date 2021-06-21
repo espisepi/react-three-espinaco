@@ -12,6 +12,14 @@ import { pathTest, path, pathWalk } from '../paths'
 import { HelicopterInstanced } from '../components/Prefab';
 
 export function AnimationsVR() {
+    return (
+        <>
+        <HelicopterCurveAnimation pointsDefault={path} />
+        </>
+    );
+}
+
+export function AnimationsSimple() {
     const { camera } = useThree()
     useEffect(()=>{
         camera.rotation.set(0,0,0)
