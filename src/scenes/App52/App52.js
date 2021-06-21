@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 import Ocean from '../../drei-espinaco/Ocean';
 
-import { VRCanvas, Hands, DefaultXRControllers, useXR, useController } from '@react-three/xr';
+import { VRCanvas, Hands, DefaultXRControllers, useXR, useController, useXREvent } from '@react-three/xr';
 
 import { Catedral } from '../App51/components/Prefab'
 import { AnimationsVR } from '../App51/animations/Animations';
@@ -52,6 +52,9 @@ export function Scene() {
         
     })
 
+    const [visible, setVisible] = useState(true)
+    useXREvent('squeeze', (e) => setVisible(v => !v) )
+
     return(
         <>
         <ambientLight intensity={0.5} />
@@ -69,7 +72,7 @@ export function Scene() {
         <Suspense fallback={null}>
             {/* <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} /> */}
             <Catedral />
-            <AnimationsVR />
+            <AnimationsVR visible={visible} />
         </Suspense>
 
         {/* <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,70]} /> */}

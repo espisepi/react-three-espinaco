@@ -11,10 +11,10 @@ import { pathTest, path, pathWalk } from '../paths'
 
 import { HelicopterInstanced } from '../components/Prefab';
 
-export function AnimationsVR() {
+export function AnimationsVR({visible}) {
     return (
         <>
-        <HelicopterCurveAnimation pointsDefault={path} />
+        <HelicopterCurveAnimation pointsDefault={path} visible={visible} />
         </>
     );
 }
