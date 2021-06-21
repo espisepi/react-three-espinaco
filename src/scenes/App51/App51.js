@@ -27,9 +27,6 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
 
     // }, [] );
 
-    const light = useRef()
-    useHelper(light, THREE.DirectionalLightHelper, 'cyan')
-
     return(
         <>
         <ambientLight intensity={0.5} />
@@ -50,6 +47,7 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
             <Catedral />
           
             <AnimationsSimple setMode={setMode} />
+            
         </Suspense>
 
         <ControlsManager mode={mode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
