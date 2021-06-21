@@ -9,7 +9,7 @@ import Ocean from '../../drei-espinaco/Ocean';
 import { VRCanvas, Hands, DefaultXRControllers, useXR, useController } from '@react-three/xr';
 
 import { Catedral } from '../App51/components/Prefab'
-import ScrollAnimations from '../App51/animations/ScrollAnimations';
+import Animations from '../App51/animations/Animations';
 
 
 export function Scene() {
@@ -68,7 +68,7 @@ export function Scene() {
 
         <Suspense fallback={null}>
             <Catedral />
-            <ScrollAnimations />
+            <Animations />
         </Suspense>
 
         {/* <Ocean geometry={new THREE.BoxBufferGeometry( 500, 500, 500 )} position={[0,240,70]} /> */}

@@ -7,7 +7,7 @@ import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
 import Joystick from '../../drei-espinaco/Joystick';
 
 import { Catedral } from './components/Prefab';
-import ScrollAnimations from './animations/ScrollAnimations';
+import Animations from './animations/Animations';
 import ControlsManager from './components/ControlsManager';
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 
@@ -41,7 +41,7 @@ export function Scene({mode, autoRotate, physicsVisible}) {
         </Suspense>
 
         <Suspense fallback={null}>
-            <ScrollAnimations />
+            <Animations />
         </Suspense>
 
         <ControlsManager mode={mode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
