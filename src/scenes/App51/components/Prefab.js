@@ -115,16 +115,28 @@ export function CatedralPhysics({visible = false}) {
     return <InstancedPhysics objects={objects} visible={visible} />
 }
 
-export function Helicopter(props) {
+export function Helicopter({playAnimation = true, scrollTop, ...props}) {
 
     // { nodes, materials, animations }
     const {nodes, animations} = useGLTF('assets/obj/helicopter/scene.gltf');
     // { ref, mixer, names, actions, clips } 
     const { ref, actions } = useAnimations(animations)
-
+    
     useEffect(() => {
-        actions.CINEMA_4D_Main.play()
-    })
+        if(playAnimation) {
+            actions.CINEMA_4D_Main.play()
+        } else {
+            actions.CINEMA_4D_Main.stop()
+        }
+    },[playAnimation])
+
+    useEffect(()=>{
+        if(scrollTop) {
+            actions.CINEMA_4D_Main.play()
+            actions.CINEMA_4D_Main.paused = true
+            actions.CINEMA_4D_Main.time = scrollTop * 2.0
+        }
+    },[scrollTop])
 
     return (
     <group {...props} >
@@ -135,11 +147,11 @@ export function Helicopter(props) {
     );
 }
 
-export function HelicopterInstanced({initialPoint=[[-33, 1, -1955.0]], ...props}) {
+export function HelicopterInstanced({initialPoint=[[0,0,0]], ...props}) {
     const objects = useMemo(()=>{
         const pointsList = createTileMap(initialPoint,[40,40],5,5);
         const objects = transformPointsToObjects(pointsList, [0,0,0], [1, 1, 1]);
         return objects;
     },[initialPoint]);
-    return <InstancedGLTF src='assets/obj/helicopter/scene.gltf' objects={objects} />
+    return <InstancedGLTF src='assets/obj/helicopter/scene2.gltf' objects={objects} />
 }

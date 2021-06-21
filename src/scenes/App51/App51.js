@@ -10,7 +10,7 @@ import Joystick from '../../drei-espinaco/Joystick';
 import Loading from './components/Loading';
 
 import { Catedral } from './components/Prefab';
-import { AnimationsSimple } from './animations/Animations';
+import { Animations, AnimationsSimple } from './animations/Animations';
 import ControlsManager from './components/ControlsManager';
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import Ocean from '../../drei-espinaco/Ocean';
@@ -87,7 +87,7 @@ export default function App51(props) {
         </ClickToStartPanel>
     </Canvas>
     {/* <SectionsHtml /> */}
-    { mode === 1 && <div onClick={changePhysicsVisible} style={{ position:'absolute', width:'30px', height:'30px', bottom: 175, backgroundImage:'url("assets/img/icon/color64.png")', backgroundSize:'cover', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity: 1.0 }}></div> }
+    { mode === 1 && <div onClick={changePhysicsVisible} style={{ position:'fixed', width:'30px', height:'30px', bottom: 175, backgroundImage:'url("assets/img/icon/color64.png")', backgroundSize:'cover', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity: 1.0 }}></div> }
     { mode === 1 ? (<Joystick />) : null }
     <div onClick={changeMode} style={{ position:'fixed', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
     <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'fixed', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>

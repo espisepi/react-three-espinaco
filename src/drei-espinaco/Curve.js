@@ -11,7 +11,7 @@ import { useFrame } from 'react-three-fiber';
     [  5, -5, 5 ],
     [ 10,  0, 10 ]
 ];
-export default function Curve({points = pointsDefault, visibleLine = false, visible, top, velocity, children }) {
+export default function Curve({ play=true, points = pointsDefault, visibleLine = false, visible, top, velocity, children }) {
 
     /* Create a curve */
     const line = useRef(null);
@@ -45,7 +45,7 @@ export default function Curve({points = pointsDefault, visibleLine = false, visi
         if(top !== undefined){
             curve.getPoint(top, curvePosition);
             curve.getPointAt(top, curveTarget);
-        } else {
+        } else if (play) {
             // console.log(`time: ${time}`)
             curve.getPoint(time, curvePosition);
             curve.getPointAt(time, curveTarget);
