@@ -35,7 +35,7 @@ export function CreatePhysicBoxes({objects, visible}) {
            
         });
         return physicMeshes;
-    },[objects]);
+    },[objects, visible]);
 
     return physicMeshes ? physicMeshes : null;
 }
