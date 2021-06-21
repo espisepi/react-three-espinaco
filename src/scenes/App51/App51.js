@@ -1,6 +1,6 @@
-import React, { Suspense, useState, useCallback } from 'react';
+import React, { Suspense, useState, useCallback, useRef } from 'react';
 import { Canvas } from 'react-three-fiber';
-import { Stars, Sky } from 'drei';
+import { Stars, Sky, useHelper } from 'drei';
 import * as THREE from 'three';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
@@ -9,8 +9,8 @@ import Joystick from '../../drei-espinaco/Joystick';
 
 import Loading from './components/Loading';
 
-import { Catedral, HelicopterInstanced } from './components/Prefab';
-import {Animations, AnimationsVR, AnimationsSimple} from './animations/Animations';
+import { Catedral } from './components/Prefab';
+import { AnimationsSimple } from './animations/Animations';
 import ControlsManager from './components/ControlsManager';
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
 import Ocean from '../../drei-espinaco/Ocean';
@@ -27,10 +27,13 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
 
     // }, [] );
 
+    const light = useRef()
+    useHelper(light, THREE.DirectionalLightHelper, 'cyan')
+
     return(
         <>
-        <ambientLight />
-        <pointLight position={[-20,-3,5]}  />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[200, 200, 50]}  />
         <Sky
             distance={450000} // Camera distance (default=450000)
             
@@ -40,7 +43,7 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
 
         <Stars radius={200} />
 
-        <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} />
+        {/* <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} /> */}
 
         <Suspense fallback={<Loading />}>
             

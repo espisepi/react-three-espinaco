@@ -1,9 +1,8 @@
 import React, { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react';
-import { Canvas, useFrame, useLoader, useThree } from 'react-three-fiber';
+import { useFrame, useThree } from 'react-three-fiber';
 import { Stars, Sky } from 'drei';
 import * as THREE from 'three';
 
-import Background from '../../drei-espinaco/Background';
 import Ocean from '../../drei-espinaco/Ocean';
 
 import { VRCanvas, Hands, DefaultXRControllers, useXR, useController } from '@react-three/xr';
@@ -55,8 +54,8 @@ export function Scene() {
 
     return(
         <>
-        <ambientLight />
-        <pointLight position={[0,-3,5]}  />
+        <ambientLight intensity={0.5} />
+        <pointLight position={[200, 200, 50]}  />
         <Stars radius={200} />
         <Sky
             distance={450000} // Camera distance (default=450000)
