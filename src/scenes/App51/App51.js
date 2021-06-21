@@ -1,17 +1,19 @@
 import React, { Suspense, useState, useCallback } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Stars, Sky } from 'drei';
+import * as THREE from 'three';
 
 import FullScreen from '../../drei-espinaco/Fullscreen';
 import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
 import Joystick from '../../drei-espinaco/Joystick';
 
-import { Catedral } from './components/Prefab';
-import Animations from './animations/Animations';
+import { Catedral, HelicopterInstanced } from './components/Prefab';
+import {Animations, AnimationsVR} from './animations/Animations';
 import ControlsManager from './components/ControlsManager';
 import MeshTransformControls from '../../drei-espinaco/MeshTransformControls';
+import Ocean from '../../drei-espinaco/Ocean';
 
-export function Scene({mode, autoRotate, physicsVisible}) {
+export function Scene({mode, setMode, autoRotate, physicsVisible}) {
     
     // useEffect( () => {
 
@@ -36,12 +38,13 @@ export function Scene({mode, autoRotate, physicsVisible}) {
 
         <Stars radius={200} />
 
-        <Suspense fallback={null}>
-            <Catedral />
-        </Suspense>
+        <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} />
 
         <Suspense fallback={null}>
-            <Animations />
+            
+            <Catedral />
+          
+            <Animations setMode={setMode} />
         </Suspense>
 
         <ControlsManager mode={mode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
@@ -77,14 +80,14 @@ export default function App51(props) {
     <div id='root_app' style={{overflow:'hidden'}}>
     <Canvas gl={{antialias: true}} onCreated={ ({gl}) => gl.toneMapping = 0 } className="canvas" style={{ backgroundColor:'#000', position:'fixed', width:'100%', height:'100vh', zIndex:'5'}} colorManagement>
         <ClickToStartPanel parentId='root_app' title='Click To Start <br><br> Catedral - Seville'>
-            <Scene mode={mode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
+            <Scene mode={mode} setMode={setMode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
         </ClickToStartPanel>
     </Canvas>
-    {/* <SectionsHtml /> */}
+    <SectionsHtml />
     { mode === 1 && <div onClick={changePhysicsVisible} style={{ position:'absolute', width:'30px', height:'30px', bottom: 175, backgroundImage:'url("assets/img/icon/color64.png")', backgroundSize:'cover', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity: 1.0 }}></div> }
     { mode === 1 ? (<Joystick />) : null }
-    <div onClick={changeMode} style={{ position:'absolute', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
-    <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'absolute', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
+    <div onClick={changeMode} style={{ position:'fixed', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
+    <div onClick={changeAutoRotate} style={{ backgroundImage:'url("assets/img/icon/360_64.png")', backgroundSize:'cover', position:'fixed', width:'30px', height:'30px', bottom: 95, color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
     <FullScreen width='30px' position='fixed' height='30px' backgroundImage={'url("assets/img/icon/fullscreen64.png")'} backgroundSize={'cover'} borderStyle={'none'} opacity={1.0} />  
     </div>
     </>

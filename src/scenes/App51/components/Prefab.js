@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from 'react'
 import { useGLTF, useAnimations, PositionalAudio } from 'drei'
 
-import {InstancedPhysics} from '../../../drei-espinaco/instancedMesh/';
+import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, InstancedGLTF, InstancedGLTFPhysics, InstancedPhysics} from '../../../drei-espinaco/instancedMesh/';
+import { createMapsPoints, createMapPoints, transformPointsToObjects, createTileMap } from '../../../drei-espinaco/points-creator/';
 
 export function Catedral(props) {
     const {nodes} = useGLTF('assets/obj/googleEarth/catedral/untitled.glb');
@@ -110,7 +111,7 @@ export function CatedralPhysics({visible = false}) {
                 
             ]
         }
-    ]));
+    ]),[]);
     return <InstancedPhysics objects={objects} visible={visible} />
 }
 
@@ -132,4 +133,13 @@ export function Helicopter(props) {
         </primitive>
     </group>
     );
+}
+
+export function HelicopterInstanced({initialPoint=[[-33, 1, -1955.0]], ...props}) {
+    const objects = useMemo(()=>{
+        const pointsList = createTileMap(initialPoint,[40,40],5,5);
+        const objects = transformPointsToObjects(pointsList, [0,0,0], [1, 1, 1]);
+        return objects;
+    },[initialPoint]);
+    return <InstancedGLTF src='assets/obj/helicopter/scene.gltf' objects={objects} />
 }

@@ -45,7 +45,8 @@ export default function Joystick() {
                 // outline: `1px dashed red`,
                 width: '100%',
                 height: '100vh',
-                position: `absolute`,
+                position: `fixed`,
+                top:0,
                 zIndex: 10,
             }}
 

@@ -5,11 +5,11 @@ import Curve from '../../../drei-espinaco/Curve';
 import { Helicopter } from '../components/Prefab';
 
 
-export default function HelicopterCurveAnimation({top, visibleLine = false, visible = false, pointsDefault }) {
+export default function HelicopterCurveAnimation({top, visibleLine = false, visible = true, pointsDefault, ...props }) {
    return (
 
-    <Curve points={pointsDefault} /* top={top} */  visibleLine={visibleLine} visible={true} velocity={0.1}>
-        <group name='boxCurve'>
+    <Curve points={pointsDefault} /* top={top} */  visibleLine={visibleLine} visible={visible} velocity={0.1}>
+        <group name='boxCurve' {...props} >
             {/* <Box name='boxCurve' scale={[5,5,5]} material-color='green' /> */}
             <Helicopter scale={[1,1,1]} />
         </group>
