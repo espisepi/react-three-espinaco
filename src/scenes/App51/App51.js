@@ -7,6 +7,8 @@ import FullScreen from '../../drei-espinaco/Fullscreen';
 import ClickToStartPanel from '../../drei-espinaco/ClickToStartPanel';
 import Joystick from '../../drei-espinaco/Joystick';
 
+import Loading from './components/Loading';
+
 import { Catedral, HelicopterInstanced } from './components/Prefab';
 import {Animations, AnimationsVR} from './animations/Animations';
 import ControlsManager from './components/ControlsManager';
@@ -40,11 +42,11 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
 
         <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} />
 
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loading />}>
             
             <Catedral />
           
-            <Animations setMode={setMode} />
+            <AnimationsVR setMode={setMode} />
         </Suspense>
 
         <ControlsManager mode={mode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
@@ -83,7 +85,7 @@ export default function App51(props) {
             <Scene mode={mode} setMode={setMode} autoRotate={autoRotate} physicsVisible={physicsVisible} />
         </ClickToStartPanel>
     </Canvas>
-    <SectionsHtml />
+    {/* <SectionsHtml /> */}
     { mode === 1 && <div onClick={changePhysicsVisible} style={{ position:'absolute', width:'30px', height:'30px', bottom: 175, backgroundImage:'url("assets/img/icon/color64.png")', backgroundSize:'cover', color: '#e60005', zIndex: 20, cursor: 'pointer', opacity: 1.0 }}></div> }
     { mode === 1 ? (<Joystick />) : null }
     <div onClick={changeMode} style={{ position:'fixed', width:'30px', height:'30px', bottom: 135, backgroundImage:'url("assets/img/icon/scene64.png")', backgroundSize:'cover' , color: '#e60005', zIndex: 20, cursor: 'pointer', opacity:1.0 }}></div>
