@@ -68,7 +68,7 @@ export function Scene() {
         {/* <Background url='assets/musica/mc-pi-paranoia-prod-lasio.mp4' /> */}
 
         <Suspense fallback={null}>
-            <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} />
+            {/* <Ocean geometry={new THREE.PlaneBufferGeometry( 10000, 10000 )} position={[0,-0.3,0]} rotation={[0,0,0]} /> */}
             <Catedral />
             <AnimationsVR />
         </Suspense>
