@@ -37,6 +37,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "https": "set HTTPS=true&&npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

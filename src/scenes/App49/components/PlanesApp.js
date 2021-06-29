@@ -8,20 +8,20 @@ import { enterSound, selectionSound, playAudio } from '../audios/index';
 
 const projects = [
       {
-        name: 'app51',
-        img: '/assets/img/home/catedralTour.png'
-      },
-      {
-        name: 'app52',
-        img: '/assets/img/home/catedralTourVR.png'
-      },
-      {
         name: 'app36',
         img: '/assets/img/home/videopoints2.png'
       },
       {
         name: 'app36?url=assets/musica/gotham.mp4&scene=1',
         img: '/assets/img/home/gatacattana.png'
+      },
+      {
+        name: 'app51',
+        img: '/assets/img/home/catedralTour.png'
+      },
+      {
+        name: 'app52',
+        img: '/assets/img/home/catedralTourVR.png'
       },
       {
         name: 'app35',
