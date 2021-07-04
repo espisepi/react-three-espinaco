@@ -15,7 +15,7 @@ export default function TitleText() {
                 position={[0,2,0]}
                 font={defaultFont}
             >
-                WELLCOME
+                WELCOME
             </Text>
 
             <Text
