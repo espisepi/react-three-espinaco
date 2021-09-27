@@ -98,15 +98,20 @@ export default function VideoShader0(texture){
         
         //vec3 color = mix(colorA,colorB,bass+0.3);
 
+        //vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
+        //float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
+        //vec3 color = textureVideo.rgb;                        
+        //vec3 color_red = vec3(bass+gray,0.0,0.0);
+        //color = ( textureVideo.rgb  ) * vec3(bass + 0.5 , bass + 0.5 , bass + 0.5 ) * 1.0;
+        //float isColor = colorInput.r + colorInput.g + colorInput.b;
+        //if ( isColor  != 0.0 ) {
+        //    color = vec3( colorInput.r * (bass + gray), colorInput.g * (bass + gray), colorInput.b * (bass + gray)  );
+        //    color = vec3(1.0,0.0,0.0);
+        //}
+        //color = vec3( textureVideo.r - 0.1, textureVideo.g - 0.1, textureVideo.b - 0.1 ) + vec3( bass * 0.2, bass * 0.2, bass * 0.2 );
+
         vec4 textureVideo = texture2D( iChannel0, vec2( vUv.x, vUv.y) );
-        float gray = (textureVideo.r + textureVideo.g + textureVideo.b) / 3.0;
-        vec3 color_red = vec3(bass+gray,0.0,0.0);
         vec3 color = textureVideo.rgb;                        
-        color = ( textureVideo.rgb  ) * vec3(bass + 0.5 , bass + 0.5 , bass + 0.5 ) * 1.0;
-        float isColor = colorInput.r + colorInput.g + colorInput.b;
-        if ( isColor  != 0.0 ) {
-            color = vec3( colorInput.r * (bass + gray), colorInput.g * (bass + gray), colorInput.b * (bass + gray)  );
-        }
         fragColor = vec4(color, 1.0 );
 
 
