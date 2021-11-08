@@ -59,15 +59,15 @@ export function Scene() {
         <Stars radius={200} />
         <Suspense fallback={<Loading />}>
             <BlackPlane position={[0,0,-5]} scale={[1,1,1]} />
-            <group name="groupPrincipal">
+            <group name="groupPrincipal" position={[0,0,-3]}>
                 <TitleText />
                 <GridFloor />
                 {/* <FullScreen position={[0,2.5,0]} scale={[10,2,1]}/> Easter Egg FullScreen */}
             </group>
-            <group name="floor" position={[0,0,0.01]}>
+            <group name="floor" position={[0,0,-3.01]}>
                 <GridFloor />
             </group>
-            <group name="groupPlanesApp" position={[0,-10,3]}>
+            <group name="groupPlanesApp" position={[0,-10,2.8]}>
                 <PlanesApp />
             </group>
             <group name="cubeWireframe" position={[0,0,7]}>
@@ -76,7 +76,7 @@ export function Scene() {
                     <meshBasicMaterial wireframe={true} />
                 </mesh>
             </group>
-            <group name="groupContact">
+            <group name="groupContact" position={[0,3,0]}>
                 <Contact />
             </group>
         </Suspense>
