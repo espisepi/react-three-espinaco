@@ -1,5 +1,5 @@
-import React, { Suspense, useState, useCallback, useRef } from 'react';
-import { Canvas } from 'react-three-fiber';
+import React, { Suspense, useState, useCallback, useRef, useEffect } from 'react';
+import { Canvas, useThree } from 'react-three-fiber';
 import { Stars, Sky, useHelper } from 'drei';
 import * as THREE from 'three';
 
@@ -27,6 +27,13 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
 
     // }, [] );
 
+    const { scene } = useThree();
+    useEffect(()=>{
+        console.log(scene.fog);
+        const fogColor = new THREE.Color(0xefd1b5);
+        scene.fog = new THREE.FogExp2( fogColor, 0.1 );
+    });
+
     return(
         <>
         <ambientLight intensity={0.5} />
@@ -37,6 +44,7 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
             inclination={0.65} // Sun elevation angle from 0 to 1 (default=0)
             azimuth={0.50} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
         />
+
 
         <Stars radius={200} />
 

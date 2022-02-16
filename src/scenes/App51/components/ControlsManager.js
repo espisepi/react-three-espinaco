@@ -29,7 +29,7 @@ export default function ControlsManager({ mode = 0, autoRotate = false, physicsV
         return (
             <Physics gravity={[0, -100, 0]} >
                 <CatedralPhysics visible={physicsVisible} />
-                <Player mass={200.0} height={4.0} position={[0,5,0]} rotation={[0,Math.PI/2,0]} scale={2} />
+                <Player mass={200.0} height={0.0} position={[0,5,0]} rotation={[0,Math.PI/2,0]} scale={2} />
                 <GroundPhysic />
             </Physics>
         );

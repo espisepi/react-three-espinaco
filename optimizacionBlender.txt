@@ -1,0 +1,1 @@
+- Poner el numero mínimo de materiales posibles, si se puede repetir los materiales entre los modelos 3d.
