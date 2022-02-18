@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { OrbitControls } from 'drei';
 import Loading from '../../components/Loading';
+import GameComponent from './components/GameComponent';
 
 export function Scene() {
     return(
         <>
+        { /* Basic */ }
         <ambientLight />
-        <Loading />
+        {/* <Loading /> */}
         <OrbitControls />
+
+        <Suspense fallback={<Loading />}>
+            <GameComponent />
+        </Suspense>
         </>
     );
 }
