@@ -5,7 +5,7 @@ import {InstancedMesh, InstancedMeshPhysics, InstancedMeshes, InstancedFBX, Inst
 import { createMapsPoints, createMapPoints, transformPointsToObjects, createTileMap } from '../../../drei-espinaco/points-creator/';
 
 export function Catedral(props) {
-    const {nodes} = useGLTF('assets/obj/googleEarth/catedral/untitled2.glb');
+    const {nodes} = useGLTF('assets/obj/googleEarth/catedral/untitled.glb');
     return (
     <group {...props} >
         <primitive object={nodes.Scene} />

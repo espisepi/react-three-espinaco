@@ -27,12 +27,12 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
 
     // }, [] );
 
-    const { scene } = useThree();
-    useEffect(()=>{
-        console.log(scene.fog);
-        const fogColor = new THREE.Color(0xefd1b5);
-        scene.fog = new THREE.FogExp2( fogColor, 0.1 );
-    });
+    // const { scene } = useThree();
+    // useEffect(()=>{
+    //     console.log(scene.fog);
+    //     const fogColor = new THREE.Color(0xefd1b5);
+    //     scene.fog = new THREE.FogExp2( fogColor, 0.1 );
+    // });
 
     return(
         <>
@@ -40,7 +40,6 @@ export function Scene({mode, setMode, autoRotate, physicsVisible}) {
         <pointLight position={[200, 200, 50]}  />
         <Sky
             distance={450000} // Camera distance (default=450000)
-            
             inclination={0.65} // Sun elevation angle from 0 to 1 (default=0)
             azimuth={0.50} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
         />
